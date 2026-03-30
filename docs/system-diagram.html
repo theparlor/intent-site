@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Map — Intent</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── System Diagram page-specific styles ── */
+
+    .diagram-container {
+      max-width: 1000px;
+      margin: 0 auto 48px;
+      background: #0c1322;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 24px 16px;
+      overflow-x: auto;
+    }
+    .diagram-container svg {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      height: auto;
+    }
+
+    /* SVG hover effects */
+    .diagram-container svg .node-box {
+      cursor: pointer;
+      transition: filter 0.2s, stroke-opacity 0.2s;
+    }
+    .diagram-container svg .node-box:hover rect {
+      filter: brightness(1.25);
+      stroke-opacity: 1;
+    }
+    .diagram-container svg .node-box:hover text {
+      fill: #f1f5f9;
+    }
+
+    /* Detail Panel */
+    #detail-panel {
+      max-width: 720px;
+      margin: 0 auto 48px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
+    }
+    #detail-panel.active {
+      max-height: 600px;
+      opacity: 1;
+      padding: 24px 28px;
+    }
+    #detail-panel h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+
+    /* Legend Bar */
+    .legend-bar {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      padding: 16px 0 32px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Phase Status */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 0 0 48px;
+    }
+    .phase-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 20px 24px;
+      border-left: 3px solid #475569;
+    }
+    .phase-card.operational { border-left-color: #10b981; }
+    .phase-card.specced { border-left-color: #3b82f6; }
+    .phase-card.planned { border-left-color: #475569; }
+    .phase-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 8px;
+    }
+    .phase-card.operational h4 { color: #10b981; }
+    .phase-card.specced h4 { color: #3b82f6; }
+    .phase-card.planned h4 { color: #64748b; }
+    .phase-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .phase-card li {
+      font-size: 13px;
+      color: #94a3b8;
+      padding: 3px 0;
+    }
+
+    /* Cross-links */
+    .cross-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 0 0 48px;
+    }
+    .cross-link {
+      display: block;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 16px 20px;
+      text-decoration: none;
+      color: #f1f5f9;
+      font-size: 14px;
+      font-weight: 600;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .cross-link:hover {
+      border-color: rgba(59,130,246,0.35);
+      background: rgba(30,41,59,0.8);
+    }
+    .cross-link span {
+      display: block;
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    /* Hero kicker */
+    .kicker.hl-amber { color: #f59e0b; }
+  </style>
+</head>
+<body>
+
+<!-- ── Primary Nav ── -->
+<nav class="site-nav">
+    <a href="index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Story</a>
+    <a href="work-system.html" class="active">The System</a>
+    <a href="architecture.html">The Build</a>
+</nav>
+
+<!-- ── Sub Nav ── -->
+<nav class="sub-nav">
+    <a href="work-system.html">Overview</a>
+    <a href="flow-diagram.html">Flow</a>
+    <a href="system-diagram.html" class="active">System Map</a>
+    <a href="schemas.html">Schemas</a>
+    <a href="signals.html">Signals</a>
+    <a href="dogfood.html">Dogfood</a>
+    <a href="event-catalog.html">Events</a>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="container">
+    <p class="kicker hl-amber">SYSTEM ARCHITECTURE</p>
+    <h1>Signal to Observation</h1>
+    <p class="subtitle">The interactive map of the full Intent system &mdash; from capture surfaces through enrichment, execution, and observability. Click any component to see its tools, events, and integration points.</p>
+  </div>
+</header>
+
+<!-- ── Diagram ── -->
+<section class="container">
+  <div class="diagram-container">
+    <svg viewBox="0 0 960 720" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'SF Pro', system-ui, sans-serif">
+
+      <!-- Arrowhead marker -->
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <polygon points="0,1 10,5 0,9" fill="#64748b" opacity="0.8"/>
+        </marker>
+        <marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <polygon points="0,1 10,5 0,9" fill="#f59e0b" opacity="0.5"/>
+        </marker>
+      </defs>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- ROW 1 — CAPTURE SURFACES                    -->
+      <!-- ════════════════════════════════════════════ -->
+      <line x1="40" y1="30" x2="130" y2="30" stroke="#f59e0b" stroke-width="2"/>
+      <text x="138" y="35" fill="#f59e0b" font-size="11" font-weight="700" letter-spacing="1.5">CAPTURE SURFACES</text>
+
+      <!-- MCP Server -->
+      <g class="node-box" data-id="mcp-server">
+        <rect x="40" y="50" width="160" height="52" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="120" y="70" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">MCP Server</text>
+        <text x="120" y="86" fill="#64748b" font-size="10" text-anchor="middle">Claude Code &middot; Cowork</text>
+        <rect x="174" y="53" width="22" height="14" rx="3" fill="#f59e0b" opacity="0.15"/>
+        <text x="185" y="63" fill="#f59e0b" font-size="9" font-weight="700" text-anchor="middle">T1</text>
+      </g>
+
+      <!-- CLI Tools -->
+      <g class="node-box" data-id="cli-tools">
+        <rect x="220" y="50" width="160" height="52" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="300" y="70" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">CLI Tools</text>
+        <text x="300" y="86" fill="#64748b" font-size="10" text-anchor="middle">intent-signal &middot; spec</text>
+        <rect x="354" y="53" width="22" height="14" rx="3" fill="#f59e0b" opacity="0.15"/>
+        <text x="365" y="63" fill="#f59e0b" font-size="9" font-weight="700" text-anchor="middle">T2</text>
+      </g>
+
+      <!-- Slack Bot (planned) -->
+      <g class="node-box" data-id="slack-bot">
+        <rect x="400" y="50" width="160" height="52" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="480" y="70" fill="#94a3b8" font-size="13" font-weight="600" text-anchor="middle">Slack Bot</text>
+        <text x="480" y="86" fill="#64748b" font-size="10" text-anchor="middle">Reactions &middot; Commands</text>
+        <rect x="534" y="53" width="22" height="14" rx="3" fill="#475569" opacity="0.2"/>
+        <text x="545" y="63" fill="#475569" font-size="9" font-weight="700" text-anchor="middle">T3</text>
+      </g>
+
+      <!-- GitHub Actions -->
+      <g class="node-box" data-id="github-actions">
+        <rect x="580" y="50" width="160" height="52" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="660" y="70" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">GitHub Actions</text>
+        <text x="660" y="86" fill="#64748b" font-size="10" text-anchor="middle">intent-events.yml</text>
+        <rect x="714" y="53" width="22" height="14" rx="3" fill="#f59e0b" opacity="0.15"/>
+        <text x="725" y="63" fill="#f59e0b" font-size="9" font-weight="700" text-anchor="middle">T4</text>
+      </g>
+
+      <!-- AI Plugins (planned) -->
+      <g class="node-box" data-id="ai-plugins">
+        <rect x="760" y="50" width="160" height="52" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="840" y="70" fill="#94a3b8" font-size="13" font-weight="600" text-anchor="middle">AI Plugins</text>
+        <text x="840" y="86" fill="#64748b" font-size="10" text-anchor="middle">ChatGPT &middot; Copilot</text>
+        <rect x="894" y="53" width="22" height="14" rx="3" fill="#475569" opacity="0.2"/>
+        <text x="905" y="63" fill="#475569" font-size="9" font-weight="700" text-anchor="middle">T5</text>
+      </g>
+
+      <!-- events.jsonl -->
+      <g class="node-box" data-id="events-jsonl">
+        <rect x="350" y="130" width="260" height="48" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="480" y="155" fill="#f59e0b" font-size="14" font-weight="700" text-anchor="middle">events.jsonl</text>
+        <text x="480" y="170" fill="#64748b" font-size="10" text-anchor="middle">.intent/events/ &mdash; immutable audit log</text>
+      </g>
+
+      <!-- Arrows from capture boxes to events.jsonl -->
+      <line x1="120" y1="102" x2="400" y2="130" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <line x1="300" y1="102" x2="430" y2="130" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <line x1="480" y1="102" x2="480" y2="130" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <line x1="660" y1="102" x2="540" y2="130" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <line x1="840" y1="102" x2="570" y2="130" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- ROW 2 — ENRICHMENT PIPELINE                 -->
+      <!-- ════════════════════════════════════════════ -->
+      <line x1="40" y1="210" x2="130" y2="210" stroke="#3b82f6" stroke-width="2"/>
+      <text x="138" y="215" fill="#3b82f6" font-size="11" font-weight="700" letter-spacing="1.5">ENRICHMENT PIPELINE</text>
+
+      <!-- Arrow: events.jsonl → Dedup -->
+      <line x1="480" y1="178" x2="115" y2="228" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Dedup -->
+      <g class="node-box" data-id="dedup">
+        <rect x="60" y="228" width="110" height="48" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2"/>
+        <text x="115" y="250" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Dedup</text>
+        <text x="115" y="264" fill="#64748b" font-size="9" text-anchor="middle">Fuzzy match</text>
+      </g>
+
+      <!-- Arrow Dedup → Context -->
+      <line x1="170" y1="252" x2="200" y2="252" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Context -->
+      <g class="node-box" data-id="context">
+        <rect x="200" y="228" width="110" height="48" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2"/>
+        <text x="255" y="250" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Context</text>
+        <text x="255" y="264" fill="#64748b" font-size="9" text-anchor="middle">Attach refs</text>
+      </g>
+
+      <!-- Arrow Context → Trust Score -->
+      <line x1="310" y1="252" x2="340" y2="252" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Trust Score -->
+      <g class="node-box" data-id="trust-score">
+        <rect x="340" y="228" width="110" height="48" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2"/>
+        <text x="395" y="250" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Trust Score</text>
+        <text x="395" y="264" fill="#64748b" font-size="9" text-anchor="middle">0-1 + L0-L4</text>
+      </g>
+
+      <!-- Arrow Trust Score → Classify -->
+      <line x1="450" y1="252" x2="480" y2="252" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Classify -->
+      <g class="node-box" data-id="classify">
+        <rect x="480" y="228" width="110" height="48" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2"/>
+        <text x="535" y="250" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Classify</text>
+        <text x="535" y="264" fill="#64748b" font-size="9" text-anchor="middle">Type + Domain</text>
+      </g>
+
+      <!-- Arrow Classify → Route -->
+      <line x1="590" y1="252" x2="620" y2="252" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Route -->
+      <g class="node-box" data-id="route">
+        <rect x="620" y="228" width="110" height="48" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2"/>
+        <text x="675" y="250" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Route</text>
+        <text x="675" y="264" fill="#64748b" font-size="9" text-anchor="middle">Autonomy level</text>
+      </g>
+
+      <!-- Route → Human Review -->
+      <line x1="730" y1="242" x2="770" y2="236" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Human Review -->
+      <g class="node-box">
+        <rect x="770" y="220" width="140" height="36" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2"/>
+        <text x="840" y="238" fill="#f1f5f9" font-size="11" font-weight="600" text-anchor="middle">Human Review</text>
+        <text x="840" y="250" fill="#f59e0b" font-size="9" text-anchor="middle">L0 &ndash; L2</text>
+      </g>
+
+      <!-- Route → Auto-promote -->
+      <line x1="730" y1="262" x2="770" y2="290" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Auto-promote -->
+      <g class="node-box">
+        <rect x="770" y="278" width="140" height="36" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2"/>
+        <text x="840" y="296" fill="#f1f5f9" font-size="11" font-weight="600" text-anchor="middle">Auto-promote</text>
+        <text x="840" y="308" fill="#10b981" font-size="9" text-anchor="middle">L3 &ndash; L4</text>
+      </g>
+
+      <!-- Signal Clustering -->
+      <g class="node-box">
+        <rect x="280" y="310" width="160" height="40" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="360" y="333" fill="#94a3b8" font-size="11" font-weight="600" text-anchor="middle">Signal Clustering</text>
+      </g>
+
+      <!-- Promote to Intent -->
+      <g class="node-box">
+        <rect x="500" y="310" width="160" height="40" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2"/>
+        <text x="580" y="333" fill="#f1f5f9" font-size="11" font-weight="600" text-anchor="middle">Promote to Intent</text>
+      </g>
+
+      <!-- Arrows: Clustering → Promote -->
+      <line x1="440" y1="330" x2="500" y2="330" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Arrow: Route outputs down to clustering/promote area -->
+      <line x1="675" y1="276" x2="580" y2="310" stroke="#64748b" stroke-width="1" opacity="0.4" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- ROW 3 — SPEC + EXECUTE                      -->
+      <!-- ════════════════════════════════════════════ -->
+      <line x1="40" y1="390" x2="100" y2="390" stroke="#10b981" stroke-width="2"/>
+      <text x="108" y="395" fill="#10b981" font-size="11" font-weight="700" letter-spacing="1.5">SPEC + EXECUTE</text>
+
+      <!-- Arrow: Promote to Intent → Spec Creation -->
+      <line x1="580" y1="350" x2="120" y2="410" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Spec Creation -->
+      <g class="node-box" data-id="spec-creation">
+        <rect x="40" y="410" width="180" height="52" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2"/>
+        <text x="130" y="432" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">Spec Creation</text>
+        <text x="130" y="448" fill="#64748b" font-size="10" text-anchor="middle">Contracts + criteria</text>
+      </g>
+
+      <!-- Arrow: Spec → Agent -->
+      <line x1="220" y1="436" x2="260" y2="436" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Agent Execution -->
+      <g class="node-box" data-id="agent-execution">
+        <rect x="260" y="410" width="180" height="52" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2"/>
+        <text x="350" y="432" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">Agent Execution</text>
+        <text x="350" y="448" fill="#64748b" font-size="10" text-anchor="middle">Claude Code sessions</text>
+      </g>
+
+      <!-- Arrow: Agent → Entire.io -->
+      <line x1="440" y1="436" x2="480" y2="436" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Entire.io -->
+      <g class="node-box" data-id="entire-io">
+        <rect x="480" y="410" width="180" height="52" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+        <text x="570" y="432" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">Entire.io</text>
+        <text x="570" y="448" fill="#64748b" font-size="10" text-anchor="middle">Session traces</text>
+      </g>
+
+      <!-- Arrow: Entire.io → Contract Verify -->
+      <line x1="660" y1="436" x2="700" y2="436" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Contract Verify -->
+      <g class="node-box" data-id="contract-verify">
+        <rect x="700" y="410" width="180" height="52" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2"/>
+        <text x="790" y="432" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">Contract Verify</text>
+        <text x="790" y="448" fill="#64748b" font-size="10" text-anchor="middle">Assertions pass/fail</text>
+      </g>
+
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- ROW 4 — OBSERVE + LOOP                      -->
+      <!-- ════════════════════════════════════════════ -->
+      <line x1="40" y1="510" x2="100" y2="510" stroke="#8b5cf6" stroke-width="2"/>
+      <text x="108" y="515" fill="#8b5cf6" font-size="11" font-weight="700" letter-spacing="1.5">OBSERVE + LOOP</text>
+
+      <!-- Arrow: Contract Verify → File Tail Adapter -->
+      <line x1="790" y1="462" x2="170" y2="530" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Arrow: Entire.io → File Tail Adapter (diagonal) -->
+      <line x1="570" y1="462" x2="170" y2="540" stroke="#64748b" stroke-width="1" opacity="0.4" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+      <!-- File Tail Adapter -->
+      <g class="node-box">
+        <rect x="40" y="530" width="200" height="52" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.2"/>
+        <text x="140" y="552" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">File Tail Adapter</text>
+        <text x="140" y="568" fill="#64748b" font-size="10" text-anchor="middle">events.jsonl &rarr; OTLP</text>
+      </g>
+
+      <!-- Arrow: File Tail → OTel Collector -->
+      <line x1="240" y1="556" x2="300" y2="556" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- OTel Collector -->
+      <g class="node-box" data-id="otel-collector">
+        <rect x="300" y="530" width="200" height="52" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.2"/>
+        <text x="400" y="552" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">OTel Collector</text>
+        <text x="400" y="568" fill="#64748b" font-size="10" text-anchor="middle">gRPC :4317</text>
+      </g>
+
+      <!-- Arrow: OTel → Tempo -->
+      <line x1="500" y1="546" x2="540" y2="546" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <!-- Arrow: OTel → Mimir -->
+      <line x1="500" y1="556" x2="660" y2="556" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <!-- Arrow: OTel → Loki -->
+      <line x1="500" y1="566" x2="780" y2="566" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Tempo -->
+      <g class="node-box">
+        <rect x="540" y="530" width="100" height="40" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1"/>
+        <text x="590" y="550" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Tempo</text>
+        <text x="590" y="563" fill="#64748b" font-size="9" text-anchor="middle">Traces</text>
+      </g>
+
+      <!-- Mimir -->
+      <g class="node-box">
+        <rect x="660" y="530" width="100" height="40" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1"/>
+        <text x="710" y="550" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Mimir</text>
+        <text x="710" y="563" fill="#64748b" font-size="9" text-anchor="middle">Metrics</text>
+      </g>
+
+      <!-- Loki -->
+      <g class="node-box">
+        <rect x="780" y="530" width="100" height="40" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1"/>
+        <text x="830" y="550" fill="#f1f5f9" font-size="12" font-weight="600" text-anchor="middle">Loki</text>
+        <text x="830" y="563" fill="#64748b" font-size="9" text-anchor="middle">Logs</text>
+      </g>
+
+      <!-- Arrows: Tempo/Mimir/Loki → Grafana -->
+      <line x1="590" y1="570" x2="500" y2="630" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <line x1="710" y1="570" x2="520" y2="630" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <line x1="830" y1="570" x2="560" y2="630" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- Grafana Dashboard -->
+      <g class="node-box" data-id="grafana">
+        <rect x="300" y="630" width="320" height="52" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+        <text x="460" y="652" fill="#f1f5f9" font-size="14" font-weight="700" text-anchor="middle">Grafana Dashboard</text>
+        <text x="460" y="668" fill="#64748b" font-size="10" text-anchor="middle">Intent Observe &mdash; traces, metrics, logs</text>
+      </g>
+
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- LOOP ARROW — Grafana → MCP Server            -->
+      <!-- ════════════════════════════════════════════ -->
+      <path d="M 300,656 C 20,656 20,400 20,76" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="8,5" opacity="0.4" marker-end="url(#arrow-amber)"/>
+      <text fill="#f59e0b" font-size="9" font-weight="600" letter-spacing="1" opacity="0.5">
+        <textPath href="#loop-label-path" startOffset="50%" text-anchor="middle">OBSERVATIONS &rarr; NEW SIGNALS</textPath>
+      </text>
+      <path id="loop-label-path" d="M 18,620 C 8,450 8,250 18,100" fill="none" stroke="none"/>
+      <text fill="#f59e0b" font-size="9" font-weight="600" letter-spacing="1" opacity="0.55" transform="rotate(-90, 14, 370)">
+        <tspan x="14" y="370">OBSERVATIONS &#x2192; NEW SIGNALS</tspan>
+      </text>
+
+    </svg>
+  </div>
+
+  <!-- Detail Panel -->
+  <div id="detail-panel"></div>
+
+  <!-- Legend -->
+  <div class="legend-bar">
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div> Notice</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6;"></div> Pipeline</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div> Execute</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6;"></div> Observe</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#475569; border: 1px dashed #64748b;"></div> Planned</div>
+  </div>
+
+  <!-- Phase Status -->
+  <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #f1f5f9;">Phase Status</h2>
+  <div class="phase-grid">
+    <div class="phase-card operational">
+      <h4>Operational</h4>
+      <ul>
+        <li>MCP Server (Tier 1)</li>
+        <li>CLI Tools (Tier 2)</li>
+        <li>GitHub Actions (Tier 4)</li>
+        <li>events.jsonl audit log</li>
+      </ul>
+    </div>
+    <div class="phase-card specced">
+      <h4>Specced</h4>
+      <ul>
+        <li>OTel Collector config</li>
+        <li>File Tail Adapter</li>
+        <li>Grafana Dashboard</li>
+        <li>Trust Propagation pipeline</li>
+      </ul>
+    </div>
+    <div class="phase-card planned">
+      <h4>Planned</h4>
+      <ul>
+        <li>Slack Bot (Tier 3)</li>
+        <li>AI Plugins (Tier 5)</li>
+        <li>Self-hosted observability stack</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Cross-links -->
+  <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #f1f5f9;">Related Pages</h2>
+  <div class="cross-links">
+    <a href="flow-diagram.html" class="cross-link">
+      Flow Diagram
+      <span>Signal lifecycle from capture to spec</span>
+    </a>
+    <a href="work-system.html" class="cross-link">
+      Work System
+      <span>How Intent organizes product work</span>
+    </a>
+    <a href="event-catalog.html" class="cross-link">
+      Event Catalog
+      <span>All 15 event types and their schemas</span>
+    </a>
+    <a href="observability.html" class="cross-link">
+      Observability
+      <span>OTel, Grafana, and the observe layer</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+    <div class="container">
+        <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> &middot; Built with the Intent methodology</p>
+    </div>
+</footer>
+
+<script>
+const DETAILS = {
+  "mcp-server": { title: "MCP Server (Tier 1)", color: "#f59e0b", items: [
+    { icon: "\u{1F527}", label: "intent_capture_signal", desc: "Capture with trust scoring + autonomy level" },
+    { icon: "\u{1F527}", label: "intent_list_signals", desc: "Query with filters" },
+    { icon: "\u{1F527}", label: "intent_propose_intent", desc: "Promote cluster to intent" },
+    { icon: "\u{1F310}", label: "Port 8001", desc: "FastMCP Cloud or localhost" }
+  ]},
+  "cli-tools": { title: "CLI Tools (Tier 2)", color: "#f59e0b", items: [
+    { icon: "\u2328\uFE0F", label: "intent-signal", desc: "Capture signals from terminal" },
+    { icon: "\u2328\uFE0F", label: "intent-intent", desc: "Propose and manage intents" },
+    { icon: "\u2328\uFE0F", label: "intent-spec", desc: "Create specs from intents" },
+    { icon: "\u2328\uFE0F", label: "intent-status", desc: "System overview dashboard" }
+  ]},
+  "slack-bot": { title: "Slack Bot (Tier 3)", color: "#475569", items: [
+    { icon: "\u{1F4AC}", label: "Reaction-based", desc: "Emoji reaction captures signal" },
+    { icon: "\u{1F4AC}", label: "Slash command", desc: "/signal 'What I noticed'" },
+    { icon: "\u231B", label: "Status", desc: "Planned \u2014 not yet built" }
+  ]},
+  "github-actions": { title: "GitHub Actions (Tier 4)", color: "#f59e0b", items: [
+    { icon: "\u2699\uFE0F", label: "intent-events.yml", desc: "Emit events on push to .intent/" },
+    { icon: "\u2699\uFE0F", label: "freshness-check.yml", desc: "Daily content freshness scan" },
+    { icon: "\u{1F4E4}", label: "On push: signals", desc: "signal.created event emitted" },
+    { icon: "\u{1F4E4}", label: "On push: intents", desc: "intent.proposed event emitted" }
+  ]},
+  "ai-plugins": { title: "AI Plugins (Tier 5)", color: "#475569", items: [
+    { icon: "\u{1F916}", label: "ChatGPT plugin", desc: "Signal capture from chat sessions" },
+    { icon: "\u{1F916}", label: "Copilot extension", desc: "In-editor signal capture" },
+    { icon: "\u231B", label: "Status", desc: "Planned \u2014 not yet built" }
+  ]},
+  "events-jsonl": { title: "events.jsonl", color: "#f59e0b", items: [
+    { icon: "\u{1F4C1}", label: "Git-tracked", desc: "Immutable audit log in .intent/events/" },
+    { icon: "\u{1F4CA}", label: "15 event types", desc: "OTel-compatible across 6 mechanisms" },
+    { icon: "\u{1F517}", label: "OTel fields", desc: "trace_id, span_id, parent_id (v0.2.0)" },
+    { icon: "\u{1F4C8}", label: "50+ events", desc: "Current event count in product repo" }
+  ]},
+  "dedup": { title: "Dedup Agent", color: "#3b82f6", items: [
+    { icon: "\u{1F50D}", label: "Fuzzy match", desc: "Detect signals about the same observation" },
+    { icon: "\u{1F500}", label: "Merge duplicates", desc: "Combine into single signal with references" },
+    { icon: "\u{1F4E4}", label: "Output", desc: "Deduplicated signal stream" }
+  ]},
+  "context": { title: "Context Agent", color: "#3b82f6", items: [
+    { icon: "\u{1F4CE}", label: "Attach references", desc: "Link related files, commits, signals" },
+    { icon: "\u{1F3F7}\uFE0F", label: "Tag extraction", desc: "Auto-detect cluster, product, domain" },
+    { icon: "\u{1F4A1}", label: "Cluster suggestion", desc: "Propose groupings for unclustered signals" }
+  ]},
+  "trust-score": { title: "Trust Scorer", color: "#3b82f6", items: [
+    { icon: "\u{1F4D0}", label: "Formula", desc: "clarity\u00D70.30 + (1/blast)\u00D70.20 + reversibility\u00D70.20 + testability\u00D70.20 + precedent\u00D70.10" },
+    { icon: "\u{1F4CA}", label: "Output", desc: "Trust score (0-1) + autonomy level (L0-L4)" },
+    { icon: "\u{1F4C8}", label: "Amplification", desc: "Reference frequency with 7-day half-life decay" }
+  ]},
+  "classify": { title: "Classifier", color: "#3b82f6", items: [
+    { icon: "\u{1F3F7}\uFE0F", label: "Type", desc: "observation, risk, opportunity, requirement" },
+    { icon: "\u{1F3AF}", label: "Domain", desc: "Which area of the system this affects" },
+    { icon: "\u{1F4E6}", label: "Product", desc: "Notice, Spec, Execute, or Observe" }
+  ]},
+  "route": { title: "Router", color: "#3b82f6", items: [
+    { icon: "\u{1F534}", label: "L0 (trust < 0.2)", desc: "Human drives \u2014 strategic, ambiguous" },
+    { icon: "\u{1F7E0}", label: "L1 (0.2-0.4)", desc: "Agent assists \u2014 enriches, human decides" },
+    { icon: "\u{1F7E1}", label: "L2 (0.4-0.6)", desc: "Agent decides \u2014 human approves" },
+    { icon: "\u{1F7E2}", label: "L3 (0.6-0.85)", desc: "Agent executes \u2014 human monitors" },
+    { icon: "\u2705", label: "L4 (\u2265 0.85)", desc: "Full autonomy \u2014 circuit breakers only" }
+  ]},
+  "spec-creation": { title: "Spec Creation", color: "#10b981", items: [
+    { icon: "\u{1F4DD}", label: "Intent \u2192 Spec", desc: "Shape problem into executable specification" },
+    { icon: "\u{1F4CB}", label: "Contracts", desc: "4 types: interface, behavior, quality, integration" },
+    { icon: "\u{1F916}", label: "Agent readiness", desc: "completeness_score \u2265 0.8 = agent-executable" },
+    { icon: "\u{1F517}", label: "Trace context", desc: "Inherits trace_id from parent intent" }
+  ]},
+  "agent-execution": { title: "Agent Execution", color: "#10b981", items: [
+    { icon: "\u25B6\uFE0F", label: "contract.started", desc: "Agent begins execution against spec" },
+    { icon: "\u2705", label: "contract.assertion.passed", desc: "Individual assertion verified" },
+    { icon: "\u274C", label: "contract.assertion.failed", desc: "Assertion failed \u2014 delta detected" },
+    { icon: "\u{1F3C1}", label: "contract.completed", desc: "All assertions evaluated" }
+  ]},
+  "entire-io": { title: "Entire.io", color: "#10b981", items: [
+    { icon: "\u{1F4F9}", label: "Session trace capture", desc: "Full execution recording of agent sessions" },
+    { icon: "\u{1F4E4}", label: "trace.completed", desc: "Event emitted when session finishes" },
+    { icon: "\u{1F441}\uFE0F", label: "File/command observability", desc: "What files touched, commands run, tests executed" },
+    { icon: "\u{1F517}", label: "Execute \u2192 Observe bridge", desc: "Makes agent work visible to the observe layer" }
+  ]},
+  "contract-verify": { title: "Contract Verification", color: "#10b981", items: [
+    { icon: "\u2705", label: "Assertions pass/fail", desc: "Binary verification of each contract" },
+    { icon: "\u{1F4CB}", label: "Evidence collection", desc: "What was tested, how, results" },
+    { icon: "\u{1F4E4}", label: "Events emitted", desc: "contract.verified or contract.failed to events.jsonl" }
+  ]},
+  "otel-collector": { title: "OTel Collector", color: "#8b5cf6", items: [
+    { icon: "\u{1F4E1}", label: "OTLP Receiver", desc: "gRPC :4317 + HTTP :4318" },
+    { icon: "\u2699\uFE0F", label: "Processors", desc: "batch, attributes/intent, filter" },
+    { icon: "\u{1F4E4}", label: "Exporters", desc: "Grafana Cloud (Phase 1) or self-hosted (Phase 2)" },
+    { icon: "\u{1F4C1}", label: "File Tail input", desc: "Adapter reads events.jsonl \u2192 sends OTLP spans" }
+  ]},
+  "grafana": { title: "Grafana Observe Dashboard", color: "#8b5cf6", items: [
+    { icon: "\u{1F4CA}", label: "Tempo", desc: "Trace storage \u2014 waterfall views, span hierarchies" },
+    { icon: "\u{1F4C8}", label: "Mimir", desc: "Metrics \u2014 signal rates, cycle times, trust distributions" },
+    { icon: "\u{1F4DD}", label: "Loki", desc: "Log aggregation \u2014 structured event streams" },
+    { icon: "\u{1F504}", label: "Loop closure", desc: "Observations \u2192 new signals fed back to Notice" }
+  ]}
+};
+
+let activeId = null;
+document.querySelectorAll('[data-id]').forEach(el => {
+  el.addEventListener('click', () => {
+    const id = el.getAttribute('data-id');
+    const panel = document.getElementById('detail-panel');
+    if (activeId === id) { panel.classList.remove('active'); activeId = null; return; }
+    activeId = id;
+    const d = DETAILS[id]; if (!d) return;
+    panel.innerHTML = `<div style="border-left: 3px solid ${d.color}; padding-left: 16px;">
+      <h3 style="color: ${d.color}; margin-bottom: 12px;">${d.title}</h3>
+      ${d.items.map(i => `<div style="display: flex; gap: 8px; margin-bottom: 8px; font-size: 14px;">
+        <span>${i.icon}</span><strong style="color: #f1f5f9; min-width: 180px;">${i.label}</strong>
+        <span style="color: #94a3b8;">${i.desc}</span>
+      </div>`).join('')}
+    </div>`;
+    panel.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
