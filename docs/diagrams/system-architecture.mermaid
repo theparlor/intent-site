@@ -1,0 +1,81 @@
+%% Intent System Architecture — Signal to Observation Flow
+%% Source of truth for system-diagram.html interactive SVG
+%% Copy this into PRs, docs, or presentations
+
+flowchart TD
+    %% ── Row 1: Capture Surfaces ──
+    subgraph capture["📡 CAPTURE SURFACES"]
+        MCP["MCP Server (T1)<br/>Claude Code · Cowork"]
+        CLI["CLI Tools (T2)<br/>intent-signal · spec"]
+        SLACK["Slack Bot (T3)<br/>Reactions · Commands"]:::planned
+        GHA["GitHub Actions (T4)<br/>intent-events.yml"]
+        AIP["AI Plugins (T5)<br/>ChatGPT · Copilot"]:::planned
+    end
+
+    JSONL["events.jsonl<br/>Git-tracked · OTel v0.2.0"]
+
+    MCP --> JSONL
+    CLI --> JSONL
+    SLACK -.-> JSONL
+    GHA --> JSONL
+    AIP -.-> JSONL
+
+    %% ── Row 2: Enrichment Pipeline ──
+    subgraph pipeline["🔬 ENRICHMENT PIPELINE"]
+        DEDUP["Dedup"] --> CTX["Context"] --> TRUST["Trust Score"] --> CLASS["Classify"] --> ROUTE["Route"]
+    end
+
+    JSONL --> DEDUP
+
+    ROUTE -->|"L0–L2"| HUMAN["Human Review Queue"]
+    ROUTE -->|"L3–L4"| AUTO["Auto-promote Pipeline"]
+
+    subgraph clustering["Signal Management"]
+        CLUSTER["Signal Clustering"] --> PROMOTE["Promote to Intent"]
+    end
+
+    pipeline --> clustering
+
+    %% ── Row 3: Spec + Execute ──
+    subgraph execute["⚡ SPEC + EXECUTE"]
+        SPEC["Spec Creation<br/>Contracts + criteria"]
+        AGENT["Agent Execution<br/>Claude Code sessions"]
+        ENTIRE["Entire.io<br/>Session traces"]
+        VERIFY["Contract Verify<br/>Assertions pass/fail"]
+    end
+
+    PROMOTE --> SPEC
+    SPEC --> AGENT
+    AGENT --> ENTIRE
+    ENTIRE --> VERIFY
+
+    %% ── Row 4: Observe + Loop ──
+    subgraph observe["👁️ OBSERVE + LOOP"]
+        TAIL["File Tail Adapter<br/>events.jsonl → OTLP"]
+        OTEL["OTel Collector<br/>gRPC :4317"]
+        TEMPO["Tempo<br/>Traces"]
+        MIMIR["Mimir<br/>Metrics"]
+        LOKI["Loki<br/>Logs"]
+        GRAFANA["Grafana Dashboard<br/>Intent Observe"]
+    end
+
+    VERIFY --> TAIL
+    ENTIRE -.-> TAIL
+    TAIL --> OTEL
+    OTEL --> TEMPO
+    OTEL --> MIMIR
+    OTEL --> LOKI
+    TEMPO --> GRAFANA
+    MIMIR --> GRAFANA
+    LOKI --> GRAFANA
+
+    %% ── Loop Closure ──
+    GRAFANA -.->|"Observations → New Signals"| MCP
+
+    %% ── Styles ──
+    classDef planned stroke-dasharray: 6 4, stroke: #475569
+    style capture fill:#0f172a,stroke:#f59e0b,stroke-width:2px
+    style pipeline fill:#0f172a,stroke:#3b82f6,stroke-width:2px
+    style clustering fill:#0f172a,stroke:#3b82f6,stroke-width:1px
+    style execute fill:#0f172a,stroke:#10b981,stroke-width:2px
+    style observe fill:#0f172a,stroke:#8b5cf6,stroke-width:2px
