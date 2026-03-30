@@ -1,0 +1,24 @@
+{
+  "volume": {
+    "green": 10,
+    "amber": 20,
+    "red": 50
+  },
+  "content": {
+    "org_blocklist": ["Subaru", "Home Depot", "CargBerry", "Foot Locker", "Turnberry"],
+    "allowed_names": ["Brien", "The Parlor", "Intent", "Claude", "Anthropic", "GitHub", "Entire.io", "FastMCP"],
+    "blocklist_terms": ["fuck", "shit", "damn", "kill", "attack", "exploit"],
+    "pii_patterns": {
+      "email": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "phone": "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b",
+      "ssn": "\\b\\d{3}-\\d{2}-\\d{4}\\b",
+      "credit_card": "\\b\\d{4}[-\\s]?\\d{4}[-\\s]?\\d{4}[-\\s]?\\d{4}\\b"
+    }
+  },
+  "sync": {
+    "source": "local",
+    "product_repo_path": "../intent",
+    "product_repo_github": "theparlor/intent",
+    "signals_subdir": ".intent/signals"
+  }
+}
