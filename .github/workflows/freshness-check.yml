@@ -1,0 +1,113 @@
+name: Content Freshness Check
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site repo
+        uses: actions/checkout@v4
+
+      - name: Check product repo state
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch signal list from product repo
+          SIGNALS=$(gh api repos/theparlor/intent/contents/.intent/signals --jq '.[].name' 2>/dev/null || echo "")
+          SIGNAL_COUNT=$(echo "$SIGNALS" | grep -c '.md' || echo "0")
+
+          # Count signals shown on site
+          SITE_SIGNAL_COUNT=$(grep -c 'signal-card\|data-signal-id' docs/signals.html 2>/dev/null || echo "0")
+
+          echo "SIGNAL_COUNT=$SIGNAL_COUNT" >> $GITHUB_ENV
+          echo "SITE_SIGNAL_COUNT=$SITE_SIGNAL_COUNT" >> $GITHUB_ENV
+          echo "SIGNALS<<EOF" >> $GITHUB_ENV
+          echo "$SIGNALS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Check spec freshness
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DRIFT_ITEMS=""
+
+          # Check key spec files for changes
+          for spec in spec/signal-trust-framework.md spec/intent-methodology.md spec/event-catalog.md spec/product-roadmap.md; do
+            CURRENT_SHA=$(gh api "repos/theparlor/intent/contents/$spec" --jq '.sha' 2>/dev/null || echo "missing")
+            STORED_SHA=$(jq -r ".\"$spec\" // \"none\"" .freshness-state.json 2>/dev/null || echo "none")
+
+            if [ "$CURRENT_SHA" != "$STORED_SHA" ] && [ "$CURRENT_SHA" != "missing" ]; then
+              DRIFT_ITEMS="$DRIFT_ITEMS\n- \`$spec\` changed (was $STORED_SHA, now $CURRENT_SHA)"
+            fi
+          done
+
+          echo "DRIFT_ITEMS<<EOF" >> $GITHUB_ENV
+          echo -e "$DRIFT_ITEMS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Open issue if drift detected
+        if: env.SIGNAL_COUNT != env.SITE_SIGNAL_COUNT || env.DRIFT_ITEMS != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BODY="## Content Freshness Report\n\n"
+
+          if [ "$SIGNAL_COUNT" != "$SITE_SIGNAL_COUNT" ]; then
+            MISSING=$((SIGNAL_COUNT - SITE_SIGNAL_COUNT))
+            BODY="${BODY}### Signal Count Drift\n"
+            BODY="${BODY}Product has **$SIGNAL_COUNT** signals, site shows **$SITE_SIGNAL_COUNT** ($MISSING missing)\n\n"
+          fi
+
+          if [ -n "$DRIFT_ITEMS" ]; then
+            BODY="${BODY}### Spec Changes\n"
+            BODY="${BODY}$DRIFT_ITEMS\n\n"
+          fi
+
+          BODY="${BODY}### Action Required\n"
+          BODY="${BODY}Update the affected site pages to reflect the current product state.\n"
+          BODY="${BODY}See \`content-map.md\` for which pages are affected by each spec.\n"
+
+          DATE=$(date +%Y-%m-%d)
+
+          gh issue create \
+            --title "Content freshness: drift detected ($DATE)" \
+            --body "$(echo -e "$BODY")" \
+            --label "freshness" \
+            || echo "Issue creation failed — label may not exist yet"
+
+      - name: Update freshness state
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Build new state file with current SHAs
+          echo "{" > .freshness-state.json.tmp
+          FIRST=true
+          for spec in spec/signal-trust-framework.md spec/intent-methodology.md spec/event-catalog.md spec/product-roadmap.md; do
+            SHA=$(gh api "repos/theparlor/intent/contents/$spec" --jq '.sha' 2>/dev/null || echo "missing")
+            if [ "$FIRST" = true ]; then
+              FIRST=false
+            else
+              echo "," >> .freshness-state.json.tmp
+            fi
+            echo "  \"$spec\": \"$SHA\"" >> .freshness-state.json.tmp
+          done
+          echo "" >> .freshness-state.json.tmp
+          echo "}" >> .freshness-state.json.tmp
+          mv .freshness-state.json.tmp .freshness-state.json
+
+          DATE=$(date +%Y-%m-%d)
+
+          # Commit updated state
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .freshness-state.json
+          git diff --staged --quiet || git commit -m "Update freshness state ($DATE)"
+          git push || echo "Nothing to push"
