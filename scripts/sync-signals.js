@@ -271,8 +271,25 @@ function updateSignalsHTML(signals) {
   fs.writeFileSync(SIGNALS_HTML, html);
 }
 
-function updateDogfoodHTML(signalCount) {
+function formatDate(dateStr) {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const d = new Date(dateStr + 'T00:00:00');
+  return `${months[d.getMonth()]} ${d.getDate()}`;
+}
+
+function formatDogfoodSignalItem(sig) {
+  const repoBase = 'https://github.com/theparlor/intent/blob/main/.intent/signals/';
+  const title = sig.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  return `      <a class="signal-item" href="${repoBase}${sig.file}">
+        <span class="signal-id">${sig.id}</span>
+        <span class="signal-title">${title}</span>
+        <span class="signal-date">${formatDate(sig.date)}</span>
+      </a>`;
+}
+
+function updateDogfoodHTML(signals) {
   let html = fs.readFileSync(DOGFOOD_HTML, 'utf8');
+  const signalCount = signals.length;
 
   // Update stat box: <div class="num amber">NUMBER</div>
   html = html.replace(
@@ -286,9 +303,18 @@ function updateDogfoodHTML(signalCount) {
     `$1${signalCount}$2`
   );
 
-  // Update the signal list items (SIG-001 through SIG-015 currently)
-  // We won't regenerate the full list — just update the counts.
-  // The signal list in dogfood.html is a curated subset, not a full mirror.
+  // Regenerate the signal list between <div class="signal-list"> and its closing </div>
+  const listStart = html.indexOf('<div class="signal-list">');
+  if (listStart !== -1) {
+    const listContentStart = html.indexOf('>', listStart) + 1;
+    // Find the closing </div> — it's the next </div> after the last </a> in the list
+    const nextSectionHeader = html.indexOf('<!-- Specifications -->', listContentStart);
+    // Walk back to find the </div> that closes signal-list
+    const listEnd = html.lastIndexOf('</div>', nextSectionHeader);
+
+    const newList = '\n' + signals.map(formatDogfoodSignalItem).join('\n') + '\n    ';
+    html = html.slice(0, listContentStart) + newList + html.slice(listEnd);
+  }
 
   fs.writeFileSync(DOGFOOD_HTML, html);
 }
@@ -390,9 +416,9 @@ function main() {
   console.log(`  Publishing ${publishSet.length} signals to signals.html`);
   updateSignalsHTML(publishSet);
 
-  // 9. Update dogfood.html counts
-  console.log(`  Updating dogfood.html signal count: ${publishSet.length}`);
-  updateDogfoodHTML(publishSet.length);
+  // 9. Update dogfood.html counts + signal list
+  console.log(`  Updating dogfood.html: ${publishSet.length} signals (count + cards)`);
+  updateDogfoodHTML(publishSet);
 
   // 10. Save held manifest
   saveHeldManifest(manifest);
