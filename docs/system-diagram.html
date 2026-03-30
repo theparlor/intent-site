@@ -237,6 +237,9 @@
         <marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b"/>
         </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981"/>
+        </marker>
       </defs>
 
 
@@ -365,7 +368,7 @@
       <line x1="730" y1="245" x2="770" y2="235" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
 
       <!-- Human Review (L0-L2) -->
-      <g class="node">
+      <g class="node" data-id="humanreview">
         <rect x="770" y="220" width="160" height="30" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2"/>
         <text x="850" y="239" fill="#f1f5f9" font-size="11" font-weight="600" text-anchor="middle">Human Review (L0&ndash;L2)</text>
       </g>
@@ -374,13 +377,18 @@
       <line x1="730" y1="260" x2="770" y2="275" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
 
       <!-- Auto-promote (L3-L4) -->
-      <g class="node">
+      <g class="node" data-id="autopromote">
         <rect x="770" y="260" width="160" height="30" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2"/>
         <text x="850" y="279" fill="#f1f5f9" font-size="11" font-weight="600" text-anchor="middle">Auto-promote (L3&ndash;L4)</text>
       </g>
 
-      <!-- Arrow: pipeline down to Signal Clustering -->
-      <line x1="395" y1="276" x2="280" y2="320" stroke="#64748b" stroke-width="1" opacity="0.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <!-- Human Review → Signal Clustering (human triages) -->
+      <line x1="770" y1="250" x2="380" y2="325" stroke="#f59e0b" stroke-width="1.2" opacity="0.6" marker-end="url(#arrow-amber)"/>
+      <text x="560" y="280" fill="#f59e0b" font-size="9" opacity="0.7" text-anchor="middle">human triages</text>
+
+      <!-- Auto-promote → Signal Clustering (auto-clusters) -->
+      <line x1="770" y1="290" x2="380" y2="340" stroke="#10b981" stroke-width="1.2" opacity="0.6" marker-end="url(#arrow-green)"/>
+      <text x="560" y="310" fill="#10b981" font-size="9" opacity="0.7" text-anchor="middle">auto-clusters</text>
 
       <!-- Signal Clustering -->
       <g class="node">
@@ -708,6 +716,26 @@ const DETAILS = {
       { icon: "\u{1F7E1}", label: "L2 (0.4-0.6)", desc: "Agent decides \u2014 human approves" },
       { icon: "\u{1F7E2}", label: "L3 (0.6-0.85)", desc: "Agent executes \u2014 human monitors" },
       { icon: "\u2705", label: "L4 (\u2265 0.85)", desc: "Full autonomy \u2014 circuit breakers only" }
+    ]
+  },
+  "humanreview": {
+    title: "Human Review Queue (L0\u2013L2)",
+    color: "#f59e0b",
+    items: [
+      { icon: "\u{1F534}", label: "L0 (trust < 0.2)", desc: "Human drives all decisions \u2014 strategic, ambiguous signals" },
+      { icon: "\u{1F7E0}", label: "L1 (0.2\u20130.4)", desc: "Agent enriches \u2014 adds context, human decides action" },
+      { icon: "\u{1F7E1}", label: "L2 (0.4\u20130.6)", desc: "Agent proposes clustering + promotion \u2014 human approves" },
+      { icon: "\u{1F50D}", label: "Review surface", desc: "Signals appear in intent-signal review for triage" }
+    ]
+  },
+  "autopromote": {
+    title: "Auto-promote Pipeline (L3\u2013L4)",
+    color: "#10b981",
+    items: [
+      { icon: "\u{1F7E2}", label: "L3 (0.6\u20130.85)", desc: "Agent executes, human monitors after the fact" },
+      { icon: "\u2705", label: "L4 (\u2265 0.85)", desc: "Full autonomy \u2014 circuit breakers only" },
+      { icon: "\u26A1", label: "Auto-cluster + promote", desc: "High-trust signals skip human queue, auto-grouped and promoted" },
+      { icon: "\u{1F6A7}", label: "Circuit breakers", desc: "max_files_changed: 5, max_blast_radius: service" }
     ]
   },
   "spec-creation": {

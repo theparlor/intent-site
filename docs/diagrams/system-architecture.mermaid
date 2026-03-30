@@ -34,7 +34,8 @@ flowchart TD
         CLUSTER["Signal Clustering"] --> PROMOTE["Promote to Intent"]
     end
 
-    pipeline --> clustering
+    HUMAN -->|"human triages"| CLUSTER
+    AUTO -->|"auto-clusters"| CLUSTER
 
     %% ── Row 3: Spec + Execute ──
     subgraph execute["⚡ SPEC + EXECUTE"]
