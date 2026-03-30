@@ -57,7 +57,7 @@ for f in pitch.html concept-brief.html methodology.html roadmap.html; do
 done
 
 # Pillar 2 pages should have "The System" active in primary nav
-for f in work-system.html flow-diagram.html schemas.html signals.html dogfood.html event-catalog.html; do
+for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html event-catalog.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="active"' "$f"; then
       : # has at least one active
@@ -69,7 +69,7 @@ for f in work-system.html flow-diagram.html schemas.html signals.html dogfood.ht
 done
 
 # Pillar 3 pages should have "The Build" active in primary nav
-for f in architecture.html agents.html deployment.html arb.html decisions.html native-repos.html; do
+for f in architecture.html agents.html deployment.html observability.html arb.html decisions.html native-repos.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="active"' "$f"; then
       : # has at least one active
@@ -217,7 +217,7 @@ for f in pitch.html concept-brief.html methodology.html roadmap.html; do
 done
 
 # Pillar 2: The System
-for f in work-system.html flow-diagram.html schemas.html signals.html dogfood.html event-catalog.html; do
+for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html event-catalog.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="sub-nav"' "$f"; then
       : # has sub-nav
@@ -229,7 +229,7 @@ for f in work-system.html flow-diagram.html schemas.html signals.html dogfood.ht
 done
 
 # Pillar 3: The Build
-for f in architecture.html agents.html deployment.html arb.html decisions.html native-repos.html; do
+for f in architecture.html agents.html deployment.html observability.html arb.html decisions.html native-repos.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="sub-nav"' "$f"; then
       : # has sub-nav

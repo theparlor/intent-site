@@ -37,12 +37,13 @@ Think of it like a building with three wings. You enter through the lobby (home/
 |------|------|------|-------|
 | **Hero** | Work System | work-system.html | The Jira-replacement dashboard. Signal stream, spec lifecycle, execution state, the full operational picture. |
 | Depth | Flow | flow-diagram.html | The loop visualized — interactive/animated Notice→Spec→Execute→Observe diagram. **Currently a 1.5KB skeleton — needs full rebuild.** |
+| Depth | System Map | system-diagram.html | Interactive signal-to-observation flow. 5 capture surfaces, enrichment pipeline, spec/execute, OTel observe layer. Click-to-explore detail panels. |
 | Depth | Schemas | schemas.html | Data contracts — signal schema, spec schema, execution record schema. The type system behind the system. |
 | Depth | Signals | signals.html | Live signal stream — 15 signal cards, trust scores, clustering, pattern detection. |
 | Depth | Dogfood | dogfood.html | Intent building Intent. Self-referential proof — the system's own signal stream, specs, and event log. |
 | Depth | Event Catalog | event-catalog.html | Catalog of event types in the system. **Currently thin — candidate for expansion.** |
 
-**Sub-nav label order:** Flow · Schemas · Signals · Dogfood · Events
+**Sub-nav label order:** Flow · System Map · Schemas · Signals · Dogfood · Events
 
 **Why this grouping:** These pages answer "how does it actually work?" from different angles — operational (work system), visual (flow), structural (schemas), live data (signals), proof (dogfood), and reference (events). A visitor who understands the concept naturally wants to see it in action.
 
@@ -57,11 +58,12 @@ Think of it like a building with three wings. You enter through the lobby (home/
 | **Hero** | Architecture | architecture.html | MCP server topology, trust model, loop diagram, phased rollout. The technical overview. |
 | Depth | Agents | agents.html | 6 subagent definitions, model routing, tool access, coordinator pattern. |
 | Depth | Deployment | deployment.html | FastMCP Cloud, local dev, platform comparison, configuration. |
+| Depth | Observability | observability.html | OTel-native stack architecture. Mermaid diagram, trace identity model, deployment phases, metrics, dashboard preview. |
 | Depth | ARB / Tech Radar | arb.html | SVG radar visual, architectural stack, governance panel, atomized roadmap. |
 | Depth | Decisions | decisions.html | Architecture decision records. **Currently thin — candidate for expansion with full ADR entries.** |
 | Depth | Native Repos | native-repos.html | Repository structure, code organization, integration points. |
 
-**Sub-nav label order:** Agents · Deployment · ARB · Decisions · Repos
+**Sub-nav label order:** Agents · Deployment · Observability · ARB · Decisions · Repos
 
 **Why this grouping:** These pages answer "how is it built?" from different angles — topology (architecture), agents (who does what), operations (deployment), governance (ARB/decisions), and code (repos). A visitor evaluating the technical depth naturally wants to understand the architecture, then drill into specifics.
 
@@ -104,6 +106,7 @@ Each pillar's hero page AND depth pages show the same sub-nav below the primary 
 <nav class="sub-nav">
   <a href="work-system.html">Overview</a>
   <a href="flow-diagram.html">Flow</a>
+  <a href="system-diagram.html">System Map</a>
   <a href="schemas.html">Schemas</a>
   <a href="signals.html">Signals</a>
   <a href="dogfood.html">Dogfood</a>
@@ -117,6 +120,7 @@ Each pillar's hero page AND depth pages show the same sub-nav below the primary 
   <a href="architecture.html">Overview</a>
   <a href="agents.html">Agents</a>
   <a href="deployment.html">Deployment</a>
+  <a href="observability.html">Observability</a>
   <a href="arb.html">ARB</a>
   <a href="decisions.html">Decisions</a>
   <a href="native-repos.html">Repos</a>
@@ -162,6 +166,37 @@ Cross-links connect related content across pillars. These are inline contextual 
 | Work System (Pillar 2) → | Agents (Pillar 3) | "The agents that power the work system" |
 | ARB (Pillar 3) → | Roadmap (Pillar 1) | "The vision these decisions serve" |
 | Architecture (Pillar 3) → | Work System (Pillar 2) | "See the architecture in operation" |
+| Observability (Pillar 3) → | Event Catalog (Pillar 2) | "See the 15 event types this stack ingests" |
+| Observability (Pillar 3) → | Architecture (Pillar 3) | "See the MCP server topology that generates events" |
+| Roadmap (Pillar 1) → | Observability (Pillar 3) | "See the observability architecture" |
+
+---
+
+## Diagram Source Policy
+
+**Every interactive or visual diagram page MUST link to its Mermaid (or markdown) source file in the repo.**
+
+The interactive page is the storytelling surface — it explains the system to a broad audience. The Mermaid source is the working artifact — engineers copy it into PRs, embed it in their own docs, fork it for subsystem diagrams. Both must be reachable.
+
+### Pattern
+
+Each diagram page includes a "View source diagram →" link in its below-diagram content section, pointing to the raw Mermaid/markdown file on GitHub. Use this format:
+
+```html
+<a href="https://github.com/theparlor/intent/blob/main/{path-to-mermaid-file}" class="source-link">
+  View Mermaid source →
+</a>
+```
+
+### Affected Pages
+
+| Page | Source File | Link Context |
+|------|------------|--------------|
+| system-diagram.html (Pillar 2) | TBD — Mermaid version of system architecture | Below interactive SVG, in cross-links section |
+| flow-diagram.html (Pillar 2) | TBD — Mermaid version of loop flow | Below flow visualization |
+| observability.html (Pillar 3) | spec/observability-stack.md (contains Mermaid) | Below OTel architecture diagram |
+
+As new diagram pages are added, each must follow this policy. The source link is not optional — it is a first-class cross-link, as important as any pillar cross-link above.
 
 ---
 

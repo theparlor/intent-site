@@ -43,6 +43,17 @@
 | architecture.html | 5-tier capture architecture | MCP, CLI, Slack, GitHub, AI plugins |
 | signals.html | Signal sources | Source attribution on cards |
 
+## Source: spec/observability-stack.md
+| Site page | Claim | Quote/reference |
+|-----------|-------|-----------------|
+| observability.html | Architecture diagram | Full OTel stack: sources → collector → backends → Grafana |
+| observability.html | Deployment phases | Phase 1 (Grafana Cloud), Phase 2 (Docker), Phase 3 (k3s) |
+| observability.html | Trace identity model | Intent = Trace, Spec = Span, Contract = Leaf Span |
+| observability.html | Metrics model | Counters, gauges, histograms from spec |
+| observability.html | Dashboard panels | Panel layout from spec |
+| roadmap.html | Observe product status | Infrastructure Specced (advanced from Schema-Ready) |
+| arb.html | Tech radar items | OTel, Grafana, Tempo (should appear in Adopt/Trial rings) |
+
 ## Source: spec/signal-amplification.md
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------|

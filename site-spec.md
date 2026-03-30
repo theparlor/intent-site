@@ -14,6 +14,7 @@
 | Concept Brief | concept-brief.html | Light | Concept Brief | 10KB | Live |
 | Work System | work-system.html | Rich | Work System | 48KB | Live |
 | Flow | flow-diagram.html | Light | Flow | 1.5KB | **NEEDS REBUILD — content stripped** |
+| System Map | system-diagram.html | Rich | System Map | 20KB | New — Interactive signal-to-observation SVG diagram |
 | Schemas | schemas.html | Light | Schemas | 8KB | Live |
 | ARB | arb.html | Rich | ARB | 39KB | Live — SVG radar visual + tab interface |
 | Dogfood | dogfood.html | Rich | Dogfood | 20KB | Live |
@@ -33,6 +34,7 @@
 
 | Page | File | Page Type | Min Size | Status |
 |------|------|-----------|----------|--------|
+| Observability | observability.html | Rich | 12KB | New — Mermaid architecture diagram, phase cards, metrics table |
 | Decisions | decisions.html | Light | 4KB | Live — candidate for content expansion |
 | Event Catalog | event-catalog.html | Light | 2KB | Live — candidate for content expansion |
 | Native Repos | native-repos.html | Rich | 13KB | Live |
@@ -89,6 +91,11 @@ These are HIGH-VALUE visual elements. Their loss constitutes a critical defect.
 | work-system.html | Full work system | Comprehensive operational dashboard replacement |
 | dogfood.html | Dogfood dashboard | Self-referential metrics and status |
 | roadmap.html | Product roadmap | Interactive phase cards with investment sizing |
+| observability.html | Mermaid architecture diagram | Full OTel stack: sources → collector → backends → Grafana |
+| observability.html | Trace identity diagram | Mermaid span hierarchy: Intent=Trace, Spec=Span, Contract=Leaf |
+| observability.html | Dashboard preview | Styled panel layout of Grafana Observe dashboard |
+| system-diagram.html | Interactive flow SVG | 5 capture surfaces → pipeline → spec/execute → observe → loop |
+| system-diagram.html | Click-to-explore panels | Detail data for every element: tools, commands, specs |
 
 ## File Size Baselines
 

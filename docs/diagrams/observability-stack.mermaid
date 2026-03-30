@@ -1,0 +1,62 @@
+%% Intent Observability Stack Architecture
+%% Source of truth for observability.html Mermaid diagram
+%% Ref: spec/observability-stack.md
+
+flowchart TB
+    subgraph sources["📡 TELEMETRY SOURCES"]
+        CLI["CLI Tools<br/>intent-signal, intent-spec"]
+        MCP["MCP Servers<br/>notice · spec · observe"]
+        GHA["GitHub Actions<br/>intent-events.yml"]
+        CC["Claude Code<br/>Terminal sessions"]
+        JSONL["events.jsonl<br/>Git-tracked audit log"]
+    end
+
+    subgraph collector["⚙️ OTEL COLLECTOR"]
+        OTLP["OTLP Receiver<br/>gRPC :4317 · HTTP :4318"]
+        PROC["Processors<br/>batch · attributes · filter"]
+    end
+
+    subgraph backend["💾 STORAGE BACKENDS"]
+        TEMPO["Grafana Tempo<br/>Trace storage"]
+        MIMIR["Grafana Mimir<br/>Metrics storage"]
+        LOKI["Grafana Loki<br/>Log aggregation"]
+    end
+
+    subgraph dashboard["📊 VISUALIZATION"]
+        GRAF["Grafana<br/>Intent Observe Dashboard"]
+    end
+
+    CLI --> JSONL
+    MCP --> JSONL
+    GHA --> JSONL
+
+    JSONL -->|"File Tail Adapter"| OTLP
+    CC -->|"Direct Export (Phase 2)"| OTLP
+    GHA -->|"Webhook (Phase 2)"| OTLP
+
+    OTLP --> PROC
+    PROC --> TEMPO
+    PROC --> MIMIR
+    PROC --> LOKI
+
+    TEMPO --> GRAF
+    MIMIR --> GRAF
+    LOKI --> GRAF
+
+    %% Trace Identity Model
+    subgraph trace["🔗 TRACE IDENTITY"]
+        SIG["Signals<br/>(orphan, trace_id=null)"]
+        INT["Intent<br/>(trace_id = UUID)"]
+        SP["Spec<br/>(inherits trace_id)"]
+        CON["Contract<br/>(leaf span)"]
+    end
+
+    SIG -->|"promote"| INT
+    INT --> SP
+    SP --> CON
+
+    style sources fill:#0f172a,stroke:#f59e0b,stroke-width:2px
+    style collector fill:#0f172a,stroke:#3b82f6,stroke-width:2px
+    style backend fill:#0f172a,stroke:#10b981,stroke-width:2px
+    style dashboard fill:#0f172a,stroke:#8b5cf6,stroke-width:2px
+    style trace fill:#0f172a,stroke:#64748b,stroke-width:1px
