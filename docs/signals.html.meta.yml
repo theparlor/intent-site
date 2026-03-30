@@ -1,0 +1,30 @@
+---
+title: Signals
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-29
+thought_leaders:
+  - teresa-torres
+summary: "Intent &mdash; Signal Stream I ntent Home Methodology Concept Brief Signals Decisions Dogfooding Signal Stream Observations captured from Cowork sessions, agent traces, and research. These are the raw..."
+content_excerpt: "Intent &mdash; Signal Stream I ntent Home Methodology Concept Brief Signals Decisions Dogfooding Signal Stream Observations captured from Cowork sessions, agent traces, and research. These are the raw inputs feeding the notice layer of Intent's own development loop. Each signal has a source, confidence score, and status. 5 Signals captured 4 High confidence 1 Source: Cowork 0 Resolved SIG-001 2026-03-28 cowork-session high confidence Intent needs a formal work ontology Observation The Intent met"
+depth_score: 4
+depth_signals:
+  file_size_kb: 12.7
+  content_chars: 1415
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 571, strength: 0.387}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 558, strength: 0.378}
+  - {pair: consulting-operations ↔ engagement-management, count: 483, strength: 0.327}
+  - {pair: consulting-operations ↔ turnberry, count: 321, strength: 0.201}
+  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.17}
+---

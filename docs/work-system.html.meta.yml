@@ -1,0 +1,32 @@
+---
+title: Work System
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-29
+technologies:
+  - jira
+thought_leaders:
+  - teresa-torres
+summary: "Intent Work System I ntent Home Methodology Concept Brief Signals Decisions const { useState } = React; const COLORS = { bg: \"#0f172a\", surface: \"#1e293b\", surfaceHover: \"#334155\", border: \"#334155\", ..."
+content_excerpt: "Intent Work System I ntent Home Methodology Concept Brief Signals Decisions const { useState } = React; const COLORS = { bg: \"#0f172a\", surface: \"#1e293b\", surfaceHover: \"#334155\", border: \"#334155\", text: \"#f1f5f9\", textMuted: \"#94a3b8\", // Intent loop phases notice: \"#f59e0b\", spec: \"#3b82f6\", execute: \"#10b981\", observe: \"#a855f7\", // Work units signal: \"#f59e0b\", intent: \"#60a5fa\", specUnit: \"#3b82f6\", contract: \"#10b981\", capability: \"#06b6d4\", feature: \"#a855f7\", product: \"#ec4899\", // Gov"
+depth_score: 4
+depth_signals:
+  file_size_kb: 47.5
+  content_chars: 1419
+  entity_count: 2
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 571, strength: 0.387}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 558, strength: 0.378}
+  - {pair: consulting-operations ↔ engagement-management, count: 483, strength: 0.327}
+  - {pair: consulting-operations ↔ turnberry, count: 321, strength: 0.201}
+  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.17}
+---

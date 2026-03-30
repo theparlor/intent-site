@@ -1,0 +1,34 @@
+---
+title: Concept Brief
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-29
+technologies:
+  - jira
+thought_leaders:
+  - marty-cagan
+  - jeff-patton
+  - teresa-torres
+summary: "Intent &mdash; Product Concept Brief I ntent Home Methodology Concept Brief Signals Decisions Product Concept Idea stage &middot; Ready for validation &middot; 2026-03-28 Intent &mdash; Product Concep..."
+content_excerpt: "Intent &mdash; Product Concept Brief I ntent Home Methodology Concept Brief Signals Decisions Product Concept Idea stage &middot; Ready for validation &middot; 2026-03-28 Intent &mdash; Product Concept Brief The Problem When AI collapses implementation time from weeks to hours, the bottleneck moves upstream &mdash; and the entire team operating model breaks. Small product teams (3-5 people spanning product, engineering, design, and quality) adopted Agile to solve a coordination problem: how do y"
+depth_score: 4
+depth_signals:
+  file_size_kb: 10.4
+  content_chars: 1421
+  entity_count: 4
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.39
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 571, strength: 0.387}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 558, strength: 0.378}
+  - {pair: consulting-operations ↔ engagement-management, count: 483, strength: 0.327}
+  - {pair: consulting-operations ↔ turnberry, count: 321, strength: 0.201}
+  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.17}
+---
