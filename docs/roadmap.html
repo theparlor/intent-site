@@ -96,6 +96,7 @@
     .maturity-badge.conceptual { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
     .maturity-badge.defined { background: rgba(16,185,129,0.15); color: var(--accent-green); }
     .maturity-badge.schema-ready { background: rgba(139,92,246,0.15); color: var(--accent-purple); }
+    .maturity-badge.infra-specced { background: rgba(139,92,246,0.15); color: var(--accent-purple); }
 
     .product-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.25rem; }
 
@@ -192,7 +193,7 @@
       <div class="loop-arrow">→</div>
       <div class="loop-node observe">
         <div class="name">OBSERVE</div>
-        <div class="maturity">Schema-Ready</div>
+        <div class="maturity">Infrastructure Specced</div>
       </div>
     </div>
 
@@ -322,20 +323,27 @@
       <div class="product-header observe">
         <span class="personas">◇○</span>
         <h2>Observe</h2>
-        <span class="maturity-badge schema-ready">Schema-Ready</span>
+        <span class="maturity-badge infra-specced">Infrastructure Specced</span>
       </div>
-      <p class="product-desc">Makes the Intent event stream visible — dashboards, digests, pattern detection, feedback loops. The learning layer that closes the loop back to Notice.</p>
+      <p class="product-desc">OTel-native observability. Stack specced: Grafana Tempo + Mimir + Loki. Makes the Intent event stream visible — dashboards, digests, pattern detection, feedback loops. The learning layer that closes the loop back to Notice.</p>
 
       <div class="status-grid">
-        <div class="status-row"><div class="asset">Event schema (OTel-compatible)</div><div class="state done">✓ Defined</div></div>
-        <div class="status-row"><div class="asset">Event log format (JSONL)</div><div class="state done">✓ Defined</div></div>
-        <div class="status-row"><div class="asset">15 cataloged event types</div><div class="state done">✓ Defined</div></div>
+        <div class="status-row"><div class="asset">15 event types defined (event-catalog.md)</div><div class="state done">✓ Defined</div></div>
+        <div class="status-row"><div class="asset">OTel-compatible event schema (trace_id, span_id, parent_id)</div><div class="state done">✓ Defined</div></div>
+        <div class="status-row"><div class="asset">Observability stack architecture specced</div><div class="state done">✓ Specced</div></div>
+        <div class="status-row"><div class="asset">File Tail Adapter designed (events.jsonl → OTLP)</div><div class="state done">✓ Designed</div></div>
+        <div class="status-row"><div class="asset">Trace identity model (Intent = Trace, Spec = Span)</div><div class="state done">✓ Defined</div></div>
+        <div class="status-row"><div class="asset">Metrics model (counters, gauges, histograms)</div><div class="state done">✓ Designed</div></div>
+        <div class="status-row"><div class="asset">Grafana Observe dashboard specified</div><div class="state done">✓ Specced</div></div>
         <div class="status-row"><div class="asset">GitHub Action event emission</div><div class="state done">✓ Built</div></div>
-        <div class="status-row"><div class="asset">Dashboard</div><div class="state not-started">Not started</div></div>
+        <div class="status-row"><div class="asset">OTel Collector deployed (Phase 1)</div><div class="state not-started">Not started</div></div>
+        <div class="status-row"><div class="asset">File Tail Adapter operational</div><div class="state not-started">Not started</div></div>
+        <div class="status-row"><div class="asset">Grafana dashboard live with real data</div><div class="state not-started">Not started</div></div>
         <div class="status-row"><div class="asset">Signal clustering view</div><div class="state not-started">Not started</div></div>
         <div class="status-row"><div class="asset">Weekly digest / report</div><div class="state not-started">Not started</div></div>
-        <div class="status-row"><div class="asset">Metrics framework</div><div class="state not-started">Not started</div></div>
       </div>
+
+      <p class="product-desc" style="margin-top: 0;"><a href="observability.html">See the observability architecture →</a></p>
 
       <div class="invest-group">
         <div class="invest-label enhance">Enhance</div>
@@ -346,7 +354,10 @@
       <div class="invest-group">
         <div class="invest-label build">Build</div>
         <div class="invest-items">
-          <div class="invest-item">Intent dashboard — signal volume over time, intent status lifecycle, spec completion rates</div>
+          <div class="invest-item">OTel Collector + File Tail Adapter — events.jsonl → OTLP pipeline (Observe, Now, Specced)</div>
+          <div class="invest-item">Grafana Dashboard — Tempo traces + Mimir metrics + Loki logs (Observe, Now, Specced)</div>
+          <div class="invest-item">Trace propagation — Intent = Trace, Spec = Span identity model (Observe, Now, Specced)</div>
+          <div class="invest-item">Agent instrumentation — bridge Execute events into Observe trace stream (Execute × Observe, Next, Designed)</div>
           <div class="invest-item">Weekly digest generator — CLI or scheduled action that summarizes the event stream</div>
           <div class="invest-item">Spec-to-outcome trace — show the full chain from signal through shipped capability</div>
         </div>
