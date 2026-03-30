@@ -1,0 +1,22 @@
+---
+title: Index
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-29
+summary: "Intent — A Team Operating Model for AI-Augmented Product Teams I ntent Home Methodology Concept Brief Signals Decisions A team operating model for AI-augmented product teams When AI collapses implemen..."
+content_excerpt: "Intent — A Team Operating Model for AI-Augmented Product Teams I ntent Home Methodology Concept Brief Signals Decisions A team operating model for AI-augmented product teams When AI collapses implementation to hours, the entire SDLC shifts. Intent replaces Agile's ceremony stack with a continuous loop: Notice &rarr; Spec &rarr; Execute &rarr; Observe. Notice &rarr; Spec &rarr; Execute &rarr; Observe Interactive Artifacts Product Brief Visual Brief Problem cascade, core loop, stack positioning, a"
+depth_score: 3
+depth_signals:
+  file_size_kb: 7.9
+  content_chars: 1413
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.41
+---
