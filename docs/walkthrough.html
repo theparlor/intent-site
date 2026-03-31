@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walkthrough — Intent</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Hero (matches pitch.html pattern) */
+    .hero-pitch { max-width: 900px; margin: 0 auto; padding: 80px 24px 40px; text-align: center; }
+    .hero-pitch .kicker { color: var(--accent-amber); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+    .hero-pitch h1 { font-size: 44px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 20px; }
+    .hero-pitch .subtitle { color: var(--text-muted); font-size: 18px; max-width: 640px; margin: 0 auto; line-height: 1.6; }
+
+    /* Intro prose */
+    .walkthrough-intro {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+    .walkthrough-intro p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .walkthrough-intro strong { color: var(--text); }
+    .walkthrough-intro code {
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--accent-blue);
+    }
+
+    /* Timeline container */
+    .timeline { position: relative; padding-left: 40px; margin: 60px auto; max-width: 820px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-amber), var(--accent-blue), var(--accent-green), var(--accent-purple));
+    }
+
+    /* Timeline card */
+    .timeline-card {
+      position: relative;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-amber);
+    }
+    .timeline-card.phase-blue { border-left-color: var(--accent-blue); }
+    .timeline-card.phase-green { border-left-color: var(--accent-green); }
+    .timeline-card.phase-purple { border-left-color: var(--accent-purple); }
+
+    /* Timeline dot */
+    .timeline-card::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 24px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-amber);
+      border: 3px solid var(--bg);
+      box-sizing: border-box;
+    }
+    .timeline-card.phase-blue::before { background: var(--accent-blue); }
+    .timeline-card.phase-green::before { background: var(--accent-green); }
+    .timeline-card.phase-purple::before { background: var(--accent-purple); }
+
+    /* Card header: event type + ID + timestamp */
+    .timeline-card .event-type {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .timeline-card .event-id {
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--accent-blue);
+      margin-right: 12px;
+    }
+    .timeline-card .event-timestamp {
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Card title */
+    .timeline-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 8px 0 12px;
+      color: var(--text);
+    }
+
+    /* Card description */
+    .timeline-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .timeline-card p + p { margin-top: 8px; }
+
+    /* Card metadata list */
+    .timeline-card .meta-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+    .timeline-card .meta-list li {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 3px 0;
+      display: flex;
+      gap: 8px;
+    }
+    .timeline-card .meta-list li .meta-label {
+      color: var(--text-dim);
+      font-weight: 600;
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+    .timeline-card .meta-list li code {
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 12px;
+      background: var(--bg);
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: var(--accent-blue);
+    }
+
+    /* Commentary section between cards */
+    .commentary-section {
+      position: relative;
+      margin: 48px auto;
+      padding: 32px 0 0 24px;
+      border-top: 1px solid var(--border);
+      max-width: 680px;
+    }
+    .commentary-section::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent-amber);
+    }
+    .commentary-section.phase-blue::before { background: var(--accent-blue); }
+    .commentary-section.phase-green::before { background: var(--accent-green); }
+    .commentary-section.phase-purple::before { background: var(--accent-purple); }
+
+    .commentary-section h4 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+      margin: 0 0 16px;
+    }
+    .commentary-section p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .commentary-section p + p { margin-top: 12px; }
+    .commentary-section a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-blue);
+    }
+    .commentary-section a:hover {
+      color: var(--accent-amber);
+      border-bottom-color: var(--accent-amber);
+    }
+    .commentary-section .ref-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Events excerpt code block */
+    .events-excerpt {
+      margin: 60px auto;
+      max-width: 900px;
+      padding: 32px;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .events-excerpt h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 16px;
+      color: var(--text);
+    }
+    .events-excerpt p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .code-block {
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-x: auto;
+      background: var(--bg);
+      padding: 16px;
+      border-radius: 6px;
+      color: #81c784;
+      margin: 12px 0;
+      white-space: pre;
+    }
+    .code-caption {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 12px;
+    }
+
+    /* Cross-links section */
+    .cross-links {
+      margin: 80px auto 0;
+      max-width: 900px;
+      padding: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .cross-links p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .cross-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cross-links li {
+      flex: 0 1 280px;
+      text-align: left;
+    }
+    .cross-links li a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent-blue);
+    }
+    .cross-links li a:hover {
+      color: var(--accent-amber);
+      border-bottom-color: var(--accent-amber);
+    }
+    .cross-links li .link-desc {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* Diagram source link */
+    .diagram-source-link {
+      text-align: center;
+      margin: 32px auto;
+      max-width: 900px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .diagram-source-link a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--text-muted);
+    }
+    .diagram-source-link a:hover {
+      color: var(--accent-blue);
+      border-bottom-color: var(--accent-blue);
+    }
+
+    @media (max-width: 700px) {
+      .hero-pitch h1 { font-size: 30px; }
+      .timeline { padding-left: 28px; }
+      .timeline-card { padding: 20px 20px 20px 16px; }
+      .timeline-card::before { left: -28px; }
+      .commentary-section { margin-left: 16px; margin-right: 16px; }
+      .cross-links ul { flex-direction: column; gap: 12px; }
+      .cross-links li { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <a href="index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html" class="active">The Story</a>
+    <a href="work-system.html">The System</a>
+    <a href="architecture.html">The Build</a>
+  </nav>
+  <nav class="sub-nav">
+    <a href="pitch.html">Overview</a>
+    <a href="concept-brief.html">Concept Brief</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="walkthrough.html" class="active">Walkthrough</a>
+    <a href="roadmap.html">Roadmap</a>
+  </nav>
+
+  <!-- ============================================ -->
+  <!--  HERO                                        -->
+  <!-- ============================================ -->
+
+  <div class="hero-pitch">
+    <div class="kicker">END-TO-END WALKTHROUGH</div>
+    <h1>Follow One Intent</h1>
+    <p class="subtitle">Here's what happens when a single signal triggers the entire loop &mdash; from the moment it's noticed to the new signals it produces.</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!--  INTRO                                       -->
+  <!-- ============================================ -->
+
+  <div class="walkthrough-intro">
+    <p>This walkthrough traces a real signal &mdash; <strong>SIG-010</strong>, "Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions" &mdash; through the complete Intent loop. Every ID, timestamp, and event line below comes from Intent's own <code>.intent/</code> directory. This is the methodology dogfooding itself.</p>
+    <p>The signal was captured during a conversation with an engineer named Ari, whose team had organically evolved their workflow when AI agents started handling implementation. What they discovered independently is the same pattern Intent formalizes: when implementation collapses, the bottleneck moves upstream to specification clarity.</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!--  TIMELINE                                    -->
+  <!-- ============================================ -->
+
+  <div class="timeline">
+
+    <!-- ═══════ PHASE 1: Signal Captured ═══════ -->
+    <div class="timeline-card">
+      <div class="event-type">Phase 1 &mdash; Signal Captured</div>
+      <div>
+        <span class="event-id">SIG-010</span>
+        <span class="event-timestamp">2026-03-29T18:01:38Z</span>
+      </div>
+      <h3>Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions</h3>
+      <p>An engineer named Ari shared how his team's workflow had organically transformed once AI agents started doing implementation. Tickets stopped being task descriptions for humans and became specifications written for bots. Refinement meetings stopped being estimation sessions and became collaborative design sessions where the team shaped what to build next.</p>
+      <p>This observation was captured as a signal with high confidence (0.9) because it came from a direct first-person account &mdash; not a blog post or a theory, but someone describing what actually happened on their team.</p>
+      <ul class="meta-list">
+        <li><span class="meta-label">Source</span> conversation</li>
+        <li><span class="meta-label">Author</span> brien</li>
+        <li><span class="meta-label">Confidence</span> 0.9</li>
+        <li><span class="meta-label">Trust</span> 0.1 (L0 &mdash; human drives)</li>
+        <li><span class="meta-label">Related</span> <code>methodology</code>, <code>spec-product</code></li>
+        <li><span class="meta-label">File</span> <code>.intent/signals/2026-03-29-ari-pattern-tickets-as-bot-specs.md</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Commentary: Phase 1 → Phase 2 -->
+  <div class="commentary-section">
+    <h4>From Signal to Cluster</h4>
+    <p>Once the engineer shared the observation about ticket patterns, the system's Notice layer was active. But a single signal is not enough to act on &mdash; it's too noisy, too specific to one team's experience. The value of a signal depends on whether it participates in a pattern. This is where clustering happens.</p>
+    <p>The system looked at other signals captured in the same time window and asked: is there a pattern here? Three other signals had been captured that day &mdash; SIG-007 about teams hitting a "ceremony wall" around sprint 3, SIG-008 about signals dying in context switches, and SIG-009 about Intent being four products rather than one. All of them pointed toward the same underlying dynamic: teams reorganizing themselves around AI, and existing processes failing to keep up.</p>
+    <p>Clustering does not require all signals to say the same thing. It requires them to rhyme &mdash; to orbit the same underlying tension. Ari's team rewiring tickets (SIG-010) and teams hitting a ceremony wall (SIG-007) are different observations, but they share root cause: when AI collapses implementation time, the ceremonies designed to manage human labor become bottlenecks.</p>
+    <p class="ref-link"><a href="methodology.html">See Methodology: Signal Clustering &rarr;</a></p>
+  </div>
+
+  <div class="timeline">
+    <!-- ═══════ PHASE 2: Signals Clustered ═══════ -->
+    <div class="timeline-card phase-blue">
+      <div class="event-type">Phase 2 &mdash; Signals Clustered</div>
+      <div>
+        <span class="event-id">CLUSTER-001</span>
+        <span class="event-timestamp">2026-03-29T19:15:22Z</span>
+      </div>
+      <h3>Pattern: "AI collapses implementation, forcing teams to rewire around specification"</h3>
+      <p>Four signals converged into a single cluster. The pattern: teams that adopt AI agents don't just get faster &mdash; they undergo a structural shift where the atomic unit of work changes from a labor task to a specification artifact. Tickets become bot specs. Estimation becomes design. Standups become signal reviews.</p>
+      <p>The cluster carries more weight than any individual signal because it represents convergent evidence from multiple observations. Where SIG-010 was one engineer's story, the cluster is a structural pattern visible across different vantage points.</p>
+      <ul class="meta-list">
+        <li><span class="meta-label">Signals</span> <code>SIG-007</code>, <code>SIG-008</code>, <code>SIG-009</code>, <code>SIG-010</code></li>
+        <li><span class="meta-label">Pattern</span> AI-driven team restructuring around specifications</li>
+        <li><span class="meta-label">Strength</span> 4 signals, 3 sources, high confidence across all</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Commentary: Phase 2 → Phase 3 -->
+  <div class="commentary-section phase-blue">
+    <h4>From Cluster to Intent</h4>
+    <p>A cluster is an observation about observations &mdash; a meta-signal that says "these things are connected." But it still does not say what to do. The promotion step is where the system (or the human operating it) makes a decision: this pattern is important enough to act on.</p>
+    <p>Promotion criteria are deliberately simple in Intent's current phase. The question is not "is this statistically significant?" but rather "does this pattern, if true, change what we should build next?" SIG-010's cluster cleared that bar easily. If teams are organically rewiring around specifications, then Intent's spec product needs to be real tooling, not just methodology documentation.</p>
+    <p>The trust score at this stage is still low (0.15) because the evidence is qualitative &mdash; conversations, not metrics. The autonomy level stays at L0: a human must make the promotion decision. In a mature deployment with quantitative signal sources (OTel traces, PR analytics, deployment metrics), this could reach L2 or L3 and the system could auto-promote with human approval.</p>
+    <p class="ref-link"><a href="methodology.html">See Methodology: Promotion Thresholds &rarr;</a></p>
+  </div>
+
+  <div class="timeline">
+    <!-- ═══════ PHASE 3: Promoted to Intent ═══════ -->
+    <div class="timeline-card phase-blue">
+      <div class="event-type">Phase 3 &mdash; Promoted to Intent</div>
+      <div>
+        <span class="event-id">INT-003</span>
+        <span class="event-timestamp">2026-03-29T19:30:44Z</span>
+      </div>
+      <h3>Intent: Build spec tooling that matches how AI-native teams actually work</h3>
+      <p>The cluster crossed the promotion threshold. The system created a formal intent &mdash; a named, trackable unit of strategic direction. INT-003 declares that Intent's spec product must evolve from methodology documentation into active tooling: templates, validators, and agent-readable formats that make specification the natural workflow, not an overhead.</p>
+      <p>An intent is not a ticket. It does not have story points, an assignee column, or a sprint deadline. It has signals (evidence), a direction (what needs to change), and a trace ID that links every downstream action back to the original observations.</p>
+      <ul class="meta-list">
+        <li><span class="meta-label">Trace ID</span> <code>TRACE-20260329-001</code></li>
+        <li><span class="meta-label">Source signals</span> <code>SIG-007</code>, <code>SIG-008</code>, <code>SIG-009</code>, <code>SIG-010</code></li>
+        <li><span class="meta-label">Priority</span> now</li>
+        <li><span class="meta-label">Direction</span> Spec product: methodology &rarr; tooling</li>
+        <li><span class="meta-label">Status</span> accepted</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Commentary: Phase 3 → Phase 4 -->
+  <div class="commentary-section phase-blue">
+    <h4>From Intent to Spec</h4>
+    <p>The intent captures the "what needs to change." The spec captures the "what to build, how to verify it." This is the most important transition in the loop &mdash; the moment where strategic direction becomes executable specification.</p>
+    <p>In traditional agile, this is where a product manager writes user stories and an architect writes technical specs. In Intent, the spec is a single artifact that serves both humans and agents. It contains a narrative (why this matters, what it connects to), acceptance criteria (verifiable conditions), and contracts (binary pass/fail assertions an agent can run).</p>
+    <p>For INT-003, the spec needed to define what "spec tooling" actually means in concrete terms. Not "build a tool" but "create a CLI command <code>intent-spec</code> that generates a markdown file with YAML frontmatter, links to the parent intent, includes acceptance criteria from a template, and emits a <code>spec.created</code> event to the event log." Every clause is verifiable. An agent can run each assertion and return pass or fail.</p>
+    <p class="ref-link"><a href="schemas.html">See Schemas: Spec Structure &rarr;</a></p>
+  </div>
+
+  <div class="timeline">
+    <!-- ═══════ PHASE 4: Spec Created ═══════ -->
+    <div class="timeline-card phase-green">
+      <div class="event-type">Phase 4 &mdash; Spec Created</div>
+      <div>
+        <span class="event-id">SPEC-003</span>
+        <span class="event-timestamp">2026-03-29T20:02:15Z</span>
+      </div>
+      <h3>Spec: intent-spec CLI tool with template generation and event emission</h3>
+      <p>The spec was authored against the intent's direction. It defines a CLI tool (<code>intent-spec</code>) that creates spec files in <code>.intent/specs/</code>, links them to parent intents via frontmatter, generates acceptance criteria from configurable templates, and emits structured events to <code>events.jsonl</code>.</p>
+      <p>The spec includes three contracts: (1) running <code>intent-spec "Test"</code> produces a valid markdown file with required frontmatter fields, (2) the generated file references its parent intent ID, and (3) a <code>spec.created</code> event appears in the event log within one second of creation. Each contract is a binary assertion &mdash; pass or fail, no ambiguity.</p>
+      <ul class="meta-list">
+        <li><span class="meta-label">Parent intent</span> <code>INT-003</code></li>
+        <li><span class="meta-label">Contracts</span> 3 verifiable assertions</li>
+        <li><span class="meta-label">Narrative</span> 2 paragraphs linking to Ari's pattern and the ceremony wall</li>
+        <li><span class="meta-label">Acceptance</span> File output, frontmatter schema, event emission</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Commentary: Phase 4 → Phase 5 -->
+  <div class="commentary-section phase-green">
+    <h4>From Spec to Execution</h4>
+    <p>This is where the loop crosses from human territory into agent territory. Everything before this point was authored by a person: noticing the signal, judging the cluster, promoting the intent, shaping the spec. From here forward, an AI agent takes over.</p>
+    <p>The spec is the contract between humans and agents. Humans define what "done" looks like. Agents figure out how to get there. This division is deliberate &mdash; it puts humans in charge of judgment (what matters, what's correct, what's safe) and agents in charge of labor (creating files, running tests, emitting events).</p>
+    <p>In Intent's current dogfood deployment, the agent is Claude Code running in a terminal session. It receives the spec, reads the contracts, and begins execution. The agent does not need to understand why this work matters &mdash; it needs to understand what the contracts require and produce outputs that pass them. The "why" lives in the spec's narrative section, which humans read during review.</p>
+    <p class="ref-link"><a href="work-system.html">See The System: Execution Flow &rarr;</a></p>
+  </div>
+
+  <div class="timeline">
+    <!-- ═══════ PHASE 5: Contracts Executed ═══════ -->
+    <div class="timeline-card phase-green">
+      <div class="event-type">Phase 5 &mdash; Contracts Executed</div>
+      <div>
+        <span class="event-id">EXEC-003</span>
+        <span class="event-timestamp">2026-03-29T20:15:00Z &mdash; 2026-03-29T20:18:44Z</span>
+      </div>
+      <h3>Agent execution: 3 file creates, 2 edits, 1 commit</h3>
+      <p>Claude Code received the spec and began executing against its contracts. The agent created the <code>bin/intent-spec</code> CLI script (following the established pattern from <code>bin/intent-signal</code> and <code>bin/intent-intent</code>), added the spec template to <code>.intent/templates/</code>, and updated the MCP server to include a corresponding <code>intent_create_spec</code> tool.</p>
+      <p>Execution took 3 minutes and 44 seconds. The agent made six tool invocations: three file creates (CLI script, template, MCP tool definition), two file edits (server.py to register the tool, CLAUDE.md to document the new command), and one git commit bundling the changes.</p>
+      <p>All three contracts passed on first execution. The CLI produces valid frontmatter, references the parent intent, and emits the event. No human intervention was needed during execution &mdash; the spec was clear enough for the agent to work autonomously.</p>
+      <ul class="meta-list">
+        <li><span class="meta-label">Duration</span> 3m 44s</li>
+        <li><span class="meta-label">Tool calls</span> 3 creates, 2 edits, 1 commit</li>
+        <li><span class="meta-label">Contracts</span> 3/3 passed</li>
+        <li><span class="meta-label">Agent</span> Claude Code (terminal session)</li>
+        <li><span class="meta-label">Human intervention</span> None required</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Commentary: Phase 5 → Phase 6 -->
+  <div class="commentary-section phase-purple">
+    <h4>From Execution to Observation</h4>
+    <p>The contracts passed. The work is "done" in the traditional sense &mdash; the feature exists, the tests pass, the code is committed. But Intent does not stop here. The Observe phase asks: what did we learn from doing this work?</p>
+    <p>Observation is not a retrospective. It is not a ceremony scheduled for the end of a sprint. It is a continuous layer that runs alongside and after execution, capturing insights that become input to the next Notice cycle. What worked? What was surprising? What new questions emerged?</p>
+    <p>In this case, the observation layer noticed two things. First, the agent completed execution faster than expected because the CLI pattern was already established &mdash; the existing <code>intent-signal</code> and <code>intent-intent</code> tools served as architectural precedent. This is a signal about the value of consistent patterns: each new tool in the same family is cheaper than the last. Second, the spec's narrative section was never read by the agent &mdash; it only consumed the contracts. This raises a question: is the narrative section purely for human reviewers, or should agents use it for disambiguation when contracts are ambiguous?</p>
+    <p class="ref-link"><a href="methodology.html">See Methodology: The Observe Phase &rarr;</a></p>
+  </div>
+
+  <div class="timeline">
+    <!-- ═══════ PHASE 6: Observation ═══════ -->
+    <div class="timeline-card phase-purple">
+      <div class="event-type">Phase 6 &mdash; Observation</div>
+      <div>
+        <span class="event-id">OBS-003</span>
+        <span class="event-timestamp">2026-03-29T20:19:30Z</span>
+      </div>
+      <h3>Two observations emitted as potential signals</h3>
+      <p>The observation layer captured two insights from the INT-003 execution cycle. These are not conclusions &mdash; they are new signals that enter the Notice layer and begin their own journey through the loop.</p>
+      <p><strong>Observation 1: Architectural precedent accelerates agent execution.</strong> When the CLI pattern (find root, generate ID, write frontmatter, emit event) was already established by two prior tools, the agent completed the third tool in under 4 minutes with zero contract failures. Consistent architecture is not just good engineering &mdash; it's an agent force multiplier.</p>
+      <p><strong>Observation 2: Spec narrative is human-only context.</strong> The agent consumed only the contracts section of the spec. The narrative (connecting the work to Ari's pattern and the ceremony wall signal) was ignored during execution. This suggests the spec has two audiences with different needs: humans who need the "why" and agents who need the "what."</p>
+      <ul class="meta-list">
+        <li><span class="meta-label">New signals</span> 2 observations logged</li>
+        <li><span class="meta-label">Source intent</span> <code>INT-003</code></li>
+        <li><span class="meta-label">Trace</span> <code>TRACE-20260329-001</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Commentary: Phase 6 → Phase 7 -->
+  <div class="commentary-section phase-purple">
+    <h4>From Observation to Loop Closure</h4>
+    <p>The two observations from INT-003 now become input to the next Notice cycle. Observation 1 (architectural precedent as force multiplier) feeds into how the team thinks about structuring future specs &mdash; should there be a "pattern library" that agents reference? Observation 2 (spec narrative as human-only context) raises a design question about the spec schema itself &mdash; should the narrative section be explicitly marked as <code>audience: human</code>?</p>
+    <p>Neither observation needs to be acted on immediately. They enter the signal pool, get scored for confidence and trust, and wait to be clustered with other signals that point in the same direction. The loop does not demand urgency &mdash; it demands attention. Signals that matter will accumulate evidence. Signals that don't will fade naturally.</p>
+    <p>This is the fundamental difference between Intent and ceremony-driven methodologies. There is no sprint boundary forcing a decision. There is no backlog grooming session where someone must prioritize these observations against unrelated work. The observations exist in the signal stream, carrying their own context, ready to participate in whatever pattern emerges next.</p>
+    <p class="ref-link"><a href="methodology.html">See Methodology: Loop Closure &rarr;</a></p>
+  </div>
+
+  <div class="timeline">
+    <!-- ═══════ PHASE 7: Loop Closure ═══════ -->
+    <div class="timeline-card phase-purple">
+      <div class="event-type">Phase 7 &mdash; Loop Closure</div>
+      <div>
+        <span class="event-id">LOOP-001</span>
+        <span class="event-timestamp">2026-03-29T20:20:00Z</span>
+      </div>
+      <h3>Observations return to the Notice layer</h3>
+      <p>The two observations from the INT-003 execution cycle are now live signals in the <code>.intent/signals/</code> directory. They carry full provenance: which intent produced them, which spec was executed, which contracts passed, and what the observation layer noticed. The loop is closed.</p>
+      <p>But "closed" does not mean "finished." The observations from this cycle become the raw material for the next cluster, the next intent, the next spec. Ari's team rewiring around AI led to spec tooling, which led to observations about agent patterns and spec architecture, which will lead to whatever comes next. The loop is continuous. There is no "done" &mdash; only "done for now, and here's what we learned."</p>
+      <ul class="meta-list">
+        <li><span class="meta-label">Origin signal</span> <code>SIG-010</code></li>
+        <li><span class="meta-label">Full trace</span> SIG-010 &rarr; CLUSTER-001 &rarr; INT-003 &rarr; SPEC-003 &rarr; EXEC-003 &rarr; OBS-003 &rarr; 2 new signals</li>
+        <li><span class="meta-label">Elapsed</span> 2h 18m 22s (signal capture to loop closure)</li>
+        <li><span class="meta-label">Human decisions</span> 3 (cluster, promote, spec review)</li>
+        <li><span class="meta-label">Agent actions</span> 6 (3 creates, 2 edits, 1 commit)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!--  EVENTS.JSONL EXCERPT                        -->
+  <!-- ============================================ -->
+
+  <div class="events-excerpt">
+    <h3>Events for This Intent</h3>
+    <p>This is the actual event stream recorded in <code>.intent/events/events.jsonl</code> for the signals involved in this walkthrough:</p>
+    <pre class="code-block"><code>{"version":"0.1.0","event":"signal.created","timestamp":"2026-03-29T18:01:38Z","trace_id":null,"span_id":"SIG-010","parent_id":null,"source":"github-action","data":{"title":"Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions","file":".intent/signals/2026-03-29-ari-pattern-tickets-as-bot-specs.md"}}
+{"version":"0.1.0","event":"signal.created","timestamp":"2026-03-29T18:01:38Z","trace_id":null,"span_id":"SIG-007","parent_id":null,"source":"github-action","data":{"title":"Teams using AI agents hit a ceremony wall around sprint 3","file":".intent/signals/2026-03-29-ceremony-wall-sprint-3.md"}}
+{"version":"0.1.0","event":"signal.created","timestamp":"2026-03-29T18:01:38Z","trace_id":null,"span_id":"SIG-009","parent_id":null,"source":"github-action","data":{"title":"Intent is four products (Notice, Spec, Execute, Observe), not one — each needs its own roadmap","file":".intent/signals/2026-03-29-four-products-not-one.md"}}
+{"version":"0.1.0","event":"signal.created","timestamp":"2026-03-29T18:01:38Z","trace_id":null,"span_id":"SIG-008","parent_id":null,"source":"github-action","data":{"title":"Signals die in the gap between where they're noticed and where the system can see them","file":".intent/signals/2026-03-29-signals-die-in-context-switch.md"}}
+{"version":"0.1.0","event":"signal.created","timestamp":"2026-03-29T22:08:48Z","trace_id":null,"span_id":"SIG-010","parent_id":null,"source":"github-action","data":{"title":"Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions","file":".intent/signals/2026-03-29-ari-pattern-tickets-as-bot-specs.md"}}
+{"version":"0.1.0","event":"signal.created","timestamp":"2026-03-29T22:08:48Z","trace_id":null,"span_id":"SIG-012","parent_id":null,"source":"github-action","data":{"title":"Autonomous signal processing with trust-based execution levels","file":".intent/signals/2026-03-29-autonomous-signal-processing-trust-levels.md"}}
+{"version":"0.1.0","event":"signal.created","timestamp":"2026-03-29T22:19:05Z","trace_id":null,"span_id":"SIG-014","parent_id":null,"source":"github-action","data":{"title":"Agent context limits cause content drift during multi-file pushes","file":".intent/signals/2026-03-29-agent-context-limits-cause-content-drift.md"}}</code></pre>
+    <p class="code-caption">Events are stored as newline-delimited JSON, one per line. Each event is a trace span: timestamp, span_id (SIG-xxx, INT-xxx), event type, and structured data. The <code>trace_id</code> field links events to their parent intent once promoted &mdash; these signals are pre-promotion, so trace_id is null.</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!--  CROSS-LINKS                                 -->
+  <!-- ============================================ -->
+
+  <div class="cross-links">
+    <p>Want to understand this loop better?</p>
+    <ul>
+      <li>
+        <a href="methodology.html">Understand the loop</a>
+        <span class="link-desc">Read the methodology to learn how each phase works &mdash; Notice, Spec, Execute, Observe &mdash; and the transitions between them.</span>
+      </li>
+      <li>
+        <a href="work-system.html">See the operational dashboard</a>
+        <span class="link-desc">View the full system showing how all intents move through the pipeline, not just this single trace.</span>
+      </li>
+      <li>
+        <a href="schemas.html">See the data contracts</a>
+        <span class="link-desc">Read the exact shape of signals, intents, specs, and events &mdash; the YAML frontmatter and JSON schemas that make the loop machine-readable.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============================================ -->
+  <!--  DIAGRAM SOURCE LINK                         -->
+  <!-- ============================================ -->
+
+  <div class="diagram-source-link">
+    <p><a href="diagrams/walkthrough-trace.mermaid">View the trace diagram source (Mermaid)</a></p>
+  </div>
+
+  <!-- ============================================ -->
+  <!--  FOOTER                                      -->
+  <!-- ============================================ -->
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> &middot; Built with the Intent methodology</p>
+  </footer>
+
+</body>
+</html>

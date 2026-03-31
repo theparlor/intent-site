@@ -1,0 +1,24 @@
+graph TD
+    SIG["Signal Captured<br/>SIG-010<br/>2026-03-29T18:01:38Z"]
+    CLUSTER["Signals Clustered<br/>SIG-007, 008, 009, 010<br/>2026-03-29T19:15:22Z"]
+    PROMOTE["Promoted to Intent<br/>INT-003<br/>2026-03-29T19:30:44Z"]
+    SPEC["Spec Created<br/>SPEC-003<br/>2026-03-29T20:02:15Z"]
+    EXEC["Contracts Executed<br/>Tools: create, edit, commit<br/>2026-03-29T20:15:00Z"]
+    OBSERVE["Observation<br/>2 new signals emitted<br/>2026-03-29T20:19:30Z"]
+    LOOP["Loop Closure<br/>Observations → Next Notice Cycle"]
+
+    SIG -->|"Signal arrives"| CLUSTER
+    CLUSTER -->|"Pattern detected"| PROMOTE
+    PROMOTE -->|"Spec request sent"| SPEC
+    SPEC -->|"Execution contract"| EXEC
+    EXEC -->|"Assertions passed"| OBSERVE
+    OBSERVE -->|"Learning captured"| LOOP
+    LOOP -->|"Returns to notice layer"| SIG
+
+    style SIG fill:#f59e0b,stroke:#f59e0b,color:#000
+    style CLUSTER fill:#3b82f6,stroke:#3b82f6,color:#fff
+    style PROMOTE fill:#3b82f6,stroke:#3b82f6,color:#fff
+    style SPEC fill:#10b981,stroke:#10b981,color:#fff
+    style EXEC fill:#10b981,stroke:#10b981,color:#fff
+    style OBSERVE fill:#a855f7,stroke:#a855f7,color:#fff
+    style LOOP fill:#a855f7,stroke:#a855f7,color:#fff
