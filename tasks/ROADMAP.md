@@ -33,7 +33,7 @@ The ARB review identified 7 gaps. Terminal has executed ALL of them. The site is
 
 ---
 
-## Phase 2: Hardening & Verification (NEXT)
+## Phase 2: Hardening & Verification — COMPLETE
 
 These tasks verify that everything built in Phase 0-1 is production-quality. Terminal should execute these IN ORDER.
 
@@ -169,7 +169,7 @@ done
 
 ---
 
-## Phase 3: Product Repo Verification (AFTER SITE)
+## Phase 3: Product Repo Verification — COMPLETE
 
 These verify the observability infrastructure in the product repo (theparlor/intent).
 
