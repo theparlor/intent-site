@@ -8,6 +8,102 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dashboard guide section */
+    .dashboard-guide {
+      background: rgba(148, 163, 184, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px auto 32px auto;
+      max-width: 900px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .guide-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #f1f5f9;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .guide-toggle::before {
+      content: "\25B6";
+      display: inline-block;
+      transition: transform 0.2s ease;
+      font-size: 12px;
+    }
+
+    .guide-toggle[data-expanded="true"]::before {
+      transform: rotate(90deg);
+    }
+
+    .guide-content {
+      display: none;
+    }
+
+    .guide-content.visible {
+      display: block;
+    }
+
+    .guide-content p {
+      margin-bottom: 16px;
+      color: #94a3b8;
+    }
+
+    .guide-content p strong {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .guide-content a {
+      color: #3b82f6;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+
+    .guide-content a:hover {
+      color: #60a5fa;
+    }
+
+    /* Concept callout grid */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+    }
+
+    .concept-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .concept-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .concept-dot.signal { background: #f59e0b; }
+    .concept-dot.intent { background: #3b82f6; }
+    .concept-dot.spec { background: #3b82f6; }
+    .concept-dot.observe { background: #a855f7; }
+  </style>
 </head>
 <body>
   <nav class="site-nav">
@@ -23,8 +119,74 @@
     <a href="schemas.html">Schemas</a>
     <a href="signals.html">Signals</a>
     <a href="dogfood.html">Dogfood</a>
+    <a href="observe.html">Observe</a>
     <a href="event-catalog.html">Events</a>
+    <a href="getting-started.html">Start</a>
   </nav>
+
+  <!-- Dashboard Guide Section -->
+  <div class="dashboard-guide">
+    <button class="guide-toggle" data-expanded="true" id="guide-toggle">
+      How to read this dashboard
+    </button>
+    <div class="guide-content visible" id="guide-content">
+      <p>
+        The Work System dashboard is the operational centerpiece of Intent. It surfaces all
+        <strong>signals</strong> entering the system (from traces, user research, and agents),
+        <strong>intents</strong> with their lifecycle status (hypothesis, exploring, validated, invalidated),
+        <strong>specs</strong> under execution and their contracts, and live
+        <strong>observations</strong> flowing back into the system.
+        This is where you see Intent in operation &mdash; every artifact from signal to observation.
+      </p>
+
+      <p>
+        The dashboard is organized into five tabs.
+        <strong>Work Ontology</strong> defines the unit types (Signal, Intent, Spec, Contract, Capability, Feature, Product) and how they relate.
+        <strong>Three Dimensions</strong> shows the work system's structural axes: work stream, ownership, and governance.
+        <strong>Agent Flow</strong> illustrates how agents move work through the system &mdash; signal intake, spec execution, observation writeback.
+        <strong>Dashboard</strong> is the live view of upcoming, in-progress, and completed work with status indicators.
+        <strong>Agile &rarr; Intent</strong> provides a translation table for teams migrating from Agile/Scrum vocabulary.
+      </p>
+
+      <p>
+        Pick your entry point based on what you're trying to understand.
+        Start with <strong>Work Ontology</strong> if you're new to the units.
+        Jump to <strong>Agent Flow</strong> if you want to understand how work moves through the system.
+        Use <strong>Dashboard</strong> to see live status and track progress.
+        Check <strong>Agile &rarr; Intent</strong> if you're comparing to familiar Agile vocabulary.
+      </p>
+
+      <p><strong>Key concepts at a glance:</strong></p>
+      <div class="concept-grid">
+        <div class="concept-item">
+          <span class="concept-dot signal"></span>
+          <span><strong>Signals</strong> &mdash; observed changes, insights, opportunities</span>
+        </div>
+        <div class="concept-item">
+          <span class="concept-dot intent"></span>
+          <span><strong>Intents</strong> &mdash; desired outcomes with success criteria</span>
+        </div>
+        <div class="concept-item">
+          <span class="concept-dot spec"></span>
+          <span><strong>Specs</strong> &mdash; declarative behavior agents execute</span>
+        </div>
+        <div class="concept-item">
+          <span class="concept-dot observe"></span>
+          <span><strong>Observations</strong> &mdash; results flowing back from execution</span>
+        </div>
+      </div>
+      <p style="color: #64748b; font-size: 13px; margin-top: -8px;">
+        These four artifacts form the loop: notice &rarr; spec &rarr; execute &rarr; observe &rarr; notice again.
+      </p>
+
+      <p>
+        Ready to dive deeper? <a href="methodology.html">See the full methodology &rarr;</a><br>
+        Want to try it yourself? <a href="getting-started.html">See the Getting Started guide &rarr;</a>
+      </p>
+    </div>
+  </div>
+  <!-- END: Dashboard Guide Section -->
+
   <div id="root"></div>
   <script type="text/babel" data-type="module">
     const { useState } = React;
@@ -896,6 +1058,34 @@ function IntentWorkSystem() {
   );
 }
     ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(IntentWorkSystem));
+  </script>
+  <script>
+    // Dashboard guide toggle handler
+    (function() {
+      var toggle = document.getElementById('guide-toggle');
+      var content = document.getElementById('guide-content');
+      if (!toggle || !content) return;
+
+      // Restore preference from localStorage
+      var dismissed = localStorage.getItem('intent-guide-dismissed');
+      if (dismissed === 'true') {
+        content.classList.remove('visible');
+        toggle.setAttribute('data-expanded', 'false');
+      }
+
+      toggle.addEventListener('click', function() {
+        var isExpanded = toggle.getAttribute('data-expanded') === 'true';
+        if (isExpanded) {
+          content.classList.remove('visible');
+          toggle.setAttribute('data-expanded', 'false');
+          localStorage.setItem('intent-guide-dismissed', 'true');
+        } else {
+          content.classList.add('visible');
+          toggle.setAttribute('data-expanded', 'true');
+          localStorage.removeItem('intent-guide-dismissed');
+        }
+      });
+    })();
   </script>
 </body>
 </html>

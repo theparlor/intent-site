@@ -1,0 +1,27 @@
+graph TB
+    Execute["⚙️ Execution<br/>Contract completes<br/>Assertions verified"]
+    Events["📤 Events Emitted<br/>OTel traces<br/>Metrics, logs"]
+    Collector["🔄 OTel Collector<br/>Ingest, process<br/>Filter attributes"]
+    Storage["💾 Storage Backends<br/>Tempo (traces)<br/>Mimir (metrics)<br/>Loki (logs)"]
+    Dashboard["📊 Grafana Dashboard<br/>Cycle time, traces<br/>Trust scores"]
+    Human["👤 Human Observes<br/>Reads dashboard<br/>Asks 'what did we learn?'"]
+    Pattern["🔍 Pattern Recognized<br/>Insight discovered<br/>'What's next?'"]
+    Signal["✨ Signal Created<br/>Recorded in Git<br/>Becomes spec candidate"]
+
+    Execute -->|"Events flow"| Events
+    Events -->|"Telemetry"| Collector
+    Collector -->|"Enriched data"| Storage
+    Storage -->|"Query & visualize"| Dashboard
+    Dashboard -->|"Observe"| Human
+    Human -->|"Interpret"| Pattern
+    Pattern -->|"Formalize"| Signal
+    Signal -->|"Back to"| Execute
+
+    style Execute fill:#1a1a2e,stroke:#f59e0b,stroke-width:2px,color:#f1f5f9
+    style Events fill:#1a1a2e,stroke:#3b82f6,stroke-width:2px,color:#f1f5f9
+    style Collector fill:#1a1a2e,stroke:#3b82f6,stroke-width:2px,color:#f1f5f9
+    style Storage fill:#1a1a2e,stroke:#10b981,stroke-width:2px,color:#f1f5f9
+    style Dashboard fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#f1f5f9
+    style Human fill:#1a1a2e,stroke:#ec4899,stroke-width:2px,color:#f1f5f9
+    style Pattern fill:#1a1a2e,stroke:#f59e0b,stroke-width:2px,color:#f1f5f9
+    style Signal fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#f1f5f9

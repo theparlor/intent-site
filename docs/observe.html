@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observe - Intent</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#1e293b',
+                primaryTextColor: '#f1f5f9',
+                primaryBorderColor: '#334155',
+                lineColor: '#64748b',
+                secondaryColor: '#0f172a',
+                tertiaryColor: '#1e293b',
+                fontFamily: 'Inter, system-ui, sans-serif'
+            }
+        });
+    </script>
+    <style>
+        /* Page-specific styling */
+        .header-kicker {
+            color: #f59e0b;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+
+        .section-intro {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            margin-bottom: 2rem;
+        }
+
+        .narrative-section {
+            margin: 3rem 0;
+        }
+
+        .narrative-section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 1.5rem;
+        }
+
+        .narrative-section p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.0625rem;
+        }
+
+        .narrative-section ul {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.0625rem;
+            padding-left: 1.5rem;
+        }
+
+        .narrative-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .example-block {
+            background: #0f172a;
+            border-left: 3px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.25rem;
+        }
+
+        .example-block strong {
+            color: #fbbf24;
+            display: block;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+
+        .example-block p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin: 0.5rem 0;
+        }
+
+        .example-block p strong {
+            color: #e2e8f0;
+            display: inline;
+            text-transform: none;
+            font-size: inherit;
+            margin-bottom: 0;
+        }
+
+        .diagram-container {
+            margin: 3rem 0;
+            background: #0f172a;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid #334155;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+
+        .diagram-source {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        .diagram-source a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .diagram-source a:hover {
+            text-decoration: underline;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .insight-card h3 {
+            color: #f1f5f9;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .insight-card .visual-hint {
+            color: #60a5fa;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .insight-card p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin: 0.5rem 0;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .related-pages {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+        }
+
+        .related-pages h2 {
+            font-size: 1.5rem;
+            color: #f1f5f9;
+            margin-bottom: 2rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #60a5fa;
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+        }
+
+        .card h3 {
+            color: #f1f5f9;
+            font-size: 1.25rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="index.html" class="logo"><span>I</span>ntent</a>
+        <a href="pitch.html">The Story</a>
+        <a href="work-system.html" class="active">The System</a>
+        <a href="architecture.html">The Build</a>
+    </nav>
+
+    <nav class="sub-nav">
+        <a href="work-system.html">Overview</a>
+        <a href="flow-diagram.html">Flow</a>
+        <a href="system-diagram.html">System Map</a>
+        <a href="schemas.html">Schemas</a>
+        <a href="signals.html">Signals</a>
+        <a href="dogfood.html">Dogfood</a>
+        <a href="observe.html" class="active">Observe</a>
+        <a href="event-catalog.html">Events</a>
+        <a href="getting-started.html">Start</a>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <p class="header-kicker">Closing the Loop</p>
+            <h1>Observe</h1>
+            <p class="subtitle">
+                Every execution generates data. Observation turns data into understanding. Understanding generates new signals.
+            </p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- SECTION 1: What Observation Means -->
+        <section class="narrative-section">
+            <h2>What Observation Means</h2>
+            <p>
+                Observation is not just monitoring. Not "is the system up?" or "is it fast enough?" Observation is the act of looking at what happened and asking: <em>what did we learn? what does this outcome mean? what should we do next?</em>
+            </p>
+            <p>
+                Most teams already have operational observability. Dashboards glow green. Alerts fire when latency spikes. Uptime percentages decorate quarterly slides. This is monitoring, and it answers a narrow set of operational questions:
+            </p>
+            <ul>
+                <li>Is the system up?</li>
+                <li>Is latency within SLA?</li>
+                <li>Are there errors in the last hour?</li>
+            </ul>
+            <p>
+                These are necessary but insufficient. They tell you whether the machine is running. They do not tell you whether the machine is <em>doing the right thing</em>.
+            </p>
+            <p>
+                Intent observation answers a fundamentally different category of question &mdash; product and learning questions that connect execution back to purpose:
+            </p>
+            <ul>
+                <li>Did the execution work as intended?</li>
+                <li>Did it improve the signal that triggered it?</li>
+                <li>What does this outcome reveal about our next step?</li>
+                <li>Did the contract assertions pass, and what do the margins tell us?</li>
+                <li>Are we learning faster or slower than last week?</li>
+            </ul>
+            <p>
+                The difference is not semantic. Monitoring watches the system. Observation watches the <em>learning</em>. Monitoring answers "is it running?" Observation answers "is it working?" &mdash; where "working" means advancing understanding, reducing uncertainty, and generating new insight.
+            </p>
+            <p>
+                Here is a concrete example. Imagine you executed a spec to "improve signal capture latency from 5 seconds to 2 seconds." The monitoring dashboard would show a latency graph dropping. Green light, move on. But the observation dashboard reveals something richer:
+            </p>
+            <div class="example-block">
+                <strong>Observation Example: Latency Improvement Spec</strong>
+                <p><strong>What happened:</strong> Actual latency is now 1.8 seconds (exceeded the 2-second goal by 10%).</p>
+                <p><strong>The deeper insight:</strong> New signal count increased 40%. Signals that previously timed out during the 5-second window are now being captured. Cost per signal decreased 20% because infrastructure utilization improved &mdash; fewer retries, fewer dropped messages, less wasted compute.</p>
+                <p><strong>The learning:</strong> One team member notices a pattern in the newly captured signals: "most of the previously missed signals come from high-frequency sensors (>100 Hz) that were timing out during peak hours on the global message queue."</p>
+                <p><strong>The next signal:</strong> "High-frequency sensors need dedicated infrastructure. Propose a separate message queue tier for sensors exceeding 100 Hz to prevent peak-hour contention."</p>
+            </div>
+            <p>
+                The observation reveals not just that the spec worked (latency target met), but <em>why it mattered</em> (new signals unlocked that were previously invisible) and <em>what it enables</em> (a targeted infrastructure optimization opportunity). That insight becomes the next signal in the queue. The loop closes.
+            </p>
+            <p>
+                This is the essential difference: monitoring is retrospective accounting. Observation is prospective learning. Monitoring says "the thing happened." Observation says "here is what the thing taught us, and here is what we should do next."
+            </p>
+        </section>
+
+        <!-- SECTION 2: The Loop Closure Mechanism -->
+        <section class="narrative-section">
+            <h2>The Loop Closure Mechanism</h2>
+            <p>
+                Observation closes the feedback loop. Without it, execution is a dead end &mdash; work completes, results accumulate in dashboards nobody reads, and the team moves to the next item on the backlog without absorbing what just happened. With observation, every execution becomes a source of new understanding.
+            </p>
+            <p>
+                Here is how data flows from execution to insight to new intent:
+            </p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+graph TB
+    Execute["Execution<br/>Contract completes<br/>Assertions verified"]
+    Events["Events Emitted<br/>OTel traces<br/>Metrics, logs"]
+    Collector["OTel Collector<br/>Ingest, process<br/>Filter attributes"]
+    Storage["Storage Backends<br/>Tempo traces<br/>Mimir metrics<br/>Loki logs"]
+    Dashboard["Grafana Dashboard<br/>Cycle time, traces<br/>Trust scores"]
+    Human["Human Observes<br/>Reads dashboard<br/>Asks 'what did we learn?'"]
+    Pattern["Pattern Recognized<br/>Insight discovered<br/>'What is next?'"]
+    Signal["Signal Created<br/>Recorded in Git<br/>Becomes spec candidate"]
+
+    Execute -->|"Events flow"| Events
+    Events -->|"Telemetry"| Collector
+    Collector -->|"Enriched data"| Storage
+    Storage -->|"Query and visualize"| Dashboard
+    Dashboard -->|"Observe"| Human
+    Human -->|"Interpret"| Pattern
+    Pattern -->|"Formalize"| Signal
+    Signal -->|"Back to"| Execute
+
+    style Execute fill:#1a1a2e,stroke:#f59e0b,stroke-width:2px,color:#f1f5f9
+    style Events fill:#1a1a2e,stroke:#3b82f6,stroke-width:2px,color:#f1f5f9
+    style Collector fill:#1a1a2e,stroke:#3b82f6,stroke-width:2px,color:#f1f5f9
+    style Storage fill:#1a1a2e,stroke:#10b981,stroke-width:2px,color:#f1f5f9
+    style Dashboard fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#f1f5f9
+    style Human fill:#1a1a2e,stroke:#ec4899,stroke-width:2px,color:#f1f5f9
+    style Pattern fill:#1a1a2e,stroke:#f59e0b,stroke-width:2px,color:#f1f5f9
+    style Signal fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#f1f5f9
+                </div>
+                <p class="diagram-source">
+                    <a href="diagrams/loop-closure.mermaid">Source: loop-closure.mermaid</a>
+                </p>
+            </div>
+
+            <p>
+                The loop is mechanical but the insight is human. Execution is deterministic &mdash; the spec runs or it does not. Events flow automatically through OpenTelemetry instrumentation. Storage scales horizontally across Grafana's backend trifecta: Tempo for distributed traces, Mimir for metrics, Loki for logs. The collector enriches and filters, adding context attributes that make later queries meaningful.
+            </p>
+            <p>
+                But observation &mdash; the moment a human reads the dashboard and thinks <em>"aha, I see the pattern"</em> &mdash; that is where value is created. The system provides the data. The human provides the meaning. And the meaning, formalized as a new signal and recorded in Git, becomes the input for the next cycle.
+            </p>
+            <p>
+                This is not a metaphor. The loop is literal. Every signal has a <code>source</code> field. When that source is <code>observation</code>, you can trace the lineage: this signal was born because someone looked at a dashboard after an execution and noticed something worth investigating. The provenance chain is unbroken.
+            </p>
+        </section>
+
+        <!-- SECTION 3: What the Dashboard Reveals -->
+        <section class="narrative-section">
+            <h2>What the Dashboard Reveals</h2>
+            <p>
+                The Observe dashboard is not a status page. It is a thinking tool. It answers five critical questions about system health, agent capability, and learning velocity. Each question reveals a different dimension of how the system is evolving.
+            </p>
+
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3>"How long does it take?"</h3>
+                    <p class="visual-hint">Cycle Time Histogram</p>
+                    <p>
+                        Cycle time measures the interval from <code>signal.captured</code> to <code>contract.completed</code>. The histogram shows you the distribution: are most specs clustered around 5 seconds? Do some outliers take 60+ seconds? Look for bimodal distributions &mdash; they often reveal two distinct classes of work being routed through the same pipeline.
+                    </p>
+                    <p>
+                        A shift in the distribution is the clearest evidence that observation led to improvement. If the median was 10 seconds last week and 2 seconds this week, something changed. The dashboard does not just show you the number &mdash; it shows you the shape of the change.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <h3>"Where do signals come from?"</h3>
+                    <p class="visual-hint">Source Distribution</p>
+                    <p>
+                        Signals originate from five tiers: manual human observation (Tier 1), execution events (Tier 2), automated clustering (Tier 3), feedback loop signals &mdash; observations of previous observations (Tier 4), and external integrations (Tier 5).
+                    </p>
+                    <p>
+                        A healthy system has diversity across tiers. If 95% of signals are Tier 1 (manual), your automation is missing opportunities. If 0% are Tier 1, you have lost human judgment entirely. The ideal distribution shifts over time: early systems are heavily manual, mature systems have strong Tier 2&ndash;4 contribution while retaining meaningful Tier 1 input.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <h3>"How much can agents do alone?"</h3>
+                    <p class="visual-hint">Trust Score Distribution (L0&ndash;L4)</p>
+                    <p>
+                        Trust scores reveal agent capability across five autonomy levels: L0 (no autonomy, human review required), L1 (simple routing), L2 (guided decisions with templates), L3 (complex execution with interpretation), and L4 (full autonomy including opportunity identification).
+                    </p>
+                    <p>
+                        Most specs start at L1&ndash;L2. As agents prove themselves through successful execution and validated contract assertions, they progress to L3&ndash;L4. The distribution tells you where your agents are operating. Movement rightward means increasing trust. Regression means something broke &mdash; investigate immediately.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <h3>"What's failing?"</h3>
+                    <p class="visual-hint">Contract Assertion Pass/Fail Rate</p>
+                    <p>
+                        Every spec includes explicit contract assertions: "signal count > 1000", "latency < 2s", "backward compatibility maintained." When a contract fails, the dashboard shows it in red. But failure is not the end of the story &mdash; it is the beginning of the next observation.
+                    </p>
+                    <p>
+                        When a contract fails, observation must ask: Why? Was the spec poorly defined? Was the environment different than expected? Is the assertion too strict, or is the system genuinely degraded? Failed contracts are learning opportunities, not incidents. The failure rate trend matters more than any individual failure.
+                    </p>
+                </div>
+
+                <div class="insight-card">
+                    <h3>"What patterns are emerging?"</h3>
+                    <p class="visual-hint">Signal Clustering Trends</p>
+                    <p>
+                        Patterns emerge over time as signals cluster around themes. One week, all signals cluster around "latency." The next week, a new cluster emerges: "trust score plateau." The week after, a cross-cutting pattern appears: "latency improvements correlate with trust score increases."
+                    </p>
+                    <p>
+                        A growing cluster count indicates increasing observational sophistication &mdash; the system is learning to see finer distinctions. A stable count suggests a plateau &mdash; either the system has reached equilibrium or observation has become routine. A declining count may indicate overfitting: the system is collapsing distinct signals into too-broad categories.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: From Observation to New Signals -->
+        <section class="narrative-section">
+            <h2>From Observation to New Signals</h2>
+            <p>
+                The power of observation is not in seeing &mdash; it is in what seeing produces. Every observation that generates a new signal closes the loop. Here are three concrete examples of how execution outcomes flow through observation into new intent.
+            </p>
+
+            <div class="example-block">
+                <strong>Example 1: Latency Observation &rarr; Infrastructure Signal</strong>
+                <p><strong>Execution:</strong> A spec to improve signal capture latency was executed. The contract target was 2 seconds. Actual result: latency dropped from 5 seconds to 1.8 seconds.</p>
+                <p><strong>Observation:</strong> The dashboard revealed more than a latency improvement. New signals were being captured that previously timed out. The distribution shift was dramatic: formerly 30% of signals timed out during processing, now less than 5%. The timeout cluster was almost entirely high-frequency IoT sensors exceeding 100 Hz.</p>
+                <p><strong>Insight:</strong> "Most missed signals come from high-frequency IoT sensors that contend on the global message queue during peak hours. The latency improvement unmasked a capacity problem that was previously invisible because those signals never made it to the dashboard."</p>
+                <p><strong>Signal Created:</strong> "Propose dedicated queue infrastructure for high-frequency sensor streams to eliminate peak-hour contention."</p>
+                <p><strong>Next Spec:</strong> <code>infrastructure-spec.md</code> &mdash; Provision a separate Kafka topic for high-frequency signals (&gt;100 Hz), implement sensor-type routing logic at the collector level, validate with load test simulating peak-hour volumes.</p>
+            </div>
+
+            <div class="example-block">
+                <strong>Example 2: Agent Execution &rarr; Autonomy Evolution Signal</strong>
+                <p><strong>Execution:</strong> An agent executing a spec to "refactor signal schema for v2 compatibility" completed successfully. Contract assertion passed: backward compatibility maintained, all existing consumers continued to function without modification.</p>
+                <p><strong>Observation:</strong> The dashboard trust score for this agent increased from L2 (guided decisions) to L3 (complex execution). During the refactoring, the agent made 5 schema design decisions autonomously &mdash; field naming conventions, nullable handling, enum expansion strategy, index optimization, and migration path selection. All five decisions were validated correct in post-execution review.</p>
+                <p><strong>Insight:</strong> "This agent is ready for L3 autonomy on schema-related specifications. Trust score is trending upward with zero regressions across the last 8 executions. The decisions it made during this spec demonstrate judgment, not just pattern-matching."</p>
+                <p><strong>Signal Created:</strong> "Consider delegating spec interpretation for schema-domain work directly to this agent without human pre-review."</p>
+                <p><strong>Next Spec:</strong> <code>agent-autonomy-spec.md</code> &mdash; Update agent routing rules to assign schema-related specs directly to this agent at L3 trust. Add a post-execution validation gate (rather than pre-execution review) to maintain safety while increasing throughput.</p>
+            </div>
+
+            <div class="example-block">
+                <strong>Example 3: Cost Observation &rarr; Optimization Signal</strong>
+                <p><strong>Execution:</strong> No single spec triggered this observation. Instead, the dashboard revealed a trend: per-execution cost increased 40% over two weeks. The root cause was visible in the metrics breakdown &mdash; Claude API token usage grew because more Opus calls were being made relative to Haiku calls.</p>
+                <p><strong>Observation:</strong> The agent responsible for complexity classification was routing too conservatively. Specs that should have been classified as "simple" (appropriate for Haiku-class models) were being classified as "complex" (routed to Opus). The false-positive rate on complexity classification had drifted from 8% to 35%.</p>
+                <p><strong>Insight:</strong> "The complexity classification prompt is too conservative. It lacks concrete examples of what constitutes 'simple' vs. 'complex' in our domain. Without exemplars, the agent defaults to caution &mdash; which is safe but expensive."</p>
+                <p><strong>Signal Created:</strong> "Refine agent complexity classification prompt with domain-specific examples. Add signal cluster exemplars to reduce false positives on complexity assessment."</p>
+                <p><strong>Next Spec:</strong> <code>prompt-refinement-spec.md</code> &mdash; Iterate the agent system prompt with 10 concrete examples spanning the simple/complex boundary. Measure reduction in Opus over-allocation. Target: restore false-positive rate to below 10% within one week.</p>
+            </div>
+
+            <p>
+                Each example follows the same pattern: execution produces data, observation extracts meaning, meaning becomes a new signal, and the signal drives the next specification. The loop is not aspirational &mdash; it is structural. Every piece of the chain is traceable, every insight is recorded, and every new signal carries the provenance of the observation that created it.
+            </p>
+        </section>
+
+        <!-- SECTION 5: Cross-Links -->
+        <section class="related-pages">
+            <h2>Related Pages</h2>
+            <div class="card-grid">
+                <a href="observability.html" class="card">
+                    <h3>Observability Stack</h3>
+                    <p>See the OTel stack architecture that powers observation. Traces, metrics, logs, and how they flow from execution to dashboard.</p>
+                </a>
+                <a href="dogfood.html" class="card">
+                    <h3>Dogfood</h3>
+                    <p>See live observations of Intent building Intent. Watch the loop in action: signals to specs to execution to observation to new signals.</p>
+                </a>
+                <a href="signals.html" class="card">
+                    <h3>Signals</h3>
+                    <p>See how observations become new signals. Live signal stream showing trust scores, clustering, and pattern detection.</p>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> &middot; Built with the Intent methodology</p>
+    </footer>
+
+</body>
+</html>
