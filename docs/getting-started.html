@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intent — Getting Started</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Getting Started kicker color */
+    .kicker.hl-blue { color: var(--accent-blue); }
+
+    /* Blue callout variant */
+    .callout.blue { border-left-color: var(--accent-blue); background: rgba(59,130,246,0.03); }
+    .callout.blue .highlight { color: var(--accent-blue); }
+
+    /* Amber callout for prerequisites */
+    .callout.amber { border-left-color: var(--accent-amber); background: rgba(245,158,11,0.03); }
+    .callout.amber .highlight { color: var(--accent-amber); }
+
+    /* Step cards */
+    .step-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 24px 0; }
+    .step-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+    .step-num { font-size: 24px; font-weight: 800; color: var(--border); flex-shrink: 0; width: 40px; }
+    .step-card.active .step-num { color: var(--accent-blue); }
+    .step-content h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* Prerequisites list */
+    .prereq-list { list-style: none; padding: 0; margin: 16px 0; }
+    .prereq-list li { padding: 8px 0; font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; }
+    .prereq-list li::before { content: "\2713"; color: var(--accent-blue); font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .prereq-list li code { background: var(--surface); padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--text); }
+    .prereq-list li .optional { color: var(--text-dim); font-style: italic; font-size: 12px; }
+
+    /* Signal file example */
+    .file-example { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-size: 13px; }
+    .file-example .file-path { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; color: var(--text-dim); margin-bottom: 12px; display: block; }
+    .file-example pre { margin: 0; white-space: pre-wrap; }
+
+    /* TUI output */
+    .tui-output { background: #0c1222; border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+    .tui-output .tui-header { color: var(--text); font-weight: 700; }
+    .tui-output .tui-cluster { color: var(--accent-blue); font-weight: 600; }
+    .tui-output .tui-check { color: var(--accent-green); }
+    .tui-output .tui-pending { color: var(--accent-amber); }
+    .tui-output .tui-status { color: var(--accent-purple); }
+
+    /* Dashboard box */
+    .dashboard-box { background: #0c1222; border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin: 20px 0; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+    .dashboard-box .db-title { color: var(--accent-blue); font-weight: 700; }
+    .dashboard-box .db-label { color: var(--text-dim); }
+    .dashboard-box .db-pass { color: var(--accent-green); }
+    .dashboard-box .db-progress { color: var(--accent-amber); }
+    .dashboard-box .db-border { color: var(--border); }
+
+    /* Path cards (What's Next) */
+    .path-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+    .path-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; transition: border-color 0.2s; }
+    .path-card:hover { border-color: var(--accent-blue); }
+    .path-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .path-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
+    .path-card .path-link { font-size: 13px; font-weight: 600; color: var(--accent-blue); text-decoration: none; }
+    .path-card .path-link:hover { text-decoration: underline; }
+    .path-card.methodology h4 { color: var(--accent-amber); }
+    .path-card.worksystem h4 { color: var(--accent-blue); }
+    .path-card.architecture h4 { color: var(--accent-green); }
+
+    /* Adoption tier grid */
+    .tier-grid { display: grid; grid-template-columns: 160px 1fr; gap: 0; margin: 24px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .tier-label { background: var(--surface); padding: 12px 16px; font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+    .tier-desc { padding: 12px 16px; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+    .tier-grid > :nth-last-child(-n+2) { border-bottom: none; }
+    .tier-label.t1 { color: var(--accent-blue); }
+    .tier-label.t2 { color: var(--accent-green); }
+    .tier-label.t3 { color: var(--accent-amber); }
+    .tier-label.t4 { color: var(--accent-purple); }
+
+    @media (max-width: 700px) {
+      .hero-page h1 { font-size: 28px; }
+      .path-grid { grid-template-columns: 1fr; }
+      .tier-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <a href="index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Story</a>
+    <a href="work-system.html" class="active">The System</a>
+    <a href="architecture.html">The Build</a>
+  </nav>
+
+  <nav class="sub-nav">
+    <a href="work-system.html">Overview</a>
+    <a href="flow-diagram.html">Flow</a>
+    <a href="system-diagram.html">System Map</a>
+    <a href="schemas.html">Schemas</a>
+    <a href="signals.html">Signals</a>
+    <a href="dogfood.html">Dogfood</a>
+    <a href="observe.html">Observe</a>
+    <a href="event-catalog.html">Events</a>
+    <a href="getting-started.html" class="active">Start</a>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero-page">
+    <div class="kicker hl-blue">Getting Started</div>
+    <h1>[TRY <span class="accent">INTENT</span>]</h1>
+    <p class="subtitle">From zero to your first signal in 30 minutes</p>
+    <p class="section-body" style="max-width:640px;margin:12px auto 0;text-align:center;color:var(--text-muted);font-size:15px;">Most frameworks ask you to restructure your team before you see value. Intent asks you to notice one thing, record it, and watch what happens. The tooling does the rest.</p>
+  </div>
+
+  <!-- ===== Prerequisites ===== -->
+  <div class="labeled-divider"><hr><span class="label">Before You Begin</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">00</div>
+    <h2 class="section-title">Prerequisites</h2>
+    <p class="section-body">You need three things to get started. Two are required. One is optional until you want agents running autonomously.</p>
+
+    <ul class="prereq-list">
+      <li><code>git</code> &mdash; for repo operations and signal persistence</li>
+      <li><code>Python 3.10+</code> &mdash; for CLI tooling and agent execution</li>
+      <li><code>Claude API key</code> &mdash; optional for signal capture; required for agent execution <span class="optional">(optional)</span></li>
+    </ul>
+
+    <div class="callout amber">
+      <p><span class="highlight">You can capture signals without an API key.</span> The CLI works fully offline for signal capture, review, and promotion. Agent execution (Step 6 and beyond) requires a Claude API key for autonomous spec execution.</p>
+    </div>
+  </section>
+
+  <!-- ===== Step 1: Install & Setup ===== -->
+  <div class="labeled-divider"><hr><span class="label">Step 1</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">01</div>
+    <h2 class="section-title">Install & <span class="hl-blue">Setup</span></h2>
+    <p class="section-body">Clone the repo and run the setup script. Three commands, sixty seconds.</p>
+
+    <div class="code-block">
+      <div class="label">Terminal</div>
+<pre><span class="cmd">git clone</span> <span class="string">https://github.com/theparlor/intent</span> my-intent-workspace
+<span class="cmd">cd</span> my-intent-workspace
+<span class="cmd">python</span> setup.py install
+<span class="cmd">intent</span> --version</pre>
+    </div>
+
+    <div class="callout blue">
+      <p>Setup creates a <span class="highlight"><code>.intent/</code> directory</span> in your workspace root, installs CLI tools (<code>intent-signal</code>, <code>intent-spec</code>, <code>intent-status</code>), and enables git hooks for automatic signal persistence. Every signal you capture is version-controlled from the start.</p>
+    </div>
+  </section>
+
+  <!-- ===== Step 2: Capture Your First Signal ===== -->
+  <div class="labeled-divider"><hr><span class="label">Step 2</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">02</div>
+    <h2 class="section-title">Capture Your <span class="hl-blue">First Signal</span></h2>
+    <p class="section-body">Notice something. Record it. A signal is an observation backed by evidence &mdash; something you saw, measured, or heard that might matter.</p>
+
+    <div class="code-block">
+      <div class="label">Terminal</div>
+<pre><span class="cmd">intent-signal capture</span> <span class="string">"Sign-up takes 12 taps on mobile"</span></pre>
+    </div>
+
+    <p class="section-body">The CLI opens your default editor. You record the signal: what you observed, where you observed it, and why it might matter. On save, it writes to <code>.intent/signals/</code> as frontmatter + markdown.</p>
+
+    <div class="file-example">
+      <span class="file-path">.intent/signals/sig-001.md</span>
+<pre><span class="key">---</span>
+<span class="key">trace_id:</span> <span class="value">null</span>
+<span class="key">source:</span> <span class="string">cli-manual</span>
+<span class="key">confidence:</span> <span class="value">0.7</span>
+<span class="key">tags:</span> <span class="string">[ux, onboarding]</span>
+<span class="key">---</span>
+<span class="comment"># Signal: Sign-up takes 12 taps on mobile</span>
+
+Observed in user testing with 3 users. Each needed
+12 tap sequences to complete signup. Expected flow
+was 5 taps max.</pre>
+    </div>
+
+    <div class="callout blue">
+      <p><span class="highlight">Signals are opinions backed by evidence.</span> They don't need to be right &mdash; they need to be noticed. The <code>.intent/</code> directory auto-commits on save, so every signal is immediately part of your project's git history.</p>
+    </div>
+  </section>
+
+  <!-- ===== Step 3: Review & Cluster ===== -->
+  <div class="labeled-divider"><hr><span class="label">Step 3</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">03</div>
+    <h2 class="section-title">Review & <span class="hl-blue">Cluster</span></h2>
+    <p class="section-body">Find patterns in your signals. The review command groups related signals by keyword and semantic similarity, surfacing clusters that might represent real intents.</p>
+
+    <div class="code-block">
+      <div class="label">Terminal</div>
+<pre><span class="cmd">intent-signal review</span></pre>
+    </div>
+
+    <div class="tui-output">
+<span class="tui-header">&#9473;&#9473; Intent Signal Review (5 signals total) &#9473;&#9473;</span>
+
+<span class="tui-cluster">[Cluster 1] UX Friction (3 signals)</span>
+  <span class="tui-check">&#10003;</span> Sign-up takes 12 taps on mobile
+  <span class="tui-check">&#10003;</span> Dashboard has 2-second load lag
+  <span class="tui-check">&#10003;</span> Export button is hidden in menu
+
+<span class="tui-cluster">[Cluster 2] Performance (1 signal)</span>
+  <span class="tui-check">&#10003;</span> API endpoint returns 5KB of unused data
+
+<span class="tui-cluster">[Unclustered] (1 signal)</span>
+  <span class="tui-pending">?</span> Dark mode toggle missing
+    </div>
+
+    <div class="callout blue">
+      <p><span class="highlight">Review runs entirely locally.</span> No server calls, no API key required. It uses simple keyword matching and semantic similarity to find related signals. Clusters with 3+ signals are strong candidates for promotion to intents.</p>
+    </div>
+  </section>
+
+  <!-- ===== Step 4: Promote to Intent ===== -->
+  <div class="labeled-divider"><hr><span class="label">Step 4</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">04</div>
+    <h2 class="section-title">Promote to <span class="hl-blue">Intent</span></h2>
+    <p class="section-body">Turn a signal into a working outcome. Promotion assigns a trace ID, moves the signal from <code>.intent/signals/</code> to <code>.intent/intents/</code>, and asks you to define falsifiable success criteria.</p>
+
+    <div class="code-block">
+      <div class="label">Terminal</div>
+<pre><span class="cmd">intent-signal promote</span> <span class="string">&lt;signal-id&gt;</span></pre>
+    </div>
+
+    <div class="file-example">
+      <span class="file-path">.intent/intents/INTENT-001.md</span>
+<pre><span class="key">---</span>
+<span class="key">trace_id:</span> <span class="string">INTENT-001</span>
+<span class="key">status:</span> <span class="string">hypothesis</span>
+<span class="key">success_criteria:</span> <span class="string">[sign-up completes in &lt;5 taps on mobile]</span>
+<span class="key">impact:</span> <span class="string">[user acquisition, retention]</span>
+<span class="key">---</span>
+<span class="comment"># Intent: Reduce mobile sign-up complexity</span>
+
+Promoted from signal sig-001. Three users tested,
+all exceeded expected tap count by 2.4x.</pre>
+    </div>
+
+    <div class="callout blue">
+      <p><span class="highlight">An Intent is a signal with a falsifiable outcome.</span> It stays open until validated or invalidated by real observations. This is the bridge between "we noticed something" and "we're going to do something about it." Learn more about the full <a href="./methodology.html">Intent methodology</a>.</p>
+    </div>
+  </section>
+
+  <!-- ===== Step 5: Write a Spec ===== -->
+  <div class="labeled-divider"><hr><span class="label">Step 5</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">05</div>
+    <h2 class="section-title">Write a <span class="hl-blue">Spec</span></h2>
+    <p class="section-body">Define the desired behavior. A spec is what agents execute against &mdash; it declares the shape (what's in and out of scope), contracts (verifiable outcomes), and constraints. Specs replace user stories.</p>
+
+    <div class="code-block">
+      <div class="label">Terminal</div>
+<pre><span class="cmd">intent-spec create</span> <span class="string">--from-intent INTENT-001</span></pre>
+    </div>
+
+    <p class="section-body">The CLI scaffolds a spec template linked to your intent. You edit it to define scope, contracts, and constraints.</p>
+
+    <div class="file-example">
+      <span class="file-path">spec/mobile-signup-v2.md</span>
+<pre><span class="comment"># spec/mobile-signup-v2.md</span>
+
+<span class="key">## Intent</span>
+INTENT-001: Reduce mobile sign-up complexity
+
+<span class="key">## Shape</span>
+Reshape the signup flow: email &rarr; password &rarr; optional MFA &rarr; done.
+Out of scope: profile completeness (belongs to onboarding).
+
+<span class="key">## Contracts</span>
+- contract/signup-entry.md: Given mobile device, flow completes in &lt;5 taps
+- contract/mfa-optional.md: MFA checkbox is optional, pre-unchecked</pre>
+    </div>
+
+    <div class="callout blue">
+      <p><span class="highlight">Specs replace user stories.</span> Agents pick them up and execute against the contracts. Each contract is independently verifiable &mdash; it either passes or fails. No ambiguity, no "done when the PM says so." See <a href="./schemas.html">schemas</a> for the full spec data model.</p>
+    </div>
+  </section>
+
+  <!-- ===== Step 6: Observe ===== -->
+  <div class="labeled-divider"><hr><span class="label">Step 6</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">06</div>
+    <h2 class="section-title"><span class="hl-blue">Observe</span></h2>
+    <p class="section-body">Watch the outcome happen. The status dashboard shows the full Intent lifecycle: spec status, execution progress, and observations flowing in. As agents execute and contracts pass, the Intent moves toward validated.</p>
+
+    <div class="code-block">
+      <div class="label">Terminal</div>
+<pre><span class="cmd">intent-status</span></pre>
+    </div>
+
+    <div class="dashboard-box">
+<span class="db-border">&#9484;&#9472;</span> <span class="db-title">INTENT-001: Reduce mobile sign-up complexity</span> <span class="db-border">&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;</span>
+<span class="db-border">&#9474;</span> <span class="db-label">Status:</span> <span class="db-progress">executing</span>                                            <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>                                                              <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span> <span class="db-label">Spec:</span> spec/mobile-signup-v2.md                             <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span> <span class="db-label">Contracts:</span> 2 total                                          <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>   <span class="db-pass">&#10003; signup-entry.md (passed)</span>                              <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>   <span class="db-progress">&#10247; mfa-optional.md (in progress)</span>                         <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>                                                              <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span> <span class="db-label">Observations:</span> 3 recent                                      <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>   &bull; Agent attempted email validation fix                   <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>   &bull; Diff: form.tsx (12 insertions, 3 deletions)          <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>   &bull; Test: mobile flow completes in 4.2 taps               <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span>                                                              <span class="db-border">&#9474;</span>
+<span class="db-border">&#9474;</span> <span class="db-label">Timeline:</span> Created 2h ago                                   <span class="db-border">&#9474;</span>
+<span class="db-border">&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</span>
+    </div>
+
+    <p class="section-body">The observation loop is what makes Intent different from task trackers. Observations aren't status updates &mdash; they're evidence. When enough contracts pass, the Intent validates. When observations contradict the hypothesis, it invalidates. Either way, you learn. <a href="./observe.html">See the full Observe narrative &rarr;</a></p>
+
+    <div class="callout blue">
+      <p><span class="highlight">This is the loop closing.</span> Signal &rarr; Intent &rarr; Spec &rarr; Execute &rarr; Observe. Each observation can become a new signal, starting the cycle again. That's why Intent doesn't need sprints &mdash; the loop is continuous.</p>
+    </div>
+  </section>
+
+  <!-- ===== What's Next ===== -->
+  <div class="labeled-divider"><hr><span class="label">What's Next</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">07</div>
+    <h2 class="section-title">Choose Your <span class="hl-blue">Depth</span></h2>
+    <p class="section-body">You've completed the full loop: notice &rarr; capture &rarr; review &rarr; promote &rarr; spec &rarr; observe. Now go deeper in the direction that matters most to you.</p>
+
+    <div class="path-grid">
+      <div class="path-card methodology">
+        <h4>Deeper into the Methodology</h4>
+        <p>Understand why Intent works. The notice &rarr; spec &rarr; execute &rarr; observe loop explained phase-by-phase, with the theory and tradeoffs behind each stage.</p>
+        <a href="./methodology.html" class="path-link">See the full methodology &rarr;</a>
+      </div>
+      <div class="path-card worksystem">
+        <h4>Wider into the Work System</h4>
+        <p>See the operational dashboard. Every Intent, every spec, every execution &mdash; all in one place. The Jira-replacement view that shows how Intent runs day-to-day.</p>
+        <a href="./work-system.html" class="path-link">See the work system dashboard &rarr;</a>
+      </div>
+      <div class="path-card architecture">
+        <h4>Technical Deep Dive</h4>
+        <p>Understand the architecture. MCP servers, trust model, agent topology, observability stack. How the tooling is built and how to extend it.</p>
+        <a href="./architecture.html" class="path-link">See the architecture &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Adoption Tiers ===== -->
+  <div class="labeled-divider"><hr><span class="label">Scale</span><hr></div>
+
+  <section class="scroll-section">
+    <div class="section-num">08</div>
+    <h2 class="section-title">Scale to <span class="hl-blue">Existing Repos</span></h2>
+    <p class="section-body">Once you've tried Intent in your workspace, you can adopt it incrementally in existing repositories. The native-repos adoption model defines four tiers &mdash; start where you are, advance when you're ready.</p>
+
+    <div class="tier-grid">
+      <div class="tier-label t1">Observable</div>
+      <div class="tier-desc">Start observing with Entire.io. No code changes. Read-only visibility into your existing workflow.</div>
+      <div class="tier-label t2">Instrumented</div>
+      <div class="tier-desc">Add <code>.intent/</code> structure and CLI. Signals, intents, and specs live alongside your code.</div>
+      <div class="tier-label t3">Autonomous</div>
+      <div class="tier-desc">Agents handle signal &rarr; spec &rarr; execute. Human reviews, agents do the work.</div>
+      <div class="tier-label t4">Self-Observing</div>
+      <div class="tier-desc">Full loop closure: observations automatically become new signals. The system improves itself.</div>
+    </div>
+
+    <p class="section-body">Each tier is self-contained. You get value at every level &mdash; you don't need to reach Tier 4 to benefit. Most teams start at Instrumented (Tier 2) after completing this guide.</p>
+
+    <div class="callout blue">
+      <p><span class="highlight">This guide got you to Instrumented.</span> You have a <code>.intent/</code> directory, CLI tools, and your first signal-to-observation loop. From here, explore <a href="./native-repos.html">native repos adoption tiers</a> to scale across your codebase, or read the <a href="./deployment.html">deployment guide</a> to set up MCP servers for agent execution.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> &middot; Built with the Intent methodology</p>
+  </footer>
+
+  <!-- Scroll reveal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('.scroll-section');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+      sections.forEach(s => observer.observe(s));
+    });
+  </script>
+
+</body>
+</html>
