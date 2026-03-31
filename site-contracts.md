@@ -45,7 +45,7 @@ cd docs/
 FAIL=0
 
 # Pillar 1 pages should have "The Story" active in primary nav
-for f in pitch.html concept-brief.html methodology.html roadmap.html; do
+for f in pitch.html concept-brief.html methodology.html walkthrough.html roadmap.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="active"' "$f"; then
       : # has at least one active
@@ -57,7 +57,7 @@ for f in pitch.html concept-brief.html methodology.html roadmap.html; do
 done
 
 # Pillar 2 pages should have "The System" active in primary nav
-for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html event-catalog.html; do
+for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html observe.html event-catalog.html getting-started.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="active"' "$f"; then
       : # has at least one active
@@ -186,8 +186,11 @@ check_size dogfood.html 14000
 check_size roadmap.html 10500
 check_size methodology.html 8400
 check_size concept-brief.html 7000
-check_size decisions.html 3500
-check_size event-catalog.html 1800
+check_size decisions.html 7000
+check_size event-catalog.html 5600
+check_size walkthrough.html 10500
+check_size observe.html 8400
+check_size getting-started.html 7000
 check_size schemas.html 5600
 check_size architecture.html 10500
 check_size agents.html 10500
@@ -205,7 +208,7 @@ cd docs/
 FAIL=0
 
 # Pillar 1: The Story
-for f in pitch.html concept-brief.html methodology.html roadmap.html; do
+for f in pitch.html concept-brief.html methodology.html walkthrough.html roadmap.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="sub-nav"' "$f"; then
       : # has sub-nav
@@ -217,7 +220,7 @@ for f in pitch.html concept-brief.html methodology.html roadmap.html; do
 done
 
 # Pillar 2: The System
-for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html event-catalog.html; do
+for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html observe.html event-catalog.html getting-started.html; do
   if [ -f "$f" ]; then
     if grep -q 'class="sub-nav"' "$f"; then
       : # has sub-nav

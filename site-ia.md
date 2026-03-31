@@ -21,11 +21,12 @@ Think of it like a building with three wings. You enter through the lobby (home/
 | **Hero** | Pitch | pitch.html | Becomes the site index. Fracture grid, loop SVG, stat boxes, timeline, comparison strip, two-plane diagram. The full emotional + intellectual hook. |
 | Depth | Concept Brief | concept-brief.html | Formal product framing — problem, solution, differentiation, audience. |
 | Depth | Methodology | methodology.html | The Intent loop explained — Notice→Spec→Execute→Observe with depth on each phase. |
+| Depth | Walkthrough | walkthrough.html | **NEW (ARB review).** One real intent traced end-to-end: signal → cluster → promote → spec → execute → observe → new signal. The "hello world" that proves the methodology works. |
 | Depth | Roadmap | roadmap.html | Where Intent is headed. Vision-forward, not implementation-detail. |
 
-**Sub-nav label order:** Concept Brief · Methodology · Roadmap
+**Sub-nav label order:** Concept Brief · Methodology · Walkthrough · Roadmap
 
-**Why this grouping:** These pages answer "what is Intent?" from different angles — emotional (pitch), formal (brief), procedural (methodology), temporal (roadmap). A visitor convinced by the pitch naturally wants to understand the concept, then the method, then what's coming.
+**Why this grouping:** These pages answer "what is Intent?" from different angles — emotional (pitch), formal (brief), procedural (methodology), experiential (walkthrough), temporal (roadmap). A visitor convinced by the pitch naturally wants to understand the concept, then the method, then see it work, then see what's coming.
 
 ---
 
@@ -41,11 +42,13 @@ Think of it like a building with three wings. You enter through the lobby (home/
 | Depth | Schemas | schemas.html | Data contracts — signal schema, spec schema, execution record schema. The type system behind the system. |
 | Depth | Signals | signals.html | Live signal stream — 15 signal cards, trust scores, clustering, pattern detection. |
 | Depth | Dogfood | dogfood.html | Intent building Intent. Self-referential proof — the system's own signal stream, specs, and event log. |
-| Depth | Event Catalog | event-catalog.html | Catalog of event types in the system. **Currently thin — candidate for expansion.** |
+| Depth | Observe | observe.html | **NEW (ARB review).** What it means to observe: how loop closure works, what dashboards reveal, how observations become new signals. The Observe phase narrative — the most powerful concept deserves its own page. |
+| Depth | Event Catalog | event-catalog.html | Catalog of event types in the system. **Expanding (ARB review) — will contain all 15 event types with schemas, triggers, and examples.** |
+| Depth | Getting Started | getting-started.html | **NEW (ARB review).** The adoption onramp: stitches deployment + native-repos + CLI into a single "adopt Intent in 30 minutes" path. Distinguishes evaluators from adopters. |
 
-**Sub-nav label order:** Flow · System Map · Schemas · Signals · Dogfood · Events
+**Sub-nav label order:** Flow · System Map · Schemas · Signals · Dogfood · Observe · Events · Start
 
-**Why this grouping:** These pages answer "how does it actually work?" from different angles — operational (work system), visual (flow), structural (schemas), live data (signals), proof (dogfood), and reference (events). A visitor who understands the concept naturally wants to see it in action.
+**Why this grouping:** These pages answer "how does it actually work?" from different angles — operational (work system), visual (flow), structural (schemas), live data (signals), proof (dogfood), narrative (observe), reference (events), and practical (getting started). A visitor who understands the concept naturally wants to see it in action, then try it.
 
 ---
 
@@ -97,6 +100,7 @@ Each pillar's hero page AND depth pages show the same sub-nav below the primary 
   <a href="pitch.html">Overview</a>
   <a href="concept-brief.html">Concept Brief</a>
   <a href="methodology.html">Methodology</a>
+  <a href="walkthrough.html">Walkthrough</a>
   <a href="roadmap.html">Roadmap</a>
 </nav>
 ```
@@ -110,7 +114,9 @@ Each pillar's hero page AND depth pages show the same sub-nav below the primary 
   <a href="schemas.html">Schemas</a>
   <a href="signals.html">Signals</a>
   <a href="dogfood.html">Dogfood</a>
+  <a href="observe.html">Observe</a>
   <a href="event-catalog.html">Events</a>
+  <a href="getting-started.html">Start</a>
 </nav>
 ```
 
@@ -169,6 +175,21 @@ Cross-links connect related content across pillars. These are inline contextual 
 | Observability (Pillar 3) → | Event Catalog (Pillar 2) | "See the 15 event types this stack ingests" |
 | Observability (Pillar 3) → | Architecture (Pillar 3) | "See the MCP server topology that generates events" |
 | Roadmap (Pillar 1) → | Observability (Pillar 3) | "See the observability architecture" |
+| Pitch (Pillar 1) → | Dogfood (Pillar 2) | "See it working right now" |
+| Pitch (Pillar 1) → | Walkthrough (Pillar 1) | "Follow one intent end-to-end" |
+| Methodology (Pillar 1) → | Signals (Pillar 2) | "See real signals from this system" |
+| Methodology (Pillar 1) → | Walkthrough (Pillar 1) | "See the loop in action" |
+| Work System (Pillar 2) → | Methodology (Pillar 1) | "Understand the model behind this dashboard" |
+| Work System (Pillar 2) → | Getting Started (Pillar 2) | "Try it yourself" |
+| Observe (Pillar 2) → | Observability (Pillar 3) | "See the OTel stack architecture" |
+| Observe (Pillar 2) → | Dogfood (Pillar 2) | "See live observations from Intent building itself" |
+| Observe (Pillar 2) → | Signals (Pillar 2) | "See how observations become new signals" |
+| Getting Started (Pillar 2) → | Deployment (Pillar 3) | "See deployment options in depth" |
+| Getting Started (Pillar 2) → | Native Repos (Pillar 3) | "See adoption tiers for existing repos" |
+| Walkthrough (Pillar 1) → | Work System (Pillar 2) | "See the full operational dashboard" |
+| Walkthrough (Pillar 1) → | Schemas (Pillar 2) | "See the data contracts behind each artifact" |
+| System Diagram (Pillar 2) → | Architecture (Pillar 3) | "See the MCP server topology" |
+| System Diagram (Pillar 2) → | Observe (Pillar 2) | "Understand what the Observe layer reveals" |
 
 ---
 
