@@ -54,6 +54,30 @@
 | roadmap.html | Observe product status | Infrastructure Specced (advanced from Schema-Ready) |
 | arb.html | Tech radar items | OTel, Grafana, Tempo (should appear in Adopt/Trial rings) |
 
+## Source: .intent/events.jsonl + .intent/signals/ + .intent/intents/
+| Site page | Claim | Quote/reference |
+|-----------|-------|-----------------|
+| walkthrough.html | End-to-end trace | Real events from a specific intent (signal → spec → contract → observe) |
+| observe.html | Loop closure examples | Observations that became new signals |
+| getting-started.html | "What you'll see" | Example signal capture and event output |
+
+## Source: spec/observability-stack.md (additional pages)
+| Site page | Claim | Quote/reference |
+|-----------|-------|-----------------|
+| observe.html | Dashboard questions | What each Grafana panel answers |
+| observe.html | Loop closure mechanics | How observations flow back to Notice |
+
+## Source: spec/decision-log.md (expanded)
+| Site page | Claim | Quote/reference |
+|-----------|-------|-----------------|
+| decisions.html | D1-D6 ADR entries | Full ADR format with context, rationale, consequences |
+
+## Source: spec/event-catalog.md (expanded)
+| Site page | Claim | Quote/reference |
+|-----------|-------|-----------------|
+| event-catalog.html | 15 event type schemas | signal.*, intent.*, spec.*, contract.*, system.* with field definitions |
+| event-catalog.html | Trigger conditions | When each event fires and from which source |
+
 ## Source: spec/signal-amplification.md
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------|

@@ -30,13 +30,23 @@
 | Signals | signals.html | Rich | Signals | 48KB | Live — verify 15 signals intact |
 | Dogfood | dogfood.html | Rich | Dogfood | 20KB | Live (dual nav: primary + sub) |
 
+### ARB Review Pages (added 2026-03-30)
+
+These pages were identified by the ARB review as gaps in the site's ability to describe the Intent universe.
+
+| Page | File | Page Type | Pillar | Min Size | Status |
+|------|------|-----------|--------|----------|--------|
+| Walkthrough | walkthrough.html | Rich | 1 (Story) | 15KB | New — End-to-end trace of one real intent |
+| Observe | observe.html | Rich | 2 (System) | 12KB | New — Observe phase narrative, loop closure |
+| Getting Started | getting-started.html | Rich | 2 (System) | 10KB | New — Adoption onramp, "30 minutes to Intent" |
+
 ### Supporting Pages (no nav active state)
 
 | Page | File | Page Type | Min Size | Status |
 |------|------|-----------|----------|--------|
 | Observability | observability.html | Rich | 12KB | New — Mermaid architecture diagram, phase cards, metrics table |
-| Decisions | decisions.html | Light | 4KB | Live — candidate for content expansion |
-| Event Catalog | event-catalog.html | Light | 2KB | Live — candidate for content expansion |
+| Decisions | decisions.html | Rich | 10KB | **Expanding (ARB review) — D1-D6 ADRs from ARB panel** |
+| Event Catalog | event-catalog.html | Rich | 8KB | **Expanding (ARB review) — 15 event types with schemas and triggers** |
 | Native Repos | native-repos.html | Rich | 13KB | Live |
 | Visual Brief | visual-brief.html | Light | 1KB | Live (launches visual-brief-app/) |
 
@@ -96,6 +106,13 @@ These are HIGH-VALUE visual elements. Their loss constitutes a critical defect.
 | observability.html | Dashboard preview | Styled panel layout of Grafana Observe dashboard |
 | system-diagram.html | Interactive flow SVG | 5 capture surfaces → pipeline → spec/execute → observe → loop |
 | system-diagram.html | Click-to-explore panels | Detail data for every element: tools, commands, specs |
+| walkthrough.html | Trace timeline | Visual timeline showing signal→cluster→promote→spec→execute→observe |
+| walkthrough.html | Event stream excerpt | Real events from events.jsonl for the traced intent |
+| observe.html | Loop closure diagram | Visual: observation → new signal → back to Notice |
+| observe.html | Dashboard questions | What the Grafana panels answer: cycle time, trust drift, anomalies |
+| getting-started.html | Adoption steps | Step-by-step cards: install → configure → capture → observe |
+| event-catalog.html | Event type cards | 15 event types with schema, trigger conditions, and examples |
+| decisions.html | ADR cards | D1-D6 architecture decision records with context and rationale |
 
 ## File Size Baselines
 
@@ -114,8 +131,11 @@ native-repos.html ~13KB (Rich — React tabbed interface)
 deployment.html   ~12KB (Rich — step cards, platform table, code blocks)
 methodology.html  ~12KB (Light)
 concept-brief.html ~10KB (Light)
-decisions.html    ~4KB (Light — candidate for expansion with actual decision entries)
-event-catalog.html ~2KB (Light — candidate for expansion with 15 event type details)
+decisions.html    ~10KB (Rich — 6 ADR cards from ARB panel, expanded from 4KB stub)
+event-catalog.html ~8KB (Rich — 15 event type cards with schemas, expanded from 2KB stub)
+walkthrough.html  ~15KB (Rich — end-to-end trace timeline, event stream, cross-links)
+observe.html      ~12KB (Rich — loop closure narrative, dashboard questions, observation patterns)
+getting-started.html ~10KB (Rich — adoption steps, CLI quickstart, deployment link)
 schemas.html      ~8KB (Light)
 index.html        ~8KB (Rich — loop strip, card grid, section layout)
 flow-diagram.html ~1.5KB ⚠️ NEEDS REBUILD (was stripped to skeleton)
