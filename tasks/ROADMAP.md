@@ -1,3 +1,31 @@
+---
+title: Roadmap
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+topics:
+  - product-strategy
+created: 2026-03-31
+depth_score: 4
+depth_signals:
+  file_size_kb: 10.5
+  content_chars: 9894
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 2
+  has_summary: 0
+vocab_density: 0.20
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 795, strength: 0.427}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 770, strength: 0.416}
+  - {pair: consulting-operations ↔ engagement-management, count: 498, strength: 0.269}
+  - {pair: consulting-operations ↔ turnberry, count: 448, strength: 0.224}
+  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.136}
+---
 # Site Tasks Roadmap — Execution Plan for Terminal Claude
 
 > Master execution plan for all intent-site task specs. Terminal Claude reads this FIRST before picking up work.
@@ -11,7 +39,7 @@ The ARB review identified 7 gaps. Terminal has executed ALL of them. The site is
 ### Phase 1: ARB Review — COMPLETE
 
 | Task | File | Status | Verification |
-|------|------|--------|--------------|
+|------|------|--------|--------------:|
 | Walkthrough page | walkthrough-page.md | DONE | 35KB, P1 sub-nav, Mermaid source |
 | Observe narrative page | observe-page.md | DONE | 26KB, P2 sub-nav, Mermaid source |
 | Getting Started page | getting-started-page.md | DONE | 24KB, P2 sub-nav |
@@ -23,7 +51,7 @@ The ARB review identified 7 gaps. Terminal has executed ALL of them. The site is
 ### Phase 0: Observability Infrastructure — COMPLETE
 
 | Task | File | Status | Verification |
-|------|------|--------|--------------|
+|------|------|--------|--------------:|
 | System diagram page | system-diagram-page.md | DONE | 38KB, interactive SVG |
 | Observability page | observability-page.md | DONE | 25KB, Mermaid diagram |
 | Fix routing connections | fix-routing-connections.md | DONE | Human→Cluster, Auto→Cluster |
@@ -232,6 +260,27 @@ These tasks move from "specced" to "running." Not yet specced as task files.
 | Dashboard import | Grafana Cloud | Import intent-observe.json, verify panels render |
 | Signal sync pipeline | Site repo | Automate signal card updates from product repo |
 | GitHub Action: freshness check | Product repo | Deploy freshness-action.yml for signal drift detection |
+
+---
+
+## Phase 5: v1.0 Site Sync — COMPLETE
+
+Framework v1.0 (April 5-6) introduced 8 architectural changes. This phase syncs all 8 to the site.
+
+| Task | Pages affected | Status | Verification |
+|------|---------------|--------|--------------|
+| Three-layer architecture | architecture, pitch, methodology, roadmap | DONE | Layer diagram, 6 data flows, stat box |
+| Knowledge Engine separation | pitch, architecture, getting-started, methodology | DONE | KE as Layer 1, standalone adoption path |
+| Fourth MCP server (intent-knowledge) | architecture, agents, deployment, schemas, getting-started, dogfood | DONE | Server card, agent cards, deployment config, CLI |
+| Spec-shaping protocol | agents, methodology | DONE | Four-persona cards, protocol reference |
+| Federated knowledge base | architecture, schemas | DONE | Federation model, cross-scope notation |
+| Engagement rollout order | roadmap | DONE | Subaru → F&G → ASA → Cargill → Footlocker |
+| Redaction at tool level | architecture | DONE | Note in intent-knowledge server card |
+| Decisions D7-D12 | decisions, dogfood | DONE | 6 new ADR cards, stats updated |
+| Content-map traceability | content-map.md | DONE | 51 new entries |
+| Site-spec baselines | site-spec.md | DONE | Updated file sizes and component inventory |
+| CHANGELOG | CHANGELOG.md | DONE | Created with full v1.0.0 entry |
+| Contract verification | all pages | DONE | All 10 contracts pass |
 
 ---
 

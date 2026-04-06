@@ -149,6 +149,13 @@
     .cli-card code { font-size: 0.8rem; color: var(--accent-green); display: block; margin: 0.5rem 0; background: var(--bg); padding: 0.4rem 0.65rem; border-radius: 4px; }
     .cli-card p { font-size: 0.8rem; color: var(--text-dim); }
 
+    /* Engagement rollout timeline */
+    .rollout-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
+    .rollout-item { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.75rem 1rem; font-size: 0.9rem; color: var(--text); }
+    .rollout-item .rollout-num { font-weight: 700; color: var(--accent-blue); margin-right: 0.5rem; }
+    .rollout-item .rollout-company { font-weight: 600; }
+    .rollout-item .rollout-note { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.3rem; }
+
     @media (max-width: 640px) {
       .cli-grid { grid-template-columns: 1fr; }
       .loop-diagram { flex-direction: column; }
@@ -173,7 +180,7 @@
 
   <div class="roadmap-content">
     <h1>Product Roadmap</h1>
-    <p>Intent is four products, one value stream. Each phase of the loop has its own maturity level, tooling, and investment needs. This page shows where each product stands and where energy goes next.</p>
+    <p>Intent is four products, one value stream. Each phase of the loop has its own maturity level, tooling, and investment needs. Intent v1.0 prescribes three independent layers: Compiled Knowledge Base → Transformation OS → Software Spec & Code. Each layer has its own maturity and roadmap. This page shows where each product stands and where energy goes next.</p>
 
     <!-- Loop Diagram -->
     <div class="loop-diagram">
@@ -372,6 +379,37 @@
       </div>
     </div>
 
+    <!-- Knowledge Engine Roadmap -->
+    <div class="product-section">
+      <div class="product-header spec">
+        <span class="personas">◈</span>
+        <h2>Knowledge Engine Roadmap</h2>
+        <span class="maturity-badge conceptual">Separate Product</span>
+      </div>
+      <p class="product-desc">The Knowledge Engine is a separate product with its own roadmap. It compiles raw sources into structured domain knowledge through the three-layer architecture: Compiled Knowledge Base → Transformation OS → Software Spec & Code. Each engagement validates federation, redaction, and compilation patterns before the next begins.</p>
+
+      <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--accent-blue);">Engagement Rollout</h3>
+      <div class="rollout-list">
+        <div class="rollout-item">
+          <span class="rollout-num">1.</span><span class="rollout-company">Subaru</span> — Most data, highest learning — reference implementation
+        </div>
+        <div class="rollout-item">
+          <span class="rollout-num">2.</span><span class="rollout-company">F&G</span> — Insurance domain — validates different industry
+        </div>
+        <div class="rollout-item">
+          <span class="rollout-num">3.</span><span class="rollout-company">ASA</span> — Healthcare — tests third domain
+        </div>
+        <div class="rollout-item">
+          <span class="rollout-num">4.</span><span class="rollout-company">Cargill</span> — Supply chain
+        </div>
+        <div class="rollout-item">
+          <span class="rollout-num">5.</span><span class="rollout-company">Footlocker</span> — Retail
+        </div>
+      </div>
+
+      <p class="product-desc">Each engagement validates federation, redaction, and compilation patterns before the next begins. Subaru becomes the reference implementation — patterns discovered there become Core templates.</p>
+    </div>
+
     <!-- Priority Section -->
     <div class="priority-section">
       <h2>Investment Priority</h2>
@@ -433,7 +471,7 @@
       </div>
     </div>
 
-    <p style="margin-top:2rem;"><a href="arb.html" style="color:var(--accent-blue);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent-blue);">See the technology decisions behind the roadmap &rarr;</a></p>
+    <p style="margin-top:2rem;"><a href="arb.html" style="color:var(--accent-blue);font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent-blue);">See the technology decisions behind the roadmap →</a></p>
   </div>
 
   <footer>

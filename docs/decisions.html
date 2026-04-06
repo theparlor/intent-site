@@ -162,9 +162,9 @@
 
         <!-- ADR COLLECTION -->
         <section class="adr-collection">
-            <h2>Architectural Decisions (D1–D6)</h2>
+            <h2>Architectural Decisions (D1–D12)</h2>
             <p>
-                The following six decisions form the architectural spine of Intent. They were made by the Architecture Review Board (ARB) in the design phase and guide all development. Each decision record links back to <a href="arb.html">the ARB</a> for the full governance context.
+                The following twelve decisions form the architectural spine of Intent. They were made by the Architecture Review Board (ARB) in the design phase and guide all development. Each decision record links back to <a href="arb.html">the ARB</a> for the full governance context.
             </p>
 
             <!-- D1 CARD -->
@@ -466,6 +466,276 @@
                         <ul class="consequences-list">
                             <li>Build all six (delays MVP by 6–12 months)</li>
                             <li>Build three immediately (still overscopes Phase 1)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D7 CARD -->
+            <div class="adr-card">
+                <h3>D7: Two Products, Not One</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent started as a single system. As the knowledge base grew more capable, it became clear that the compiled knowledge base and the notice→spec→execute→observe loop are independently valuable. A team might want a compiled knowledge base without adopting the full Intent loop. Conflating them creates unnecessary coupling.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Intent (methodology) and Knowledge Engine (product) are formally separated. Knowledge Engine is separable — it can be used without the Intent loop. Brien's Knowledge Farm (Subaru, ASA, F&G engagement data) is an instance of the Knowledge Engine, not part of Intent itself. The domain overlap between Brien's consulting practice and Intent's methodology is coincidental, not structural.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Separation enables independent adoption paths. A team can adopt the Knowledge Engine for compiled domain understanding without committing to the full Intent loop. It also prevents the Knowledge Engine from inheriting Intent-specific assumptions (like the four-phase loop) that don't apply to all knowledge compilation use cases.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Two product roadmaps. Two adoption stories. Knowledge Engine gets its own AGENTS.md, CLI, and MCP server. Intent's three-layer architecture makes this separation explicit — Layer 1 (Knowledge Engine) is independent of Layer 2 (Intent loop).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Keep as one product (creates coupling, limits KE adoption). Extract KE to separate repo (premature — shared patterns still evolving).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D8 CARD -->
+            <div class="adr-card">
+                <h3>D8: Engagement Rollout Order</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>The Knowledge Engine needs to be validated against real engagement data. Five engagements are candidates: Subaru, F&G, ASA, Cargill, Footlocker. Each has different data volumes, complexity, and learning potential. The rollout order determines where we learn fastest.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Subaru → F&G → ASA → Cargill → Footlocker. Subaru first because it has the most data and the highest learning potential. Each engagement validates federation, redaction, and compilation patterns before the next begins.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Subaru's data volume stress-tests the compilation pipeline. F&G tests a different domain (insurance vs automotive manufacturing). ASA tests healthcare. Cargill and Footlocker extend to supply chain and retail. This progression maximizes domain diversity per engagement.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Subaru becomes the reference implementation. Patterns discovered there become Core templates. Later engagements inherit proven patterns rather than discovering them independently.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Alphabetical (no learning optimization). Smallest first (less learning, lower risk but slower maturation). Parallel (too much surface area for one practitioner).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D9 CARD -->
+            <div class="adr-card">
+                <h3>D9: Knowledge Engine as New MCP Server</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Knowledge operations (ingest, query, lint) need a server interface for agent access. Two options: bolt onto the existing intent-notice server (since Notice consumes knowledge output) or create a new server.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>New `intent-knowledge` server on port 8004 with its own CLI `intent-knowledge` (subcommands: ingest, query, lint). Not bolted onto intent-notice.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Knowledge operations are a different concern than signal capture. Notice consumes knowledge output but doesn't own knowledge lifecycle. Separate servers maintain single-responsibility and enable the Knowledge Engine to be deployed independently (supporting Decision D7). A team using only the Knowledge Engine deploys only intent-knowledge — no need for notice, spec, or observe servers.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Four servers instead of three. Deployment configs need a fourth entry. The architecture diagram gains a layer. But each server has a clear, narrow responsibility.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Bolt onto intent-notice (violates SRP, couples KE to Intent loop). Bolt onto all three (even worse coupling). HTTP API instead of MCP (loses agent-native tooling).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D10 CARD -->
+            <div class="adr-card">
+                <h3>D10: Retroactive Enrichment = Suggested</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>When a new raw source is ingested, it may invalidate or enrich existing knowledge artifacts. Should the system automatically cascade updates, or surface opportunities as signals?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Suggested-first, on-demand second. Lint detects recompilation opportunities and surfaces them as signals. Execution happens on demand, not automatically. No automatic cascades.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Automatic cascades are dangerous — a single bad ingest could trigger recompilation across hundreds of artifacts. Suggested-first preserves human oversight for the most impactful updates while keeping the system responsive. The disambiguation signal pattern (already proven in the Notice phase) applies naturally here.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Some knowledge artifacts may be temporarily stale after a new ingest. The lint cycle catches this and surfaces it. The trade-off is latency for safety — appropriate for a system handling client-confidential data.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Automatic cascades (risk of cascading errors). Manual review only (too slow, Brien becomes the bottleneck). Hybrid with blast-radius limits (added complexity for marginal benefit at current scale).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D11 CARD -->
+            <div class="adr-card">
+                <h3>D11: Redaction at Tool Level</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>The Knowledge Engine handles client-confidential data across multiple engagements. When querying across engagements or promoting from engagement to Core, confidential information must be redacted. Who is responsible for redaction?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>The MCP server applies confidentiality projection automatically based on engagement context. Not a flag Brien has to remember. Every query through intent-knowledge gets filtered by the caller's engagement scope.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Redaction as a manual step is a liability — one forgotten flag leaks client data across engagement boundaries. Tool-level enforcement means the system is secure by default. The federation model's "never leak sideways" rule is enforced at the tool boundary, not the human boundary.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Slightly more complex server implementation. But elimination of a class of confidentiality errors. Queries that cross engagement boundaries return only Core-level knowledge plus the caller's own engagement data.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Manual redaction flag (error-prone). Post-processing filter (late, data already exposed in context). Separate servers per engagement (operational overhead, fragmented knowledge).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D12 CARD -->
+            <div class="adr-card">
+                <h3>D12: Spec-Shaping Through Personas</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>The gap between "intent proposed" and "spec ready for agent execution" is where most specs fail. Intents are captured as Problem/Outcome/Evidence/Constraints — enough for a human, not enough for an agent. Who bridges this gap?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Intents become specs through four-persona interrogation: △ Shape (Architect), ◇ Outcome (Product Leader), ○ Contract (Quality Advocate), ◉ Readiness (Agent). Each persona queries the knowledge base, checks existing decisions, and generates structured assertions. The system self-prompts with each persona. Brien reviews specs, not execution.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Most people use 2 of 10 dimensions when prompting (Huryn's observation). The four-persona protocol ensures all dimensions are covered: role, task, goal, audience, context, style, structure, constraints, output format, and contract. Self-prompting with domain-specific personas produces richer specs than manual authoring because each persona has access to the compiled knowledge base.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Spec quality depends on knowledge base richness + protocol rigor, not Brien's energy. Brien's review point shifts upstream — from reviewing execution output to reviewing spec output (higher leverage). If the readiness assessment (Pass 4) scores below L2, a disambiguation signal is generated instead of executing.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Brien writes all specs manually (doesn't scale, quality varies with energy). Single-pass spec generation (misses dimensions). Template-only approach (doesn't query knowledge base, produces shallow specs).</li>
                         </ul>
                     </div>
                 </div>
