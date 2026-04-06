@@ -288,6 +288,173 @@
             </table>
         </section>
 
+        <!-- Knowledge Artifact Schemas -->
+        <section>
+            <h2>Knowledge <span class="hl">Artifact</span> Schemas</h2>
+            <p>
+                The Knowledge Engine (Layer 1) compiles raw sources into structured knowledge artifacts. Six artifact types form the compiled knowledge base. Each artifact is a markdown file with YAML frontmatter, following the schema defined in knowledge-engine/AGENTS.md.
+            </p>
+
+            <h3>Persona (PER-NNN)</h3>
+            <p>
+                <strong>Storage:</strong> <code>knowledge/personas/</code><br>
+                A structured representation of a user or stakeholder type, compiled from research sources and agent analysis.
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>string</td><td>Sequential identifier (PER-001, PER-002, ...)</td></tr>
+                    <tr><td><code>type</code></td><td>enum</td><td>persona</td></tr>
+                    <tr><td><code>subtype</code></td><td>enum</td><td>product | role | hero | stakeholder | engagement | archetype</td></tr>
+                    <tr><td><code>name</code></td><td>string</td><td>Persona name or archetype label</td></tr>
+                    <tr><td><code>confidence</code></td><td>float</td><td>0.0–1.0 — corroboration level across sources</td></tr>
+                    <tr><td><code>origin</code></td><td>enum</td><td>human | agent | synthetic — source of the persona</td></tr>
+                    <tr><td><code>sources</code></td><td>list</td><td>Source IDs or references this persona derives from</td></tr>
+                    <tr><td><code>related_journeys</code></td><td>list</td><td>Journey map IDs (JRN-NNN) associated with this persona</td></tr>
+                    <tr><td><code>related_decisions</code></td><td>list</td><td>Design decision IDs (DDR-NNN) this persona influences</td></tr>
+                    <tr><td><code>pain_points</code></td><td>list</td><td>Named pain points or friction areas</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Journey Map (JRN-NNN)</h3>
+            <p>
+                <strong>Storage:</strong> <code>knowledge/journeys/</code><br>
+                A structured narrative of a persona's experience over time, with stages, emotions, and decision points.
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>string</td><td>Sequential identifier (JRN-001, JRN-002, ...)</td></tr>
+                    <tr><td><code>type</code></td><td>enum</td><td>journey</td></tr>
+                    <tr><td><code>name</code></td><td>string</td><td>Journey name or scenario label</td></tr>
+                    <tr><td><code>persona</code></td><td>string</td><td>Associated persona ID (PER-NNN)</td></tr>
+                    <tr><td><code>confidence</code></td><td>float</td><td>0.0–1.0 — evidence strength for this journey</td></tr>
+                    <tr><td><code>origin</code></td><td>enum</td><td>human | agent | synthetic</td></tr>
+                    <tr><td><code>sources</code></td><td>list</td><td>Source IDs this journey derives from</td></tr>
+                    <tr><td><code>related_decisions</code></td><td>list</td><td>Decision IDs (DDR-NNN) influenced by this journey</td></tr>
+                    <tr><td><code>stages</code></td><td>list</td><td>Ordered stage names (H3 sections in body with substeps, emotions, pain points)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Design Decision Record (DDR-NNN)</h3>
+            <p>
+                <strong>Storage:</strong> <code>knowledge/decisions/</code><br>
+                A structured record of a design choice, its rationale, validation status, and impact on personas and journeys.
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>string</td><td>Sequential identifier (DDR-001, DDR-002, ...)</td></tr>
+                    <tr><td><code>type</code></td><td>enum</td><td>decision</td></tr>
+                    <tr><td><code>title</code></td><td>string</td><td>Decision statement (e.g., "Use webhooks for async events")</td></tr>
+                    <tr><td><code>status</code></td><td>enum</td><td>proposed | accepted | superseded | validated | invalidated</td></tr>
+                    <tr><td><code>confidence</code></td><td>float</td><td>0.0–1.0 — validation strength</td></tr>
+                    <tr><td><code>origin</code></td><td>enum</td><td>human | agent | synthetic</td></tr>
+                    <tr><td><code>addresses</code></td><td>list</td><td>Pain point IDs or challenge names this decision resolves</td></tr>
+                    <tr><td><code>persona</code></td><td>string?</td><td>Primary persona affected (PER-NNN)</td></tr>
+                    <tr><td><code>journey_stage</code></td><td>string?</td><td>Journey stage where this decision matters</td></tr>
+                    <tr><td><code>superseded_by</code></td><td>string?</td><td>Newer decision ID (DDR-NNN) if this is outdated</td></tr>
+                    <tr><td><code>validated_by</code></td><td>list</td><td>Validation method IDs or test results confirming this decision</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Theme (THM-NNN)</h3>
+            <p>
+                <strong>Storage:</strong> <code>knowledge/themes/</code><br>
+                A cross-cutting concern or pattern observed across personas, journeys, and decisions.
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>string</td><td>Sequential identifier (THM-001, THM-002, ...)</td></tr>
+                    <tr><td><code>type</code></td><td>enum</td><td>theme</td></tr>
+                    <tr><td><code>name</code></td><td>string</td><td>Theme label (e.g., "Asynchronous Communication", "Trust Validation")</td></tr>
+                    <tr><td><code>confidence</code></td><td>float</td><td>0.0–1.0 — how consistently this theme appears</td></tr>
+                    <tr><td><code>origin</code></td><td>enum</td><td>human | agent | synthetic</td></tr>
+                    <tr><td><code>sources</code></td><td>list</td><td>Source IDs supporting this theme</td></tr>
+                    <tr><td><code>related_personas</code></td><td>list</td><td>Persona IDs (PER-NNN) affected by this theme</td></tr>
+                    <tr><td><code>related_journeys</code></td><td>list</td><td>Journey IDs (JRN-NNN) where this theme appears</td></tr>
+                    <tr><td><code>related_decisions</code></td><td>list</td><td>Decision IDs (DDR-NNN) addressing this theme</td></tr>
+                    <tr><td><code>signals</code></td><td>list</td><td>Signal IDs (SIG-NNN) that first surfaced this theme</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Domain Model (DOM-NNN)</h3>
+            <p>
+                <strong>Storage:</strong> <code>knowledge/domain-models/</code><br>
+                A structured representation of entities, relationships, and constraints within a bounded context or problem domain.
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>string</td><td>Sequential identifier (DOM-001, DOM-002, ...)</td></tr>
+                    <tr><td><code>type</code></td><td>enum</td><td>domain-model</td></tr>
+                    <tr><td><code>name</code></td><td>string</td><td>Domain name or bounded context label</td></tr>
+                    <tr><td><code>scope</code></td><td>enum</td><td>glossary | bounded-context | entity-relationship | state-machine</td></tr>
+                    <tr><td><code>confidence</code></td><td>float</td><td>0.0–1.0 — structural validation level</td></tr>
+                    <tr><td><code>origin</code></td><td>enum</td><td>human | agent | synthetic</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Design Rationale (RAT-NNN)</h3>
+            <p>
+                <strong>Storage:</strong> <code>knowledge/design-rationale/</code><br>
+                A narrative explaining the reasoning behind design choices, frameworks applied, and trade-offs considered.
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>string</td><td>Sequential identifier (RAT-001, RAT-002, ...)</td></tr>
+                    <tr><td><code>type</code></td><td>enum</td><td>rationale</td></tr>
+                    <tr><td><code>name</code></td><td>string</td><td>Rationale title or topic</td></tr>
+                    <tr><td><code>confidence</code></td><td>float</td><td>0.0–1.0 — consensus or validation level</td></tr>
+                    <tr><td><code>origin</code></td><td>enum</td><td>human | agent | synthetic</td></tr>
+                    <tr><td><code>related_decisions</code></td><td>list</td><td>Decision IDs (DDR-NNN) explained by this rationale</td></tr>
+                    <tr><td><code>frameworks</code></td><td>list</td><td>Named frameworks applied (Torres, Cagan, Jobs-to-be-Done, etc.)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Federation & Confidentiality</h3>
+            <p>
+                Every knowledge artifact carries two federation fields:
+            </p>
+            <ul>
+                <li><code>engagement</code> (string | null): Engagement ID for federated workspaces. <code>null</code> = Core. Cross-scope references use <code>Core:PER-001</code> notation when an Engagement references Core artifacts. Core→Engagement references are not needed. Engagement→Engagement references are forbidden.</li>
+                <li><code>confidentiality</code> (enum): One of <code>public</code>, <code>internal</code>, <code>client-internal</code>, or <code>nda</code>. Controls artifact visibility and usage.</li>
+            </ul>
+            <p>
+                <strong>Origin Tracking:</strong> The <code>origin</code> field (human | agent | synthetic) indicates the source. Agent-generated artifacts start with confidence ≤ 0.5 unless independently corroborated.
+            </p>
+
+            <h3>Entity Dossiers</h3>
+            <p>
+                Six dossier types serve as an intermediate compilation step between raw sources and the six artifact types above. Dossiers aggregate raw evidence before synthesis:
+            </p>
+            <ul>
+                <li><code>DSR-PER</code>: Persona source compilation — raw research about a user type</li>
+                <li><code>DSR-COM</code>: Competitive intelligence — market and competitor analysis</li>
+                <li><code>DSR-PRD</code>: Product research — feature reviews, use case studies</li>
+                <li><code>DSR-SVC</code>: Service research — workflow and process documentation</li>
+                <li><code>DSR-IND</code>: Industry research — domain trends and standards</li>
+                <li><code>DSR-CTX</code>: Context research — organizational and team structure</li>
+            </ul>
+            <p>
+                Dossiers are working documents. Once synthesized into Personas, Journeys, Decisions, Themes, Domain Models, or Design Rationales, they may be archived.
+            </p>
+        </section>
+
         <!-- Work Ontology -->
         <section>
             <h2>Work Ontology v2</h2>
