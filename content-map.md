@@ -11,20 +11,20 @@ technologies:
   - slack
 depth_score: 4
 depth_signals:
-  file_size_kb: 6.3
-  content_chars: 5628
+  file_size_kb: 10.5
+  content_chars: 9880
   entity_count: 1
   slide_count: 0
   sheet_count: 0
   topic_count: 1
   has_summary: 0
-vocab_density: 0.18
+vocab_density: 0.20
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 795, strength: 0.427}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 770, strength: 0.416}
-  - {pair: consulting-operations ↔ engagement-management, count: 498, strength: 0.269}
-  - {pair: consulting-operations ↔ turnberry, count: 448, strength: 0.224}
-  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.136}
+  - {pair: consulting-operations ↔ subaru, count: 814, strength: 0.432}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 787, strength: 0.42}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.271}
+  - {pair: consulting-operations ↔ turnberry, count: 456, strength: 0.225}
+  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.134}
 ---
 # Content Map — intent-site ↔ intent
 
@@ -106,6 +106,18 @@ related_entities:
 | event-catalog.html | 15 event type schemas | signal.*, intent.*, spec.*, contract.*, system.* with field definitions |
 | event-catalog.html | Trigger conditions | When each event fires and from which source |
 
+## Source: Core/personas/ (Unified Persona System)
+| Site page | Claim | Quote/reference |
+|-----------|-------|-----------------|
+| personas.html | 178+ thought leader personas | Core/personas/registry/*.yaml — entity count |
+| personas.html | 7 archetypes | Core/personas/archetypes/*/synthesis.md — archetype definitions |
+| personas.html | Freshening pipeline | Core/personas/freshening-schedule.yaml — cadence tiers |
+| personas.html | Persona catalog cards | Core/personas/registry/*.yaml — name, voice, mental_models, tier |
+| personas.html | Archetype source-humans | Core/personas/archetypes/*/source-humans.yaml — contributor weights |
+| agents.html | 178 voices behind spec-shaping | Cross-link to personas.html |
+| arb.html | Advisory voices that challenge decisions | Cross-link to personas.html |
+| methodology.html | Thought leaders who shape every spec | Cross-link to personas.html |
+
 ## Source: spec/signal-amplification.md
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------| 
@@ -140,7 +152,7 @@ related_entities:
 ## Source: .intent/signals/
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------| 
-| signals.html | 15 signal cards | SIG-001 through SIG-015 |
+| signals.html | 24 signal cards | SIG-001 through SIG-024 (JS array; static fallback updated from 15) |
 | dogfood.html | Signal count and list | Signal stream section |
 
 ## Source: CLAUDE.md § "Three-Layer Architecture (v1.0)"

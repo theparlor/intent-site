@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voices — Intent</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Page-specific kicker ── */
+    .kicker.hl-amber { color: #f59e0b; }
+
+    /* ── Stat row override for 4-col ── */
+    .stat-row-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 32px 0;
+    }
+    @media (max-width: 700px) { .stat-row-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 400px) { .stat-row-4 { grid-template-columns: 1fr; } }
+
+    /* ── Archetype cards ── */
+    .archetype-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    @media (max-width: 700px) { .archetype-grid { grid-template-columns: 1fr; } }
+
+    .archetype-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      border-left: 4px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .archetype-card:hover {
+      transform: translateY(-2px);
+    }
+    .archetype-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .archetype-card .arch-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .archetype-card .source-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+    .archetype-card .source-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .archetype-card .source-tag {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .archetype-card .convictions {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .archetype-card .convictions li {
+      font-size: 13px;
+      color: #cbd5e1;
+      padding: 4px 0 4px 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .archetype-card .convictions li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+
+    /* Archetype color accents */
+    .arch-blue { border-left-color: #3b82f6; }
+    .arch-blue h3 { color: #3b82f6; }
+    .arch-blue:hover { border-color: rgba(59,130,246,0.4); }
+    .arch-blue .convictions li::before { background: #3b82f6; }
+
+    .arch-amber { border-left-color: #f59e0b; }
+    .arch-amber h3 { color: #f59e0b; }
+    .arch-amber:hover { border-color: rgba(245,158,11,0.4); }
+    .arch-amber .convictions li::before { background: #f59e0b; }
+
+    .arch-green { border-left-color: #10b981; }
+    .arch-green h3 { color: #10b981; }
+    .arch-green:hover { border-color: rgba(16,185,129,0.4); }
+    .arch-green .convictions li::before { background: #10b981; }
+
+    .arch-purple { border-left-color: #a855f7; }
+    .arch-purple h3 { color: #a855f7; }
+    .arch-purple:hover { border-color: rgba(168,85,247,0.4); }
+    .arch-purple .convictions li::before { background: #a855f7; }
+
+    .arch-red { border-left-color: #dc2626; }
+    .arch-red h3 { color: #dc2626; }
+    .arch-red:hover { border-color: rgba(220,38,38,0.4); }
+    .arch-red .convictions li::before { background: #dc2626; }
+
+    .arch-cyan { border-left-color: #06b6d4; }
+    .arch-cyan h3 { color: #06b6d4; }
+    .arch-cyan:hover { border-color: rgba(6,182,212,0.4); }
+    .arch-cyan .convictions li::before { background: #06b6d4; }
+
+    .arch-lime { border-left-color: #84cc16; }
+    .arch-lime h3 { color: #84cc16; }
+    .arch-lime:hover { border-color: rgba(132,204,22,0.4); }
+    .arch-lime .convictions li::before { background: #84cc16; }
+
+    /* Full-width archetype card */
+    .archetype-card.full-width {
+      grid-column: 1 / -1;
+    }
+
+    /* ── How Personas Power section ── */
+    .power-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    @media (max-width: 700px) { .power-grid { grid-template-columns: 1fr; } }
+
+    .power-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .power-card:hover { border-color: rgba(59,130,246,0.25); }
+    .power-card .power-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .power-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .power-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Voice catalog controls ── */
+    .catalog-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .search-input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      color: var(--text);
+      font-size: 14px;
+      flex: 1;
+      min-width: 200px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--accent-blue); }
+    .search-input::placeholder { color: var(--text-dim); }
+
+    .filter-pills {
+      display: flex;
+      gap: 6px;
+    }
+    .filter-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .filter-pill:hover { border-color: var(--accent-blue); color: var(--text); }
+    .filter-pill.active { background: rgba(59,130,246,0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
+
+    .result-count {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    /* ── Voice catalog grid ── */
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 1000px) { .voice-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .voice-grid { grid-template-columns: 1fr; } }
+
+    .voice-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .voice-card:hover {
+      border-color: rgba(59,130,246,0.25);
+      transform: translateY(-1px);
+    }
+    .voice-card .voice-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .voice-card .tier-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tier-badge.foundational { color: #f59e0b; background: rgba(245,158,11,0.12); }
+    .tier-badge.primary { color: #3b82f6; background: rgba(59,130,246,0.12); }
+    .tier-badge.secondary { color: #64748b; background: rgba(100,116,139,0.12); }
+
+    .voice-card .voice-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    /* ── Archetype voice cards (in catalog) ── */
+    .voice-card.is-archetype {
+      border-left: 3px solid #a855f7;
+    }
+    .voice-card.is-archetype .voice-name { color: #a855f7; }
+
+    /* ── Freshening pipeline ── */
+    .cadence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    @media (max-width: 700px) { .cadence-grid { grid-template-columns: 1fr; } }
+
+    .cadence-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+    .cadence-card .cadence-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .cadence-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .cadence-card .cadence-count {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .cadence-card .cadence-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    .cadence-monthly .cadence-count { color: #f59e0b; }
+    .cadence-quarterly .cadence-count { color: #3b82f6; }
+    .cadence-long .cadence-count { color: #64748b; }
+
+    /* ── Cross-links ── */
+    .cross-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    @media (max-width: 700px) { .cross-links { grid-template-columns: 1fr; } }
+    .cross-link {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .cross-link:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
+    .cross-link .cl-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .cross-link .cl-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Responsive hero ── */
+    @media (max-width: 700px) {
+      .hero-page h1 { font-size: 28px; }
+    }
+
+    /* ── No results ── */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-dim);
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Primary nav -->
+  <nav class="site-nav">
+    <a href="index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Story</a>
+    <a href="work-system.html" class="active">The System</a>
+    <a href="architecture.html">The Build</a>
+  </nav>
+
+  <!-- Sub-nav -->
+  <nav class="sub-nav">
+    <a href="work-system.html">Overview</a>
+    <a href="flow-diagram.html">Flow</a>
+    <a href="system-diagram.html">System Map</a>
+    <a href="schemas.html">Schemas</a>
+    <a href="signals.html">Signals</a>
+    <a href="personas.html" class="active">Voices</a>
+    <a href="dogfood.html">Dogfood</a>
+    <a href="observe.html">Observe</a>
+    <a href="event-catalog.html">Events</a>
+    <a href="getting-started.html">Start</a>
+  </nav>
+
+  <main class="hero-page">
+
+    <!-- ══════════════════════════════════════════
+         Hero
+         ══════════════════════════════════════════ -->
+    <p class="kicker hl-amber">The System / Voices</p>
+    <h1>178 Voices. 7 <span class="accent">Archetypes.</span></h1>
+    <p class="subtitle">
+      Intent's persona system gives every spec, every ARB review, and every discovery session a grounded advisory board. These are not chatbots playing dress-up. They are compressed conviction sets drawn from published thought leaders, composed into archetypes, and rendered as executable voices in the system.
+    </p>
+
+    <!-- ── Stats ── -->
+    <div class="stat-row-4">
+      <div class="stat-box">
+        <div class="num">178</div>
+        <div class="unit">Named-Human Voices</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">7</div>
+        <div class="unit">Composite Archetypes</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">19</div>
+        <div class="unit">Foundational Tier</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">3</div>
+        <div class="unit">Refresh Cadences</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════════
+       Section 1: The Seven Archetypes
+       ══════════════════════════════════════════════════ -->
+  <div class="labeled-divider"><hr><span class="label">01 &mdash; Archetypes</span><hr></div>
+
+  <section class="scroll-section visible" style="max-width:900px;margin:0 auto;padding:40px 24px;">
+    <div class="section-num">01</div>
+    <div class="section-title">The Seven <span class="hl">Archetypes</span></div>
+    <div class="section-body">
+      Archetypes are grounded composites of named-human thought leaders. Each represents a distinct advisory voice Brien deploys in consulting engagements. They carry the shared convictions of their source humans while blending perspectives no single author covers alone.
+    </div>
+
+    <div class="archetype-grid">
+
+      <!-- Product Thought Leader -->
+      <div class="archetype-card arch-blue">
+        <h3>Product Thought Leader</h3>
+        <div class="arch-desc">Framework-creating practitioners who compress patterns of product success and failure into teachable, transferable shared language. The voice that names dysfunction in product organizations.</div>
+        <div class="source-label">Source Humans</div>
+        <div class="source-list">
+          <span class="source-tag">Teresa Torres (0.30)</span>
+          <span class="source-tag">Marty Cagan (0.30)</span>
+          <span class="source-tag">Jeff Patton (0.25)</span>
+          <span class="source-tag">Pawel Huryn (0.15)</span>
+        </div>
+        <ul class="convictions">
+          <li>Discovery before delivery</li>
+          <li>Outcomes over output</li>
+          <li>Shared understanding over documentation</li>
+          <li>Empowered teams own problems, not backlogs</li>
+        </ul>
+      </div>
+
+      <!-- Transformation Architect -->
+      <div class="archetype-card arch-amber">
+        <h3>Transformation Architect</h3>
+        <div class="arch-desc">Systems designers who read organizational dysfunction as an architecture problem and design structural interventions. The voice that says "your problem isn't the teams -- it's the operating model."</div>
+        <div class="source-label">Source Humans</div>
+        <div class="source-list">
+          <span class="source-tag">John Kotter (0.30)</span>
+          <span class="source-tag">Mik Kersten (0.25)</span>
+          <span class="source-tag">Melissa Perri (0.20)</span>
+          <span class="source-tag">Jonathan Smart (0.15)</span>
+          <span class="source-tag">Edgar Schein (0.10)</span>
+        </div>
+        <ul class="convictions">
+          <li>Transformation is architectural, not motivational</li>
+          <li>Measure flow, not compliance</li>
+          <li>Dual operating systems coexist</li>
+          <li>Culture is the lagging indicator</li>
+        </ul>
+      </div>
+
+      <!-- Flow Engineer -->
+      <div class="archetype-card arch-green">
+        <h3>Flow Engineer</h3>
+        <div class="arch-desc">Systems diagnosticians for delivery organizations. When teams are "busy but nothing ships," this voice reads the system, not the people. Queues, batch sizes, and cost of delay -- not blame.</div>
+        <div class="source-label">Source Humans</div>
+        <div class="source-list">
+          <span class="source-tag">Donald Reinertsen (0.30)</span>
+          <span class="source-tag">Mik Kersten (0.25)</span>
+          <span class="source-tag">Matthew Skelton (0.20)</span>
+          <span class="source-tag">Dominica DeGrandis (0.15)</span>
+          <span class="source-tag">Eliyahu Goldratt (0.10)</span>
+        </div>
+        <ul class="convictions">
+          <li>Flow is the unit of delivery health</li>
+          <li>Queues are the hidden killer</li>
+          <li>Batch size drives cycle time</li>
+          <li>Team design IS delivery architecture</li>
+        </ul>
+      </div>
+
+      <!-- Systems Strategist -->
+      <div class="archetype-card arch-purple">
+        <h3>Systems Strategist</h3>
+        <div class="arch-desc">The voice Brien uses when conversation elevates from product to portfolio to enterprise. Fuses corporate strategy with systems thinking -- feedback loops, leverage points, and evolution curves.</div>
+        <div class="source-label">Source Humans</div>
+        <div class="source-list">
+          <span class="source-tag">Richard Rumelt (0.25)</span>
+          <span class="source-tag">Donella Meadows (0.20)</span>
+          <span class="source-tag">A.G. Lafley (0.20)</span>
+          <span class="source-tag">Roger Martin (0.20)</span>
+          <span class="source-tag">Simon Wardley (0.15)</span>
+        </div>
+        <ul class="convictions">
+          <li>Good strategy is a diagnosis, not an aspiration</li>
+          <li>Systems have leverage points</li>
+          <li>Where to play matters more than how to play</li>
+          <li>Map the landscape before moving</li>
+        </ul>
+      </div>
+
+      <!-- Organizational Psychologist -->
+      <div class="archetype-card arch-red">
+        <h3>Organizational Psychologist</h3>
+        <div class="arch-desc">The diagnostic voice for human system dysfunction -- the invisible layer where transformation lives or dies. Reads the room the way a systems engineer reads a network diagram.</div>
+        <div class="source-label">Source Humans</div>
+        <div class="source-list">
+          <span class="source-tag">Amy Edmondson (0.30)</span>
+          <span class="source-tag">Edgar Schein (0.20)</span>
+          <span class="source-tag">Douglas McGregor (0.15)</span>
+          <span class="source-tag">Jerry Harvey (0.15)</span>
+          <span class="source-tag">Irving Janis (0.10)</span>
+          <span class="source-tag">Laurence Peter (0.10)</span>
+        </div>
+        <ul class="convictions">
+          <li>The invisible layer is where transformation lives or dies</li>
+          <li>Safety before speed</li>
+          <li>Agreement is more dangerous than disagreement</li>
+          <li>Promotion pathology is structural, not individual</li>
+        </ul>
+      </div>
+
+      <!-- Visual Strategist -->
+      <div class="archetype-card arch-cyan">
+        <h3>Visual Strategist</h3>
+        <div class="arch-desc">Brien's most personal archetype. Treats visualization as cognition, not decoration. Drawing IS the thinking process -- the act of putting pen to surface forces clarity and creates shared understanding.</div>
+        <div class="source-label">Source Humans</div>
+        <div class="source-list">
+          <span class="source-tag">Dan Roam (0.30)</span>
+          <span class="source-tag">Nancy Duarte (0.25)</span>
+          <span class="source-tag">Dave Gray (0.20)</span>
+          <span class="source-tag">Sunni Brown (0.15)</span>
+          <span class="source-tag">Jeff Patton (0.10)</span>
+        </div>
+        <ul class="convictions">
+          <li>Drawing IS thinking</li>
+          <li>The right picture beats the right slide</li>
+          <li>Facilitation is design</li>
+          <li>Everyone can draw</li>
+        </ul>
+      </div>
+
+      <!-- Engineering Excellence Advisor -->
+      <div class="archetype-card arch-lime full-width">
+        <h3>Engineering Excellence Advisor</h3>
+        <div class="arch-desc">Brien's bridge archetype. Provides the technical authority needed to earn CTO trust before shifting to organizational and strategic conversations. Speaks both the engineering and organizational languages.</div>
+        <div class="source-label">Source Humans</div>
+        <div class="source-list">
+          <span class="source-tag">Martin Fowler (0.25)</span>
+          <span class="source-tag">Matthew Skelton (0.25)</span>
+          <span class="source-tag">Kent Beck (0.20)</span>
+          <span class="source-tag">Neal Ford (0.15)</span>
+          <span class="source-tag">Robert Martin (0.15)</span>
+        </div>
+        <ul class="convictions">
+          <li>Architecture is a team sport, not a diagram</li>
+          <li>Technical debt is a management decision, not an engineering failure</li>
+          <li>Engineering practices are non-negotiable foundations</li>
+          <li>Evolutionary over planned</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       Section 2: How Personas Power the System
+       ══════════════════════════════════════════════════ -->
+  <div class="labeled-divider"><hr><span class="label">02 &mdash; How It Works</span><hr></div>
+
+  <section class="scroll-section visible" style="max-width:900px;margin:0 auto;padding:40px 24px;">
+    <div class="section-num">02</div>
+    <div class="section-title">How Personas <span class="hl-blue">Power</span> the System</div>
+    <div class="section-body">
+      Personas are not decorations. They are load-bearing components that shape specs, challenge architecture decisions, and surface blind spots before implementation begins.
+    </div>
+
+    <div class="power-grid">
+
+      <div class="power-card">
+        <div class="power-icon">&Delta;&diamondsuit;&cir;&circledcirc;</div>
+        <h3>Spec-Shaping</h3>
+        <p>Four role personas (Architect, PM, Design/QA, Agent) invoke the voice library during the Spec phase. Each role draws on different thought leaders depending on the problem domain. A delivery speed problem summons Flow Engineer voices. A strategy question invokes Systems Strategist. The spec emerges from structured disagreement, not consensus.</p>
+      </div>
+
+      <div class="power-card">
+        <h3>ARB Review</h3>
+        <p>Architectural decisions are challenged from multiple disciplines simultaneously. The Engineering Excellence Advisor evaluates technical feasibility. The Transformation Architect checks organizational fit. The Organizational Psychologist asks whether the team can actually execute. No architecture ships unchallenged.</p>
+      </div>
+
+      <div class="power-card">
+        <h3>Discovery Critique</h3>
+        <p>Before implementation begins, persona critique surfaces blind spots. The Product Thought Leader asks "have you validated the problem?" The Systems Strategist asks "are you playing in the right arena?" The Visual Strategist asks "can you draw it?" If you cannot explain it visually, you do not understand it yet.</p>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <p>"The system's advisory board is not one voice pretending to be many. It is <span class="highlight">many voices whose disagreements produce better specs</span> than any single perspective could."</p>
+      <div class="attr">-- Design principle behind Intent's persona architecture</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       Section 3: Voice Catalog
+       ══════════════════════════════════════════════════ -->
+  <div class="labeled-divider"><hr><span class="label">03 &mdash; Voice Catalog</span><hr></div>
+
+  <section class="scroll-section visible" style="max-width:900px;margin:0 auto;padding:40px 24px;">
+    <div class="section-num">03</div>
+    <div class="section-title">The Complete <span class="hl-green">Voice Catalog</span></div>
+    <div class="section-body">
+      Every entity in the persona registry -- 171 named-human thought leaders and 7 composite archetypes. Filter by tier to see which voices receive the most active investment.
+    </div>
+
+    <!-- Controls -->
+    <div class="catalog-controls">
+      <input type="text" class="search-input" id="voiceSearch" placeholder="Search voices..." autocomplete="off">
+      <div class="filter-pills">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="foundational">Foundational</button>
+        <button class="filter-pill" data-filter="primary">Primary</button>
+        <button class="filter-pill" data-filter="secondary">Secondary</button>
+        <button class="filter-pill" data-filter="archetype">Archetype</button>
+      </div>
+    </div>
+    <div class="result-count" id="resultCount">Showing 178 voices</div>
+
+    <!-- Voice Grid -->
+    <div class="voice-grid" id="voiceGrid">
+
+      <!-- ═══ ARCHETYPES ═══ -->
+      <div class="voice-card is-archetype" data-tier="archetype" data-name="product thought leader">
+        <div class="voice-name">Product Thought Leader</div>
+        <span class="tier-badge" style="color:#a855f7;background:rgba(168,85,247,0.12);">Archetype</span>
+        <div class="voice-desc">Composite of Torres, Cagan, Patton, Huryn. Discovery before delivery, outcomes over output.</div>
+      </div>
+      <div class="voice-card is-archetype" data-tier="archetype" data-name="transformation architect">
+        <div class="voice-name">Transformation Architect</div>
+        <span class="tier-badge" style="color:#a855f7;background:rgba(168,85,247,0.12);">Archetype</span>
+        <div class="voice-desc">Composite of Kotter, Kersten, Perri, Smart, Schein. Transformation is architectural, not motivational.</div>
+      </div>
+      <div class="voice-card is-archetype" data-tier="archetype" data-name="flow engineer">
+        <div class="voice-name">Flow Engineer</div>
+        <span class="tier-badge" style="color:#a855f7;background:rgba(168,85,247,0.12);">Archetype</span>
+        <div class="voice-desc">Composite of Reinertsen, Kersten, Skelton, DeGrandis, Goldratt. Flow is the unit of delivery health.</div>
+      </div>
+      <div class="voice-card is-archetype" data-tier="archetype" data-name="systems strategist">
+        <div class="voice-name">Systems Strategist</div>
+        <span class="tier-badge" style="color:#a855f7;background:rgba(168,85,247,0.12);">Archetype</span>
+        <div class="voice-desc">Composite of Rumelt, Meadows, Lafley, Martin, Wardley. Strategy as diagnosis and leverage points.</div>
+      </div>
+      <div class="voice-card is-archetype" data-tier="archetype" data-name="organizational psychologist">
+        <div class="voice-name">Organizational Psychologist</div>
+        <span class="tier-badge" style="color:#a855f7;background:rgba(168,85,247,0.12);">Archetype</span>
+        <div class="voice-desc">Composite of Edmondson, Schein, McGregor, Harvey, Janis, Peter. Safety before speed.</div>
+      </div>
+      <div class="voice-card is-archetype" data-tier="archetype" data-name="visual strategist">
+        <div class="voice-name">Visual Strategist</div>
+        <span class="tier-badge" style="color:#a855f7;background:rgba(168,85,247,0.12);">Archetype</span>
+        <div class="voice-desc">Composite of Roam, Duarte, Gray, Brown, Patton. Drawing IS thinking, not decoration.</div>
+      </div>
+      <div class="voice-card is-archetype" data-tier="archetype" data-name="engineering excellence advisor">
+        <div class="voice-name">Engineering Excellence Advisor</div>
+        <span class="tier-badge" style="color:#a855f7;background:rgba(168,85,247,0.12);">Archetype</span>
+        <div class="voice-desc">Composite of Fowler, Skelton, Beck, Ford, R. Martin. Bridge between engineering and organizational.</div>
+      </div>
+
+      <!-- ═══ FOUNDATIONAL TIER (monthly/high) ═══ -->
+      <div class="voice-card" data-tier="foundational" data-name="adam grant">
+        <div class="voice-name">Adam Grant</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Organizational psychologist. Rethinking how we work through originals, givers, and productive disagreement.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="ag lafley">
+        <div class="voice-name">A.G. Lafley</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Playing to Win choice cascade. Where to play, how to win, capabilities, management systems.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="annie duke">
+        <div class="voice-name">Annie Duke</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Decision quality under uncertainty. Thinking in bets, quitting strategy, and separating decisions from outcomes.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="dan roam">
+        <div class="voice-name">Dan Roam</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Napkin method -- six ways of seeing. Any problem can be drawn, any drawing can convince.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="donella meadows">
+        <div class="voice-name">Donella Meadows</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Leverage points and system dynamics. Where to intervene in a system for maximum effect.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="jeff gothelf">
+        <div class="voice-name">Jeff Gothelf</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Lean UX and Sense &amp; Respond. Outcomes-based product management and organizational agility.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="jeff patton">
+        <div class="voice-name">Jeff Patton</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">User Story Mapping. Shared understanding, narrative-first planning, conversation tools not documentation.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="jim collins">
+        <div class="voice-name">Jim Collins</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Good to Great, Built to Last. Hedgehog concept, Level 5 leadership, flywheel effect.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="josh seiden">
+        <div class="voice-name">Josh Seiden</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Outcomes Over Output. Lean UX co-author. The discipline of measuring behavior change, not feature delivery.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="manuel pais">
+        <div class="voice-name">Manuel Pais</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Team Topologies co-author. Cognitive load, team interaction modes, platform-as-product.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="marty cagan">
+        <div class="voice-name">Marty Cagan</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Product Operating Model. Empowered teams, feature factory diagnosis, discovery as risk reduction.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="matthew skelton">
+        <div class="voice-name">Matthew Skelton</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Team Topologies. Four team types, three interaction modes. Fast flow of change as organizing principle.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="mik kersten">
+        <div class="voice-name">Mik Kersten</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Flow Framework. Project-to-product, four flow items, value stream measurement.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="petra wille">
+        <div class="voice-name">Petra Wille</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Strong Product People. PM coaching competency model and leadership development framework.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="richard rumelt">
+        <div class="voice-name">Richard Rumelt</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Strategy kernel -- diagnosis, guiding policy, coherent actions. The crux as strategy's starting point.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="roger martin">
+        <div class="voice-name">Roger Martin</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Integrative thinking and Playing to Win co-architect. The "both/and" strategist who holds opposing models in tension.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="taiichi ohno">
+        <div class="voice-name">Taiichi Ohno</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Toyota Production System. Genchi genbutsu, waste elimination, pull systems. The root of lean.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="teresa torres">
+        <div class="voice-name">Teresa Torres</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">Opportunity-Solution Tree, continuous discovery habits, assumption mapping, interview snapshots.</div>
+      </div>
+      <div class="voice-card" data-tier="foundational" data-name="w edwards deming">
+        <div class="voice-name">W. Edwards Deming</div>
+        <span class="tier-badge foundational">Foundational</span>
+        <div class="voice-desc">System of Profound Knowledge. 94% of problems are system problems. Variation, learning, cooperation.</div>
+      </div>
+
+      <!-- ═══ PRIMARY TIER (quarterly/medium) ═══ -->
+      <div class="voice-card" data-tier="primary" data-name="alexander osterwalder">
+        <div class="voice-name">Alexander Osterwalder</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Business Model Canvas and Value Proposition Canvas. Visual business model prototyping.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="amy edmondson">
+        <div class="voice-name">Amy Edmondson</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Psychological safety. The prerequisite for team learning, innovation, and performance.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="andy grove">
+        <div class="voice-name">Andy Grove</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">High Output Management. OKRs, strategic inflection points, only the paranoid survive.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="april dunford">
+        <div class="voice-name">April Dunford</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Obviously Awesome. Positioning methodology -- competitive alternatives, unique value, ideal customer.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="ben horowitz">
+        <div class="voice-name">Ben Horowitz</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Hard Thing About Hard Things. Wartime CEO, peacetime CEO, culture as action.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="chip heath">
+        <div class="voice-name">Chip Heath</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Made to Stick, Switch. Making ideas sticky, designing for behavior change.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="clayton christensen">
+        <div class="voice-name">Clayton Christensen</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Innovator's Dilemma, Jobs to Be Done theory. Disruptive innovation mechanics.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="dan heath">
+        <div class="voice-name">Dan Heath</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Switch, Upstream. Behavior change design, preventive problem-solving.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="daniel kahneman">
+        <div class="voice-name">Daniel Kahneman</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Thinking Fast and Slow. System 1/System 2, cognitive biases, prospect theory.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="daniel pink">
+        <div class="voice-name">Daniel Pink</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Drive. Autonomy, mastery, purpose as intrinsic motivation framework.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="dave gray">
+        <div class="voice-name">Dave Gray</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Gamestorming, Connected Company. Innovation games and visual collaboration techniques.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="david maister">
+        <div class="voice-name">David Maister</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Managing the Professional Services Firm. Trusted Advisor equation, leverage models.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="david sibbet">
+        <div class="voice-name">David Sibbet</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Visual facilitation and graphic recording. Group process visualization pioneer.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="dominica degrandis">
+        <div class="voice-name">Dominica DeGrandis</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Making Work Visible. Five time thieves, WIP limits, flow time as customer metric.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="don norman">
+        <div class="voice-name">Don Norman</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Design of Everyday Things. Affordances, signifiers, human-centered design principles.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="donald reinertsen">
+        <div class="voice-name">Donald Reinertsen</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Product Development Flow. Cost of delay, queueing theory, batch size economics.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="douglas mcgregor">
+        <div class="voice-name">Douglas McGregor</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Theory X vs. Theory Y. The most fundamental split in management philosophy.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="edgar schein">
+        <div class="voice-name">Edgar Schein</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Three-layer culture model. Artifacts, espoused values, basic assumptions. Clinical cultural diagnosis.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="eliyahu goldratt">
+        <div class="voice-name">Eliyahu Goldratt</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Theory of Constraints. The Goal. Find the bottleneck, exploit it, subordinate everything else.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="eric ries">
+        <div class="voice-name">Eric Ries</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Lean Startup. Build-measure-learn, validated learning, minimum viable product.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="frederick brooks">
+        <div class="voice-name">Frederick Brooks</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Mythical Man-Month. No silver bullet, conceptual integrity, surgical team model.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="gene kim">
+        <div class="voice-name">Gene Kim</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Phoenix Project, DevOps Handbook. Three Ways, flow/feedback/learning.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="geoffrey moore">
+        <div class="voice-name">Geoffrey Moore</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Crossing the Chasm. Technology adoption lifecycle, whole product strategy.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="henri lipmanowicz">
+        <div class="voice-name">Henri Lipmanowicz</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Liberating Structures. 33 microstructures for group engagement and distributed control.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="irving janis">
+        <div class="voice-name">Irving Janis</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Groupthink. How cohesive groups suppress dissent and make catastrophically bad decisions.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="jake knapp">
+        <div class="voice-name">Jake Knapp</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Sprint. Five-day process for solving big problems and testing ideas through prototyping.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="james macanufo">
+        <div class="voice-name">James Macanufo</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Gamestorming co-author. Innovation game design and visual collaboration exercises.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="james womack">
+        <div class="voice-name">James Womack</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Machine That Changed the World. Lean manufacturing principles applied to knowledge work.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="jennifer wagner">
+        <div class="voice-name">Jennifer Wagner</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Product coaching methodology. Organizational product maturity assessment and team enablement.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="jerry harvey">
+        <div class="voice-name">Jerry Harvey</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Abilene Paradox. Organizations fail from inability to manage agreement, not disagreement.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="jez humble">
+        <div class="voice-name">Jez Humble</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Continuous Delivery, Accelerate co-author. Deployment pipeline discipline, DORA metrics.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="john kotter">
+        <div class="voice-name">John Kotter</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Eight-step change model, dual operating system. The structural DNA of staged transformation.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="jonathan smart">
+        <div class="voice-name">Jonathan Smart</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Better Value Sooner Safer Happier. Antipattern/pattern lens for enterprise transformation.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="kaplan norton">
+        <div class="voice-name">Kaplan &amp; Norton</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Balanced Scorecard. Strategy maps, four-perspective measurement, strategy execution system.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="karen martin">
+        <div class="voice-name">Karen Martin</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Value Stream Mapping. Organizational clarity, current-state/future-state analysis.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="keith mccandless">
+        <div class="voice-name">Keith McCandless</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Liberating Structures co-creator. Distributed facilitation, inclusion as design principle.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="kent beck">
+        <div class="voice-name">Kent Beck</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">TDD, Extreme Programming. Engineering discipline as daily practice, not aspirational standard.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="kurt lewin">
+        <div class="voice-name">Kurt Lewin</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Unfreeze-change-refreeze. Field theory, action research, group dynamics founder.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="laurence peter">
+        <div class="voice-name">Laurence Peter</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Peter Principle. Promotion to incompetence as structural dysfunction, not individual failure.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="liz wiseman">
+        <div class="voice-name">Liz Wiseman</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Multipliers. How the best leaders make everyone smarter vs. diminishers who drain capability.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="marc stickdorn">
+        <div class="voice-name">Marc Stickdorn</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">This Is Service Design. Service blueprinting, journey mapping, design doing methodology.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="martin fowler">
+        <div class="voice-name">Martin Fowler</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Software architecture patterns, refactoring discipline, evolutionary architecture thinking.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="melissa perri">
+        <div class="voice-name">Melissa Perri</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Escaping the Build Trap. Product operations, strategy deployment, organizational product maturity.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="nancy duarte">
+        <div class="voice-name">Nancy Duarte</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Data storytelling and presentation architecture. The sparkline -- narrative tension driving action.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="neal ford">
+        <div class="voice-name">Neal Ford</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Building Evolutionary Architectures. Fitness functions, incremental change, anti-ossification.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="nicole forsgren">
+        <div class="voice-name">Nicole Forsgren</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Accelerate. DORA metrics, research-backed engineering performance measurement.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="nir eyal">
+        <div class="voice-name">Nir Eyal</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Hooked. Habit-forming product design, trigger-action-reward-investment loop.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="peter senge">
+        <div class="voice-name">Peter Senge</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Fifth Discipline. Learning organizations, systems thinking, mental models, shared vision.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="rob fitzpatrick">
+        <div class="voice-name">Rob Fitzpatrick</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Mom Test. How to talk to customers without leading, how to learn from conversations.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="robert cialdini">
+        <div class="voice-name">Robert Cialdini</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Influence. Six principles of persuasion -- reciprocity, scarcity, authority, consistency, liking, consensus.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="robert martin">
+        <div class="voice-name">Robert Martin</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Clean Code, SOLID principles. Engineering craftsmanship standards and professional discipline.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="sam kaner">
+        <div class="voice-name">Sam Kaner</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Facilitator's Guide to Participatory Decision-Making. Groan zone, convergent/divergent dynamics.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="seth godin">
+        <div class="voice-name">Seth Godin</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Purple Cow, The Dip, Linchpin. Permission marketing, remarkable products, shipping creative work.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="simon wardley">
+        <div class="voice-name">Simon Wardley</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Wardley Mapping. Value chain evolution, situational awareness, strategic positioning.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="steve blank">
+        <div class="voice-name">Steve Blank</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Customer Development. Four steps to epiphany, get out of the building, business model validation.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="sunni brown">
+        <div class="voice-name">Sunni Brown</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">The Doodle Revolution. Visual thinking as legitimate cognition. Infodoodling as facilitation.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="tim herbig">
+        <div class="voice-name">Tim Herbig</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Product coaching, workshop facilitation, PM career development. Practitioner-oriented guidance.</div>
+      </div>
+      <div class="voice-card" data-tier="primary" data-name="tony fadell">
+        <div class="voice-name">Tony Fadell</div>
+        <span class="tier-badge primary">Primary</span>
+        <div class="voice-desc">Build. iPod/iPhone/Nest creation stories. Hardware-software product development lessons.</div>
+      </div>
+
+      <!-- ═══ SECONDARY TIER ═══ -->
+      <div class="voice-card" data-tier="secondary" data-name="adam lawrence">
+        <div class="voice-name">Adam Lawrence</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="alan cooper">
+        <div class="voice-name">Alan Cooper</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="alex komoroske">
+        <div class="voice-name">Alex Komoroske</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="amos tversky">
+        <div class="voice-name">Amos Tversky</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="angela duckworth">
+        <div class="voice-name">Angela Duckworth</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="brad feld">
+        <div class="voice-name">Brad Feld</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="brene brown">
+        <div class="voice-name">Brene Brown</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="bruce mccarthy">
+        <div class="voice-name">Bruce McCarthy</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="c todd lombardo">
+        <div class="voice-name">C. Todd Lombardo</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="carmine gallo">
+        <div class="voice-name">Carmine Gallo</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="carol dweck">
+        <div class="voice-name">Carol Dweck</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="charity majors">
+        <div class="voice-name">Charity Majors</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="charles green">
+        <div class="voice-name">Charles Green</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="chris argyris">
+        <div class="voice-name">Chris Argyris</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="chris ertel">
+        <div class="voice-name">Chris Ertel</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="chris voss">
+        <div class="voice-name">Chris Voss</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="christina wodtke">
+        <div class="voice-name">Christina Wodtke</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="dale carnegie">
+        <div class="voice-name">Dale Carnegie</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="dan ariely">
+        <div class="voice-name">Dan Ariely</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="daniel goleman">
+        <div class="voice-name">Daniel Goleman</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="danny meyer">
+        <div class="voice-name">Danny Meyer</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="david allen">
+        <div class="voice-name">David Allen</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="david anderson">
+        <div class="voice-name">David Anderson</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="david cohen">
+        <div class="voice-name">David Cohen</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="david kolb">
+        <div class="voice-name">David Kolb</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="david perkel">
+        <div class="voice-name">David Perkel</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="david straker">
+        <div class="voice-name">David Straker</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="dean leffingwell">
+        <div class="voice-name">Dean Leffingwell</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="denise tilles">
+        <div class="voice-name">Denise Tilles</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="donald schon">
+        <div class="voice-name">Donald Schon</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="etienne wenger">
+        <div class="voice-name">Etienne Wenger</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="fred reichheld">
+        <div class="voice-name">Fred Reichheld</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="frederic laloux">
+        <div class="voice-name">Frederic Laloux</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="frederick herzberg">
+        <div class="voice-name">Frederick Herzberg</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="garr reynolds">
+        <div class="voice-name">Garr Reynolds</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="gino wickman">
+        <div class="voice-name">Gino Wickman</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="gregor hohpe">
+        <div class="voice-name">Gregor Hohpe</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="henry mintzberg">
+        <div class="voice-name">Henry Mintzberg</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="itamar gilad">
+        <div class="voice-name">Itamar Gilad</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="jakob nielsen">
+        <div class="voice-name">Jakob Nielsen</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="jakob schneider">
+        <div class="voice-name">Jakob Schneider</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="jeff sutherland">
+        <div class="voice-name">Jeff Sutherland</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="jocko willink">
+        <div class="voice-name">Jocko Willink</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="john cutler">
+        <div class="voice-name">John Cutler</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="john doerr">
+        <div class="voice-name">John Doerr</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="john zachman">
+        <div class="voice-name">John Zachman</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="julie zhuo">
+        <div class="voice-name">Julie Zhuo</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="jurgen appelo">
+        <div class="voice-name">Jurgen Appelo</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="ken schwaber">
+        <div class="voice-name">Ken Schwaber</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="kerry patterson">
+        <div class="voice-name">Kerry Patterson</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="kim scott">
+        <div class="voice-name">Kim Scott</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="kouzes posner">
+        <div class="voice-name">Kouzes &amp; Posner</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="leanne hughes">
+        <div class="voice-name">Leanne Hughes</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="leif babin">
+        <div class="voice-name">Leif Babin</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="lenny rachitsky">
+        <div class="voice-name">Lenny Rachitsky</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="lisa kay solomon">
+        <div class="voice-name">Lisa Kay Solomon</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="marcus buckingham">
+        <div class="voice-name">Marcus Buckingham</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="margaret anne storey">
+        <div class="voice-name">Margaret Anne Storey</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="markus hormess">
+        <div class="voice-name">Markus Hormess</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="martin lindstrom">
+        <div class="voice-name">Martin Lindstrom</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="mary poppendieck">
+        <div class="voice-name">Mary Poppendieck</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="michael bungay stanier">
+        <div class="voice-name">Michael Bungay Stanier</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="michael lewrick">
+        <div class="voice-name">Michael Lewrick</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="michael porter">
+        <div class="voice-name">Michael Porter</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="michael watkins">
+        <div class="voice-name">Michael Watkins</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="mihaly csikszentmihalyi">
+        <div class="voice-name">Mihaly Csikszentmihalyi</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="patrick lencioni">
+        <div class="voice-name">Patrick Lencioni</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="pawel huryn">
+        <div class="voice-name">Pawel Huryn</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="peter drucker">
+        <div class="voice-name">Peter Drucker</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="ray dalio">
+        <div class="voice-name">Ray Dalio</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="renee mauborgne">
+        <div class="voice-name">Renee Mauborgne</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="rich mironov">
+        <div class="voice-name">Rich Mironov</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="richard thaler">
+        <div class="voice-name">Richard Thaler</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="rita mcgrath">
+        <div class="voice-name">Rita McGrath</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="robert greene">
+        <div class="voice-name">Robert Greene</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="robert greenleaf">
+        <div class="voice-name">Robert Greenleaf</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="roger fisher">
+        <div class="voice-name">Roger Fisher</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="ryan singer">
+        <div class="voice-name">Ryan Singer</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="sam newman">
+        <div class="voice-name">Sam Newman</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="simon sinek">
+        <div class="voice-name">Simon Sinek</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="stephen covey">
+        <div class="voice-name">Stephen Covey</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="susan david">
+        <div class="voice-name">Susan David</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="tim brown">
+        <div class="voice-name">Tim Brown</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="tom greever">
+        <div class="voice-name">Tom Greever</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="tom poppendieck">
+        <div class="voice-name">Tom Poppendieck</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="verne harnish">
+        <div class="voice-name">Verne Harnish</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="vishen lakhiani">
+        <div class="voice-name">Vishen Lakhiani</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="w chan kim">
+        <div class="voice-name">W. Chan Kim</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="will guidara">
+        <div class="voice-name">Will Guidara</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="will larson">
+        <div class="voice-name">Will Larson</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="william bridges">
+        <div class="voice-name">William Bridges</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="william ury">
+        <div class="voice-name">William Ury</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="youngme moon">
+        <div class="voice-name">Youngme Moon</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+      <div class="voice-card" data-tier="secondary" data-name="yu kai chou">
+        <div class="voice-name">Yu-Kai Chou</div>
+        <span class="tier-badge secondary">Secondary</span>
+      </div>
+
+    </div><!-- /voice-grid -->
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       Section 4: The Freshening Pipeline
+       ══════════════════════════════════════════════════ -->
+  <div class="labeled-divider"><hr><span class="label">04 &mdash; Freshening</span><hr></div>
+
+  <section class="scroll-section visible" style="max-width:900px;margin:0 auto;padding:40px 24px;">
+    <div class="section-num">04</div>
+    <div class="section-title">The Freshening <span class="hl-purple">Pipeline</span></div>
+    <div class="section-body">
+      Personas are not static snapshots. Each voice has a refresh cadence determined by tier, influence depth, and stance alignment. Foundational voices get monthly attention. Primary voices are reviewed quarterly. Secondary voices refresh on semi-annual or annual cycles. Staleness thresholds trigger re-harvesting when a voice's corpus drifts too far from the source's latest published thinking.
+    </div>
+
+    <div class="cadence-grid">
+      <div class="cadence-card cadence-monthly">
+        <div class="cadence-icon">&#9679;</div>
+        <h3>Monthly</h3>
+        <div class="cadence-count">19</div>
+        <div class="cadence-label">Foundational voices &middot; 45-day staleness threshold</div>
+      </div>
+      <div class="cadence-card cadence-quarterly">
+        <div class="cadence-icon">&#9675;</div>
+        <h3>Quarterly</h3>
+        <div class="cadence-count">49</div>
+        <div class="cadence-label">Primary voices &middot; 105-day staleness threshold</div>
+      </div>
+      <div class="cadence-card cadence-long">
+        <div class="cadence-icon">&#9676;</div>
+        <h3>Semi-Annual / Annual</h3>
+        <div class="cadence-count">103</div>
+        <div class="cadence-label">Secondary voices &middot; 195-380 day threshold</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>"A persona rendered from stale source material is worse than no persona at all. It <span class="highlight">confidently speaks for someone who has moved on</span>."</p>
+      <div class="attr">-- Freshening pipeline design rationale</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       Cross-Links
+       ══════════════════════════════════════════════════ -->
+  <div class="labeled-divider"><hr><span class="label">Related</span><hr></div>
+
+  <section class="scroll-section visible" style="max-width:900px;margin:0 auto;padding:40px 24px;">
+    <div class="cross-links">
+      <a href="agents.html" class="cross-link">
+        <div class="cl-label">The Build</div>
+        <div class="cl-title">Agent Definitions &rarr;</div>
+      </a>
+      <a href="signals.html" class="cross-link">
+        <div class="cl-label">The System</div>
+        <div class="cl-title">Signal Stream &rarr;</div>
+      </a>
+      <a href="schemas.html" class="cross-link">
+        <div class="cl-label">The System</div>
+        <div class="cl-title">Schemas &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> &middot; Built with the Intent methodology</p>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════
+       Client-Side Filtering
+       ══════════════════════════════════════════════════ -->
+  <script>
+  (function() {
+    const grid = document.getElementById('voiceGrid');
+    const cards = Array.from(grid.querySelectorAll('.voice-card'));
+    const searchInput = document.getElementById('voiceSearch');
+    const resultCount = document.getElementById('resultCount');
+    const pills = document.querySelectorAll('.filter-pill');
+    let activeFilter = 'all';
+
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(function(card) {
+        const tier = card.getAttribute('data-tier');
+        const name = card.getAttribute('data-name');
+
+        const matchesTier = activeFilter === 'all' || tier === activeFilter;
+        const matchesSearch = !query || name.indexOf(query) !== -1;
+
+        if (matchesTier && matchesSearch) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      resultCount.textContent = 'Showing ' + visible + ' voice' + (visible !== 1 ? 's' : '');
+
+      // Show no-results message
+      var noMsg = grid.querySelector('.no-results');
+      if (visible === 0) {
+        if (!noMsg) {
+          noMsg = document.createElement('div');
+          noMsg.className = 'no-results';
+          noMsg.textContent = 'No voices match your search.';
+          grid.appendChild(noMsg);
+        }
+      } else if (noMsg) {
+        noMsg.remove();
+      }
+    }
+
+    pills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        pills.forEach(function(p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+        activeFilter = pill.getAttribute('data-filter');
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+
+    // Scroll reveal
+    var sections = document.querySelectorAll('.scroll-section');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(function(s) { observer.observe(s); });
+  })();
+  </script>
+
+</body>
+</html>
