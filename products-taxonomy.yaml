@@ -1,0 +1,382 @@
+# Products Taxonomy — The Parlor Portfolio
+# Canonical source for the "Products Built with Intent" dashboard tab.
+# Governs: work-system.html Products tab, product cards, composability flow diagram.
+# Last updated: 2026-04-08 (session 2: pliable IR, org-design-tooling, library-index OTel, fieldbook venv)
+# Naming note: External-facing names are Compass (Knowledge Engine) and Forge (Skills Engine).
+# See ODT-002 for full naming decision. Internal taxonomy uses Engine/Farm nomenclature.
+
+portfolio:
+  name: The Parlor
+  product_lines:
+
+    # ═══════════════════════════════════════════════════════════
+    # KNOWLEDGE ENGINE — composable intelligence platform
+    # ═══════════════════════════════════════════════════════════
+    - id: knowledge-engine
+      name: Knowledge Engine
+      color: "#a855f7"
+      description: "Composable intelligence platform that researches, enriches, and infers knowledge from raw sources."
+      products:
+        # Domain products (what gets built)
+        - id: company-dossier
+          name: Company Dossier
+          type: domain
+          status: execute
+          tagline: "Structured intelligence profile for any company, built from public sources."
+          provides:
+            - enriched company profiles
+            - competitive landscape context
+          consumes:
+            - KE Research
+            - KE Enrich
+            - KE Infer
+          intent_path: Core/products/skills-engine/skills/claude-code/research/company-dossier/
+
+        - id: person-dossier
+          name: Person Dossier
+          type: domain
+          status: execute
+          tagline: "Deep profile of any individual — career arc, publications, influence map."
+          provides:
+            - enriched person profiles
+            - persona corpus input
+          consumes:
+            - KE Research
+            - KE Enrich
+            - KE Infer
+          intent_path: Core/products/skills-engine/skills/claude-code/research/individual-research/
+
+        - id: industry-scan
+          name: Industry Scan
+          type: domain
+          status: spec
+          tagline: "Market landscape analysis with competitive dynamics and trend mapping."
+          provides:
+            - industry context
+            - market landscape models
+          consumes:
+            - KE Research
+            - KE Assess
+          intent_path: Core/products/skills-engine/skills/claude-code/research/industry-scan/
+
+        # Platform products (how it gets built)
+        - id: ke-research
+          name: Research
+          type: platform
+          status: execute
+          tagline: "Multi-source research pipeline — web, corpus, API, and document ingestion."
+          provides:
+            - raw research artifacts
+          consumes: []
+
+        - id: ke-enrich
+          name: Enrich
+          type: platform
+          status: execute
+          tagline: "Structured enrichment of raw research into typed knowledge artifacts."
+          provides:
+            - enriched knowledge artifacts
+          consumes:
+            - KE Research
+
+        - id: ke-infer
+          name: Infer
+          type: platform
+          status: spec
+          tagline: "Cross-artifact inference — relationship mapping, gap detection, implication threading."
+          provides:
+            - inferred relationships
+            - gap analysis
+            - implications
+          consumes:
+            - KE Enrich
+
+        - id: ke-assess
+          name: Assess
+          type: platform
+          status: noticed
+          tagline: "Evaluation framework — scoring, ranking, and confidence calibration."
+          provides:
+            - confidence scores
+            - assessments
+            - rankings
+          consumes:
+            - KE Enrich
+            - KE Infer
+
+      gtm_product:
+        id: knowledge-farm
+        name: Knowledge Farm
+        status: noticed
+        tagline: "A portable knowledge base — your personas, dossiers, and domain models in one place."
+        description: >
+          The carry-away product. A curated instance of Knowledge Engine output scoped
+          to an engagement or user. Contains personas, company dossiers, industry scans,
+          and domain models. Freshening requires Knowledge Engine access (subscription model).
+
+    # ═══════════════════════════════════════════════════════════
+    # INTENT — team operating model for AI-augmented product teams
+    # ═══════════════════════════════════════════════════════════
+    - id: intent
+      name: Intent
+      color: "#3b82f6"
+      description: "Team operating model for AI-augmented product teams. Replaces Agile toolchain with a signal-driven loop."
+      products:
+        - id: notice
+          name: Notice
+          type: platform
+          status: execute
+          tagline: "Signal capture and enrichment — the system's sensory layer."
+          provides:
+            - enriched signals
+            - signal clusters
+            - promoted intents
+          consumes:
+            - KE domain context
+          intent_path: Core/frameworks/intent/
+
+        - id: spec
+          name: Spec
+          type: platform
+          status: execute
+          tagline: "Spec authoring with persona critique and contract decomposition."
+          provides:
+            - validated specs
+            - contract trees
+          consumes:
+            - Personas & Voices
+            - Methodology Library
+          intent_path: Core/frameworks/intent/
+
+        - id: execute-product
+          name: Execute
+          type: platform
+          status: execute
+          tagline: "Contract verification and artifact generation."
+          provides:
+            - verified contracts
+            - generated artifacts
+          consumes:
+            - specs
+            - contracts
+          intent_path: Core/frameworks/intent/
+
+        - id: observe
+          name: Observe
+          type: platform
+          status: execute
+          tagline: "Loop closure — observations become new signals."
+          provides:
+            - observations
+            - drift detection
+            - new signals
+          consumes:
+            - execution results
+          intent_path: Core/frameworks/intent/
+
+    # ═══════════════════════════════════════════════════════════
+    # SKILLS ENGINE — composable advisory intelligence
+    # ═══════════════════════════════════════════════════════════
+    - id: skills-engine
+      name: Skills Engine
+      color: "#f59e0b"
+      description: "Composable advisory intelligence — methodology x persona x platform = deployable capability."
+      skill_count: 47
+      persona_count: 188
+      registry_entities: 178
+      products:
+        - id: personas-voices
+          name: Personas & Voices
+          type: domain
+          status: execute
+          tagline: "188 personas (178 registry entities, 7 archetypes) rendered as advisory voices."
+          provides:
+            - persona critique for spec-shaping
+            - advisory voices
+            - archetype compositions
+          consumes:
+            - KE Person Dossier
+            - KE Enrich
+          intent_path: Core/personas/
+
+        - id: methodology-library
+          name: Methodology Library
+          type: domain
+          status: execute
+          tagline: "Codified consulting methodologies — discovery, debugging, planning, review. Symlinked into Pliable IR."
+          provides:
+            - methodology modules
+            - skill compositions
+          consumes: []
+          intent_path: Core/products/skills-engine/methodology/
+
+        - id: pliable-ir
+          name: Pliable IR
+          type: platform
+          status: execute
+          tagline: "Intermediate representation layer — 3 renderers (annotated block, copilot, future). 47 skills compiled."
+          provides:
+            - annotated-block skills (claude-code)
+            - copilot renderings (planned)
+            - methodology symlinks
+          consumes:
+            - Methodology Library
+          intent_path: Core/products/skills-engine/pliable/
+
+    # ═══════════════════════════════════════════════════════════
+    # STANDALONE PRODUCTS
+    # ═══════════════════════════════════════════════════════════
+    - id: fieldbook
+      name: Fieldbook
+      color: "#10b981"
+      description: "Expense lifecycle system — intake, ledger, comply, narrate, export."
+      products:
+        - id: fieldbook-product
+          name: Fieldbook
+          type: standalone
+          status: spec
+          tagline: "Composable expense management for independent consultants."
+          provides:
+            - expense tracking
+            - compliance narratives
+            - export projections
+          consumes:
+            - KE categorization
+          intent_path: Core/products/fieldbook/
+          notes:
+            - "venv rebuilt (Python 3.12) — 2026-04-08 operational fix"
+
+    - id: digital-declutter
+      name: Digital Declutter
+      color: "#64748b"
+      description: "File organization and knowledge ingestion pipeline."
+      products:
+        - id: digital-declutter-product
+          name: Digital Declutter
+          type: standalone
+          status: execute
+          tagline: "Automated file triage, placement, and knowledge graph maintenance."
+          provides:
+            - organized file system
+            - raw material for KE Research
+          consumes: []
+          intent_path: Core/products/digital-declutter/
+
+    - id: org-design-tooling
+      name: Org-Design Tooling
+      color: "#dc2626"
+      description: "Governance audit, consistency checks, and workspace health monitoring."
+      products:
+        - id: org-design-tooling-product
+          name: Org-Design Tooling
+          type: standalone
+          status: execute
+          tagline: "Deterministic Python audit with 27+ signals, 8 decisions, and session journal."
+          signal_count: 27
+          decision_count: 8
+          provides:
+            - governance audit reports
+            - structural drift detection
+            - session signals
+          consumes:
+            - KE domain context
+          intent_path: Core/products/org-design-tooling/
+          notes:
+            - "Deterministic Python audit (replaces shell scripts)"
+            - "Session journal captures cross-session continuity"
+            - "27 SIG-prefixed signals + 40+ RETRO signals as of 2026-04-08"
+
+    - id: library-index
+      name: Library Index
+      color: "#6366f1"
+      description: "39k+ file knowledge graph with attribution tracking and search."
+      products:
+        - id: library-index-product
+          name: Library Index
+          type: standalone
+          status: execute
+          tagline: "Catalog, attribution, and compound search across Brien's 39k+ file library."
+          provides:
+            - content search and discovery
+            - attribution tracking
+            - enrichment passes
+          consumes:
+            - Digital Declutter output
+          intent_path: Core/products/library-index/
+          notes:
+            - "OTel event emission wired (4 scripts: catalog_generator, enrichment_passes, auto_tagger, concept_fingerprint_pass)"
+            - "Decision LI-001: OTel event schema and wiring"
+
+# ═══════════════════════════════════════════════════════════
+# COMPOSABILITY FLOWS
+# What the dashboard flow diagram renders.
+# ═══════════════════════════════════════════════════════════
+flows:
+  # KE internal pipeline
+  - from: ke-research
+    to: ke-enrich
+    label: "raw → structured"
+  - from: ke-enrich
+    to: ke-infer
+    label: "enriched → inferred"
+  - from: ke-enrich
+    to: ke-assess
+    label: "enriched → assessed"
+
+  # KE → domain products
+  - from: ke-enrich
+    to: company-dossier
+    label: "enriched profiles"
+  - from: ke-infer
+    to: person-dossier
+    label: "enriched + inferred profiles"
+  - from: ke-research
+    to: industry-scan
+    label: "raw research"
+  - from: ke-assess
+    to: industry-scan
+    label: "assessed landscape"
+
+  # KE → Skills Engine (cross-product-line)
+  - from: person-dossier
+    to: personas-voices
+    label: "persona corpus input"
+  - from: ke-enrich
+    to: personas-voices
+    label: "freshening data"
+
+  # Skills Engine → Intent (cross-product-line)
+  - from: personas-voices
+    to: spec
+    label: "persona critique"
+  - from: methodology-library
+    to: spec
+    label: "methodology guidance"
+
+  # KE → Intent (cross-product-line)
+  - from: ke-enrich
+    to: notice
+    label: "domain context"
+
+  # Intent feedback loop (most important flow)
+  - from: observe
+    to: ke-enrich
+    label: "observations → enrichment"
+    highlight: true
+
+  # Standalone connections
+  - from: digital-declutter-product
+    to: ke-research
+    label: "raw material ingestion"
+  - from: ke-enrich
+    to: fieldbook-product
+    label: "expense categorization"
+  - from: digital-declutter-product
+    to: library-index-product
+    label: "organized files → catalog"
+  - from: org-design-tooling-product
+    to: notice
+    label: "governance signals"
+  - from: methodology-library
+    to: pliable-ir
+    label: "methodology symlinks"

@@ -118,6 +118,7 @@
     <a href="system-diagram.html">System Map</a>
     <a href="schemas.html">Schemas</a>
     <a href="signals.html">Signals</a>
+    <a href="personas.html">Voices</a>
     <a href="dogfood.html">Dogfood</a>
     <a href="observe.html">Observe</a>
     <a href="event-catalog.html">Events</a>
@@ -228,6 +229,7 @@ const tabs = [
   { id: "dimensions", label: "Three Dimensions" },
   { id: "flow", label: "Agent Flow" },
   { id: "dashboard", label: "Dashboard" },
+  { id: "products", label: "Products Built with Intent" },
   { id: "versus", label: "Agile → Intent" },
 ];
 
@@ -989,6 +991,354 @@ function VersusTab() {
   );
 }
 
+// ─── Products Tab ───
+function ProductsTab() {
+  const productLines = [
+    {
+      id: "knowledge-engine",
+      name: "Knowledge Engine",
+      color: "#a855f7",
+      description: "Composable intelligence platform that researches, enriches, and infers knowledge from raw sources.",
+      products: [
+        { id: "company-dossier", name: "Company Dossier", type: "domain", status: "execute", tagline: "Structured intelligence profile for any company, built from public sources.", provides: ["enriched company profiles", "competitive landscape context"], consumes: ["KE Research", "KE Enrich", "KE Infer"] },
+        { id: "person-dossier", name: "Person Dossier", type: "domain", status: "execute", tagline: "Deep profile of any individual — career arc, publications, influence map.", provides: ["enriched person profiles", "persona corpus input"], consumes: ["KE Research", "KE Enrich", "KE Infer"] },
+        { id: "industry-scan", name: "Industry Scan", type: "domain", status: "spec", tagline: "Market landscape analysis with competitive dynamics and trend mapping.", provides: ["industry context", "market landscape models"], consumes: ["KE Research", "KE Assess"] },
+        { id: "ke-research", name: "Research", type: "platform", status: "execute", tagline: "Multi-source research pipeline — web, corpus, API, and document ingestion.", provides: ["raw research artifacts"], consumes: [] },
+        { id: "ke-enrich", name: "Enrich", type: "platform", status: "execute", tagline: "Structured enrichment of raw research into typed knowledge artifacts.", provides: ["enriched knowledge artifacts"], consumes: ["KE Research"] },
+        { id: "ke-infer", name: "Infer", type: "platform", status: "spec", tagline: "Cross-artifact inference — relationship mapping, gap detection, implication threading.", provides: ["inferred relationships", "gap analysis", "implications"], consumes: ["KE Enrich"] },
+        { id: "ke-assess", name: "Assess", type: "platform", status: "noticed", tagline: "Evaluation framework — scoring, ranking, and confidence calibration.", provides: ["confidence scores", "assessments", "rankings"], consumes: ["KE Enrich", "KE Infer"] },
+      ],
+      gtm: { id: "knowledge-farm", name: "Knowledge Farm", status: "noticed", tagline: "A portable knowledge base — your personas, dossiers, and domain models in one place." },
+    },
+    {
+      id: "intent",
+      name: "Intent",
+      color: "#3b82f6",
+      description: "Team operating model for AI-augmented product teams. Replaces Agile toolchain with a signal-driven loop.",
+      products: [
+        { id: "notice", name: "Notice", type: "platform", status: "execute", tagline: "Signal capture and enrichment — the system's sensory layer.", provides: ["enriched signals", "signal clusters", "promoted intents"], consumes: ["KE domain context"] },
+        { id: "spec-product", name: "Spec", type: "platform", status: "execute", tagline: "Spec authoring with persona critique and contract decomposition.", provides: ["validated specs", "contract trees"], consumes: ["Personas & Voices", "Methodology Library"] },
+        { id: "execute-product", name: "Execute", type: "platform", status: "execute", tagline: "Contract verification and artifact generation.", provides: ["verified contracts", "generated artifacts"], consumes: ["specs", "contracts"] },
+        { id: "observe-product", name: "Observe", type: "platform", status: "execute", tagline: "Loop closure — observations become new signals.", provides: ["observations", "drift detection", "new signals"], consumes: ["execution results"] },
+      ],
+    },
+    {
+      id: "skills-engine",
+      name: "Skills Engine",
+      color: "#f59e0b",
+      description: "Composable advisory intelligence — methodology x persona x platform = deployable capability.",
+      products: [
+        { id: "personas-voices", name: "Personas & Voices", type: "domain", status: "execute", tagline: "188 personas (178 registry entities, 7 archetypes) rendered as advisory voices.", provides: ["persona critique for spec-shaping", "advisory voices", "archetype compositions"], consumes: ["KE Person Dossier", "KE Enrich"] },
+        { id: "methodology-library", name: "Methodology Library", type: "domain", status: "execute", tagline: "Codified consulting methodologies — discovery, debugging, planning, review. Symlinked into Pliable IR.", provides: ["methodology modules", "skill compositions"], consumes: [] },
+        { id: "pliable-ir", name: "Pliable IR", type: "platform", status: "execute", tagline: "Intermediate representation — 3 renderers (annotated, copilot, future). 47 skills compiled.", provides: ["annotated-block skills", "copilot renderings (planned)", "methodology symlinks"], consumes: ["Methodology Library"] },
+      ],
+    },
+    {
+      id: "fieldbook",
+      name: "Fieldbook",
+      color: "#10b981",
+      description: "Expense lifecycle system — intake, ledger, comply, narrate, export.",
+      products: [
+        { id: "fieldbook-product", name: "Fieldbook", type: "standalone", status: "spec", tagline: "Composable expense management for independent consultants.", provides: ["expense tracking", "compliance narratives", "export projections"], consumes: ["KE categorization"] },
+      ],
+    },
+    {
+      id: "digital-declutter",
+      name: "Digital Declutter",
+      color: "#64748b",
+      description: "File organization and knowledge ingestion pipeline.",
+      products: [
+        { id: "digital-declutter-product", name: "Digital Declutter", type: "standalone", status: "execute", tagline: "Automated file triage, placement, and knowledge graph maintenance.", provides: ["organized file system", "raw material for KE Research"], consumes: [] },
+      ],
+    },
+    {
+      id: "org-design-tooling",
+      name: "Org-Design Tooling",
+      color: "#dc2626",
+      description: "Governance audit, consistency checks, and workspace health monitoring.",
+      products: [
+        { id: "org-design-tooling-product", name: "Org-Design Tooling", type: "standalone", status: "execute", tagline: "Deterministic Python audit — 27+ signals, 8 decisions, session journal.", provides: ["governance audit reports", "structural drift detection", "session signals"], consumes: ["KE domain context"] },
+      ],
+    },
+    {
+      id: "library-index",
+      name: "Library Index",
+      color: "#6366f1",
+      description: "39k+ file knowledge graph with attribution tracking and search.",
+      products: [
+        { id: "library-index-product", name: "Library Index", type: "standalone", status: "execute", tagline: "Catalog, attribution, compound search. OTel event emission wired (4 scripts).", provides: ["content search and discovery", "attribution tracking", "enrichment passes"], consumes: ["Digital Declutter output"] },
+      ],
+    },
+  ];
+
+  const typeBadgeStyle = (type, lineColor) => {
+    const styles = {
+      domain: { background: "rgba(59, 130, 246, 0.15)", color: "#93c5fd", border: "1px solid rgba(59, 130, 246, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 },
+      platform: { background: "transparent", color: COLORS.textMuted, border: `1px solid ${COLORS.border}`, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 },
+      standalone: { background: "rgba(100, 116, 139, 0.2)", color: "#94a3b8", border: "1px solid rgba(100, 116, 139, 0.3)", padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 },
+      gtm: { background: "transparent", color: lineColor || "#f59e0b", border: `1px dashed ${lineColor || "#f59e0b"}`, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 },
+    };
+    return styles[type] || styles.domain;
+  };
+
+  const statusBadgeStyle = (status) => {
+    const colors = { noticed: "#64748b", spec: "#3b82f6", execute: "#10b981", observe: "#f59e0b" };
+    const c = colors[status] || "#64748b";
+    return { background: c + "20", color: c, padding: "2px 8px", borderRadius: 12, fontSize: 10, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 };
+  };
+
+  return (
+    <div>
+      <p style={{ color: COLORS.textMuted, marginBottom: 28, lineHeight: 1.6, fontSize: 14 }}>
+        The Parlor portfolio is a set of <strong style={{ color: COLORS.text }}>composable products</strong> that feed each other.
+        Knowledge Engine produces intelligence. Skills Engine supplies advisory personas. Intent orchestrates the work.
+        Every product is built with the Intent methodology — notice, spec, execute, observe.
+      </p>
+
+      {/* ── Section 1: Portfolio Taxonomy ── */}
+      <h3 style={{ color: COLORS.text, fontSize: 16, fontWeight: 700, marginBottom: 20, paddingBottom: 8, borderBottom: `1px solid ${COLORS.border}` }}>
+        Portfolio Taxonomy
+      </h3>
+
+      <div style={{ display: "grid", gap: 16 }}>
+        {productLines.map((line) => (
+          <div key={line.id} style={{ background: line.color + "08", border: `1px solid ${line.color}30`, borderRadius: 8, padding: 20 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+              <div style={{ width: 4, height: 20, background: line.color, borderRadius: 2 }}></div>
+              <span style={{ color: line.color, fontWeight: 700, fontSize: 15 }}>{line.name}</span>
+              <span style={{ color: COLORS.textMuted, fontSize: 12 }}>{line.description}</span>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>
+              {line.products.map((p) => (
+                <div key={p.id} style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`, borderRadius: 6, padding: "12px 14px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                    <span style={{ color: COLORS.text, fontWeight: 600, fontSize: 13 }}>{p.name}</span>
+                    <span style={typeBadgeStyle(p.type, line.color)}>{p.type}</span>
+                    <span style={statusBadgeStyle(p.status)}>{p.status}</span>
+                  </div>
+                  <p style={{ color: COLORS.textMuted, fontSize: 11, margin: 0, lineHeight: 1.4 }}>{p.tagline}</p>
+                </div>
+              ))}
+              {line.gtm && (
+                <div key={line.gtm.id} style={{ background: "transparent", border: `1px dashed ${line.color}50`, borderRadius: 6, padding: "12px 14px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                    <span style={{ color: COLORS.text, fontWeight: 600, fontSize: 13 }}>{line.gtm.name}</span>
+                    <span style={typeBadgeStyle("gtm", line.color)}>gtm</span>
+                    <span style={statusBadgeStyle(line.gtm.status)}>{line.gtm.status}</span>
+                  </div>
+                  <p style={{ color: COLORS.textMuted, fontSize: 11, margin: 0, lineHeight: 1.4 }}>{line.gtm.tagline}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Section 2: Composability Flow Diagram ── */}
+      <h3 style={{ color: COLORS.text, fontSize: 16, fontWeight: 700, marginTop: 40, marginBottom: 20, paddingBottom: 8, borderBottom: `1px solid ${COLORS.border}` }}>
+        Composability Flow
+      </h3>
+      <p style={{ color: COLORS.textMuted, fontSize: 13, marginBottom: 16, lineHeight: 1.5 }}>
+        Products compose across product lines. Knowledge Engine feeds domain context into Intent. Skills Engine provides persona critique for spec-shaping. Observations flow back as enrichment — the feedback loop that makes the system learn.
+      </p>
+
+      <div style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`, borderRadius: 8, padding: 20, overflowX: "auto" }}>
+        <svg viewBox="0 0 900 520" style={{ width: "100%", maxWidth: 900, height: "auto" }} xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow-white" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6" fill="none" stroke="#94a3b8" strokeWidth="1.5" />
+            </marker>
+            <marker id="arrow-amber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+            </marker>
+            <marker id="arrow-purple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6" fill="none" stroke="#a855f7" strokeWidth="1.5" />
+            </marker>
+            <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6" fill="none" stroke="#3b82f6" strokeWidth="1.5" />
+            </marker>
+          </defs>
+
+          {/* Knowledge Engine container */}
+          <rect x="20" y="20" width="480" height="210" rx="8" fill="rgba(168,85,247,0.06)" stroke="#a855f7" strokeWidth="1" strokeOpacity="0.4" />
+          <text x="40" y="45" fill="#a855f7" fontSize="13" fontWeight="700">Knowledge Engine</text>
+
+          {/* KE platform products */}
+          <rect x="40" y="60" width="100" height="36" rx="6" fill="rgba(168,85,247,0.12)" stroke="#a855f7" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="90" y="83" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Research</text>
+
+          <rect x="170" y="60" width="100" height="36" rx="6" fill="rgba(168,85,247,0.12)" stroke="#a855f7" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="220" y="83" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Enrich</text>
+
+          <rect x="300" y="60" width="100" height="36" rx="6" fill="rgba(168,85,247,0.12)" stroke="#a855f7" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="350" y="83" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Infer</text>
+
+          <rect x="410" y="60" width="80" height="36" rx="6" fill="rgba(168,85,247,0.12)" stroke="#a855f7" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="450" y="83" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Assess</text>
+
+          {/* KE platform arrows */}
+          <line x1="140" y1="78" x2="168" y2="78" stroke="#94a3b8" strokeWidth="1" markerEnd="url(#arrow-white)" />
+          <line x1="270" y1="78" x2="298" y2="78" stroke="#94a3b8" strokeWidth="1" markerEnd="url(#arrow-white)" />
+
+          {/* KE domain products */}
+          <rect x="50" y="120" width="120" height="36" rx="6" fill="rgba(59,130,246,0.1)" stroke="#60a5fa" strokeWidth="0.8" strokeOpacity="0.4" />
+          <text x="110" y="143" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Company Dossier</text>
+
+          <rect x="190" y="120" width="110" height="36" rx="6" fill="rgba(59,130,246,0.1)" stroke="#60a5fa" strokeWidth="0.8" strokeOpacity="0.4" />
+          <text x="245" y="143" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Person Dossier</text>
+
+          <rect x="320" y="120" width="110" height="36" rx="6" fill="rgba(59,130,246,0.1)" stroke="#60a5fa" strokeWidth="0.8" strokeOpacity="0.4" />
+          <text x="375" y="143" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Industry Scan</text>
+
+          {/* Enrich/Infer down arrows to domain products */}
+          <line x1="180" y1="96" x2="130" y2="118" stroke="#94a3b8" strokeWidth="0.8" strokeOpacity="0.5" />
+          <line x1="240" y1="96" x2="245" y2="118" stroke="#94a3b8" strokeWidth="0.8" strokeOpacity="0.5" />
+          <line x1="350" y1="96" x2="375" y2="118" stroke="#94a3b8" strokeWidth="0.8" strokeOpacity="0.5" />
+
+          {/* Knowledge Farm (GTM) */}
+          <rect x="100" y="178" width="140" height="36" rx="6" fill="transparent" stroke="#a855f7" strokeWidth="1" strokeDasharray="4,3" strokeOpacity="0.5" />
+          <text x="170" y="201" fill="#c4b5fd" fontSize="11" textAnchor="middle" fontWeight="600">Knowledge Farm</text>
+          <text x="170" y="213" fill="#64748b" fontSize="9" textAnchor="middle">(GTM carry-away)</text>
+
+          {/* Skills Engine container */}
+          <rect x="540" y="20" width="340" height="210" rx="8" fill="rgba(245,158,11,0.06)" stroke="#f59e0b" strokeWidth="1" strokeOpacity="0.4" />
+          <text x="560" y="45" fill="#f59e0b" fontSize="13" fontWeight="700">Skills Engine</text>
+
+          <rect x="560" y="60" width="150" height="36" rx="6" fill="rgba(245,158,11,0.1)" stroke="#f59e0b" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="635" y="83" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Personas & Voices</text>
+
+          <rect x="560" y="110" width="150" height="36" rx="6" fill="rgba(245,158,11,0.1)" stroke="#f59e0b" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="635" y="133" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Methodology Library</text>
+
+          {/* KE → Skills Engine: Person Dossier → Personas */}
+          <line x1="300" y1="138" x2="558" y2="78" stroke="#a855f7" strokeWidth="1" strokeOpacity="0.6" markerEnd="url(#arrow-purple)" />
+          <text x="420" y="98" fill="#a855f7" fontSize="9" fontWeight="500" opacity="0.8">persona corpus</text>
+
+          {/* KE Enrich → Notice: domain context */}
+          <line x1="220" y1="96" x2="150" y2="312" stroke="#a855f7" strokeWidth="1" strokeOpacity="0.5" markerEnd="url(#arrow-purple)" />
+          <text x="140" y="210" fill="#a855f7" fontSize="9" fontWeight="500" opacity="0.8" transform="rotate(-72, 140, 210)">domain context</text>
+
+          {/* Intent container */}
+          <rect x="20" y="270" width="860" height="120" rx="8" fill="rgba(59,130,246,0.06)" stroke="#3b82f6" strokeWidth="1" strokeOpacity="0.4" />
+          <text x="40" y="295" fill="#3b82f6" fontSize="13" fontWeight="700">Intent</text>
+
+          {/* Intent phase nodes */}
+          <rect x="60" y="310" width="100" height="40" rx="6" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="110" y="335" fill="#e2e8f0" fontSize="12" textAnchor="middle" fontWeight="600">Notice</text>
+
+          <rect x="240" y="310" width="100" height="40" rx="6" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="290" y="335" fill="#e2e8f0" fontSize="12" textAnchor="middle" fontWeight="600">Spec</text>
+
+          <rect x="440" y="310" width="100" height="40" rx="6" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="490" y="335" fill="#e2e8f0" fontSize="12" textAnchor="middle" fontWeight="600">Execute</text>
+
+          <rect x="640" y="310" width="100" height="40" rx="6" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" strokeWidth="0.8" strokeOpacity="0.5" />
+          <text x="690" y="335" fill="#e2e8f0" fontSize="12" textAnchor="middle" fontWeight="600">Observe</text>
+
+          {/* Intent phase arrows */}
+          <line x1="160" y1="330" x2="238" y2="330" stroke="#94a3b8" strokeWidth="1.2" markerEnd="url(#arrow-white)" />
+          <line x1="340" y1="330" x2="438" y2="330" stroke="#94a3b8" strokeWidth="1.2" markerEnd="url(#arrow-white)" />
+          <line x1="540" y1="330" x2="638" y2="330" stroke="#94a3b8" strokeWidth="1.2" markerEnd="url(#arrow-white)" />
+
+          {/* Loop closure arrow inside Intent */}
+          <path d="M 690,352 L 690,372 L 110,372 L 110,352" fill="none" stroke="#3b82f6" strokeWidth="1" strokeOpacity="0.5" strokeDasharray="4,3" markerEnd="url(#arrow-blue)" />
+          <text x="400" y="384" fill="#3b82f6" fontSize="9" textAnchor="middle" opacity="0.7">loop closure</text>
+
+          {/* Skills Engine → Intent Spec: persona critique + methodology */}
+          <line x1="635" y1="96" x2="310" y2="308" stroke="#f59e0b" strokeWidth="1" strokeOpacity="0.6" markerEnd="url(#arrow-amber)" />
+          <text x="510" y="200" fill="#f59e0b" fontSize="9" fontWeight="500" opacity="0.8" transform="rotate(-40, 510, 200)">persona critique</text>
+
+          <line x1="635" y1="146" x2="320" y2="318" stroke="#f59e0b" strokeWidth="1" strokeOpacity="0.4" markerEnd="url(#arrow-amber)" />
+          <text x="540" y="240" fill="#f59e0b" fontSize="9" fontWeight="500" opacity="0.6" transform="rotate(-35, 540, 240)">methodology</text>
+
+          {/* Feedback: Observe → KE Enrich */}
+          <path d="M 740,330 Q 820,330 820,260 Q 820,150 500,120 Q 350,110 270,96" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="6,3" markerEnd="url(#arrow-amber)" />
+          <text x="790" y="220" fill="#f59e0b" fontSize="10" fontWeight="600">observations</text>
+          <text x="790" y="232" fill="#f59e0b" fontSize="8" opacity="0.7">(feedback loop)</text>
+
+          {/* Standalone: Fieldbook + Digital Declutter */}
+          <rect x="20" y="430" width="200" height="70" rx="8" fill="rgba(16,185,129,0.06)" stroke="#10b981" strokeWidth="1" strokeOpacity="0.3" />
+          <text x="40" y="455" fill="#10b981" fontSize="12" fontWeight="700">Fieldbook</text>
+          <text x="40" y="472" fill="#94a3b8" fontSize="10">Expense lifecycle</text>
+          <text x="40" y="488" fill="#64748b" fontSize="9">consumes: KE categorization</text>
+
+          <rect x="240" y="430" width="200" height="70" rx="8" fill="rgba(100,116,139,0.06)" stroke="#64748b" strokeWidth="1" strokeOpacity="0.3" />
+          <text x="260" y="455" fill="#94a3b8" fontSize="12" fontWeight="700">Digital Declutter</text>
+          <text x="260" y="472" fill="#94a3b8" fontSize="10">File organization</text>
+          <text x="260" y="488" fill="#64748b" fontSize="9">feeds: KE Research</text>
+
+          {/* Declutter → KE Research */}
+          <line x1="340" y1="428" x2="90" y2="96" stroke="#64748b" strokeWidth="0.8" strokeOpacity="0.4" strokeDasharray="3,3" markerEnd="url(#arrow-white)" />
+        </svg>
+      </div>
+
+      {/* ── Section 3: Product Cards ── */}
+      <h3 style={{ color: COLORS.text, fontSize: 16, fontWeight: 700, marginTop: 40, marginBottom: 20, paddingBottom: 8, borderBottom: `1px solid ${COLORS.border}` }}>
+        Product Details
+      </h3>
+
+      {productLines.map((line) => (
+        <div key={line.id} style={{ marginBottom: 32 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+            <div style={{ width: 4, height: 18, background: line.color, borderRadius: 2 }}></div>
+            <span style={{ color: line.color, fontWeight: 700, fontSize: 14 }}>{line.name}</span>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12 }}>
+            {line.products.map((p) => (
+              <div key={p.id} style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`, borderRadius: 8, padding: 24 }}>
+                <div style={{ marginBottom: 10 }}>
+                  <span style={{ color: COLORS.text, fontWeight: 700, fontSize: 15 }}>{p.name}</span>
+                  <span style={{ color: COLORS.textMuted, fontSize: 11, marginLeft: 10 }}>{line.name}</span>
+                </div>
+                <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+                  <span style={typeBadgeStyle(p.type, line.color)}>{p.type}</span>
+                  <span style={statusBadgeStyle(p.status)}>{p.status}</span>
+                </div>
+                <p style={{ color: COLORS.textMuted, fontSize: 12, lineHeight: 1.5, marginBottom: 12 }}>{p.tagline}</p>
+                {p.provides.length > 0 && (
+                  <div style={{ marginBottom: 8 }}>
+                    <span style={{ color: COLORS.text, fontSize: 11, fontWeight: 600 }}>Provides:</span>
+                    <ul style={{ margin: "4px 0 0 16px", padding: 0, listStyleType: "disc" }}>
+                      {p.provides.map((item, i) => (
+                        <li key={i} style={{ color: COLORS.textMuted, fontSize: 11, lineHeight: 1.5 }}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {p.consumes.length > 0 && (
+                  <div>
+                    <span style={{ color: COLORS.text, fontSize: 11, fontWeight: 600 }}>Consumes:</span>
+                    <ul style={{ margin: "4px 0 0 16px", padding: 0, listStyleType: "disc" }}>
+                      {p.consumes.map((item, i) => (
+                        <li key={i} style={{ color: COLORS.textMuted, fontSize: 11, lineHeight: 1.5 }}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
+            {line.gtm && (
+              <div key={line.gtm.id} style={{ background: "transparent", border: `1px dashed ${line.color}40`, borderRadius: 8, padding: 24 }}>
+                <div style={{ marginBottom: 10 }}>
+                  <span style={{ color: COLORS.text, fontWeight: 700, fontSize: 15 }}>{line.gtm.name}</span>
+                  <span style={{ color: COLORS.textMuted, fontSize: 11, marginLeft: 10 }}>{line.name}</span>
+                </div>
+                <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+                  <span style={typeBadgeStyle("gtm", line.color)}>gtm</span>
+                  <span style={statusBadgeStyle(line.gtm.status)}>{line.gtm.status}</span>
+                </div>
+                <p style={{ color: COLORS.textMuted, fontSize: 12, lineHeight: 1.5 }}>{line.gtm.tagline}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ─── Main Component ───
 function IntentWorkSystem() {
   const [activeTab, setActiveTab] = useState("ontology");
@@ -1046,6 +1396,7 @@ function IntentWorkSystem() {
         {activeTab === "dimensions" && <DimensionsTab />}
         {activeTab === "flow" && <AgentFlowTab />}
         {activeTab === "dashboard" && <DashboardTab />}
+        {activeTab === "products" && <ProductsTab />}
         {activeTab === "versus" && <VersusTab />}
 
         {/* Footer */}
