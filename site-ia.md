@@ -1,3 +1,31 @@
+---
+title: Site Ia
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+technologies:
+  - jira
+depth_score: 4
+depth_signals:
+  file_size_kb: 14.5
+  content_chars: 13881
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.14
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 814, strength: 0.432}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 787, strength: 0.42}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.271}
+  - {pair: consulting-operations ↔ turnberry, count: 456, strength: 0.225}
+  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.134}
+---
 # Intent Site — Information Architecture v2
 
 > This document defines the navigation structure, page hierarchy, and content placement for the Intent product site. Any agent modifying navigation or page structure MUST read this spec first.
@@ -41,14 +69,15 @@ Think of it like a building with three wings. You enter through the lobby (home/
 | Depth | System Map | system-diagram.html | Interactive signal-to-observation flow. 5 capture surfaces, enrichment pipeline, spec/execute, OTel observe layer. Click-to-explore detail panels. |
 | Depth | Schemas | schemas.html | Data contracts — signal schema, spec schema, execution record schema. The type system behind the system. |
 | Depth | Signals | signals.html | Live signal stream — 15 signal cards, trust scores, clustering, pattern detection. |
+| Depth | Voices | personas.html | The 178+ thought leader personas that power spec-shaping, ARB critique, and discovery. 7 archetypes, filterable catalog, freshening pipeline. |
 | Depth | Dogfood | dogfood.html | Intent building Intent. Self-referential proof — the system's own signal stream, specs, and event log. |
 | Depth | Observe | observe.html | **NEW (ARB review).** What it means to observe: how loop closure works, what dashboards reveal, how observations become new signals. The Observe phase narrative — the most powerful concept deserves its own page. |
 | Depth | Event Catalog | event-catalog.html | Catalog of event types in the system. **Expanding (ARB review) — will contain all 15 event types with schemas, triggers, and examples.** |
 | Depth | Getting Started | getting-started.html | **NEW (ARB review).** The adoption onramp: stitches deployment + native-repos + CLI into a single "adopt Intent in 30 minutes" path. Distinguishes evaluators from adopters. |
 
-**Sub-nav label order:** Flow · System Map · Schemas · Signals · Dogfood · Observe · Events · Start
+**Sub-nav label order:** Flow · System Map · Schemas · Signals · Voices · Dogfood · Observe · Events · Start
 
-**Why this grouping:** These pages answer "how does it actually work?" from different angles — operational (work system), visual (flow), structural (schemas), live data (signals), proof (dogfood), narrative (observe), reference (events), and practical (getting started). A visitor who understands the concept naturally wants to see it in action, then try it.
+**Why this grouping:** These pages answer "how does it actually work?" from different angles — operational (work system), visual (flow), structural (schemas), live data (signals), advisory (voices), proof (dogfood), narrative (observe), reference (events), and practical (getting started). A visitor who understands the concept naturally wants to see it in action, hear the voices that challenge it, then try it.
 
 ---
 
@@ -63,10 +92,11 @@ Think of it like a building with three wings. You enter through the lobby (home/
 | Depth | Deployment | deployment.html | FastMCP Cloud, local dev, platform comparison, configuration. |
 | Depth | Observability | observability.html | OTel-native stack architecture. Mermaid diagram, trace identity model, deployment phases, metrics, dashboard preview. |
 | Depth | ARB / Tech Radar | arb.html | SVG radar visual, architectural stack, governance panel, atomized roadmap. |
-| Depth | Decisions | decisions.html | Architecture decision records. **Currently thin — candidate for expansion with full ADR entries.** |
+| Depth | Decisions | decisions.html | Architecture decision records. 19 ADR cards (D1–D19). |
 | Depth | Native Repos | native-repos.html | Repository structure, code organization, integration points. |
+| Depth | Products | products.html | Product catalog — all products built with Intent, organized by layer, with signal/decision counts. |
 
-**Sub-nav label order:** Agents · Deployment · Observability · ARB · Decisions · Repos
+**Sub-nav label order:** Agents · Deployment · Observability · ARB · Decisions · Repos · Products
 
 **Why this grouping:** These pages answer "how is it built?" from different angles — topology (architecture), agents (who does what), operations (deployment), governance (ARB/decisions), and code (repos). A visitor evaluating the technical depth naturally wants to understand the architecture, then drill into specifics.
 
@@ -113,6 +143,7 @@ Each pillar's hero page AND depth pages show the same sub-nav below the primary 
   <a href="system-diagram.html">System Map</a>
   <a href="schemas.html">Schemas</a>
   <a href="signals.html">Signals</a>
+  <a href="personas.html">Voices</a>
   <a href="dogfood.html">Dogfood</a>
   <a href="observe.html">Observe</a>
   <a href="event-catalog.html">Events</a>
@@ -130,6 +161,7 @@ Each pillar's hero page AND depth pages show the same sub-nav below the primary 
   <a href="arb.html">ARB</a>
   <a href="decisions.html">Decisions</a>
   <a href="native-repos.html">Repos</a>
+  <a href="products.html">Products</a>
 </nav>
 ```
 
@@ -190,6 +222,12 @@ Cross-links connect related content across pillars. These are inline contextual 
 | Walkthrough (Pillar 1) → | Schemas (Pillar 2) | "See the data contracts behind each artifact" |
 | System Diagram (Pillar 2) → | Architecture (Pillar 3) | "See the MCP server topology" |
 | System Diagram (Pillar 2) → | Observe (Pillar 2) | "Understand what the Observe layer reveals" |
+| Voices (Pillar 2) → | Agents (Pillar 3) | "See the spec-shaping protocol that invokes these voices" |
+| Voices (Pillar 2) → | ARB (Pillar 3) | "See how architectural decisions are challenged" |
+| Voices (Pillar 2) → | Methodology (Pillar 1) | "How discovery uses persona critique" |
+| Agents (Pillar 3) → | Voices (Pillar 2) | "Meet the 178 voices behind spec-shaping" |
+| ARB (Pillar 3) → | Voices (Pillar 2) | "The advisory voices that challenge decisions" |
+| Methodology (Pillar 1) → | Voices (Pillar 2) | "The thought leaders who shape every spec" |
 
 ---
 

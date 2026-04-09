@@ -11,20 +11,20 @@ topics:
 created: 2026-03-31
 depth_score: 4
 depth_signals:
-  file_size_kb: 10.5
-  content_chars: 9894
+  file_size_kb: 11.9
+  content_chars: 11319
   entity_count: 0
   slide_count: 0
   sheet_count: 0
   topic_count: 2
   has_summary: 0
-vocab_density: 0.20
+vocab_density: 0.27
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 795, strength: 0.427}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 770, strength: 0.416}
-  - {pair: consulting-operations ↔ engagement-management, count: 498, strength: 0.269}
-  - {pair: consulting-operations ↔ turnberry, count: 448, strength: 0.224}
-  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.136}
+  - {pair: consulting-operations ↔ subaru, count: 814, strength: 0.432}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 787, strength: 0.42}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.271}
+  - {pair: consulting-operations ↔ turnberry, count: 456, strength: 0.225}
+  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.134}
 ---
 # Site Tasks Roadmap — Execution Plan for Terminal Claude
 
@@ -281,6 +281,69 @@ Framework v1.0 (April 5-6) introduced 8 architectural changes. This phase syncs 
 | Site-spec baselines | site-spec.md | DONE | Updated file sizes and component inventory |
 | CHANGELOG | CHANGELOG.md | DONE | Created with full v1.0.0 entry |
 | Contract verification | all pages | DONE | All 10 contracts pass |
+
+---
+
+## Phase 6: Persona System Integration — COMPLETE
+
+The Unified Persona System (178+ thought leaders, 7 archetypes) gets its own site page under Pillar 2.
+
+| Task | Pages affected | Status | Verification |
+|------|---------------|--------|--------------|
+| Create personas.html | new page | DONE | 79KB, 178 cards, archetype cards, voice catalog, filters |
+| Update P2 sub-nav | 9 existing P2 pages | DONE | All pages have "Voices" link after "Signals" |
+| Update site-ia.md | governance | DONE | P2 table, sub-nav template, cross-links |
+| Update CLAUDE.md | governance | DONE | P2 page list, sub-nav label order |
+| Wire cross-links | agents, arb, methodology, personas | DONE | 6 cross-links wired |
+| Update site-spec.md | governance | DONE | personas.html added to inventory |
+| Update content-map.md | governance | DONE | 8 persona claim mappings added |
+| Contract verification | all pages | DONE | All P2 pages have Voices link |
+
+**Task spec:** `tasks/personas-page.md`
+
+---
+
+## Phase 7: Products Built with Intent — COMPLETE
+
+Product taxonomy formalized and integrated into work-system.html as a 6th tab.
+
+| Task | Pages affected | Status | Verification |
+|------|---------------|--------|--------------|
+| Create products-taxonomy.yaml | new file | DONE | Full portfolio: 5 product lines, 16 products, 16 flows, 1 GTM product |
+| Add Products tab to work-system.html | work-system.html | DONE | 80KB (was 55KB), ProductsTab component with taxonomy + SVG flow + cards |
+| Design spec | tasks/ | DONE | Spec + rendered HTML version |
+| Log signals | intent .intent/signals/ | DONE | 3 signals: taxonomy builder, Knowledge Farm GTM, spec-viewer skill |
+
+**Related deliverables (outside intent-site):**
+- Persona browser generator: `Core/personas/browser/generate.py` → 178 detail pages + index
+- 178 taglines added to all persona registry entries
+- SIG-004 logged for tagline schema addition
+
+---
+
+## Phase 8: Product Evolution Sync — COMPLETE
+
+Sync all product .intent/ state changes into the site. Products have evolved significantly since Phase 7.
+
+| Task | Pages affected | Status | Verification |
+|------|---------------|--------|--------------|
+| Add Studio Control + Library Index MCP to taxonomy | products-taxonomy.yaml | DONE | 2 new products, 1 new flow added |
+| Update products.html data | products.html | DONE | All 8 products with current signal/decision counts |
+| Update dogfood.html stats | dogfood.html | DONE | 43 signals (was 24), 19 specs (was 14), 19 decisions (was 12) |
+| Add decisions D13-D19 | decisions.html | DONE | 7 new ADR cards (GTM, four-product, three-layer, compilation, double-loop, origin tracking, federation) |
+| Update decisions heading | decisions.html | DONE | D1-D19 (was D1-D12) |
+| Update signal counts | signals.html | DONE | 43 signals (was 24) |
+| Add Products to P3 sub-nav | 8 P3 pages | DONE | All P3 pages now link to products.html |
+| Update work-system Products tab | work-system.html | DONE | Fieldbook→execute, Library Index→observe, +Library Index MCP, +Studio Control |
+| Update Fieldbook status | work-system.html, products.html | DONE | spec→execute (Tier 2 active, 13 signals, 12 decisions) |
+
+**Key deltas synced:**
+- Fieldbook: evolved from spec to execute (Tier 2, 8 contracts validated, 13 signals, 12 decisions)
+- Org-Design-Tooling: 27+ signals, 2 decisions (was 7/1)
+- Library Index: 7 signals, 8 decisions, OTel wired (was 0/1)
+- Library Index MCP: new product (19 MCP tools, 6 signals)
+- Studio Control: new product (Wave Link API, 7 signals, noticed phase)
+- Intent framework: 43 signals (was 24), 19 decisions (was 12), 19 spec documents (was 14)
 
 ---
 

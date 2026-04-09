@@ -101,6 +101,7 @@
         <a href="arb.html">ARB</a>
         <a href="decisions.html" class="active">Decisions</a>
         <a href="native-repos.html">Repos</a>
+        <a href="products.html">Products</a>
     </nav>
 
     <header class="page-header">
@@ -162,7 +163,7 @@
 
         <!-- ADR COLLECTION -->
         <section class="adr-collection">
-            <h2>Architectural Decisions (D1–D12)</h2>
+            <h2>Architectural Decisions (D1–D19)</h2>
             <p>
                 The following twelve decisions form the architectural spine of Intent. They were made by the Architecture Review Board (ARB) in the design phase and guide all development. Each decision record links back to <a href="arb.html">the ARB</a> for the full governance context.
             </p>
@@ -736,6 +737,258 @@
                     <div class="adr-section-content">
                         <ul class="consequences-list">
                             <li>Brien writes all specs manually (doesn't scale, quality varies with energy). Single-pass spec generation (misses dimensions). Template-only approach (doesn't query knowledge base, produces shallow specs).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D13 CARD -->
+            <div class="adr-card">
+                <h3>D13: Staged GTM — Thought Leadership First</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent is both a methodology and a potential software product. Go-to-market strategy needs to sequence these correctly to build credibility before asking for money.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Three-stage GTM: (1) Thought leadership — publish the methodology, build credibility with practitioner-architects. (2) Methodology product — sell consulting/coaching using Intent as the operating model. (3) Tooling — build software only if validated by stages 1-2. Each stage gates the next.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Building tools before validating the methodology is the classic "solution looking for a problem" failure mode. Thought leadership is low-cost, high-signal. If the methodology doesn't resonate with senior practitioners, the tooling won't either.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Slower time-to-revenue but higher confidence in product-market fit. Tooling investment is conditional, not assumed. The site exists as the Stage 1 artifact.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D14 CARD -->
+            <div class="adr-card">
+                <h3>D14: Four-Product Framing</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent's loop has four phases (Notice, Spec, Execute, Observe). Should these be one monolithic product or distinct products with their own roadmaps?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Each phase is a distinct product with its own maturity assessment, roadmap, and adoption path. Notice is operational, Spec is tooled, Execute is defined, Observe is schema-ready. Teams can adopt one phase without buying the whole system.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Monolithic product adoption requires organizational buy-in. Phase-level adoption lets individual teams start with signal capture (Notice) and expand as they see value. This matches how methodologies actually spread — bottom-up, not top-down.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Each product needs its own MCP server, CLI tools, and documentation. Complexity increases but adoption barrier decreases. The loop still works as a whole — the products are composable, not independent.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D15 CARD -->
+            <div class="adr-card">
+                <h3>D15: Three-Layer Architecture</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent started as just a loop (Layer 2). But the compiled knowledge base and the running code are structurally distinct. Karpathy's "code as source, LLM as compiler, executable as output" pattern matches what we observe. How should the architecture formalize this?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Three layers, bidirectionally coupled: (1) Compiled Knowledge Base — everything the system knows (raw/, knowledge/). (2) Transformation OS — the Notice→Spec→Execute→Observe engine (.intent/, spec/). (3) Software Spec &amp; Code — specs, contracts, and running code. Six data flows connect them.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Independent layers can evolve at different speeds. The knowledge base compiles once and keeps current (not RAG). The loop transforms knowledge into specs. The code executes specs. Without this separation, knowledge and execution are tangled — making it impossible to reason about either.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Knowledge Engine becomes a separable product (see D8). Double-loop learning becomes possible — observations can update domain understanding (Layer 1), not just execution parameters (Layer 3). Architecture diagrams and documentation must reflect three layers, not just the loop.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D16 CARD -->
+            <div class="adr-card">
+                <h3>D16: Compilation Over Retrieval</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Most AI systems use RAG (Retrieval-Augmented Generation) — querying raw documents at runtime. Intent needs a knowledge strategy that supports cross-referencing, contradiction detection, and gap analysis.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>The knowledge base compiles understanding once and keeps it current. Not RAG. Cross-references are already resolved. Contradictions are already flagged. Gaps are already detected. The compilation step is the value — turning raw material into structured, verified knowledge artifacts.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>RAG is stateless — every query re-discovers relationships. Compilation is stateful — relationships are discovered once and maintained. For a consulting practice with deep domain knowledge, compiled understanding is dramatically more valuable than per-query retrieval.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Higher upfront cost per knowledge artifact but dramatically lower marginal cost per query. Freshening becomes a maintenance concern. The lint operation detects staleness and surfaces recompilation signals.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D17 CARD -->
+            <div class="adr-card">
+                <h3>D17: Double-Loop Learning</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Most feedback loops only optimize execution parameters (single-loop: "did we do the thing right?"). Chris Argyris identified a deeper loop: questioning the assumptions behind the action ("are we doing the right thing?"). Intent's Observe phase needs to support both.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Observe updates Layer 1 (domain understanding), not just Layer 3 (execution). Observations can question assumptions in the knowledge base — updating personas, revising domain models, flagging contradictions in compiled knowledge. This is the double-loop: observations → knowledge revision → better signals.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Without double-loop learning, the system can only optimize within its existing frame. It can get faster at the wrong thing. The Observe→Knowledge path closes the gap between "what we think is true" and "what we observe to be true." This is where the real learning happens.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>The system becomes self-correcting at the domain level, not just the execution level. Knowledge artifacts need version history and change tracking. Observation-triggered knowledge updates need trust scoring to prevent noise from corrupting the knowledge base.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D18 CARD -->
+            <div class="adr-card">
+                <h3>D18: Origin Tracking for Knowledge Artifacts</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>As AI agents generate more knowledge artifacts (dossiers, enrichments, inferences), the provenance of knowledge becomes critical. Which artifacts came from human research? Which were agent-generated? Which are synthetic composites?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Every knowledge artifact carries <code>origin: human | agent | synthetic</code> metadata for contamination mitigation. Human-originated artifacts have highest trust. Agent-originated artifacts require human review before promotion. Synthetic artifacts (composites, inferences) carry their source chain.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Without origin tracking, the knowledge base becomes a black box — you can't distinguish verified human knowledge from speculative agent inference. This matters for consulting where recommendations must be defensible. Origin tracking is the foundation for trust calibration.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Every ingest operation must classify origin. The lint operation can flag artifacts with missing or suspicious origin metadata. Knowledge queries can filter by origin for high-stakes decisions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D19 CARD -->
+            <div class="adr-card">
+                <h3>D19: Federated Knowledge Base Architecture</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Brien works across multiple engagements (Subaru, F&amp;G, ASA, Cargill) with different confidentiality requirements. The knowledge base needs to support both shared (universal) and scoped (engagement-specific) knowledge without leaking across boundaries.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Core = universal substrate (methodologies, frameworks, public knowledge). Engagements = bounded instances (client-specific personas, dossiers, domain models). Inheritance: inherit down (engagements see Core), promote up (engagement insights can become universal), never leak sideways (Subaru knowledge never visible from ASA context).</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Mirrors the Workspaces directory topology (Core/ + Work/Consulting/Engagements/[Client]/). Confidentiality is structural, not behavioral — the architecture enforces it. Redaction at tool level (D11) complements this by applying projection automatically at query time.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Knowledge Engine MCP server (port 8004) must implement scope-aware queries. Promotion from engagement to Core requires explicit review. The federation model scales to any number of engagements without architectural changes.</li>
                         </ul>
                     </div>
                 </div>
