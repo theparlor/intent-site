@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Intent asks you to release — Intent</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; }
+    .eyebrow { font-size: 11px; color: var(--accent-amber); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    h1 { font-size: 42px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+    .lede { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 680px; margin-bottom: 48px; }
+
+    .release-item {
+      background: var(--surface);
+      border-left: 3px solid var(--accent-amber);
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      border-radius: 0 10px 10px 0;
+    }
+    .release-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+    .release-item p { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
+    .release-item p:last-child { margin-bottom: 0; }
+    .release-item .loss { color: var(--accent-amber); font-weight: 600; }
+    .release-item em { color: var(--text); font-style: normal; }
+
+    .callout-bridges {
+      background: rgba(168,85,247,0.04);
+      border: 1px solid rgba(168,85,247,0.2);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin: 48px 0;
+    }
+    .callout-bridges h3 { font-size: 14px; color: #a855f7; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 14px; }
+    .callout-bridges p { font-size: 15px; color: var(--text); line-height: 1.65; margin-bottom: 12px; }
+    .callout-bridges .attr { color: var(--text-dim); font-size: 13px; font-style: italic; }
+
+    .next-cta { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .next-cta a { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-blue); font-weight: 600; text-decoration: none; font-size: 15px; }
+    .next-cta a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Hypothesis</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="../architecture.html">The Build</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="eyebrow">▸ Adoption · Phase 1: Ending</div>
+    <h1>What Intent asks you to release</h1>
+    <p class="lede">
+      William Bridges' research on transitions is unambiguous: transformations fail when the <strong>ending</strong> is unacknowledged. Not because the new thing is bad — because the old thing held meaning the change ignored. Before Intent's new beginning, there's an ending. Here is what it asks you to release.
+    </p>
+
+    <div class="release-item">
+      <h3>▸ Sprint rhythm and its rituals</h3>
+      <p class="loss">The loss: predictable two-week cadence, the shared "done this sprint" closure moment, the retrospective as team metabolism.</p>
+      <p>Sprint planning, retro, review, demo. These aren't trivial — they provide predictable rhythm, social cohesion, and the closure of "done." Intent's continuous loop offers <em>none</em> of these by design. Teams that adopt Intent will feel arrhythmic for weeks. That is expected. It is also a real loss, not a cosmetic one.</p>
+    </div>
+
+    <div class="release-item">
+      <h3>▸ The vocabulary of estimation</h3>
+      <p class="loss">The loss: story points, velocity, burndown charts, capacity planning — an entire shared language.</p>
+      <p>When AI collapses implementation cost, velocity becomes noise. Story points were a calibration tool for human labor, not for agent throughput. Estimators lose a craft. Stakeholders lose a coordination proxy. Finance loses a headcount allocation mechanism. The vocabulary took years to learn and now belongs to a defunct operating model. Grief is a rational response.</p>
+    </div>
+
+    <div class="release-item">
+      <h3>▸ The "done this week" dopamine hit</h3>
+      <p class="loss">The loss: the small closure moment when a ticket moves to Done and the person who wrote it feels completion.</p>
+      <p>In sprint-based work, every team member has a weekly satisfaction loop. Intent's event streams are continuous — there is no "done this week" moment. For people who run on weekly completion satisfaction, Intent is emotionally flat. We haven't solved this yet. If your team's motivation system depends on that weekly rhythm, adopting Intent will degrade motivation in the short term. That's an honest limitation, not a bug to minimize.</p>
+    </div>
+
+    <div class="release-item">
+      <h3>▸ Ceremonies as social glue</h3>
+      <p class="loss">The loss: the standup as a daily moment where teammates see each other's faces, hear each other's obstacles, and feel part of a whole.</p>
+      <p>Standups aren't just about coordination — they're where social presence happens. Intent replaces standups with async signal capture, which replaces social presence with text. That's a loss, not a neutral substitution. Teams adopting Intent need to replace the social function explicitly — probably with something other than a work-coordination ritual. If you skip this, you'll get a team that ships more and feels lonelier.</p>
+    </div>
+
+    <div class="release-item">
+      <h3>▸ The identity "I'm the person who keeps our process running"</h3>
+      <p class="loss">The loss: a professional identity built around being the calm center of the ceremony stack.</p>
+      <p>Scrum Masters, team leads, delivery managers, PMOs, operations roles — many humans built identity around being the person who runs the process. Intent makes that specific identity obsolete. The humans are still valuable (often MORE valuable — their psychological safety work and team facilitation craft is exactly what Intent needs). But the craft of orchestrating human coordination through ceremonies is not what Intent requires. That's an identity loss, which is heavier than a skill loss.</p>
+    </div>
+
+    <div class="release-item">
+      <h3>▸ Large-team coordination craft</h3>
+      <p class="loss">The loss: the ability to call yourself "the person who runs a 20-person team well."</p>
+      <p>Intent is explicitly for teams of 2–7 (sweet spot 2–5). Over 7 is out of scope. If your career identity is built around successfully managing large teams, Intent says your coordination craft is a symptom of the wrong operating model — not because you're bad at it, but because AI shifts the economics so that large teams become harder to justify. That's a hard thing to hear. It may not be true in your specific context. But it is the implication of Intent's target, and we'd rather name it than hide it.</p>
+    </div>
+
+    <div class="callout-bridges">
+      <h3>▸ Why naming the ending matters</h3>
+      <p>
+        "Transition starts with an ending. Paradoxical as it may sound, change is not the beginning of the transition. It starts with the ending of something. People only gradually let go of the old ways and the old identifications, and until they do, change will be at best an empty form and at worst a painful setback."
+      </p>
+      <p class="attr">— William Bridges, <em>Managing Transitions</em> (2009)</p>
+    </div>
+
+    <h2 style="font-size: 24px; margin: 48px 0 16px;">What to actually do with this page</h2>
+    <p style="font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px;">
+      Before you adopt Intent with a team, hold a 60-minute meeting. Read this page together. Name which losses will land hardest for which people. Let people say what the old way gave them that the new way doesn't yet match. Write down what they said. Use that list as the starting point for designing your neutral zone (see below).
+    </p>
+    <p style="font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px;">
+      <strong style="color: var(--text);">Do not skip this step.</strong> It is the single most common change-management failure in our field — jumping to the new beginning without acknowledging the ending, then wondering why the team resists six weeks in.
+    </p>
+
+    <div class="next-cta">
+      <a href="neutral-zone.html">Next: The Neutral Zone playbook (weeks 3–8) →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Built on Bridges' transition research (1991, 2009)</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Who loses power when Intent is adopted</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+    .eyebrow { font-size: 11px; color: var(--accent-amber); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    h1 { font-size: 42px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+    .lede { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 760px; margin-bottom: 48px; }
+
+    .power-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .power-col {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .power-col.gain { background: rgba(16,185,129,0.04); border-color: rgba(16,185,129,0.25); }
+    .power-col.lose { background: rgba(245,158,11,0.04); border-color: rgba(245,158,11,0.25); }
+    .power-col.resist { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.25); }
+    .power-col h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 16px; }
+    .power-col.gain h3 { color: var(--accent-green); }
+    .power-col.lose h3 { color: var(--accent-amber); }
+    .power-col.resist h3 { color: #fca5a5; }
+    .power-col ul { list-style: none; padding: 0; margin: 0; }
+    .power-col li { font-size: 13px; color: var(--text); padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); line-height: 1.5; }
+    .power-col li:last-child { border-bottom: none; }
+
+    .role-deep-dive {
+      margin-top: 48px;
+    }
+    .role-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 18px;
+    }
+    .role-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .role-card .role-meta { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+    .role-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
+    .role-card .becomes { background: rgba(16,185,129,0.05); border-left: 2px solid var(--accent-green); padding: 10px 14px; border-radius: 0 4px 4px 0; font-size: 13px; color: var(--text); margin-top: 10px; }
+    .role-card .becomes strong { color: var(--accent-green); }
+
+    .honest-callout {
+      background: linear-gradient(135deg, rgba(220,38,38,0.05) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(220,38,38,0.25);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 48px 0;
+    }
+    .honest-callout h3 { color: #fca5a5; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+    .honest-callout p { color: var(--text); font-size: 15px; line-height: 1.65; margin-bottom: 10px; }
+
+    .next-cta { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .next-cta a { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-blue); font-weight: 600; text-decoration: none; font-size: 15px; }
+    .next-cta a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .power-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Hypothesis</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="../architecture.html">The Build</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="eyebrow">▸ Adoption · Power Shift</div>
+    <h1>Who loses power when Intent is adopted</h1>
+    <p class="lede">
+      Hiding the losers from the pitch guarantees resistance you never see coming, because the resistance forms in rooms you're not in. Intent changes who holds power on a team. Some roles gain. Some lose. Some will actively resist adoption and have legitimate reasons to do so. Here is the honest map.
+    </p>
+
+    <div class="power-grid">
+      <div class="power-col gain">
+        <h3>▸ Gains power</h3>
+        <ul>
+          <li>Solo ICs with high spec clarity (can now command agent execution end-to-end)</li>
+          <li>Architects — the Practitioner-Architect is Intent's canonical persona</li>
+          <li>AI-fluent senior engineers</li>
+          <li>"The operator" who reviews specs at the spec-shaping protocol layer</li>
+          <li>PMs who can write verifiable acceptance criteria</li>
+          <li>Craftspeople whose domain knowledge is hard to compile</li>
+        </ul>
+      </div>
+      <div class="power-col lose">
+        <h3>◆ Loses power</h3>
+        <ul>
+          <li>Scrum Masters, RTEs, Delivery Coaches (the ceremony stack is obsolete)</li>
+          <li>PMs whose value was running prioritization committees</li>
+          <li>Junior engineers whose role was "do the tickets" — the productive struggle disappears</li>
+          <li>Anyone whose identity was "good at running Jira"</li>
+          <li>Managers whose span of control was headcount-driven</li>
+          <li>Large-team coordinators (Intent is 2–7 person teams only)</li>
+        </ul>
+      </div>
+      <div class="power-col resist">
+        <h3>○ Will actively resist</h3>
+        <ul>
+          <li><strong>PMOs</strong> — roll-up reports depend on ticket hierarchies Intent doesn't produce</li>
+          <li><strong>Finance / Capacity planning</strong> — story points were how headcount was allocated</li>
+          <li><strong>Auditors / Compliance</strong> — git-as-source-of-truth is alien to SOX/ITIL frameworks</li>
+          <li><strong>Middle management</strong> translating strategy to tickets</li>
+          <li><strong>External stakeholders</strong> who relied on velocity reports for status</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="honest-callout">
+      <h3>▸ Before you continue</h3>
+      <p>
+        If you are adopting Intent in an organization that has any of the "actively resist" roles — and most orgs over 50 people do — you have a political problem, not a methodological one. Intent's technical merits do not survive contact with a PMO that needs weekly velocity rollups. Either the PMO gets translated-for (which is expensive and ongoing) or the PMO learns a new language (which is a change program, not a tool adoption).
+      </p>
+      <p>
+        Naming this upfront is not pessimism. It is honesty. If you try to adopt Intent without addressing the resistance, you will fail in month 3 and the failure will look like "the methodology didn't work" when the actual failure was unaddressed political gravity.
+      </p>
+    </div>
+
+    <h2 style="font-size: 26px; margin: 48px 0 20px;">The role deep-dives</h2>
+    <p style="font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 32px;">
+      For the roles most affected, here is what the transition actually looks like — what's lost, what's gained, and what the role <em>becomes</em>. Intent does not make these humans less valuable. It changes what their value is.
+    </p>
+
+    <div class="role-card">
+      <h3>The Scrum Master / Delivery Coach</h3>
+      <div class="role-meta">Loses: ceremony orchestration craft · Gains: psychological safety facilitation craft</div>
+      <p>The craft of running standups, retros, and planning disappears with the ceremonies themselves. That's real. But the deeper craft — facilitating a team learning conversation, holding space for disagreement, noticing the silence before it becomes disengagement — is <em>more</em> valuable in Intent, not less. Intent's psychological safety contract (Promises 1, 2, 5, 6) depends on someone holding the meta-view of team dynamics.</p>
+      <div class="becomes"><strong>Becomes:</strong> The Safety Facilitator. Runs the weekly Transition Check during the neutral zone, the Psychological Safety Check-in throughout adoption, and the Intelligent Failure Celebrations. The ceremony is gone; the facilitation discipline is load-bearing.</div>
+    </div>
+
+    <div class="role-card">
+      <h3>The Junior Engineer</h3>
+      <div class="role-meta">Loses: the productive struggle of implementing well-defined work · Gains: exposure to spec-shaping earlier in their career</div>
+      <p>This is the transition Intent is most honest about being unsolved. Junior engineers traditionally developed craft by implementing tickets — the productive struggle of turning a story into working code is how judgment develops. When agents do that work, juniors lose the scaffold. We haven't fully figured out what replaces it. Current best answer: structured apprenticeship in spec-shaping, where a junior pairs with a senior on the four-persona protocol and learns by watching specs come together.</p>
+      <div class="becomes"><strong>Becomes:</strong> The Spec Apprentice. Shadows senior engineers through spec-shaping sessions, reviews contracts for testability, learns to see the spec before learning to write the code. This is a worse onramp than the old one in some ways. It is an honest gap.</div>
+    </div>
+
+    <div class="role-card">
+      <h3>The Traditional PM</h3>
+      <div class="role-meta">Loses: prioritization committee authority · Gains: spec clarity craft, measurable outcome ownership</div>
+      <p>PMs whose daily work was running prioritization meetings, writing tickets, and facilitating between stakeholders lose most of that work. PMs whose daily work was customer discovery, outcome definition, and spec clarity gain leverage. The shift is from managing the coordination layer to managing the clarity layer. Torres-trained PMs already operate this way; Jira-trained PMs don't.</p>
+      <div class="becomes"><strong>Becomes:</strong> The Outcome Owner. Continuous discovery remains their craft. Spec-shaping becomes their primary deliverable. They stop managing tickets and start managing clarity. Not a new role — a recovery of what PMs were supposed to do before tickets ate the job.</div>
+    </div>
+
+    <div class="role-card">
+      <h3>The PMO Analyst</h3>
+      <div class="role-meta">Loses: Jira-based reporting and rollup · Gains: nothing automatic</div>
+      <p>PMOs translate engineering work into stakeholder-legible reports. Intent's event streams don't roll up into the formats stakeholders expect. This is a hard break, not a soft one. The PMO can either learn a new reporting language (which is months of work and their stakeholders don't understand the new format) or push back on Intent adoption (which is often the right call for the organization). We are not pretending this is a win-win. It isn't.</p>
+      <div class="becomes"><strong>Becomes:</strong> Either a translator (between Intent events and stakeholder reports, which is ongoing cost) or a blocker. Intent does not have a good answer for PMO-heavy organizations. If that's your context, see <a href="when-not.html" style="color: var(--accent-blue);">when NOT to adopt Intent</a>.</div>
+    </div>
+
+    <div class="role-card">
+      <h3>The Large-Team Manager (8+ direct reports)</h3>
+      <div class="role-meta">Loses: the entire team size bracket · Gains: nothing from Intent (needs a different methodology)</div>
+      <p>Intent is explicitly for teams of 2–7. Over 7 is out of scope. If your career identity is built around successfully managing 20-person teams, Intent says that team shape is a symptom of the wrong operating model — not because you're bad at it, but because AI shifts the economics so that large teams become harder to justify for engineering work. Your craft is real. Intent is not for it. That is honest, not dismissive.</p>
+      <div class="becomes"><strong>Becomes:</strong> Nothing within Intent. Intent is not a large-team methodology and pretending it is would be dishonest. Large-team management craft remains valuable in many contexts — customer success, operations, support — but not in AI-native engineering delivery. This is a real narrowing that we are naming upfront.</div>
+    </div>
+
+    <h2 style="font-size: 26px; margin: 48px 0 16px;">What to do with this page</h2>
+    <p style="font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px;">
+      Before you adopt Intent, share this page with everyone who will be affected. Let them read it. Then have a hard conversation about who in your specific org will lose and who will gain. Identify which "actively resist" roles you need to work with, not against. Build your Kotter Step 2 guiding coalition around the honest reality, not the optimistic pitch.
+    </p>
+    <p style="font-size: 15px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px;">
+      <strong style="color: var(--text);">If reading this page makes you realize Intent isn't right for your org, good.</strong> That is a valid outcome of honesty. We'd rather lose you here than six weeks into a failing pilot.
+    </p>
+
+    <div class="next-cta">
+      <a href="neutral-zone.html">← Previous: Neutral Zone playbook</a>
+      <a href="when-not.html">Next: When NOT to adopt Intent →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Power shift analysis from the 2026-04-09 Organizational Design panel review</p>
+  </footer>
+</body>
+</html>
