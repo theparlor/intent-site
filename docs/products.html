@@ -99,7 +99,7 @@
       { name: "digital-declutter", tagline: "File organization governance — 28 behavioral rules, 6 skills, and reference templates for systematic workspace management.", status: "observe", github: "https://github.com/theparlor/digital-declutter", signals: 1, decisions: 0, layer: 2 },
       { name: "skills-engine", tagline: "Composable skills platform — Methodology × Persona × Platform = Deployed Skill. 47 skills across 12 categories.", status: "observe", github: "https://github.com/theparlor/skills-engine", signals: 2, decisions: 1, layer: 3 },
       { name: "fieldbook", tagline: "Composable expense lifecycle — receipt intake, ledger, compliance, narrative, and export. Executing Tier 2 with 8 contracts validated.", status: "execute", github: "https://github.com/theparlor/fieldbook", signals: 13, decisions: 12, layer: 3 },
-      { name: "personas", tagline: "Unified persona registry — 178 named-humans + 7 archetypes. Identity, corpus, and rendering for 188 advisory voices.", status: "observe", github: null, signals: 0, decisions: 6, layer: 4 },
+      { name: "personas", tagline: "Unified persona registry — 178 named-humans + 7 archetypes. Identity, corpus, and rendering for 188 advisory voices.", status: "observe", github: "personas.html", signals: 0, decisions: 6, layer: 4, local: true },
       { name: "studio-control", tagline: "Studio audio control — Wave Link WebSocket API integration for mute toggle, routing, and Stream Deck automation.", status: "noticed", github: "https://github.com/theparlor/studio-control", signals: 7, decisions: 0, layer: null }
     ];
 
@@ -138,18 +138,23 @@
       grid.className = 'product-grid';
 
       layerProducts.forEach(p => {
-        const githubLink = p.github ? `<a href="${p.github}" target="_blank">${p.github.replace('https://github.com/', '')}</a>` : '<span style="color:var(--text-dim)">no repo</span>';
+        const href = p.github || null;
+        const isLocal = p.local || false;
+        const target = isLocal ? '' : ' target="_blank"';
+        const linkLabel = isLocal ? p.name + ' (site)' : (href ? href.replace('https://github.com/', '') : null);
+        const linkHtml = href ? `<a href="${href}"${target}>${linkLabel}</a>` : '<span style="color:var(--text-dim)">no repo</span>';
+        const clickAction = href ? (isLocal ? `onclick="window.location.href='${href}'"` : `onclick="window.open('${href}', '_blank')"`) : '';
         grid.innerHTML += `
-          <div class="product-card${p.github ? ' clickable' : ''}" ${p.github ? `onclick="window.open('${p.github}', '_blank')"` : ''}>
+          <div class="product-card${href ? ' clickable' : ''}" ${clickAction}>
             <div class="product-header">
-              <span class="product-name">${p.github ? `<a href="${p.github}" target="_blank">${p.name}</a>` : p.name}</span>
+              <span class="product-name">${href ? `<a href="${href}"${target}>${p.name}</a>` : p.name}</span>
               <span class="status-badge status-${p.status}">${p.status}</span>
             </div>
             <div class="product-tagline">${p.tagline}</div>
             <div class="product-meta">
               <span>📡 ${p.signals} signals</span>
               <span>📋 ${p.decisions} decisions</span>
-              <span>🔗 ${githubLink}</span>
+              <span>🔗 ${linkHtml}</span>
             </div>
           </div>
         `;
