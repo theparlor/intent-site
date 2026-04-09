@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellectual Lineage — Intent</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+    .eyebrow { font-size: 11px; color: #a855f7; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    h1 { font-size: 42px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+    .lede { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 760px; margin-bottom: 48px; }
+
+    .thesis-box {
+      background: rgba(168,85,247,0.04);
+      border: 1px solid rgba(168,85,247,0.25);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 32px 0;
+    }
+    .thesis-box h3 { color: #a855f7; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+    .thesis-box p { color: var(--text); font-size: 16px; line-height: 1.65; margin-bottom: 10px; }
+
+    .phase-section {
+      margin: 48px 0;
+    }
+    .phase-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .phase-header .phase-name { font-size: 22px; font-weight: 800; }
+    .phase-header .phase-name.notice { color: var(--accent-amber); }
+    .phase-header .phase-name.spec { color: var(--accent-blue); }
+    .phase-header .phase-name.execute { color: var(--accent-green); }
+    .phase-header .phase-name.observe { color: #a855f7; }
+    .phase-header .one-liner { color: var(--text-dim); font-size: 14px; }
+
+    .ancestor {
+      background: var(--surface);
+      border-left: 3px solid var(--border);
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      border-radius: 0 8px 8px 0;
+    }
+    .ancestor.notice { border-left-color: var(--accent-amber); }
+    .ancestor.spec { border-left-color: var(--accent-blue); }
+    .ancestor.execute { border-left-color: var(--accent-green); }
+    .ancestor.observe { border-left-color: #a855f7; }
+    .ancestor h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .ancestor .work { font-size: 12px; color: var(--text-dim); font-style: italic; margin-bottom: 8px; }
+    .ancestor p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+    .cross-cutting { margin: 56px 0; }
+    .cross-cutting h2 { font-size: 22px; margin-bottom: 16px; }
+    .cross-cutting .ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cross-cutting .ct-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+    .cross-cutting .ct-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    .cross-cutting .ct-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .cross-cutting .ct-card .credits { color: var(--accent-blue); font-weight: 600; font-size: 11px; }
+
+    .disclaimer {
+      background: rgba(245,158,11,0.04);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin: 48px 0;
+    }
+    .disclaimer h3 { color: var(--accent-amber); font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; font-weight: 700; }
+    .disclaimer p { color: var(--text); font-size: 14px; line-height: 1.65; margin-bottom: 8px; }
+
+    @media (max-width: 768px) {
+      .cross-cutting .ct-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Hypothesis</a>
+    <a href="lineage.html" class="active">Lineage</a>
+    <a href="../architecture.html">The Build</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="eyebrow">▸ Intellectual lineage</div>
+    <h1>Intent is a synthesis, not an invention</h1>
+    <p class="lede">
+      The Notice → Spec → Execute → Observe loop is a rename of patterns our field has known for decades. We credit the ancestors explicitly because credibility travels with lineage, and because pretending we invented any of this would insult the people who actually did.
+    </p>
+
+    <div class="thesis-box">
+      <h3>▸ The thesis</h3>
+      <p>
+        Intent as <em>synthesis</em> is a stronger story than Intent as <em>invention</em>. Every primitive in our methodology traces back to named practitioners who did the original work. What is new in Intent is the <em>recombination</em> under a specific constraint — AI agents collapsing implementation cost — and the <em>tooling</em> to make the recombination operable. The loop itself is ancestral.
+      </p>
+      <p>
+        If you recognize every ancestor below, you already know most of Intent. That is not a weakness. That is the point.
+      </p>
+    </div>
+
+    <div class="phase-section">
+      <div class="phase-header">
+        <div class="phase-name notice">▲ Notice</div>
+        <div class="one-liner">Capture signals from anywhere work happens</div>
+      </div>
+
+      <div class="ancestor notice">
+        <h4>Teresa Torres — Continuous Discovery</h4>
+        <div class="work">Continuous Discovery Habits (2021)</div>
+        <p>Notice is continuous discovery. Torres's habit of weekly practitioner interviews, opportunity solution trees, and assumption testing is the direct ancestor of Intent's signal capture pipeline. Her insistence on evidence over opinion is load-bearing for Intent's trust formula.</p>
+      </div>
+
+      <div class="ancestor notice">
+        <h4>Steve Blank — Customer Development</h4>
+        <div class="work">The Four Steps to the Epiphany (2005)</div>
+        <p>"Get out of the building." Blank's customer development methodology is the original argument that the bottleneck for product work is not building — it's learning what's worth building. Intent generalizes this: when implementation collapses, the learning problem gets sharper, not weaker.</p>
+      </div>
+
+      <div class="ancestor notice">
+        <h4>John Boyd — OODA Loop (Observe-Orient-Decide-Act)</h4>
+        <div class="work">Patterns of Conflict (1976, 1986)</div>
+        <p>Boyd's OODA loop is the deepest ancestor of Intent's loop. Observe-Orient-Decide-Act maps roughly to Observe-Notice-Spec-Execute in Intent vocabulary. Boyd's insight — that the team with the faster loop wins regardless of individual decision quality — is exactly what Intent bets on under AI acceleration.</p>
+      </div>
+
+      <div class="ancestor notice">
+        <h4>Rob Fitzpatrick — The Mom Test</h4>
+        <div class="work">The Mom Test (2014)</div>
+        <p>Fitzpatrick's discipline for discovery interviews — never ask "would you use X," always ask about past behavior — is how Intent's discovery protocol avoids confirmation bias. The Mom Test is Intent's interview protocol in miniature.</p>
+      </div>
+    </div>
+
+    <div class="phase-section">
+      <div class="phase-header">
+        <div class="phase-name spec">◆ Spec</div>
+        <div class="one-liner">Shape signals into agent-ready specifications</div>
+      </div>
+
+      <div class="ancestor spec">
+        <h4>Jeff Patton — Story Mapping</h4>
+        <div class="work">User Story Mapping (2014)</div>
+        <p>Story mapping as shared understanding, not documentation. Patton's distinction between "stories are for conversations" and "stories are for ticket tracking" is the foundation of Intent's specs-as-contracts framing. What Intent calls a Spec is what Patton calls a shared understanding artifact.</p>
+      </div>
+
+      <div class="ancestor spec">
+        <h4>Kent Beck — Test-Driven Development</h4>
+        <div class="work">Test-Driven Development: By Example (2002)</div>
+        <p>Beck's tests-as-specification insight is the direct ancestor of Intent's contracts-as-verifiable-assertions. When we say "contract.assertion.passed means a verification command returned 0," that's TDD generalized to agent execution.</p>
+      </div>
+
+      <div class="ancestor spec">
+        <h4>Josh Seiden — Outcomes Over Output</h4>
+        <div class="work">Outcomes Over Output (2019)</div>
+        <p>Seiden's distinction between outputs (what gets shipped) and outcomes (what changes for humans) is Intent's north star. Specs define outputs; contracts verify them; but the loop's actual job is changing outcomes. Intent uses Seiden's framework to distinguish when a spec is done (output) from when the work is done (outcome).</p>
+      </div>
+
+      <div class="ancestor spec">
+        <h4>Marty Cagan + Melissa Perri — Product Operating Model</h4>
+        <div class="work">Inspired (2018), Empowered (2020), The Build Trap (2018)</div>
+        <p>Cagan and Perri's product operating model is the organizational context Intent operates in. Empowered teams shipping against outcome specs is exactly what Intent's trust-scored autonomy enables. Perri's build-trap warning is why Intent refuses to ship features before validating opportunities.</p>
+      </div>
+
+      <div class="ancestor spec">
+        <h4>Petra Wille — Strong Product People</h4>
+        <div class="work">Strong Product People (2020)</div>
+        <p>Wille's work on PM community and craft is the cultural backdrop for Intent's assumption that specs are worth writing carefully. Intent cannot work without PMs who value clarity over urgency — and Wille built the community that keeps that value alive.</p>
+      </div>
+
+      <div class="ancestor spec">
+        <h4>Ryan Singer — Shape Up</h4>
+        <div class="work">Shape Up (2019, Basecamp)</div>
+        <p>Shape Up's "pitch" concept — a specific proposal with constraints and appetite — is very close to Intent's spec. Singer's move to eliminate backlogs and sprints in favor of bets and cycles is a structural predecessor. Intent goes further by making the pitch machine-executable, but the shape is Singer's.</p>
+      </div>
+    </div>
+
+    <div class="phase-section">
+      <div class="phase-header">
+        <div class="phase-name execute">● Execute</div>
+        <div class="one-liner">Trust-gated agent implementation against contracts</div>
+      </div>
+
+      <div class="ancestor execute">
+        <h4>Itamar Gilad — GIST Planning + Evidence-Guided</h4>
+        <div class="work">Evidence-Guided (2024), GIST framework</div>
+        <p>Gilad's evidence-based decision model and confidence meter are the direct ancestor of Intent's trust formula. His insistence that decisions should be scored on evidence (not opinion, not authority) is load-bearing for Intent's autonomy levels. Gilad is in every decision-review panel call.</p>
+      </div>
+
+      <div class="ancestor execute">
+        <h4>Jez Humble + Dave Farley — Continuous Delivery</h4>
+        <div class="work">Continuous Delivery (2010), Modern Software Engineering (Farley, 2021)</div>
+        <p>Blue-green deployment, feature flags, deployment pipelines. These are Intent's infrastructure prerequisites — without them, the trust formula's reversibility factor is fictional. Humble and Farley are why Intent says "if you can't roll back, don't adopt."</p>
+      </div>
+
+      <div class="ancestor execute">
+        <h4>Nicole Forsgren — DORA + Accelerate</h4>
+        <div class="work">Accelerate (2018)</div>
+        <p>Forsgren's four key metrics (deployment frequency, lead time, MTTR, change failure rate) are the measurability substrate Intent assumes. Her research established that measurement without visibility is cargo cult — which is why SIG-053 requires visible measurement as a hard prerequisite.</p>
+      </div>
+
+      <div class="ancestor execute">
+        <h4>Matthew Skelton + Manuel Pais — Team Topologies</h4>
+        <div class="work">Team Topologies (2019)</div>
+        <p>Cognitive load as a first-class team design constraint. Intent's insistence on 2–7 person teams is Skelton and Pais — larger teams exceed the cognitive load budget regardless of how good the tools are. Also: Team Topologies is what to use instead of Intent if your team is >7.</p>
+      </div>
+    </div>
+
+    <div class="phase-section">
+      <div class="phase-header">
+        <div class="phase-name observe">○ Observe</div>
+        <div class="one-liner">Loop closure — observations become new signals</div>
+      </div>
+
+      <div class="ancestor observe">
+        <h4>W. Edwards Deming — PDCA Cycle</h4>
+        <div class="work">Out of the Crisis (1982)</div>
+        <p>Plan-Do-Check-Act. Deming's quality improvement cycle is the grandparent of every continuous-improvement loop in our field, including Intent's. "Check" is the direct ancestor of Observe. Deming's insistence that measurement must inform learning — not just control — is exactly what Intent's Observe phase is for.</p>
+      </div>
+
+      <div class="ancestor observe">
+        <h4>Chris Argyris — Double-Loop Learning</h4>
+        <div class="work">Theory in Practice (1974), Overcoming Organizational Defenses (1990)</div>
+        <p>Single-loop learning asks "are we doing the thing right?" Double-loop asks "are we doing the right thing?" Intent's Observe phase is supposed to implement double-loop — questioning the assumptions behind the goals, not just the execution toward them. The honest admission: we haven't built this yet. It's an open question, and Argyris is our guide for what "built" means.</p>
+      </div>
+
+      <div class="ancestor observe">
+        <h4>Eric Ries — Build-Measure-Learn</h4>
+        <div class="work">The Lean Startup (2011)</div>
+        <p>Ries's Build-Measure-Learn loop is structurally identical to a subset of Intent's loop. His pivot concept — explicit permission to change direction based on learning — is what Intent's disambiguation signal pattern generalizes. Intent's honest framing as "hypothesis that may be wrong" is Ries-descended.</p>
+      </div>
+
+      <div class="ancestor observe">
+        <h4>Peter Senge — The Fifth Discipline</h4>
+        <div class="work">The Fifth Discipline (1990)</div>
+        <p>Senge's learning organization framework is the cultural backdrop for Intent's Observe phase. Feedback loops, systems thinking, mental models — Intent uses Senge's vocabulary whether or not it credits him. We're crediting him here.</p>
+      </div>
+
+      <div class="ancestor observe">
+        <h4>Gene Kim — The Three Ways (DevOps)</h4>
+        <div class="work">The Phoenix Project (2013), The Unicorn Project (2019), The DevOps Handbook (2016)</div>
+        <p>Flow, Feedback, Continuous Learning. Kim's Three Ways is DevOps distilled, and Intent's loop is a generalization of it for AI-augmented work. Every "observability is first-class" claim in Intent traces back to Kim.</p>
+      </div>
+    </div>
+
+    <div class="cross-cutting">
+      <h2>Cross-cutting foundations</h2>
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.65;">
+        These voices don't belong to a single phase — they shape the entire methodology. Most of them are foundational voices in our panel-review rotation, meaning they are always in the room when we make decisions about Intent.
+      </p>
+      <div class="ct-grid">
+        <div class="ct-card">
+          <div class="credits">Amy Edmondson</div>
+          <h4>Psychological Safety</h4>
+          <p>The Fearless Organization (2018), Right Kind of Wrong (2023). Intent's Safety Contract is her framework applied.</p>
+        </div>
+        <div class="ct-card">
+          <div class="credits">Daniel Kahneman</div>
+          <h4>Cognitive bias / System 1 & 2</h4>
+          <p>Thinking, Fast and Slow (2011). Intent's trust formula guards against Kahneman-documented biases in the scorer.</p>
+        </div>
+        <div class="ct-card">
+          <div class="credits">April Dunford</div>
+          <h4>Obviously Awesome positioning</h4>
+          <p>Her framework is why this site has one target user and one category. She critiqued our previous version directly.</p>
+        </div>
+        <div class="ct-card">
+          <div class="credits">Richard Rumelt</div>
+          <h4>Good Strategy / Bad Strategy</h4>
+          <p>Diagnosis + guiding policy + coherent action. Intent's "name the real challenge" posture is Rumelt.</p>
+        </div>
+        <div class="ct-card">
+          <div class="credits">Donella Meadows</div>
+          <h4>Systems thinking, leverage points</h4>
+          <p>Intent operates at Meadows' leverage points 4-6 (self-organization, information flows). Her framework is how we're honest about leverage we don't have.</p>
+        </div>
+        <div class="ct-card">
+          <div class="credits">William Bridges</div>
+          <h4>Managing Transitions</h4>
+          <p>Ending → Neutral Zone → New Beginning. Intent's change management pages are Bridges applied to AI-native transformation.</p>
+        </div>
+        <div class="ct-card">
+          <div class="credits">John Kotter</div>
+          <h4>Leading Change (8 steps)</h4>
+          <p>Kotter's research on why 70% of transformations fail shaped Intent's "who loses" and "when NOT to adopt" pages.</p>
+        </div>
+        <div class="ct-card">
+          <div class="credits">Aakash Gupta</div>
+          <h4>AI-native PM craft</h4>
+          <p>Contemporary practitioner-educator voice on what classical PM work looks like when AI tools are daily-use. Bridges the canon to the current era.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <h3>▸ What's actually new in Intent</h3>
+      <p>
+        After crediting everyone above, what remains that is genuinely novel? A short list:
+      </p>
+      <p>
+        1. The <em>recombination</em> under the AI-implementation-cost-collapse constraint. The loop is old; applying it when agents do the implementation is new.<br>
+        2. The <em>trust-scored autonomy</em> framework (L0–L4 with weighted formula). Evidence-based decision frameworks exist, but the specific calibration for agent autonomy is original synthesis.<br>
+        3. The <em>four-persona spec-shaping protocol</em> (△ Shape / ◇ Outcome / ○ Contract / ◉ Readiness). Multi-persona prompting exists; the specific protocol and integration with the loop is Intent-original.<br>
+        4. The <em>panel-review as async feedback primitive</em>. Using persona panels as a first-class agent-callable skill is new (and arguably Intent's most shippable contribution).<br>
+        5. The <em>Operator persona type</em> — self-personas that capture an individual operator's flow patterns for use in self-directed cycles. Cooper's personas are for users; operator personas are for the practitioners themselves. Novel.
+      </p>
+      <p>
+        Everything else is synthesis. We are standing on thoroughly named shoulders.
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Built on 50+ years of shoulders</p>
+  </footer>
+</body>
+</html>

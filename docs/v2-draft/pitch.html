@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intent — A hypothesis for staff+ engineers using Claude Code</title>
+  <meta name="description" content="Active hypothesis: when AI collapses implementation cost, specification clarity becomes the constraint. For staff+ engineers on teams of 2-7 using Claude Code daily.">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Hypothesis label */
+    .hypothesis-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3);
+      color: var(--accent-amber);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+    }
+    .hypothesis-label .dot { width: 8px; height: 8px; background: var(--accent-amber); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* Hero */
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+    .hero h1 .highlight { color: var(--accent-blue); }
+    .hero .lede {
+      font-size: 20px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 720px;
+      margin-bottom: 32px;
+    }
+    .hero .lede strong { color: var(--text); }
+
+    /* Target user callout */
+    .who-for {
+      background: var(--surface);
+      border-left: 3px solid var(--accent-blue);
+      padding: 20px 24px;
+      margin: 40px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .who-for .label { font-size: 11px; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .who-for p { font-size: 16px; color: var(--text); line-height: 1.6; margin: 0; }
+    .who-for .range { color: var(--text-dim); font-size: 13px; margin-top: 8px; }
+
+    /* Hypothesis box */
+    .hypothesis-box {
+      background: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(59,130,246,0.2);
+      padding: 32px 36px;
+      border-radius: 12px;
+      margin: 48px 0;
+    }
+    .hypothesis-box h3 {
+      font-size: 14px;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hypothesis-box .claim {
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .hypothesis-box .claim em { color: var(--accent-amber); font-style: normal; font-weight: 600; }
+    .hypothesis-box .caveat {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Maturity legend */
+    .maturity-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 32px 0;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .m-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .m-chip.tablestakes { background: rgba(16,185,129,0.1); color: var(--accent-green); border: 1px solid rgba(16,185,129,0.3); }
+    .m-chip.evolutionary { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.3); }
+    .m-chip.open-question { background: rgba(168,85,247,0.1); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); }
+
+    /* Three columns */
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 700; }
+    .col.tablestakes h4 { color: var(--accent-green); }
+    .col.evolutionary h4 { color: var(--accent-blue); }
+    .col.open-question h4 { color: #a855f7; }
+    .col ul { list-style: none; padding: 0; margin: 0; }
+    .col li {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 8px 0;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .col li:last-child { border-bottom: none; }
+    .col li::before { content: '▸'; position: absolute; left: 0; color: var(--text-dim); }
+
+    /* Lineage strip */
+    .lineage-strip {
+      margin: 48px 0;
+      padding: 24px;
+      background: rgba(168,85,247,0.03);
+      border: 1px solid rgba(168,85,247,0.15);
+      border-radius: 10px;
+    }
+    .lineage-strip h3 { font-size: 12px; color: #a855f7; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+    .lineage-strip p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+    .lineage-strip .credit { color: var(--text); font-weight: 600; }
+
+    /* CTAs */
+    .ctas {
+      display: flex;
+      gap: 12px;
+      margin: 40px 0 24px;
+      flex-wrap: wrap;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .cta.primary {
+      background: var(--accent-blue);
+      color: white;
+    }
+    .cta.primary:hover { background: #2563eb; }
+    .cta.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .cta.secondary:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .cta .arrow { transition: transform 0.15s; }
+    .cta:hover .arrow { transform: translateX(3px); }
+
+    /* What you're NOT going to find */
+    .honesty-box {
+      background: rgba(220,38,38,0.03);
+      border: 1px solid rgba(220,38,38,0.15);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin: 48px 0 24px;
+    }
+    .honesty-box h3 { font-size: 13px; color: #fca5a5; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+    .honesty-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
+    .honesty-box p:last-child { margin-bottom: 0; }
+    .honesty-box a { color: var(--text); text-decoration: underline; text-decoration-color: var(--text-dim); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .three-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html" class="active">The Hypothesis</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="../architecture.html">The Build</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="hypothesis-label">
+      <span class="dot"></span>
+      Active research hypothesis · v0 · public dogfood
+    </div>
+
+    <div class="hero">
+      <h1>Your AI writes code in an afternoon.<br>Your team still plans it in a <span class="highlight">sprint</span>.</h1>
+      <p class="lede">
+        Intent is a hypothesis that <strong>when implementation cost collapses, the bottleneck moves upstream to specification clarity</strong> — and that ticket-based coordination tools optimize for the old bottleneck. We are testing this hypothesis in public, with the methodology running on itself, and inviting you to pressure-test it.
+      </p>
+    </div>
+
+    <div class="who-for">
+      <div class="label">Who this is for</div>
+      <p><strong>Staff+ engineers on teams of 2–7 using Claude Code daily.</strong></p>
+      <div class="range">Sweet spot: teams of 2–5. Reaches solo practitioners (team of 1) and up to 7. Teams over 7 are out of scope — Intent is not optimized for large-team coordination, and neither is any other serious methodology for AI-native work.</div>
+    </div>
+
+    <div class="hypothesis-box">
+      <h3>The claim we are testing</h3>
+      <p class="claim">
+        When AI agents can implement well-specified work in hours instead of weeks, the expensive part of software delivery moves from <em>writing code</em> to <em>getting the specification right</em>. Teams that keep optimizing for the old constraint — coordinating human labor through tickets, sprints, and story points — are building overhead around the wrong bottleneck.
+      </p>
+      <p class="caveat">
+        This claim might be wrong. We have one external practitioner who described the pattern independently before we named it, and 42 internal signals from building Intent itself. That is not enough evidence to call it true. We're running 10 structured discovery interviews in the next two weeks to test it, and publishing whatever we find — including disconfirmation.
+      </p>
+    </div>
+
+    <div class="ctas">
+      <a href="../getting-started.html" class="cta primary">Capture your first signal in 10 minutes <span class="arrow">→</span></a>
+      <a href="#hypothesis-or-not" class="cta secondary">How we'll know if we're wrong <span class="arrow">↓</span></a>
+    </div>
+
+    <div class="lineage-strip">
+      <h3>▸ Methodology lineage (we are not inventing anything)</h3>
+      <p>
+        Intent is a synthesis, not a novel method. The loop — Notice → Spec → Execute → Observe — is a rename of patterns our field has known for decades. We credit the ancestors explicitly because the credibility travels with them.
+      </p>
+      <p>
+        <span class="credit">Continuous discovery</span> is Teresa Torres.
+        <span class="credit">Story mapping</span> is Jeff Patton.
+        <span class="credit">The product operating model</span> is Marty Cagan and Melissa Perri.
+        <span class="credit">Outcomes over outputs</span> is Josh Seiden.
+        <span class="credit">OODA</span> is John Boyd (1976).
+        <span class="credit">PDCA</span> is Deming.
+        <span class="credit">Build-Measure-Learn</span> is Eric Ries.
+        <span class="credit">Psychological safety</span> is Amy Edmondson — and it is a prerequisite Intent is still working to earn.
+        <span class="credit">GIST planning</span> and evidence-based decision rigor are Itamar Gilad.
+        <span class="credit">Category positioning</span> is April Dunford — and her feedback shaped this page.
+      </p>
+      <p style="margin-top: 12px;">
+        <a href="lineage.html" style="color: #a855f7; text-decoration: underline;">See the full lineage graph →</a>
+      </p>
+    </div>
+
+    <div class="maturity-legend">
+      <div class="m-chip tablestakes">▸ Tablestakes — solid, non-negotiable baseline</div>
+      <div class="m-chip evolutionary">▸ Evolutionary — our current hypothesis, actively testing</div>
+      <div class="m-chip open-question">▸ Open Question — unresolved, pressure-testing</div>
+    </div>
+
+    <div class="three-col">
+      <div class="col tablestakes">
+        <h4>▸ Tablestakes</h4>
+        <ul>
+          <li>Specs as executable contracts with verifiable assertions (TDD, Beck)</li>
+          <li>Continuous discovery over assumption-driven planning (Torres)</li>
+          <li>Outcomes over output metrics (Seiden)</li>
+          <li>Git-tracked, file-native, OTel-compatible observability</li>
+          <li>Story mapping for shared understanding (Patton)</li>
+          <li>Blue-green deploys and feature flags as reversibility substrate</li>
+        </ul>
+      </div>
+      <div class="col evolutionary">
+        <h4>◆ Evolutionary</h4>
+        <ul>
+          <li>Trust-scored agent autonomy (L0–L4) via weighted signal math</li>
+          <li>Four-persona spec-shaping protocol (△ ◇ ○ ◉)</li>
+          <li>Panel-review as async feedback primitive</li>
+          <li>Two-plane architecture: work stream vs ownership topology</li>
+          <li>Notice→Spec→Execute→Observe as continuous loop replacing sprint rhythm</li>
+          <li>"Math, not politics" trust calibration (still testing if the math holds)</li>
+        </ul>
+      </div>
+      <div class="col open-question">
+        <h4>○ Open Questions</h4>
+        <ul>
+          <li>Double-loop learning as architected mechanism (not just asserted)</li>
+          <li>Federation without confidentiality leak across engagements</li>
+          <li>Four-server vs single-process MCP topology (spike pending)</li>
+          <li>Psychological safety contract — can math-based trust scores avoid becoming performance surveillance?</li>
+          <li>The "Edmondson more" — interpersonal safety beyond technical reversibility</li>
+          <li>Multi-writer CRDT story for events.jsonl</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="honesty-box" id="hypothesis-or-not">
+      <h3>▸ Before you adopt this, read this</h3>
+      <p>
+        <strong>Intent is not shipped product.</strong> It is an active research hypothesis with a working prototype. The architecture has known gaps (<a href="../review-2026-04-09.html">we published the panel review that flagged them</a>). The discovery base is thin — one external practitioner so far, 10 more interviews in the next two weeks. The methodology is missing a psychological safety contract v2 and a change management rollout playbook. We are building those now, in public, and you can read them as we draft them.
+      </p>
+      <p>
+        <strong>Intent is not for every team.</strong> It requires blue-green deployment or equivalent rollback capability, feature flag change management, significant automated testing, and visible change reporting. Without that infrastructure, the trust formula is fictional and L3/L4 agent autonomy is unsafe. It also requires a culture that values speaking up — if your organization punishes honest mistakes, Intent's mechanisms will become a surveillance layer. <a href="when-not.html">See "when NOT to adopt Intent"</a>.
+      </p>
+      <p>
+        <strong>Intent asks teams to release things.</strong> Sprint rhythm. Standups as social presence. Story points. The identity of "the person who runs our process." These are real losses for the humans affected, and we are explicit about them. <a href="ending.html">See what Intent asks you to release</a>, and <a href="who-loses.html">who loses power when Intent is adopted</a>.
+      </p>
+      <p>
+        <strong>We'll know the hypothesis is wrong if:</strong> after 10 external discovery interviews, fewer than 7 participants describe the spec-clarity bottleneck in their own words, unprompted. We'll publish the result whether it confirms or disconfirms.
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Built with the Intent methodology, critiqued by the panels it runs</p>
+  </footer>
+</body>
+</html>
