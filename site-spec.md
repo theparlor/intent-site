@@ -9,14 +9,14 @@ domains:
 created: 2026-03-31
 depth_score: 4
 depth_signals:
-  file_size_kb: 9.1
-  content_chars: 8846
+  file_size_kb: 9.9
+  content_chars: 9654
   entity_count: 0
   slide_count: 0
   sheet_count: 0
   topic_count: 1
   has_summary: 0
-vocab_density: 0.23
+vocab_density: 0.21
 ---
 # Intent Site Specification
 
@@ -59,6 +59,7 @@ These pages were identified by the ARB review as gaps in the site's ability to d
 | Walkthrough | walkthrough.html | Rich | 1 (Story) | 15KB | New — End-to-end trace of one real intent |
 | Observe | observe.html | Rich | 2 (System) | 12KB | New — Observe phase narrative, loop closure |
 | Getting Started | getting-started.html | Rich | 2 (System) | 13KB | New — Adoption onramp, "30 minutes to Intent" |
+| Voices | personas.html | Rich | 2 (System) | 40KB | New — 178+ persona catalog, 7 archetypes, filters, freshening pipeline |
 
 ### Supporting Pages (no nav active state)
 
@@ -68,6 +69,7 @@ These pages were identified by the ARB review as gaps in the site's ability to d
 | Decisions | decisions.html | Rich | 22KB | **Expanding (ARB review) — D1-D12 ADRs from ARB panel** |
 | Event Catalog | event-catalog.html | Rich | 8KB | **Expanding (ARB review) — 15 event types with schemas and triggers** |
 | Native Repos | native-repos.html | Rich | 13KB | Live |
+| Products | products.html | Rich | 10KB | Product catalog — 8 products by layer, signal/decision counts |
 | Visual Brief | visual-brief.html | Light | 1KB | Live (launches visual-brief-app/) |
 
 ## CSS Strategy
@@ -146,7 +148,7 @@ File sizes serve as a canary. A page dropping significantly below its baseline m
 
 ```
 pitch.html        ~28KB (Rich — scroll animations, SVG, fracture grid, timeline, comparison strip, three-layer section)
-work-system.html  ~48KB (Rich — full React work system dashboard)
+work-system.html  ~80KB (Rich — full React work system dashboard with 6 tabs including Products Built with Intent)
 signals.html      ~48KB (Rich — 15 signal cards, cluster views, trust scoring)
 arb.html          ~39KB (Rich — SVG radar visual, tab interface, tech radar cards, stack, ARB panel, roadmap)
 dogfood.html      ~22KB (Rich — dogfood dashboard, event stream, signal list, updated stats)

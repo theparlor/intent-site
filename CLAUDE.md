@@ -1,3 +1,23 @@
+---
+title: Claude
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+depth_score: 4
+depth_signals:
+  file_size_kb: 7.1
+  content_chars: 6770
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.30
+---
 # Intent Site — Development Continuity Guide
 
 > This file exists so that any AI agent or human contributor can work on the Intent marketing and documentation site. Read this first.
@@ -54,14 +74,14 @@ Primary nav active: "The Story"
 Sub-nav: Overview · Concept Brief · Methodology · Walkthrough · Roadmap
 
 ### Pillar 2 — The System (work-system.html is hero)
-Pages: work-system.html, flow-diagram.html, system-diagram.html, schemas.html, signals.html, dogfood.html, observe.html, event-catalog.html, getting-started.html
+Pages: work-system.html, flow-diagram.html, system-diagram.html, schemas.html, signals.html, personas.html, dogfood.html, observe.html, event-catalog.html, getting-started.html
 Primary nav active: "The System"
-Sub-nav: Overview · Flow · System Map · Schemas · Signals · Dogfood · Observe · Events · Start
+Sub-nav: Overview · Flow · System Map · Schemas · Signals · Voices · Dogfood · Observe · Events · Start
 
 ### Pillar 3 — The Build (architecture.html is hero)
-Pages: architecture.html, agents.html, deployment.html, observability.html, arb.html, decisions.html, native-repos.html
+Pages: architecture.html, agents.html, deployment.html, observability.html, arb.html, decisions.html, native-repos.html, products.html
 Primary nav active: "The Build"
-Sub-nav: Overview · Agents · Deployment · Observability · ARB · Decisions · Repos
+Sub-nav: Overview · Agents · Deployment · Observability · ARB · Decisions · Repos · Products
 
 ### Index Page
 `index.html` is a meta redirect to `pitch.html`. The logo always links to `index.html`.

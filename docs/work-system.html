@@ -1039,7 +1039,7 @@ function ProductsTab() {
       color: "#10b981",
       description: "Expense lifecycle system — intake, ledger, comply, narrate, export.",
       products: [
-        { id: "fieldbook-product", name: "Fieldbook", type: "standalone", status: "spec", tagline: "Composable expense management for independent consultants.", provides: ["expense tracking", "compliance narratives", "export projections"], consumes: ["KE categorization"] },
+        { id: "fieldbook-product", name: "Fieldbook", type: "standalone", status: "execute", tagline: "Composable expense lifecycle — 13 signals, 12 decisions, 8 contracts validated. Executing Tier 2.", provides: ["expense tracking", "compliance narratives", "export projections"], consumes: ["KE categorization"] },
       ],
     },
     {
@@ -1066,7 +1066,17 @@ function ProductsTab() {
       color: "#6366f1",
       description: "39k+ file knowledge graph with attribution tracking and search.",
       products: [
-        { id: "library-index-product", name: "Library Index", type: "standalone", status: "execute", tagline: "Catalog, attribution, compound search. OTel event emission wired (4 scripts).", provides: ["content search and discovery", "attribution tracking", "enrichment passes"], consumes: ["Digital Declutter output"] },
+        { id: "library-index-product", name: "Library Index", type: "standalone", status: "observe", tagline: "ML-powered enrichment pipeline — 7 signals, 8 decisions, OTel wired. Nightly catalog at 98.5% coverage.", provides: ["content search and discovery", "attribution tracking", "enrichment passes", "nightly catalog"], consumes: ["Digital Declutter output"] },
+        { id: "library-index-mcp", name: "Library Index MCP", type: "standalone", status: "observe", tagline: "19 MCP tools (9 library + 10 attribution) exposing catalog to all Claude surfaces.", provides: ["catalog search", "attribution analysis", "entity lookup", "compound search"], consumes: ["Library Index CATALOG.json"] },
+      ],
+    },
+    {
+      id: "studio-control",
+      name: "Studio Control",
+      color: "#475569",
+      description: "Studio audio control for consulting meetings and facilitation.",
+      products: [
+        { id: "studio-control-product", name: "Studio Control", type: "standalone", status: "noticed", tagline: "Wave Link WebSocket API — mute toggle, routing, Stream Deck. 7 signals, discovery phase.", provides: ["channel-level mute", "audio routing", "Stream Deck integration"], consumes: [] },
       ],
     },
   ];

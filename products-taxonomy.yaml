@@ -235,7 +235,9 @@ portfolio:
           name: Fieldbook
           type: standalone
           status: spec
-          tagline: "Composable expense management for independent consultants."
+          tagline: "Composable expense lifecycle — receipt intake, ledger, compliance, narrative, and export for traveling consultants."
+          signal_count: 13
+          decision_count: 12
           provides:
             - expense tracking
             - compliance narratives
@@ -294,18 +296,66 @@ portfolio:
         - id: library-index-product
           name: Library Index
           type: standalone
-          status: execute
-          tagline: "Catalog, attribution, and compound search across Brien's 39k+ file library."
+          status: observe
+          tagline: "ML-powered enrichment pipeline for 39k+ files — entity extraction, concept fingerprinting, and nightly catalog generation."
+          signal_count: 7
+          decision_count: 8
           provides:
             - content search and discovery
             - attribution tracking
             - enrichment passes
+            - nightly catalog generation
           consumes:
             - Digital Declutter output
           intent_path: Core/products/library-index/
           notes:
             - "OTel event emission wired (4 scripts: catalog_generator, enrichment_passes, auto_tagger, concept_fingerprint_pass)"
             - "Decision LI-001: OTel event schema and wiring"
+            - "5-stage nightly pipeline via launchd (2:00 AM)"
+            - "98.5% catalog coverage"
+
+        - id: library-index-mcp
+          name: Library Index MCP
+          type: standalone
+          status: observe
+          tagline: "MCP server exposing 39k-file library index to Claude surfaces — 19 tools for catalog search, entity lookup, and attribution analysis."
+          signal_count: 6
+          decision_count: 0
+          provides:
+            - catalog search (9 tools)
+            - attribution analysis (10 tools)
+            - entity lookup
+            - compound search
+          consumes:
+            - Library Index (CATALOG.json, RELATIONSHIPS.json)
+          intent_path: Core/products/library-index-mcp/
+          notes:
+            - "19 MCP tools (9 library + 10 attribution)"
+            - "Shared venv with library-index (SIG-001)"
+            - "stdio + HTTP transport"
+
+    - id: studio-control
+      name: Studio Control
+      color: "#475569"
+      description: "Studio audio control system for consulting meetings and facilitation."
+      products:
+        - id: studio-control-product
+          name: Studio Control
+          type: standalone
+          status: noticed
+          tagline: "Wave Link API integration for mute toggle, routing, and Stream Deck automation."
+          signal_count: 7
+          decision_count: 0
+          provides:
+            - channel-level mute control
+            - audio routing
+            - Stream Deck integration
+          consumes: []
+          intent_path: Core/products/studio-control/
+          notes:
+            - "Wave Link WebSocket API reverse-engineered (JSON-RPC 2.0, port 1884)"
+            - "In discovery phase — 7 signals, no decisions yet"
+            - "Per-mix mute gap identified (SIG-001)"
 
 # ═══════════════════════════════════════════════════════════
 # COMPOSABILITY FLOWS
@@ -374,6 +424,9 @@ flows:
   - from: digital-declutter-product
     to: library-index-product
     label: "organized files → catalog"
+  - from: library-index-product
+    to: library-index-mcp
+    label: "CATALOG.json → MCP tools"
   - from: org-design-tooling-product
     to: notice
     label: "governance signals"
