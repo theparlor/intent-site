@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The System — How Intent actually works</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 980px; margin: 0 auto; padding: 48px 24px 80px; }
+    .eyebrow { font-size: 11px; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    h1 { font-size: 44px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+    .lede { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 760px; margin-bottom: 48px; }
+
+    /* Loop visualization (inline SVG, not an image) */
+    .loop-hero {
+      margin: 48px 0;
+      padding: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .phase-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 32px 0 48px;
+    }
+    .phase {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 22px;
+      border-radius: 10px;
+    }
+    .phase h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .phase.notice { border-top: 3px solid var(--accent-amber); }
+    .phase.notice h3 { color: var(--accent-amber); }
+    .phase.spec { border-top: 3px solid var(--accent-blue); }
+    .phase.spec h3 { color: var(--accent-blue); }
+    .phase.execute { border-top: 3px solid var(--accent-green); }
+    .phase.execute h3 { color: var(--accent-green); }
+    .phase.observe { border-top: 3px solid #a855f7; }
+    .phase.observe h3 { color: #a855f7; }
+    .phase .tagline { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+    .phase p { font-size: 12px; color: var(--text-muted); line-height: 1.55; margin-bottom: 10px; }
+    .phase .ancestor { font-size: 11px; color: var(--text); padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .phase .ancestor strong { font-weight: 600; }
+
+    /* Deeper exploration grid */
+    .deeper-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 40px 0;
+    }
+    .deep-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+      transition: border-color 0.15s;
+    }
+    .deep-card:hover { border-color: var(--accent-blue); }
+    .deep-card .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+    .deep-card h3 { font-size: 16px; font-weight: 700; margin: 0; }
+    .deep-card h3 a { color: var(--text); text-decoration: none; }
+    .deep-card h3 a:hover { color: var(--accent-blue); }
+    .deep-card p { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px; }
+    .deep-card .legacy-note { font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.04); }
+    .deep-card .visual-tag {
+      font-size: 10px;
+      color: var(--accent-amber);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .section-head {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 56px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .link-out {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--accent-blue); text-decoration: none; font-size: 14px; font-weight: 600;
+    }
+    .link-out:hover { text-decoration: underline; }
+
+    .work-in-progress {
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+    .work-in-progress h3 { font-size: 12px; color: var(--accent-amber); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; font-weight: 700; }
+    .work-in-progress p { font-size: 14px; color: var(--text); line-height: 1.65; margin: 0; }
+
+    @media (max-width: 768px) {
+      .deeper-grid { grid-template-columns: 1fr; }
+      .phase-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Hypothesis</a>
+    <a href="the-system.html" class="active">The System</a>
+    <a href="the-build.html">The Build</a>
+    <a href="the-proof.html">The Proof</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="eyebrow">▸ Zone 2 of 4 · The System</div>
+    <h1>How the loop actually runs</h1>
+    <p class="lede">
+      The System zone covers the methodology layer: the Notice → Spec → Execute → Observe loop, the work ontology it produces, the spec-shaping protocol that turns intents into agent-ready specs, and the dogfood evidence from Intent building itself. It's less technical than The Build and more operational than The Hypothesis.
+    </p>
+
+    <!-- Loop SVG -->
+    <div class="loop-hero">
+      <svg viewBox="0 0 720 320" style="width: 100%; max-width: 640px; height: auto;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow-sys" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+            <path d="M0,0 L10,4 L0,8" fill="none" stroke="#cbd5e1" stroke-width="2" />
+          </marker>
+        </defs>
+
+        <!-- Center label -->
+        <text x="360" y="155" fill="#f1f5f9" font-size="18" font-weight="700" text-anchor="middle">Intent</text>
+        <text x="360" y="178" fill="#94a3b8" font-size="11" text-anchor="middle">The loop</text>
+
+        <!-- Notice (top-left) -->
+        <rect x="60" y="60" width="180" height="60" rx="10" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" stroke-width="1.5" />
+        <text x="150" y="88" fill="#f59e0b" font-size="15" font-weight="700" text-anchor="middle">▲ Notice</text>
+        <text x="150" y="107" fill="#94a3b8" font-size="11" text-anchor="middle">Capture signals</text>
+
+        <!-- Spec (top-right) -->
+        <rect x="480" y="60" width="180" height="60" rx="10" fill="rgba(59,130,246,0.08)" stroke="#3b82f6" stroke-width="1.5" />
+        <text x="570" y="88" fill="#3b82f6" font-size="15" font-weight="700" text-anchor="middle">◆ Spec</text>
+        <text x="570" y="107" fill="#94a3b8" font-size="11" text-anchor="middle">Shape into contracts</text>
+
+        <!-- Execute (bottom-right) -->
+        <rect x="480" y="200" width="180" height="60" rx="10" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5" />
+        <text x="570" y="228" fill="#10b981" font-size="15" font-weight="700" text-anchor="middle">● Execute</text>
+        <text x="570" y="247" fill="#94a3b8" font-size="11" text-anchor="middle">Agents build</text>
+
+        <!-- Observe (bottom-left) -->
+        <rect x="60" y="200" width="180" height="60" rx="10" fill="rgba(168,85,247,0.08)" stroke="#a855f7" stroke-width="1.5" />
+        <text x="150" y="228" fill="#a855f7" font-size="15" font-weight="700" text-anchor="middle">○ Observe</text>
+        <text x="150" y="247" fill="#94a3b8" font-size="11" text-anchor="middle">Loop closure</text>
+
+        <!-- Arrows (clockwise) -->
+        <path d="M 240 90 Q 360 80 480 90" fill="none" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arrow-sys)" stroke-opacity="0.6" />
+        <path d="M 570 120 L 570 200" fill="none" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arrow-sys)" stroke-opacity="0.6" />
+        <path d="M 480 230 Q 360 240 240 230" fill="none" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arrow-sys)" stroke-opacity="0.6" />
+        <path d="M 150 200 L 150 120" fill="none" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arrow-sys)" stroke-opacity="0.6" />
+      </svg>
+      <p style="font-size: 12px; color: var(--text-dim); margin-top: 16px;">The four-phase continuous loop. No sprint boundaries. Multi-speed (some loops run in minutes, some in weeks). Every transition emits an event.</p>
+    </div>
+
+    <h2 class="section-head">▸ The four phases (with ancestors)</h2>
+
+    <div class="phase-cards">
+      <div class="phase notice">
+        <h3>▲ Notice</h3>
+        <div class="tagline">What's the signal?</div>
+        <p>Capture friction, questions, observations, anomalies from anywhere work happens. Every signal is atomic and scored on trust dimensions.</p>
+        <div class="ancestor"><strong>Ancestors:</strong> Continuous Discovery (Torres), OODA Observe (Boyd), Get out of the building (Blank)</div>
+      </div>
+      <div class="phase spec">
+        <h3>◆ Spec</h3>
+        <div class="tagline">What would we build?</div>
+        <p>Shape signals into agent-ready specifications with verifiable contracts. The four-persona interrogation protocol runs here.</p>
+        <div class="ancestor"><strong>Ancestors:</strong> Story Mapping (Patton), TDD (Beck), Shape Up (Singer), Outcomes (Seiden)</div>
+      </div>
+      <div class="phase execute">
+        <h3>● Execute</h3>
+        <div class="tagline">What actually gets done?</div>
+        <p>Agents implement against contracts. Trust-gated at L0–L4 autonomy levels. Contract assertions pass or fail with evidence.</p>
+        <div class="ancestor"><strong>Ancestors:</strong> Continuous Delivery (Humble/Farley), DORA (Forsgren), GIST (Gilad)</div>
+      </div>
+      <div class="phase observe">
+        <h3>○ Observe</h3>
+        <div class="tagline">What did we learn?</div>
+        <p>Runtime feedback turns into new signals. Single-loop: spec drift. Double-loop: questioning assumptions (still under construction).</p>
+        <div class="ancestor"><strong>Ancestors:</strong> PDCA (Deming), Build-Measure-Learn (Ries), Double-loop (Argyris), Three Ways (Kim)</div>
+      </div>
+    </div>
+
+    <div class="work-in-progress">
+      <h3>▸ Open gap: double-loop learning</h3>
+      <p>
+        The Observe phase claims to implement Argyris's double-loop learning (questioning assumptions, not just optimizing execution). The current mechanism is single-loop only — we detect spec drift, we don't question whether the goals were right. The 178-persona library is the latent mechanism for double-loop, framed as execution help instead of premise challenge. Work to convert this is tracked as SIG-050 / INT-013. This is an honest gap, not a capability.
+      </p>
+    </div>
+
+    <h2 class="section-head">▸ Deeper into the System</h2>
+
+    <div class="deeper-grid">
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../methodology.html">The Full Methodology</a></h3>
+          <span class="visual-tag">▸ Two-plane architecture</span>
+        </div>
+        <p>The work stream plane (signals → intents → atoms → events → traces) separated from the ownership topology plane (products → capabilities → teams). Bridging artifacts: specs and contracts.</p>
+        <p class="legacy-note">v1.2 content · current · minimal framing update needed</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../walkthrough.html">Follow One Intent End-to-End</a></h3>
+          <span class="visual-tag">▸ Real SIG-010 trace</span>
+        </div>
+        <p>Traces a single real signal (SIG-010, our one external practitioner voice before the current discovery wave) through the full loop: signal → cluster → intent → spec → execute → observe. Real file paths, real IDs, real timestamps. The best "here's what it looks like" artifact on the site.</p>
+        <p class="legacy-note">v1.2 content · honestly dogfooded · also the reason we flagged our own discovery gap (N=1)</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../work-system.html">The Work System Dashboard</a></h3>
+          <span class="visual-tag">▸ 6 operational tabs</span>
+        </div>
+        <p>Dashboard view of Intent's own work state — ontology, Agile→Intent translation table, signal capture pipeline, products portfolio, flow timeline. The operational home for practitioners working inside Intent.</p>
+        <p class="legacy-note">v1.2 content · Products tab was updated 2026-04-09 with new product taxonomy · rest needs v2 framing</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../signals.html">The Signal Stream</a></h3>
+          <span class="visual-tag">▸ Live signals</span>
+        </div>
+        <p>43 captured signals with trust scores, lifecycle states, clusters, and promotion history. This is Intent's own dogfood signal log — every friction we noticed while building Intent, with the full trust-scoring math applied.</p>
+        <p class="legacy-note">v1.2 content · 43 signals shown · note: all are internal, external signals arrive next week in discovery wave 1</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../personas.html">The 178-Persona Library</a></h3>
+          <span class="visual-tag">▸ Voice catalog + filters</span>
+        </div>
+        <p>The full persona registry — 178 named-human thought leaders + 7 archetypes + 1 operator persona (brien-operator, new). Filterable by discipline, role, industry. Each persona contributes to spec-shaping, panel-review, and archetype composition.</p>
+        <p class="legacy-note">v1.2 content · updated 2026-04-09 with foundational tier promotions (Dunford, Gilad, Aakash Gupta)</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../event-catalog.html">15-Event Catalog</a></h3>
+          <span class="visual-tag">▸ Schemas + triggers</span>
+        </div>
+        <p>All 15 event types Intent emits: signal.created, signal.enriched, signal.promoted, intent.proposed, spec.approved, contract.started / .passed / .failed / .completed, system.health, etc. Each with schema, trigger, and example payload.</p>
+        <p class="legacy-note">v1.2 content · missing the new deploy.* event family and safety-contract fields from INT-013</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../getting-started.html">30-Minute Onramp</a></h3>
+          <span class="visual-tag">▸ 3-command install</span>
+        </div>
+        <p>Install Intent in 30 minutes. Three commands, real repo, real CLI. No API key for the first five steps. The conversion moment for skeptical visitors — where "is this vaporware?" becomes "oh, I can actually run this."</p>
+        <p class="legacy-note">v1.2 content · praised by cold visitor in panel review · current and functional</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../observe.html">The Observe Phase Narrative</a></h3>
+          <span class="visual-tag">▸ Loop closure mechanics</span>
+        </div>
+        <p>How observation closes the loop. Events become new signals. Metrics inform trust calibration. The mechanisms (current and aspirational) for turning runtime feedback into knowledge base updates.</p>
+        <p class="legacy-note">v1.2 content · double-loop claim is aspirational · currently single-loop in practice</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <a href="pitch.html" class="link-out">← Previous: The Hypothesis</a>
+      <a href="the-build.html" class="link-out">Next: The Build →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Active hypothesis · Methodology layer</p>
+  </footer>
+</body>
+</html>

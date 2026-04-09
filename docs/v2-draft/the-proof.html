@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Proof — Intent's live dogfood + receipts</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 980px; margin: 0 auto; padding: 48px 24px 80px; }
+    .eyebrow { font-size: 11px; color: #a855f7; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    h1 { font-size: 44px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+    .lede { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 760px; margin-bottom: 32px; }
+
+    /* Stats row */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 40px 0;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 20px;
+      text-align: center;
+    }
+    .stat .num { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; line-height: 1; }
+    .stat .num.amber { color: var(--accent-amber); }
+    .stat .num.blue { color: var(--accent-blue); }
+    .stat .num.green { color: var(--accent-green); }
+    .stat .num.purple { color: #a855f7; }
+    .stat .label { font-size: 11px; color: var(--text-dim); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+    .stat .sub { font-size: 10px; color: var(--text-dim); margin-top: 4px; font-style: italic; }
+
+    /* Honest caveat */
+    .caveat {
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin: 32px 0;
+    }
+    .caveat h3 { font-size: 12px; color: var(--accent-amber); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; font-weight: 700; }
+    .caveat p { font-size: 14px; color: var(--text); line-height: 1.65; margin: 0; }
+
+    /* Section head */
+    .section-head {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 56px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Evidence grid */
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin: 32px 0;
+    }
+    .evidence-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border);
+      border-radius: 0 10px 10px 0;
+      padding: 22px 26px;
+    }
+    .evidence-card.internal { border-left-color: var(--accent-blue); }
+    .evidence-card.external { border-left-color: var(--accent-green); }
+    .evidence-card.panel { border-left-color: #a855f7; }
+    .evidence-card.disconfirming { border-left-color: #dc2626; }
+    .evidence-card .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .evidence-card h3 { font-size: 16px; font-weight: 700; margin: 0; }
+    .evidence-card h3 a { color: var(--text); text-decoration: none; }
+    .evidence-card h3 a:hover { color: var(--accent-blue); }
+    .evidence-card .badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .evidence-card.internal .badge { background: rgba(59,130,246,0.15); color: #93c5fd; }
+    .evidence-card.external .badge { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+    .evidence-card.panel .badge { background: rgba(168,85,247,0.15); color: #c4b5fd; }
+    .evidence-card.disconfirming .badge { background: rgba(220,38,38,0.15); color: #fca5a5; }
+    .evidence-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+    .evidence-card .meta { font-size: 11px; color: var(--text-dim); font-family: 'SF Mono', monospace; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.04); }
+
+    /* Discovery wave callout */
+    .wave-callout {
+      background: linear-gradient(135deg, rgba(59,130,246,0.04) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 40px 0;
+    }
+    .wave-callout h3 { color: var(--accent-blue); font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; font-weight: 700; }
+    .wave-callout p { font-size: 15px; color: var(--text); line-height: 1.65; margin-bottom: 10px; }
+    .wave-callout .progress {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .wave-callout .bar {
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .wave-callout .bar-fill {
+      background: var(--accent-blue);
+      height: 100%;
+      width: 10%;
+      transition: width 0.5s;
+    }
+    .wave-callout .count {
+      font-family: 'SF Mono', monospace;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* Falsification */
+    .falsification {
+      background: rgba(220,38,38,0.04);
+      border: 1px solid rgba(220,38,38,0.25);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+    .falsification h3 { color: #fca5a5; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; font-weight: 700; }
+    .falsification p { color: var(--text); font-size: 14px; line-height: 1.65; margin-bottom: 8px; }
+
+    .link-out {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--accent-blue); text-decoration: none; font-size: 14px; font-weight: 600;
+    }
+    .link-out:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Hypothesis</a>
+    <a href="the-system.html">The System</a>
+    <a href="the-build.html">The Build</a>
+    <a href="the-proof.html" class="active">The Proof</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="eyebrow">▸ Zone 4 of 4 · The Proof</div>
+    <h1>What evidence we have so far</h1>
+    <p class="lede">
+      This zone is the honest ledger of Intent's evidence base — what we've actually built, what we've actually tested, what the panel review found, what discovery interviews are in flight, and where the evidence is thin. If the previous three zones describe what Intent is, this zone describes whether we've earned the right to say any of it yet.
+    </p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num amber">43</div>
+        <div class="label">Internal signals</div>
+        <div class="sub">Intent building Intent</div>
+      </div>
+      <div class="stat">
+        <div class="num blue">19</div>
+        <div class="label">Specs + ADRs</div>
+        <div class="sub">19 decisions D1–D19</div>
+      </div>
+      <div class="stat">
+        <div class="num green">1</div>
+        <div class="label">External voice</div>
+        <div class="sub">SIG-010 (Ari), N=1</div>
+      </div>
+      <div class="stat">
+        <div class="num purple">48</div>
+        <div class="label">Panel voices</div>
+        <div class="sub">8 panels · 2026-04-09</div>
+      </div>
+    </div>
+
+    <div class="caveat">
+      <h3>▸ The honest ledger</h3>
+      <p>
+        Look at those four numbers carefully. <strong style="color: var(--text);">43 internal signals vs. 1 external voice.</strong> That is the single biggest gap in Intent's evidence base, and the panels flagged it explicitly on 2026-04-09. The methodology has been dogfooded extensively by its author, which proves it runs — but that is not the same as proving it generalizes. Discovery wave 1 is running this week (2026-04-13 → 2026-04-17) to close that gap. Come back Friday to see if the hypothesis survives contact with 10 real practitioners.
+      </p>
+    </div>
+
+    <div class="wave-callout">
+      <h3>▸ Discovery wave 1 (in flight)</h3>
+      <p>
+        <strong style="color: var(--text);">Goal:</strong> 10 structured discovery interviews with staff+ engineers and senior PMs on teams of 2–7 using Claude Code daily. Mom Test protocol, 45-minute format, explicit disconfirmation tracking.
+      </p>
+      <p>
+        <strong style="color: var(--text);">Falsification criterion:</strong> Fewer than 7 of 10 participants describe the spec-clarity bottleneck in their own words, unprompted. If we fail that bar, the hypothesis is wrong and we publish that.
+      </p>
+      <p>
+        <strong style="color: var(--text);">Current status:</strong> Protocol written. Participant seed list committed (4 named, 6 TBD). Outreach starts Monday 2026-04-13. Synthesis published by end of week.
+      </p>
+      <div class="progress">
+        <div class="bar"><div class="bar-fill" style="width: 10%;"></div></div>
+        <div class="count">0 / 10 interviews complete</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">▸ Evidence so far (what's in the ledger)</h2>
+
+    <div class="evidence-grid">
+      <div class="evidence-card internal">
+        <div class="card-top">
+          <h3><a href="../signals.html">43 internal signals — Intent building Intent</a></h3>
+          <span class="badge">INTERNAL</span>
+        </div>
+        <p>Every signal captured while building Intent itself. Covers infrastructure gaps, methodology tensions, decisions made and revised, observations about how the loop runs on itself. This is what dogfooding a methodology actually looks like when the dogfood is visible.</p>
+        <p>The honest caveat: <strong>every one of these is internal</strong>. They prove Intent runs. They don't prove Intent generalizes. That's what the external discovery wave is for.</p>
+        <div class="meta">SIG-001 through SIG-053 · live at signals.html</div>
+      </div>
+
+      <div class="evidence-card external">
+        <div class="card-top">
+          <h3><a href="https://github.com/theparlor/intent/blob/main/.intent/signals/external/README.md">External signals wave 1 — starting 2026-04-13</a></h3>
+          <span class="badge">EXTERNAL · IN FLIGHT</span>
+        </div>
+        <p>10 structured discovery interviews with practitioners who don't know Intent and have no social reason to confirm its hypothesis. Mom Test protocol. Each interview produces a signal file with verbatim quotes, quality scoring, and an explicit disconfirmation section.</p>
+        <p>These signals land in <code style="color: var(--text);">.intent/signals/external/</code> starting Monday. The synthesis (themes + opportunity solution tree) publishes by end of week. We'll publish whether the hypothesis confirms or disconfirms.</p>
+        <div class="meta">Target: 10 signals by 2026-04-17 · current: 0 / 10</div>
+      </div>
+
+      <div class="evidence-card panel">
+        <div class="card-top">
+          <h3><a href="../review-2026-04-09.html">The multi-panel review that prompted this rebuild</a></h3>
+          <span class="badge">PANEL · 2026-04-09</span>
+        </div>
+        <p>Eight independent panels (48 persona voices) reviewed the previous version of this site in parallel. They flagged 10 cross-cutting findings including no target user (6/8 panels), category confusion (5/8), discovery theater (4/8), reader-not-as-hero (4/8), psychological safety never addressed (1/8 but critical). That review is the reason this entire v2-draft exists.</p>
+        <p>The review document itself was the most valuable deliverable of that session. You're reading the response to it right now.</p>
+        <div class="meta">review-2026-04-09.html · 8 panels · 48 voices · 10 findings · published unredacted</div>
+      </div>
+
+      <div class="evidence-card panel">
+        <div class="card-top">
+          <h3><a href="../walkthrough.html">The SIG-010 walkthrough trace</a></h3>
+          <span class="badge">DOGFOOD</span>
+        </div>
+        <p>Traces a single signal (SIG-010 from Ari, the original external voice) through the full loop: signal → cluster → intent → spec → execute → observe → loop closure. Real file paths, real IDs, real timestamps. The most concrete "here's what a real cycle looks like" artifact on the site.</p>
+        <p>Also a cautionary tale: this is ONE external voice treated as a pattern for a year. The panel review flagged this as the core discovery gap. We're not hiding it.</p>
+        <div class="meta">SIG-010 · Oct 2024 origin · promoted to INT-003 · walkthrough.html</div>
+      </div>
+
+      <div class="evidence-card internal">
+        <div class="card-top">
+          <h3><a href="../dogfood.html">Live dogfood dashboard</a></h3>
+          <span class="badge">INTERNAL · LIVE</span>
+        </div>
+        <p>Running counts of signals, specs, decisions, MCP servers, and knowledge artifacts. Updated automatically from the git-tracked substrate. If a number on this page changes, you can trace it to the commit that changed it.</p>
+        <p>Currently: 43 signals captured, 19 spec documents, 19 decisions, 4 MCP servers, 6 knowledge artifact types. All internal to Intent building Intent.</p>
+        <div class="meta">dogfood.html · auto-updating · file-native receipts</div>
+      </div>
+
+      <div class="evidence-card disconfirming">
+        <div class="card-top">
+          <h3>Disconfirmations (we haven't found any yet)</h3>
+          <span class="badge">DISCONFIRMING</span>
+        </div>
+        <p>Honest admission: we have not yet found a practitioner, team, or use case where the Intent hypothesis was clearly wrong. That is <em>not</em> a strength — it is a sign we haven't looked hard enough for disconfirmation. Confirmation is cheap; disconfirmation is the real signal.</p>
+        <p>The discovery interview protocol explicitly weights disconfirmation scoring highest. If we run 10 interviews and find zero disconfirmations, that itself is a disconfirmation — it means we did discovery wrong and produced an echo chamber.</p>
+        <div class="meta">disconfirmations count: 0 · target: at least 2 out of 10 interviews</div>
+      </div>
+    </div>
+
+    <div class="falsification">
+      <h3>▸ How we'll know Intent is wrong</h3>
+      <p>
+        <strong>Hypothesis-level falsification:</strong> Fewer than 7 of 10 external discovery interviews describe the spec-clarity bottleneck in their own words, unprompted.
+      </p>
+      <p>
+        <strong>Architecture-level falsification:</strong> The P0 hardening backlog (SIG-022, events.jsonl persistence, cross-engagement leak test) cannot be completed in S1 without major redesign — meaning the architecture has deeper problems than the panel review found.
+      </p>
+      <p>
+        <strong>Safety-level falsification:</strong> The Psychological Safety Contract v1 cannot be signed by a team adopting Intent because their culture cannot honor the promises — AND this turns out to be the majority case in discovery interviews. That would mean Intent requires a cultural precondition most teams don't have.
+      </p>
+      <p>
+        <strong>Adoption-level falsification:</strong> When the rebuilt site re-runs the 8-panel review in S1, cross-cutting findings F1 / F3 / F4 do not drop substantially. That would mean we misunderstood what the panels were flagging and the rebuild didn't address the real problems.
+      </p>
+    </div>
+
+    <h2 class="section-head">▸ Meta-evidence: the panels themselves</h2>
+    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px;">
+      The biggest insight from the 2026-04-09 session wasn't a finding — it was the realization that the panel-review mechanism itself is the most valuable primitive hiding inside Intent. Eight parallel persona panels produced deeper, more structured critique than any single-voice review in ~2 minutes of wall clock time. That's <em>the</em> async feedback loop Intent was supposed to have. We are shipping it as a first-class skill in S1.
+    </p>
+    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.65;">
+      <a href="https://github.com/theparlor/intent/blob/main/.intent/intents/INT-007-ship-panel-review-primitive.md" class="link-out">Read INT-007: the panel-review primitive spec →</a>
+    </p>
+
+    <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <a href="the-build.html" class="link-out">← Previous: The Build</a>
+      <a href="pitch.html" class="link-out">Back to Hypothesis →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Active hypothesis · Evidence ledger</p>
+  </footer>
+</body>
+</html>

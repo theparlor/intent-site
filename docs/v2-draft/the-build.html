@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Build — Intent's working architecture</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 980px; margin: 0 auto; padding: 48px 24px 80px; }
+    .eyebrow { font-size: 11px; color: var(--accent-green); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    h1 { font-size: 44px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px; }
+    .lede { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 760px; margin-bottom: 32px; }
+
+    /* Warning banner */
+    .work-in-progress {
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 32px 0 48px;
+    }
+    .work-in-progress h3 { font-size: 12px; color: var(--accent-amber); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; font-weight: 700; }
+    .work-in-progress p { font-size: 14px; color: var(--text); line-height: 1.65; margin-bottom: 8px; }
+    .work-in-progress p:last-child { margin-bottom: 0; }
+
+    /* Architecture at a glance */
+    .arch-at-glance {
+      background: linear-gradient(135deg, rgba(16,185,129,0.04) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin: 40px 0;
+    }
+    .arch-at-glance h2 { font-size: 14px; color: var(--accent-green); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; font-weight: 700; }
+
+    /* Three-layer diagram */
+    .three-layer {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .layer {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border-radius: 8px;
+      align-items: center;
+    }
+    .layer .num {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'SF Mono', monospace;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .layer.l1 { border-left: 3px solid #a855f7; }
+    .layer.l1 .num { color: #a855f7; }
+    .layer.l2 { border-left: 3px solid var(--accent-blue); }
+    .layer.l2 .num { color: var(--accent-blue); }
+    .layer.l3 { border-left: 3px solid var(--accent-green); }
+    .layer.l3 .num { color: var(--accent-green); }
+    .layer .content h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .layer .content p { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+    .layer .m-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .m-label.tablestakes { background: rgba(16,185,129,0.15); color: var(--accent-green); }
+    .m-label.evolutionary { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
+    .m-label.open { background: rgba(168,85,247,0.15); color: #a855f7; }
+
+    /* Deeper exploration grid */
+    .deeper-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 40px 0;
+    }
+    .deep-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+      transition: border-color 0.15s;
+    }
+    .deep-card:hover { border-color: var(--accent-blue); }
+    .deep-card .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+    .deep-card h3 { font-size: 16px; font-weight: 700; margin: 0; }
+    .deep-card h3 a { color: var(--text); text-decoration: none; }
+    .deep-card h3 a:hover { color: var(--accent-blue); }
+    .deep-card p { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px; }
+    .deep-card .legacy-note { font-size: 10px; color: var(--text-dim); font-style: italic; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.04); }
+    .deep-card .visual-tag {
+      font-size: 10px;
+      color: var(--accent-amber);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* Section heads */
+    .section-head {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 56px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Hardening backlog */
+    .backlog {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .backlog-row { display: grid; grid-template-columns: 50px 70px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: start; }
+    .backlog-row:last-child { border-bottom: none; }
+    .backlog-row .pri { font-weight: 800; font-size: 12px; text-align: center; padding: 4px 8px; border-radius: 4px; height: fit-content; }
+    .backlog-row .pri.p0 { background: rgba(220,38,38,0.15); color: #fca5a5; }
+    .backlog-row .pri.p1 { background: rgba(245,158,11,0.15); color: #fcd34d; }
+    .backlog-row .pri.p2 { background: rgba(59,130,246,0.15); color: #93c5fd; }
+    .backlog-row .sig { font-family: 'SF Mono', monospace; font-size: 11px; color: var(--text-dim); padding-top: 6px; }
+    .backlog-row .desc { font-size: 13px; color: var(--text); line-height: 1.5; }
+    .backlog-row .desc strong { color: var(--text); font-weight: 600; }
+
+    .link-out {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--accent-blue); text-decoration: none; font-size: 14px; font-weight: 600;
+    }
+    .link-out:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .deeper-grid { grid-template-columns: 1fr; }
+      .layer { grid-template-columns: 60px 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Hypothesis</a>
+    <a href="the-system.html">The System</a>
+    <a href="the-build.html" class="active">The Build</a>
+    <a href="the-proof.html">The Proof</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="eyebrow">▸ Zone 3 of 4 · The Build</div>
+    <h1>Come pressure-test the architecture</h1>
+    <p class="lede">
+      The further you go into Intent, the more you're looking at work-in-progress. This zone describes our current working architecture — three layers, four MCP servers, trust-scored autonomy, an OTel-native observability stack. Some of it is tablestakes hygiene. Some is our evolutionary hypothesis we're actively testing. Some is still open questions we don't have answers for yet. We've labeled what we can.
+    </p>
+
+    <div class="work-in-progress">
+      <h3>▸ Read this before going deeper</h3>
+      <p>
+        The pages linked from this section are the current technical substrate. Most were written before the 2026-04-09 multi-panel review that prompted this whole rebuild. They accurately describe <em>what we're building</em>, but they describe it in shipped-product voice rather than hypothesis voice. Where you see confident assertion, assume "this is our current best attempt, not a settled answer."
+      </p>
+      <p>
+        A full rewrite of the deep pages with hypothesis framing and maturity labels is scheduled for S1 (next week). For now: <strong>the content is current, the framing is one version behind</strong>. <a href="../review-2026-04-09.html" class="link-out">Read the panel review that prompted the rebuild →</a>
+      </p>
+    </div>
+
+    <div class="arch-at-glance">
+      <h2>▸ Architecture at a glance</h2>
+
+      <div class="three-layer">
+        <div class="layer l1">
+          <div class="num">L1</div>
+          <div class="content">
+            <h4>Compiled Knowledge Base <span class="m-label evolutionary">Evolutionary</span></h4>
+            <p>Everything the system knows — personas, journeys, decisions, domain models. Compiled once, kept current, not retrieved per-query. The Knowledge Engine product lives here.</p>
+          </div>
+        </div>
+        <div class="layer l2">
+          <div class="num">L2</div>
+          <div class="content">
+            <h4>Transformation OS (the loop) <span class="m-label evolutionary">Evolutionary</span></h4>
+            <p>Notice → Spec → Execute → Observe. The four-phase loop that turns signals into agent-ready specs into observable execution into new signals. Domain-agnostic.</p>
+          </div>
+        </div>
+        <div class="layer l3">
+          <div class="num">L3</div>
+          <div class="content">
+            <h4>Software Spec & Code <span class="m-label tablestakes">Tablestakes</span></h4>
+            <p>Executable specs with contracts. Running code. Event streams. TDD discipline applied to agent execution. The output layer.</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin: 0;">
+        Four MCP servers: <code style="color: var(--text);">intent-notice</code> (signal capture, port 8001), <code style="color: var(--text);">intent-spec</code> (spec authoring, port 8002), <code style="color: var(--text);">intent-observe</code> (event ingestion, port 8003), <code style="color: var(--text);">intent-knowledge</code> (compiled knowledge base, port 8004). 4-server topology is currently under review — see <a href="#topology-spike" style="color: var(--accent-blue);">SIG-051</a> for the collapse-to-one-process spike.
+      </p>
+    </div>
+
+    <h2 class="section-head">▸ The imagery — go deeper into the diagrams</h2>
+    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">
+      These are the rich visual artifacts from the v1.2 site. They describe current working architecture. Read them with the hypothesis framing in mind.
+    </p>
+
+    <div class="deeper-grid">
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../architecture.html">Architecture Overview</a></h3>
+          <span class="visual-tag">▸ Three-layer diagram</span>
+        </div>
+        <p>The full three-layer architecture page with the data flow diagram, 4-server topology, persona routing, and trust formula. Hero of the technical substrate.</p>
+        <p class="legacy-note">v1.2 content · shipped-product voice · will be rewritten with maturity labels in S1</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../system-diagram.html">System Map</a></h3>
+          <span class="visual-tag">▸ Interactive SVG</span>
+        </div>
+        <p>Interactive signal-to-observation flow diagram. Click any node (MCP Server, Pipeline Stage, OTel Collector, etc.) to see detail panels. Shows the full capture→enrich→route→spec→execute→observe path.</p>
+        <p class="legacy-note">v1.2 content · most visually rich page on the site · functional and current</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../flow-diagram.html">The Loop Diagram</a></h3>
+          <span class="visual-tag">▸ SVG loop + phase cards</span>
+        </div>
+        <p>The canonical Notice → Spec → Execute → Observe loop with phase detail cards (inputs, outputs, tools) and loop property explanations. The visual you probably want if you only look at one diagram.</p>
+        <p class="legacy-note">v1.2 content · clean visualization · current</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../observability.html">Observability Stack</a></h3>
+          <span class="visual-tag">▸ OTel Mermaid diagrams</span>
+        </div>
+        <p>OTel-native stack architecture. Traces → Tempo, Metrics → Mimir, Logs → Loki, Dashboards → Grafana. Shows deployment phases, trace identity rules, cycle time histograms.</p>
+        <p class="legacy-note">v1.2 content · schema is sound · runbooks and SLOs are open gaps (see backlog)</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../arb.html">ARB & Tech Radar</a></h3>
+          <span class="visual-tag">▸ Radar SVG</span>
+        </div>
+        <p>Tech radar organized by Adopt / Trial / Assess / Hold. Shows which architectural choices we're committed to vs. experimenting with vs. rejecting. Also the ARB governance model.</p>
+        <p class="legacy-note">v1.2 content · categorization needs review after 2026-04-09 findings</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../decisions.html">Decision Records (D1–D19)</a></h3>
+          <span class="visual-tag">▸ 19 ADRs</span>
+        </div>
+        <p>Architecture Decision Records. D1–D6 are the original tech choices (Markdown, Git, SQLite, etc.). D7–D19 are the three-layer architecture, Knowledge Engine split, spec-shaping protocol, federation, and the newly-added compilation/double-loop/origin-tracking decisions.</p>
+        <p class="legacy-note">Updated 2026-04-09 with D13–D19</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../schemas.html">Data Contracts & Schemas</a></h3>
+          <span class="visual-tag">▸ 15 event types + artifacts</span>
+        </div>
+        <p>Signal, Intent, Spec, Contract, Event schemas with YAML frontmatter definitions. 15 event types across signal/intent/spec/contract/system categories. The data substrate Intent runs on.</p>
+        <p class="legacy-note">v1.2 content · missing the used_for/visibility/failure_type fields from Safety Contract Promise 1-4</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../agents.html">Subagents + Spec-Shaping Protocol</a></h3>
+          <span class="visual-tag">▸ 8 agent cards</span>
+        </div>
+        <p>Eight Claude Code subagents with model routing (Haiku/Sonnet/Opus), tool access, and the four-persona spec-shaping protocol (△ Shape / ◇ Outcome / ○ Contract / ◉ Readiness).</p>
+        <p class="legacy-note">v1.2 content · missing the "Challenge the Intent" pass from SIG-050</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../deployment.html">Deployment</a></h3>
+          <span class="visual-tag">▸ Step cards + configs</span>
+        </div>
+        <p>FastMCP Cloud, local dev, platform comparison. Three-phase deployment: in-memory (current), persistent (planned), hosted (future). The honest labeling: Phase 1 is working, Phase 2 is specced, Phase 3 is aspirational.</p>
+        <p class="legacy-note">v1.2 content · persistence is currently "Phase 4 later" which is one of the P0 issues</p>
+      </div>
+
+      <div class="deep-card">
+        <div class="card-top">
+          <h3><a href="../agents.html">Subagent Definitions</a></h3>
+          <span class="visual-tag">▸ Agent cards</span>
+        </div>
+        <p>The eight subagents that run Intent: spec-writer, coordinator, context-resolver, signal-scorer, panel-reviewer (new), observer, tracer, knowledge-ingester. Each with tool scope and model routing.</p>
+        <p class="legacy-note">v1.2 content · will be updated as panel-review skill ships in S1</p>
+      </div>
+    </div>
+
+    <h2 class="section-head" id="topology-spike">▸ The hardening backlog (what we know needs fixing)</h2>
+    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">
+      The 2026-04-09 ARB + Engineering panel review produced a consolidated P0/P1/P2 backlog. These items are architectural gaps we know about and are working on. They are not hidden; they are the honest current state. Full detail in <a href="https://github.com/theparlor/intent/blob/main/.intent/signals/2026-04-09-architecture-op-hardening-backlog.md" class="link-out">SIG-051 on GitHub →</a>
+    </p>
+
+    <div class="backlog">
+      <div class="backlog-row">
+        <div class="pri p0">P0</div>
+        <div class="sig">SIG-022</div>
+        <div class="desc"><strong>Fix sequential ID collision</strong> — SIG-NNN / INT-NNN format will collide in multi-agent federation. Migrate to ULIDs or scoped prefixes (engagement-SIG-ulid).</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p0">P0</div>
+        <div class="sig">SIG-051</div>
+        <div class="desc"><strong>events.jsonl persistence</strong> — deployment page currently says "Phase 4: persistence" which means in-memory state dies on container restart. Move to SQLite+WAL with explicit fsync.</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p0">P0</div>
+        <div class="sig">SIG-051</div>
+        <div class="desc"><strong>Cross-engagement leak test in CI</strong> — Redaction at tool level (D11) is currently client-asserted. Add a test that attempts queries from engagement A and asserts zero B data.</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p1">P1</div>
+        <div class="sig">SIG-051</div>
+        <div class="desc"><strong>Runbooks and SLOs per MCP server</strong> — SLI definitions, error budgets, top-5 failure modes, diagnostic commands, escalation paths. Without these, "OTel-native" is a schema claim, not a capability.</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p1">P1</div>
+        <div class="sig">SIG-051</div>
+        <div class="desc"><strong>4-server topology spike</strong> — evaluate collapsing notice/spec/observe/knowledge to one process with 4 modules. ARB and Engineering panels both flagged as "accidental microservices-by-phase." Decision, not commit.</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p1">P1</div>
+        <div class="sig">SIG-051</div>
+        <div class="desc"><strong>Deploy-phase event family</strong> — add deploy.started / .completed / .rolled_back / incident.opened / .resolved. Without these, DORA metrics are a claim not a measurement.</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p1">P1</div>
+        <div class="sig">SIG-049</div>
+        <div class="desc"><strong>Safety schema fields</strong> — add used_for (trust scores), visibility (signals), failure_type (contract.assertion.failed). Enforces Safety Contract Promises 1-4 at schema level.</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p2">P2</div>
+        <div class="sig">SIG-051</div>
+        <div class="desc"><strong>Fitness functions in CI</strong> — layer dependency direction, schema conformance, cycle-time SLOs, contract coverage thresholds. Without these, "evolutionary architecture" is a slogan.</div>
+      </div>
+      <div class="backlog-row">
+        <div class="pri p2">P2</div>
+        <div class="sig">SIG-051</div>
+        <div class="desc"><strong>Wardley map + cost model</strong> — one evolution-axis diagram, one dollar-cost-per-Intent-cycle page. Converts "AI collapsed implementation cost" from slogan to measurable.</div>
+      </div>
+    </div>
+
+    <h2 class="section-head">▸ Pressure-test invitation</h2>
+    <div style="background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.25); border-radius: 10px; padding: 24px 28px;">
+      <p style="font-size: 15px; color: var(--text); line-height: 1.65; margin-bottom: 12px;">
+        If you read the architecture pages and think we're wrong about something — about the topology, about the trust formula, about the observability stack, about the layer model — <strong style="color: var(--accent-blue);">please tell us</strong>. We're actively looking for pressure-test feedback before the S1 rebuild.
+      </p>
+      <p style="font-size: 14px; color: var(--text-muted); line-height: 1.65; margin: 0;">
+        Open an issue at <a href="https://github.com/theparlor/intent/issues" class="link-out" style="font-size: 14px;">github.com/theparlor/intent/issues →</a> · or send a signal-style observation directly to the repo via PR against <code style="color: var(--text);">.intent/signals/external/</code>
+      </p>
+    </div>
+
+    <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <a href="the-system.html" class="link-out">← Previous: The System</a>
+      <a href="the-proof.html" class="link-out">Next: The Proof →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Active hypothesis · Current architecture state as of 2026-04-09</p>
+  </footer>
+</body>
+</html>
