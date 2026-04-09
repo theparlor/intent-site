@@ -1,0 +1,22 @@
+---
+title: Arb
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+summary: "Intent — Tech Radar, ARB & Atomized Roadmap I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Intent — ARB & Tech Radar Technology adoption roadmap, a..."
+content_excerpt: "Intent — Tech Radar, ARB & Atomized Roadmap I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Intent — ARB & Tech Radar Technology adoption roadmap, architectural blueprint, and atomized delivery phases Tech Radar Architectural Stack ARB Panel Atomized Roadmap Technology Radar Adoption lifecycle and assessment status Adopt Trial Assess Hold LANGUAGES &amp; FRAMEWORKS PLATFORMS &amp; INFRA TOOLS &amp; TECHNIQUES DATA &amp; AI HTML5/CSS3/JS Markdow"
+depth_score: 4
+depth_signals:
+  file_size_kb: 39.4
+  content_chars: 1411
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.41
+---

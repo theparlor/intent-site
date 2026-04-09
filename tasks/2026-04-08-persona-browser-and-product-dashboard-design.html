@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Spec: Persona Browser & Products Built with Intent</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f172a;
+      color: #f1f5f9;
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      padding: 3rem 1.5rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Title area */
+    .title-block {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #334155;
+    }
+
+    .title-block h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2em 0.75em;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      vertical-align: middle;
+    }
+
+    .badge-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-green {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-purple {
+      background: rgba(168, 85, 247, 0.15);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .badge-gray {
+      background: rgba(100, 116, 139, 0.15);
+      color: #94a3b8;
+      border: 1px solid rgba(100, 116, 139, 0.3);
+    }
+
+    .badge-red {
+      background: rgba(220, 38, 38, 0.15);
+      color: #dc2626;
+      border: 1px solid rgba(220, 38, 38, 0.3);
+    }
+
+    .meta-line {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .meta-line strong {
+      color: #f1f5f9;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      font-style: italic;
+      margin-top: 1rem;
+      line-height: 1.6;
+      border-left: 3px solid #a855f7;
+      padding-left: 1rem;
+    }
+
+    /* Table of contents */
+    .toc {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc-counter;
+    }
+
+    .toc li {
+      counter-increment: toc-counter;
+      margin-bottom: 0.35rem;
+    }
+
+    .toc li::before {
+      content: counter(toc-counter, decimal-leading-zero) ".";
+      color: #64748b;
+      font-size: 0.8rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      margin-right: 0.5rem;
+    }
+
+    .toc a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.15s;
+    }
+
+    .toc a:hover {
+      color: #3b82f6;
+    }
+
+    /* Section headings */
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-top: 3.5rem;
+      margin-bottom: 1.25rem;
+      padding-left: 1rem;
+      line-height: 1.3;
+    }
+
+    h2.border-blue { border-left: 4px solid #3b82f6; }
+    h2.border-purple { border-left: 4px solid #a855f7; }
+    h2.border-amber { border-left: 4px solid #f59e0b; }
+    h2.border-green { border-left: 4px solid #10b981; }
+    h2.border-red { border-left: 4px solid #dc2626; }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: #f1f5f9;
+    }
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #94a3b8;
+    }
+
+    /* Paragraphs and text */
+    p {
+      margin-bottom: 1rem;
+      color: #94a3b8;
+    }
+
+    p strong, li strong {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #334155;
+      margin: 3rem 0;
+    }
+
+    /* Lists */
+    ul, ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+      color: #94a3b8;
+    }
+
+    li strong {
+      color: #f1f5f9;
+    }
+
+    /* Nested lists */
+    li ul, li ol {
+      margin-top: 0.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Blockquotes */
+    blockquote {
+      border-left: 3px solid #a855f7;
+      padding: 0.75rem 1.25rem;
+      margin: 1.25rem 0;
+      background: rgba(168, 85, 247, 0.05);
+      border-radius: 0 6px 6px 0;
+    }
+
+    blockquote p {
+      font-style: italic;
+      color: #94a3b8;
+      margin-bottom: 0;
+    }
+
+    /* Code */
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.85em;
+      background: #1e293b;
+      color: #3b82f6;
+      padding: 0.15em 0.45em;
+      border-radius: 4px;
+      border: 1px solid #334155;
+    }
+
+    pre {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      line-height: 1.5;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    /* YAML syntax highlighting */
+    .yaml .key { color: #3b82f6; }
+    .yaml .str { color: #10b981; }
+    .yaml .comment { color: #64748b; font-style: italic; }
+    .yaml .num { color: #f59e0b; }
+    .yaml .bool { color: #a855f7; }
+    .yaml .punct { color: #64748b; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      font-size: 0.9rem;
+    }
+
+    thead th {
+      background: #1e293b;
+      color: #f1f5f9;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid #334155;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tbody td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #334155;
+      color: #94a3b8;
+    }
+
+    tbody tr:hover {
+      background: rgba(59, 130, 246, 0.04);
+    }
+
+    /* Callout / Info blocks */
+    .callout {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Detail section cards */
+    .section-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 0.5rem 0;
+    }
+
+    .section-card .num {
+      display: inline-block;
+      width: 1.75rem;
+      height: 1.75rem;
+      line-height: 1.75rem;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .section-card .num-blue { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+    .section-card .num-purple { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+    .section-card .num-amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .section-card .num-green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .section-card .num-red { background: rgba(220, 38, 38, 0.15); color: #dc2626; }
+
+    .section-card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-card-title {
+      font-weight: 600;
+      color: #f1f5f9;
+      font-size: 0.95rem;
+    }
+
+    .section-card-desc {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      padding-left: 2.25rem;
+    }
+
+    /* Numbered steps for implementation */
+    .impl-steps {
+      list-style: none;
+      counter-reset: impl;
+      padding-left: 0;
+    }
+
+    .impl-steps li {
+      counter-increment: impl;
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .impl-steps li::before {
+      content: counter(impl);
+      position: absolute;
+      left: 0;
+      width: 1.75rem;
+      height: 1.75rem;
+      line-height: 1.75rem;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+    }
+
+    /* File tree */
+    .file-tree {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .file-tree .dir { color: #3b82f6; }
+    .file-tree .file { color: #94a3b8; }
+    .file-tree .note { color: #64748b; font-style: italic; }
+
+    /* Flow visual */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0.5rem;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .flow-node {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .flow-arrow {
+      color: #64748b;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    /* Success criteria checkmarks */
+    .criteria-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .criteria-list li {
+      position: relative;
+      padding-left: 1.75rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .criteria-list li::before {
+      content: "\\2713";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: 700;
+    }
+
+    /* Taxonomy visual cards */
+    .taxonomy-card {
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .taxonomy-card h4 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .taxonomy-inner {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .taxonomy-product {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+    }
+
+    .taxonomy-product .name {
+      font-weight: 600;
+      color: #f1f5f9;
+      font-size: 0.9rem;
+    }
+
+    .taxonomy-product .tagline {
+      color: #94a3b8;
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+
+    .taxonomy-product .badges {
+      margin-top: 0.4rem;
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .badge-sm {
+      font-size: 0.65rem;
+      padding: 0.1em 0.5em;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Flow diagram visual */
+    .flow-diagram {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+
+    .flow-diagram table {
+      margin: 0;
+    }
+
+    .flow-diagram td {
+      padding: 0.4rem 0.75rem;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+      font-size: 0.85rem;
+    }
+
+    .flow-from {
+      color: #3b82f6;
+      font-weight: 600;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+    }
+
+    .flow-to {
+      color: #a855f7;
+      font-weight: 600;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+    }
+
+    .flow-label {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .flow-arrow-cell {
+      color: #64748b;
+      text-align: center;
+    }
+
+    .highlight-row td {
+      background: rgba(245, 158, 11, 0.06);
+      border-bottom-color: rgba(245, 158, 11, 0.2);
+    }
+
+    .highlight-row .flow-label {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Title -->
+    <div class="title-block">
+      <h1>Design Spec: Persona Browser &amp; Products Built with Intent <span class="badge badge-amber">Draft</span></h1>
+      <div class="meta-line"><strong>Date:</strong> 2026-04-08 &nbsp;&middot;&nbsp; <strong>Owner:</strong> Brien &nbsp;&middot;&nbsp; <strong>Status:</strong> Draft</div>
+      <p class="lead">Two deliverables that formalize the product taxonomy and make the persona system browsable. The persona browser is a local reference tool; the product dashboard is a public intent-site feature that shows how products compose.</p>
+    </div>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#deliverable-a">Deliverable A: Local Persona Browser</a></li>
+        <li><a href="#deliverable-b">Deliverable B: Products Built with Intent &mdash; Dashboard Tab</a></li>
+        <li><a href="#signals">Signals to Log</a></li>
+        <li><a href="#implementation">Implementation Order</a></li>
+        <li><a href="#success">Success Criteria</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- DELIVERABLE A -->
+    <!-- ============================================================ -->
+
+    <h2 id="deliverable-a" class="border-blue">Deliverable A: Local Persona Browser</h2>
+
+    <h3>Purpose</h3>
+    <p>A local-only HTML reference tool that lets Brien browse all <strong>178+ persona registry entries</strong> visually. Not part of the public intent-site. Generated from registry data, regenerable on demand.</p>
+
+    <h3>Location</h3>
+    <pre><code class="file-tree"><span class="dir">Core/personas/browser/</span>
+├── <span class="file">generate.py</span>          <span class="note">← generator script</span>
+├── <span class="file">index.html</span>           <span class="note">← generated catalog page</span>
+└── <span class="dir">personas/</span>
+    ├── <span class="file">teresa-torres.html</span>
+    ├── <span class="file">marty-cagan.html</span>
+    └── <span class="note">... (178+ files)</span></code></pre>
+
+    <h3>Generator Script</h3>
+    <p><code>generate.py</code> reads:</p>
+    <ul>
+      <li>All <code>Core/personas/registry/*.yaml</code> files</li>
+      <li><code>Core/personas/freshening-schedule.yaml</code> for tier classification</li>
+      <li><code>Core/personas/archetypes/*/source-humans.yaml</code> for contribution context</li>
+    </ul>
+    <p>Outputs static HTML. No build tools, no framework, no server required. Opens with <code>file:///</code>.</p>
+    <p>Run: <code>python3 Core/personas/browser/generate.py</code></p>
+
+    <div class="callout">
+      <div class="callout-label" style="color: #64748b;">Git Policy</div>
+      <p>The <code>browser/</code> output directory (<code>index.html</code> + <code>personas/*.html</code>) is <code>.gitignore</code>&rsquo;d &mdash; generated output, not source. Only <code>generate.py</code> is committed. The generator is the artifact; the output is ephemeral.</p>
+    </div>
+
+    <h3>Index Page</h3>
+    <ul>
+      <li><strong>Header:</strong> "Persona Registry Browser" + entity count + enrichment coverage stats (how many have vocab fingerprints, channels, contributes_to)</li>
+      <li><strong>Filter bar:</strong> Tier pills (All / Foundational / Primary / Secondary) + Archetype dropdown + Search input</li>
+      <li><strong>Card grid</strong> (4-col &rarr; 2-col &rarr; 1-col responsive):
+        <ul>
+          <li>Name (linked to detail page)</li>
+          <li><strong>Tagline</strong> (new field &mdash; see below)</li>
+          <li>Tier badge (<span style="color:#f59e0b;">amber</span>/<span style="color:#3b82f6;">blue</span>/<span style="color:#64748b;">gray</span>)</li>
+          <li>Archetype contribution badges (if any)</li>
+          <li>Depth score indicator (1&ndash;5 dots)</li>
+          <li>2&ndash;3 framework tags from <code>rendering.frameworks</code></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Detail Page (Per Entity)</h3>
+    <p>Sections in order, derived from registry YAML:</p>
+
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-blue">1</span> <span class="section-card-title">Identity Header</span></div>
+      <div class="section-card-desc">Name (large), type badge, lifecycle badge. <strong>Tagline</strong> (prominent, below name). Created/updated timestamps. Tier badge, depth score (1&ndash;5 visual).</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-blue">2</span> <span class="section-card-title">Role &amp; Industry</span></div>
+      <div class="section-card-desc">Role tags with title, level, function, org, O*NET where present. Industry tags with NAICS codes and labels.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-purple">3</span> <span class="section-card-title">Voice</span></div>
+      <div class="section-card-desc">Full <code>substance.voice</code> text, styled as a reading block. Voice tags extracted and shown as pills if present in text.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-purple">4</span> <span class="section-card-title">Mental Models</span></div>
+      <div class="section-card-desc">Card per model: name as heading, description as body. Accent-colored left border.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-blue">5</span> <span class="section-card-title">Stances</span></div>
+      <div class="section-card-desc">Ordered list with blue accent border.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-red">6</span> <span class="section-card-title">Frustration Triggers</span></div>
+      <div class="section-card-desc">Ordered list with red accent border.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-amber">7</span> <span class="section-card-title">Vocabulary Fingerprint</span></div>
+      <div class="section-card-desc">Pill / tag cloud layout.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-green">8</span> <span class="section-card-title">Unique Signal</span></div>
+      <div class="section-card-desc">Callout block with "When operating as [Name]:" prefix.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-purple">9</span> <span class="section-card-title">Archetype Contributions</span></div>
+      <div class="section-card-desc">Card per archetype: name, weight shown as bar (e.g., 30% filled), dimension badges (voice, mental_models, stances), notes text.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-blue">10</span> <span class="section-card-title">Related Entities</span></div>
+      <div class="section-card-desc">List with strength indicator (dot size or bar), each name links to that entity's detail page. Sorted by strength descending.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-amber">11</span> <span class="section-card-title">Channels</span></div>
+      <div class="section-card-desc">Table: platform, URL (linked where present), frequency, richness, notes. Legacy channels flagged for deceased entities.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-green">12</span> <span class="section-card-title">Sourcing</span></div>
+      <div class="section-card-desc">Source type, sourced_from list, corpus path as file link.</div>
+    </div>
+    <div class="section-card">
+      <div class="section-card-header"><span class="num num-purple">13</span> <span class="section-card-title">Rendering Bridge</span></div>
+      <div class="section-card-desc">Framework tags from <code>rendering.frameworks</code>. Skills Engine persona file link. Platform combination notes. Role combination guidance.</div>
+    </div>
+
+    <h4>Detail Page Footer</h4>
+    <ul>
+      <li><strong>"View registry YAML &rarr;"</strong> &rarr; <code>file:///Users/brien/Workspaces/Core/personas/registry/{slug}.yaml</code></li>
+      <li><strong>"View rendering &rarr;"</strong> &rarr; <code>file:///Users/brien/Workspaces/Core/products/skills-engine/personas/personalities/{slug}.md</code></li>
+      <li>Prev / Next navigation (alphabetical within tier, with tier label)</li>
+    </ul>
+
+    <h3>Design System</h3>
+    <p>Uses the same dark slate palette as the intent-site for visual consistency:</p>
+    <table>
+      <thead>
+        <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>Background</code></td><td><code style="color:#f1f5f9;">#0f172a</code></td><td>Page background</td></tr>
+        <tr><td><code>Surface</code></td><td><code style="color:#f1f5f9;">#1e293b</code></td><td>Cards, code blocks</td></tr>
+        <tr><td><code>Border</code></td><td><code style="color:#94a3b8;">#334155</code></td><td>Dividers, outlines</td></tr>
+        <tr><td><code>Text</code></td><td><code style="color:#f1f5f9;">#f1f5f9</code></td><td>Primary text</td></tr>
+        <tr><td><code>Muted</code></td><td><code style="color:#94a3b8;">#94a3b8</code></td><td>Secondary text</td></tr>
+        <tr><td><code>Foundational</code></td><td><code style="color:#f59e0b;">#f59e0b</code></td><td>Tier &mdash; amber</td></tr>
+        <tr><td><code>Primary</code></td><td><code style="color:#3b82f6;">#3b82f6</code></td><td>Tier &mdash; blue</td></tr>
+        <tr><td><code>Secondary</code></td><td><code style="color:#64748b;">#64748b</code></td><td>Tier &mdash; gray</td></tr>
+      </tbody>
+    </table>
+    <p>No shared stylesheet dependency &mdash; all CSS is self-contained in the generated HTML (works offline, no file path dependencies beyond the generated output).</p>
+
+    <h3>New Registry Field: <code>tagline</code></h3>
+
+    <h4>Location in YAML</h4>
+    <p>Under IDENTITY section, after <code>lifecycle</code>:</p>
+
+    <pre><code class="yaml"><span class="comment"># IDENTITY</span>
+<span class="key">id</span><span class="punct">:</span> <span class="str">teresa-torres</span>
+<span class="key">type</span><span class="punct">:</span> <span class="str">named-human</span>
+<span class="key">name</span><span class="punct">:</span> <span class="str">Teresa Torres</span>
+<span class="key">tagline</span><span class="punct">:</span> <span class="str">"Product discovery coach who created the Opportunity-Solution Tree framework."</span>
+<span class="key">created</span><span class="punct">:</span> <span class="str">2026-04-06T18:00:00Z</span>
+<span class="key">updated</span><span class="punct">:</span> <span class="str">2026-04-06T18:00:00Z</span>
+<span class="key">lifecycle</span><span class="punct">:</span> <span class="str">active</span></code></pre>
+
+    <p><strong>Format:</strong> One sentence, 10&ndash;20 words. Written for someone who has never heard of this person. Pattern: "<em>[Role/credential] known for [signature contribution].</em>"</p>
+    <p><strong>Generation:</strong> Opus reads <code>substance.voice</code>, <code>substance.mental_models</code>, <code>sourced_from</code>, and <code>index.roles</code> to produce the tagline. Stored in registry YAML. Refreshed when the persona is freshened (checked against <code>updated</code> timestamp).</p>
+    <p><strong>Schema update:</strong> Add <code>tagline</code> as an optional string field to <code>registry/_schema.yaml</code>.</p>
+
+    <hr>
+
+    <!-- ============================================================ -->
+    <!-- DELIVERABLE B -->
+    <!-- ============================================================ -->
+
+    <h2 id="deliverable-b" class="border-purple">Deliverable B: Products Built with Intent &mdash; Dashboard Tab</h2>
+
+    <h3>Purpose</h3>
+    <p>A new <strong>6th tab on work-system.html</strong> that shows the product portfolio taxonomy, composability flow diagram, and product cards. Answers: <em>"What products exist, how do they compose, and what's the status of each?"</em></p>
+
+    <h3>Tab Label</h3>
+    <p><strong>"Products Built with Intent"</strong> &mdash; displayed as the tab name. Internal link anchor: <code>#products</code>.</p>
+
+    <h3>Data Source</h3>
+    <p>A new governance file: <code>products-taxonomy.yaml</code> in the intent-site repo root. This is the canonical product taxonomy that drives the dashboard tab.</p>
+
+    <!-- Taxonomy YAML rendered as visual cards -->
+    <h4>Portfolio: The Parlor</h4>
+
+    <!-- Knowledge Engine -->
+    <div class="taxonomy-card" style="background: rgba(168, 85, 247, 0.06); border: 1px solid rgba(168, 85, 247, 0.2);">
+      <h4 style="color: #a855f7; margin-top: 0;">Knowledge Engine <span class="badge badge-purple" style="font-size: 0.6rem; vertical-align: middle;">7 products</span></h4>
+      <p style="font-size: 0.9rem;">Composable intelligence platform that researches, enriches, and infers knowledge from raw sources.</p>
+      <div class="taxonomy-inner">
+        <div class="taxonomy-product">
+          <div class="name">Company Dossier</div>
+          <div class="badges"><span class="badge-sm badge-purple">domain</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Structured intelligence profile for any company, built from public sources.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Person Dossier</div>
+          <div class="badges"><span class="badge-sm badge-purple">domain</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Deep profile of any individual &mdash; career arc, publications, influence map.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Industry Scan</div>
+          <div class="badges"><span class="badge-sm badge-purple">domain</span> <span class="badge-sm badge-blue">spec</span></div>
+          <div class="tagline">Market landscape analysis with competitive dynamics and trend mapping.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Research</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Multi-source research pipeline &mdash; web, corpus, API, and document ingestion.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Enrich</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Structured enrichment of raw research into typed knowledge artifacts.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Infer</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm badge-blue">spec</span></div>
+          <div class="tagline">Cross-artifact inference &mdash; relationship mapping, gap detection, implication threading.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Assess</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm" style="background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3);">noticed</span></div>
+          <div class="tagline">Evaluation framework &mdash; scoring, ranking, and confidence calibration.</div>
+        </div>
+      </div>
+
+      <!-- GTM Product -->
+      <div style="margin-top: 1rem; padding: 0.75rem 1rem; border: 1px dashed rgba(168, 85, 247, 0.4); border-radius: 6px; background: rgba(168, 85, 247, 0.03);">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+          <span style="color: #a855f7; font-weight: 700; font-size: 0.9rem;">Knowledge Farm</span>
+          <span class="badge-sm" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">GTM</span>
+          <span class="badge-sm" style="background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3);">noticed</span>
+        </div>
+        <p style="font-size: 0.8rem; margin: 0;">A portable knowledge base &mdash; your personas, dossiers, and domain models in one place. Freshening requires Knowledge Engine access (subscription model).</p>
+      </div>
+    </div>
+
+    <!-- Intent -->
+    <div class="taxonomy-card" style="background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.2);">
+      <h4 style="color: #3b82f6; margin-top: 0;">Intent <span class="badge badge-blue" style="font-size: 0.6rem; vertical-align: middle;">4 products</span></h4>
+      <p style="font-size: 0.9rem;">Team operating model for AI-augmented product teams. Replaces Agile toolchain with a signal-driven loop.</p>
+      <div class="taxonomy-inner">
+        <div class="taxonomy-product">
+          <div class="name">Notice</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Signal capture and enrichment &mdash; the system's sensory layer.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Spec</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Spec authoring with persona critique and contract decomposition.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Execute</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Contract verification and artifact generation.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Observe</div>
+          <div class="badges"><span class="badge-sm badge-gray">platform</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Loop closure &mdash; observations become new signals.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills Engine -->
+    <div class="taxonomy-card" style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.2);">
+      <h4 style="color: #f59e0b; margin-top: 0;">Skills Engine <span class="badge badge-amber" style="font-size: 0.6rem; vertical-align: middle;">2 products</span></h4>
+      <p style="font-size: 0.9rem;">Composable advisory intelligence &mdash; methodology x persona x platform = deployable capability.</p>
+      <div class="taxonomy-inner">
+        <div class="taxonomy-product">
+          <div class="name">Personas &amp; Voices</div>
+          <div class="badges"><span class="badge-sm badge-purple">domain</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">178+ thought leader personas rendered as advisory voices for coaching and critique.</div>
+        </div>
+        <div class="taxonomy-product">
+          <div class="name">Methodology Library</div>
+          <div class="badges"><span class="badge-sm badge-purple">domain</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Codified consulting methodologies &mdash; discovery, debugging, planning, review.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fieldbook -->
+    <div class="taxonomy-card" style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.2);">
+      <h4 style="color: #10b981; margin-top: 0;">Fieldbook <span class="badge badge-green" style="font-size: 0.6rem; vertical-align: middle;">standalone</span></h4>
+      <p style="font-size: 0.9rem;">Expense lifecycle system &mdash; intake, ledger, comply, narrate, export.</p>
+      <div class="taxonomy-inner">
+        <div class="taxonomy-product" style="grid-column: span 2;">
+          <div class="badges"><span class="badge-sm" style="background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3);">standalone</span> <span class="badge-sm badge-blue">spec</span></div>
+          <div class="tagline">Composable expense management for independent consultants.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Digital Declutter -->
+    <div class="taxonomy-card" style="background: rgba(100, 116, 139, 0.06); border: 1px solid rgba(100, 116, 139, 0.2);">
+      <h4 style="color: #94a3b8; margin-top: 0;">Digital Declutter <span class="badge badge-gray" style="font-size: 0.6rem; vertical-align: middle;">standalone</span></h4>
+      <p style="font-size: 0.9rem;">File organization and knowledge ingestion pipeline.</p>
+      <div class="taxonomy-inner">
+        <div class="taxonomy-product" style="grid-column: span 2;">
+          <div class="badges"><span class="badge-sm" style="background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3);">standalone</span> <span class="badge-sm badge-green">execute</span></div>
+          <div class="tagline">Automated file triage, placement, and knowledge graph maintenance.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Section 1: Portfolio Taxonomy</h3>
+    <p>Visual nested card layout showing the three-level hierarchy:</p>
+    <ul>
+      <li><strong>Product line</strong> = colored container with header (name, product count, description)</li>
+      <li><strong>Product</strong> = card inside the container (name, type badge, status badge, tagline)</li>
+      <li><strong>GTM product</strong> = highlighted card with different treatment (dashed border, star icon) to distinguish from internal products</li>
+    </ul>
+
+    <h4>Type Badges</h4>
+    <table>
+      <thead><tr><th>Type</th><th>Style</th></tr></thead>
+      <tbody>
+        <tr><td>Domain product</td><td>Solid pill</td></tr>
+        <tr><td>Platform product</td><td>Outlined pill</td></tr>
+        <tr><td>GTM product</td><td>Highlighted / starred pill</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Status Badges</h4>
+    <table>
+      <thead><tr><th>Status</th><th>Color</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Noticed</td><td><span style="color:#94a3b8;">Gray</span></td><td><span class="badge-sm" style="background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3);">noticed</span></td></tr>
+        <tr><td>Spec</td><td><span style="color:#3b82f6;">Blue</span></td><td><span class="badge-sm badge-blue">spec</span></td></tr>
+        <tr><td>Execute</td><td><span style="color:#10b981;">Green</span></td><td><span class="badge-sm badge-green">execute</span></td></tr>
+        <tr><td>Observe</td><td><span style="color:#f59e0b;">Amber</span></td><td><span class="badge-sm badge-amber">observe</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Section 2: Composability Flow Diagram</h3>
+    <p>SVG diagram rendered from the <code>flows</code> array in the taxonomy YAML. Shows product lines as colored containers, products as nodes, and flows as directed arrows with labels.</p>
+
+    <div class="flow-diagram">
+      <table style="width: 100%;">
+        <thead>
+          <tr>
+            <th style="width: 25%;">From</th>
+            <th style="width: 5%;"></th>
+            <th style="width: 25%;">To</th>
+            <th>Label</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="flow-from">ke-research</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">ke-enrich</span></td>
+            <td class="flow-label">raw &rarr; structured</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">ke-enrich</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">ke-infer</span></td>
+            <td class="flow-label">enriched &rarr; inferred</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">ke-enrich</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">company-dossier</span></td>
+            <td class="flow-label">enriched profiles</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">ke-infer</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">person-dossier</span></td>
+            <td class="flow-label">enriched + inferred profiles</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">person-dossier</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">personas-voices</span></td>
+            <td class="flow-label">persona corpus input</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">ke-enrich</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">personas-voices</span></td>
+            <td class="flow-label">freshening data</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">personas-voices</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">spec</span></td>
+            <td class="flow-label">persona critique</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">methodology-library</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">spec</span></td>
+            <td class="flow-label">methodology guidance</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">ke-enrich</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">notice</span></td>
+            <td class="flow-label">domain context</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><span class="flow-from" style="color: #f59e0b;">observe</span></td>
+            <td class="flow-arrow-cell" style="color: #f59e0b;">&larr;&rarr;</td>
+            <td><span class="flow-to" style="color: #f59e0b;">ke-enrich</span></td>
+            <td class="flow-label">observations &rarr; enrichment (feedback loop)</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">digital-declutter</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">ke-research</span></td>
+            <td class="flow-label">raw material</td>
+          </tr>
+          <tr>
+            <td><span class="flow-from">ke-enrich</span></td>
+            <td class="flow-arrow-cell">&rarr;</td>
+            <td><span class="flow-to">fieldbook</span></td>
+            <td class="flow-label">categorization</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The diagram is <strong>hand-authored SVG</strong> (matching the intent-site pattern &mdash; the arb.html tech radar, the system-diagram.html interactive panels are all hand-authored SVG). Not generated from Mermaid &mdash; the composability flow needs custom layout for readability.</p>
+    <p>A Mermaid source version lives in <code>docs/diagrams/product-composability.mermaid</code> for engineering reference (per diagram source policy).</p>
+
+    <div class="callout">
+      <div class="callout-label" style="color: #f59e0b;">Key Architectural Insight</div>
+      <p>The <strong>feedback loop</strong> (Observe &rarr; KE Enrich) is highlighted with a different stroke style (dashed + brighter color) since it closes the system loop &mdash; observations become enriched knowledge that feeds future cycles.</p>
+    </div>
+
+    <h3>Section 3: Product Cards</h3>
+    <p>Card grid below the flow diagram. Grouped by product line (colored header dividers).</p>
+    <p>Each card:</p>
+    <ul>
+      <li>Product name + type badge + status badge</li>
+      <li>Tagline</li>
+      <li><strong>Provides:</strong> bulleted list of what this product enables</li>
+      <li><strong>Consumes:</strong> bulleted list of what it depends on (each item links to the providing product's card via anchor)</li>
+      <li>Signal count + Decision count (from <code>.intent/</code> if applicable)</li>
+      <li>Repo link (if applicable)</li>
+    </ul>
+    <p>The provides/consumes cross-references make the composability story concrete at the card level &mdash; you can trace any dependency chain by following links.</p>
+
+    <h3>Knowledge Farm Note</h3>
+    <blockquote>
+      <p>"The Knowledge Farm is the carry-away product &mdash; a portable instance of Knowledge Engine output scoped to an engagement or user. Contains personas, company dossiers, industry scans, and domain models. Freshening requires Knowledge Engine access."</p>
+    </blockquote>
+    <p>This seeds the subscription model concept without over-committing to pricing or packaging.</p>
+
+    <h3>Changes to Existing Content</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>File</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><code>work-system.html</code></td><td>Add 6th tab "Products Built with Intent" with three sections</td></tr>
+        <tr><td>2</td><td><code>products.html</code></td><td>Add note at top: "For the full product taxonomy and composability view, see Products Built with Intent &rarr;" linking to new tab</td></tr>
+        <tr><td>3</td><td><code>site-ia.md</code></td><td>Document the new tab in Pillar 2 description</td></tr>
+        <tr><td>4</td><td><code>site-spec.md</code></td><td>Update work-system.html baseline size (will increase ~15&ndash;20KB)</td></tr>
+        <tr><td>5</td><td><code>content-map.md</code></td><td>Add mappings for product taxonomy claims &rarr; products-taxonomy.yaml</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- ============================================================ -->
+    <!-- SIGNALS -->
+    <!-- ============================================================ -->
+
+    <h2 id="signals" class="border-amber">Signals to Log</h2>
+
+    <div class="section-card" style="border-left: 3px solid #f59e0b;">
+      <div class="section-card-header"><span class="num num-amber">1</span> <span class="section-card-title">KE Signal: Digital Product Taxonomy Builder</span></div>
+      <div class="section-card-desc">The Knowledge Engine should have a capability to scan and build product taxonomies. We did this manually for The Parlor portfolio. Automate it as a KE Research + Infer + Assess pipeline.</div>
+    </div>
+
+    <div class="section-card" style="border-left: 3px solid #a855f7;">
+      <div class="section-card-header"><span class="num num-purple">2</span> <span class="section-card-title">KE Signal: Knowledge Farm as GTM Product</span></div>
+      <div class="section-card-desc">The portable knowledge base concept. Needs its own intent, spec, and business model thinking. Subscription relationship with the Engine.</div>
+    </div>
+
+    <div class="section-card" style="border-left: 3px solid #3b82f6;">
+      <div class="section-card-header"><span class="num num-blue">3</span> <span class="section-card-title">Persona Signal: Tagline Field</span></div>
+      <div class="section-card-desc">178 entities need taglines generated. Batch job using Opus, stored in registry YAML, refreshed on persona freshening.</div>
+    </div>
+
+    <hr>
+
+    <!-- ============================================================ -->
+    <!-- IMPLEMENTATION ORDER -->
+    <!-- ============================================================ -->
+
+    <h2 id="implementation" class="border-green">Implementation Order</h2>
+
+    <ol class="impl-steps">
+      <li><strong>products-taxonomy.yaml</strong> &mdash; formalize the taxonomy as data</li>
+      <li><strong>Tagline generation</strong> &mdash; batch generate taglines for all 178 personas, update registry schema</li>
+      <li><strong>Persona browser generator</strong> &mdash; <code>generate.py</code> + output HTML</li>
+      <li><strong>Products Built with Intent tab</strong> &mdash; SVG flow diagram + taxonomy visual + product cards</li>
+      <li><strong>Governance updates</strong> &mdash; site-ia.md, site-spec.md, content-map.md, ROADMAP.md</li>
+      <li><strong>Signal logging</strong> &mdash; KE taxonomy builder, Knowledge Farm, tagline field</li>
+    </ol>
+
+    <hr>
+
+    <!-- ============================================================ -->
+    <!-- SUCCESS CRITERIA -->
+    <!-- ============================================================ -->
+
+    <h2 id="success" class="border-red">Success Criteria</h2>
+
+    <ul class="criteria-list">
+      <li>Brien can open <code>file:///Users/brien/Workspaces/Core/personas/browser/index.html</code> and browse all 178 personas with full detail</li>
+      <li>Every persona detail page links to its source YAML and rendering file</li>
+      <li>The work-system dashboard shows the full product portfolio with composability flows</li>
+      <li>The feedback loop (Observe &rarr; KE Enrich) is visually prominent</li>
+      <li>The Knowledge Farm concept is seeded as a GTM product</li>
+      <li>Taxonomy is data-driven from <code>products-taxonomy.yaml</code>, not hardcoded HTML</li>
+    </ul>
+
+    <!-- Footer -->
+    <div style="margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid #334155; text-align: center;">
+      <p style="color: #64748b; font-size: 0.8rem;">Design Spec &middot; The Parlor &middot; 2026-04-08 &middot; Built with the Intent methodology</p>
+    </div>
+
+  </div>
+</body>
+</html>

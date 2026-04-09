@@ -1,0 +1,22 @@
+---
+title: Walkthrough
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+summary: "Walkthrough — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap END-TO-END WALKTHROUGH Follow One Intent Here's what happens when a single signal tri..."
+content_excerpt: "Walkthrough — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap END-TO-END WALKTHROUGH Follow One Intent Here's what happens when a single signal triggers the entire loop &mdash; from the moment it's noticed to the new signals it produces. This walkthrough traces a real signal &mdash; SIG-010 , \"Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions\" &mdash; through the complete Intent loop. Every ID, time"
+depth_score: 4
+depth_signals:
+  file_size_kb: 34.5
+  content_chars: 1419
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---

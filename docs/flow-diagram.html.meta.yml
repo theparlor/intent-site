@@ -1,0 +1,22 @@
+---
+title: Flow Diagram
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+summary: "Flow Diagram - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start The System &mdash; Flow The Intent Loop A continuous cycle with no sp..."
+content_excerpt: "Flow Diagram - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start The System &mdash; Flow The Intent Loop A continuous cycle with no sprint boundaries. Work flows from noticing a signal through specifying, executing, and observing &mdash; then back again. Every transition emits an event. Loop Diagram Intent CONTINUOUS LOOP Notice Capture signals Spec Shape into contracts Execute Agents implement Observe Measure outcomes Phase Detai"
+depth_score: 3
+depth_signals:
+  file_size_kb: 19.6
+  content_chars: 1420
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---

@@ -1,3 +1,23 @@
+---
+title: Expand Decisions
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+depth_score: 4
+depth_signals:
+  file_size_kb: 36.7
+  content_chars: 19668
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.15
+---
 # Task: Expand decisions.html with 6 full Architecture Decision Records (ADRs)
 
 > Handoff spec for Claude Code terminal. Expands the decisions.html page from a 90-line stub (structure + explanation) to a full Rich page (~10KB) containing 6 complete ADR entries for the Intent architecture.

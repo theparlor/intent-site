@@ -1,3 +1,23 @@
+---
+title: Observe Page
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+depth_score: 4
+depth_signals:
+  file_size_kb: 38.6
+  content_chars: 19668
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.10
+---
 # Task: Create observe.html page — the Observe phase narrative
 
 > Handoff spec for Claude Code terminal. Creates observe.html — a Pillar 2 ("The System") depth page about the Observe phase narrative, explaining how loop closure works and what dashboards reveal.

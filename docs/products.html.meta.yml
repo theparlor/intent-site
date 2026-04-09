@@ -1,0 +1,22 @@
+---
+title: Products
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-08
+summary: "Product Catalog — Intent I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Product Catalog Every product Brien builds, governed by Intent. Ea..."
+content_excerpt: "Product Catalog — Intent I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Product Catalog Every product Brien builds, governed by Intent. Each has a GitHub repo, an Intent manifest, tracked signals, and recorded decisions. Status: Noticed Spec Execute Observe Source: github.com/theparlor/intent · Built with the Intent methodology"
+depth_score: 3
+depth_signals:
+  file_size_kb: 10.1
+  content_chars: 1198
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---
