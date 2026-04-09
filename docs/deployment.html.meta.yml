@@ -1,0 +1,22 @@
+---
+title: Deployment
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+summary: "Intent — Deployment Guide I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Deployment Guide Ship It for $0/month Intent's MCP servers run on FastMCP ..."
+content_excerpt: "Intent — Deployment Guide I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Deployment Guide Ship It for $0/month Intent's MCP servers run on FastMCP Cloud's free tier, Cloudflare Workers, or your local machine. Zero infrastructure cost, auto-deploy on push. Fastest Path 01 FastMCP Cloud (Free) Push your servers to GitHub, point FastMCP Cloud at them, and you're live. Auto-redeploys on every push to main. 1 Push servers to your repo Copy servers/"
+depth_score: 3
+depth_signals:
+  file_size_kb: 11.7
+  content_chars: 1418
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---

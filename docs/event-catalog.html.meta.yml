@@ -1,0 +1,30 @@
+---
+title: Event Catalog
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+technologies:
+  - slack
+summary: "Event Catalog - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start SYSTEM EVENTS Event Catalog Structured events for the Intent system ..."
+content_excerpt: "Event Catalog - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start SYSTEM EVENTS Event Catalog Structured events for the Intent system Intent emits 15 event types across four categories—signal.*, intent.*, spec.*, and contract.*—plus two system.* event types. These events form the complete audit trail of the notice&rarr;spec&rarr;execute&rarr;observe loop, enabling observability, reproducibility, and trust scoring. Each event is im"
+depth_score: 4
+depth_signals:
+  file_size_kb: 35.5
+  content_chars: 1421
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+---

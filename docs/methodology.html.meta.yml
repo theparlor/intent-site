@@ -18,7 +18,7 @@ summary: "Intent Methodology I ntent Home Methodology Concept Brief Signals Deci
 content_excerpt: "Intent Methodology I ntent Home Methodology Concept Brief Signals Decisions Methodology Spec Draft &middot; v1.0 &middot; 2026-03-28 Intent Methodology Purpose : How work flows from idea to running software when AI collapses implementation to hours. Origin : A conversation with engineer Ari, who described his team's empirical discovery of the same shift &mdash; then pressure-tested against Cagan's product model, Patton's story mapping, and Torres' continuous discovery. The Shift For thirty years"
 depth_score: 5
 depth_signals:
-  file_size_kb: 12.3
+  file_size_kb: 11.8
   content_chars: 1419
   entity_count: 5
   slide_count: 0
@@ -27,9 +27,9 @@ depth_signals:
   has_summary: 1
 vocab_density: 2.79
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 571, strength: 0.387}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 558, strength: 0.378}
-  - {pair: consulting-operations ↔ engagement-management, count: 483, strength: 0.327}
-  - {pair: consulting-operations ↔ turnberry, count: 321, strength: 0.201}
-  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.17}
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
 ---

@@ -1,0 +1,22 @@
+---
+title: Getting Started
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+summary: "Intent — Getting Started I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Getting Started [TRY INTENT ] From zero to your first signal in 30..."
+content_excerpt: "Intent — Getting Started I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Getting Started [TRY INTENT ] From zero to your first signal in 30 minutes Most frameworks ask you to restructure your team before you see value. Intent asks you to notice one thing, record it, and watch what happens. The tooling does the rest. Before You Begin 00 Prerequisites You need three things to get started. Two are required. One is optional until you want"
+depth_score: 4
+depth_signals:
+  file_size_kb: 26.5
+  content_chars: 1421
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---

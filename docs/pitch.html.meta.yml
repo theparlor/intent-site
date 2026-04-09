@@ -15,7 +15,7 @@ summary: "Intent — Agile Was Right. Your Toolchain Isn't. I ntent Pitch Method
 content_excerpt: "Intent — Agile Was Right. Your Toolchain Isn't. I ntent Pitch Methodology Concept Brief Work System Flow Schemas ARB Roadmap The operating model for what comes next Agile was right. Your toolchain isn't. AI didn't break agile. It exposed that we'd already replaced agile's principles with ticket-management theater. Intent brings it back. The fracture 01 AI changed one variable . Everything downstream broke. In 2024, the cost of implementation collapsed by an order of magnitude. Code that took a s"
 depth_score: 5
 depth_signals:
-  file_size_kb: 26.2
+  file_size_kb: 27.8
   content_chars: 1413
   entity_count: 1
   slide_count: 0
@@ -24,9 +24,9 @@ depth_signals:
   has_summary: 1
 vocab_density: 1.41
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 571, strength: 0.387}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 558, strength: 0.378}
-  - {pair: consulting-operations ↔ engagement-management, count: 483, strength: 0.327}
-  - {pair: consulting-operations ↔ turnberry, count: 321, strength: 0.201}
-  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.17}
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
 ---

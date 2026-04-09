@@ -11,20 +11,20 @@ technologies:
   - jira
 depth_score: 4
 depth_signals:
-  file_size_kb: 14.5
-  content_chars: 13881
+  file_size_kb: 15.5
+  content_chars: 14860
   entity_count: 1
   slide_count: 0
   sheet_count: 0
   topic_count: 1
   has_summary: 0
-vocab_density: 0.14
+vocab_density: 0.13
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 814, strength: 0.432}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 787, strength: 0.42}
-  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.271}
-  - {pair: consulting-operations ↔ turnberry, count: 456, strength: 0.225}
-  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.134}
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
 ---
 # Intent Site — Information Architecture v2
 

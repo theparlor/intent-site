@@ -1,3 +1,31 @@
+---
+title: Walkthrough Page
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+technologies:
+  - slack
+depth_score: 5
+depth_signals:
+  file_size_kb: 20.8
+  content_chars: 19226
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.10
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+---
 # Task: Create walkthrough.html — Follow One Intent End-to-End
 
 > Handoff spec for Claude Code terminal. Creates a Pillar 1 ("The Story") depth page that traces one real intent from the `.intent/` directory through the entire loop: signal → cluster → spec → execute → observe → loop closure. Vanilla HTML/CSS/JavaScript with real data from .intent/signals/, .intent/intents/, and .intent/events.jsonl.

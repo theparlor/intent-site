@@ -1,0 +1,32 @@
+---
+title: Roadmap
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+topics:
+  - product-strategy
+created: 2026-03-31
+technologies:
+  - slack
+summary: "Product Roadmap — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap Product Roadmap Intent is four products, one value stream. Each phase of the loop..."
+content_excerpt: "Product Roadmap — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap Product Roadmap Intent is four products, one value stream. Each phase of the loop has its own maturity level, tooling, and investment needs. This page shows where each product stands and where energy goes next. NOTICE Operational → SPEC Conceptual → EXECUTE Defined → OBSERVE Infrastructure Specced △◇ Notice Operational Captures observations — patterns, friction, insights, hunche"
+depth_score: 5
+depth_signals:
+  file_size_kb: 25.6
+  content_chars: 1415
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 2
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+---

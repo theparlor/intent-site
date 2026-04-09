@@ -1,3 +1,31 @@
+---
+title: System Diagram Page
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+technologies:
+  - slack
+depth_score: 4
+depth_signals:
+  file_size_kb: 15.7
+  content_chars: 15011
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.13
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+---
 # Task: Create system-diagram.html — Interactive Signal-to-Observation Flow
 
 > Handoff spec for Claude Code terminal. Creates an interactive architecture diagram page showing the full Intent system: capture surfaces → enrichment pipeline → spec/execute → observe → loop back. Vanilla HTML/JS/SVG — no build step required.

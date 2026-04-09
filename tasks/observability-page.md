@@ -1,3 +1,23 @@
+---
+title: Observability Page
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+depth_score: 4
+depth_signals:
+  file_size_kb: 13.9
+  content_chars: 12429
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.08
+---
 # Task: Create observability.html page with Mermaid architecture diagram
 
 > Handoff spec for Claude Code terminal. Creates a new page in Pillar 3 ("The Build") showing the observability stack architecture as an interactive Mermaid diagram with supporting content.

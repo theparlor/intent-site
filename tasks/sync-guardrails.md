@@ -1,3 +1,32 @@
+---
+title: Sync Guardrails
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+companies:
+  - turnberry
+  - subaru
+depth_score: 4
+depth_signals:
+  file_size_kb: 8.9
+  content_chars: 8281
+  entity_count: 2
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.12
+related_entities:
+  - {pair: subaru ↔ consulting-operations, count: 836, strength: 0.43}
+  - {pair: subaru ↔ automotive-manufacturing, count: 791, strength: 0.933}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: turnberry ↔ consulting-operations, count: 472, strength: 0.226}
+---
 # Task: Add trust guardrails to signal sync pipeline
 
 > Handoff spec for Claude Code terminal. Adds safety checks to the sync pipeline so it can run at L2/L3 autonomy without publishing harmful or excessive content.

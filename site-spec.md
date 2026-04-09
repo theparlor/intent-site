@@ -9,14 +9,14 @@ domains:
 created: 2026-03-31
 depth_score: 4
 depth_signals:
-  file_size_kb: 9.9
-  content_chars: 9654
+  file_size_kb: 10.2
+  content_chars: 9937
   entity_count: 0
   slide_count: 0
   sheet_count: 0
   topic_count: 1
   has_summary: 0
-vocab_density: 0.21
+vocab_density: 0.20
 ---
 # Intent Site Specification
 

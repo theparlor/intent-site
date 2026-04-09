@@ -1,3 +1,23 @@
+---
+title: Readme
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+depth_score: 2
+depth_signals:
+  file_size_kb: 1.7
+  content_chars: 1381
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 2.17
+---
 # Intent — Marketing & Documentation Site
 
 The product site for [Intent](https://github.com/theparlor/intent), a team operating model for AI-augmented product teams.

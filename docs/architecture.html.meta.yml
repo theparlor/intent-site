@@ -1,0 +1,22 @@
+---
+title: Architecture
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+summary: "Intent — Multi-Agent MCP Architecture I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Technical Architecture Multi-Agent MCP Architecture Three MCP ..."
+content_excerpt: "Intent — Multi-Agent MCP Architecture I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Technical Architecture Multi-Agent MCP Architecture Three MCP servers and six Claude Code subagents map the Intent loop into a deployable, trust-gated system. Each server owns a phase. Each agent connects to the relevant server. The Loop 01 How It Maps to the Loop The Intent loop &mdash; Notice &rarr; Spec &rarr; Execute &rarr; Observe &mdash; maps to three MC"
+depth_score: 4
+depth_signals:
+  file_size_kb: 27.2
+  content_chars: 1420
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.39
+---

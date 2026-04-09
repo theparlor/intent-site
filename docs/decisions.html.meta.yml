@@ -15,9 +15,9 @@ thought_leaders:
   - teresa-torres
 summary: "Intent &mdash; Decision Log I ntent Home Methodology Concept Brief Signals Decisions Dogfooding Decision Log Every significant decision recorded with context, alternatives considered, and rationale. T..."
 content_excerpt: "Intent &mdash; Decision Log I ntent Home Methodology Concept Brief Signals Decisions Dogfooding Decision Log Every significant decision recorded with context, alternatives considered, and rationale. This is Intent's institutional memory &mdash; the accumulation of why that prevents future drift and gives new participants the reasoning behind the current state. 6 Decisions recorded 1 Days active 6 With alternatives 0 Reversed 2026-03-28 Product named &ldquo;Intent&rdquo; Context Working name was"
-depth_score: 4
+depth_score: 5
 depth_signals:
-  file_size_kb: 10.4
+  file_size_kb: 57.6
   content_chars: 1415
   entity_count: 4
   slide_count: 0
@@ -26,9 +26,9 @@ depth_signals:
   has_summary: 1
 vocab_density: 0.00
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 571, strength: 0.387}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 558, strength: 0.378}
-  - {pair: consulting-operations ↔ engagement-management, count: 483, strength: 0.327}
-  - {pair: consulting-operations ↔ turnberry, count: 321, strength: 0.201}
-  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.17}
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
 ---

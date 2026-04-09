@@ -1,0 +1,31 @@
+---
+title: 2026 04 08 Persona Browser And Product Dashboard Design
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-09
+thought_leaders:
+  - marty-cagan
+  - teresa-torres
+summary: "Design Spec: Persona Browser & Products Built with Intent Design Spec: Persona Browser &amp; Products Built with Intent Draft Date: 2026-04-08 &nbsp;&middot;&nbsp; Owner: Brien &nbsp;&middot;&nbsp; St..."
+content_excerpt: "Design Spec: Persona Browser & Products Built with Intent Design Spec: Persona Browser &amp; Products Built with Intent Draft Date: 2026-04-08 &nbsp;&middot;&nbsp; Owner: Brien &nbsp;&middot;&nbsp; Status: Draft Two deliverables that formalize the product taxonomy and make the persona system browsable. The persona browser is a local reference tool; the product dashboard is a public intent-site feature that shows how products compose. Contents Deliverable A: Local Persona Browser Deliverable B: P"
+depth_score: 4
+depth_signals:
+  file_size_kb: 44.8
+  content_chars: 1463
+  entity_count: 2
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.32
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+---

@@ -1,0 +1,22 @@
+---
+title: Observability
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+summary: "Intent — Observability Stack I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos OBSERVE INFRASTRUCTURE Observability Stack OTel-native distributed trac..."
+content_excerpt: "Intent — Observability Stack I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos OBSERVE INFRASTRUCTURE Observability Stack OTel-native distributed tracing for the Intent loop. Every signal, spec, contract, and event &mdash; queryable, visualizable, alertable. Architecture End-to-End Pipeline Telemetry flows from four source types through a unified OTel Collector into purpose-built storage backends, all visualized in a single Grafana instance. grap"
+depth_score: 4
+depth_signals:
+  file_size_kb: 24.8
+  content_chars: 1421
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 2.79
+---

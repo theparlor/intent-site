@@ -1,3 +1,31 @@
+---
+title: Expand Event Catalog
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-03-31
+technologies:
+  - slack
+depth_score: 5
+depth_signals:
+  file_size_kb: 23.8
+  content_chars: 19226
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.10
+related_entities:
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+---
 # Task: Expand event-catalog.html from stub to full Rich page
 
 > Handoff spec for Claude Code terminal. Expands event-catalog.html from a 57-line stub to a full Rich page (8KB minimum) showing all 15 event types with detailed descriptions, field tables, category colors, and JSON examples.

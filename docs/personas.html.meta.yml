@@ -1,0 +1,37 @@
+---
+title: Personas
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-09
+thought_leaders:
+  - marty-cagan
+  - jeff-patton
+  - teresa-torres
+  - josh-seiden
+  - matthew-skelton
+  - mik-kersten
+  - john-kotter
+  - richard-rumelt
+summary: "Voices — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start The System / Voices 178 Voices. 7 Archetypes. Intent's persona syste..."
+content_excerpt: "Voices — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start The System / Voices 178 Voices. 7 Archetypes. Intent's persona system gives every spec, every ARB review, and every discovery session a grounded advisory board. These are not chatbots playing dress-up. They are compressed conviction sets drawn from published thought leaders, composed into archetypes, and rendered as executable voices in the system. 178 Named-Human V"
+depth_score: 6
+depth_signals:
+  file_size_kb: 76.9
+  content_chars: 1416
+  entity_count: 8
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: mik-kersten ↔ matthew-skelton, count: 17865, strength: 0.993}
+  - {pair: mik-kersten ↔ john-kotter, count: 17862, strength: 0.991}
+  - {pair: richard-rumelt ↔ mik-kersten, count: 17857, strength: 0.995}
+  - {pair: john-kotter ↔ matthew-skelton, count: 17857, strength: 0.99}
+  - {pair: richard-rumelt ↔ matthew-skelton, count: 17856, strength: 0.995}
+---

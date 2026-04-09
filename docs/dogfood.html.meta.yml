@@ -13,7 +13,7 @@ summary: "Dogfooding — Intent Building Intent I ntent Pitch Methodology Concep
 content_excerpt: "Dogfooding — Intent Building Intent I ntent Pitch Methodology Concept Brief Work System Schemas ARB Dogfood Roadmap Intent building Intent Every artifact on this site was created using the methodology it describes. This page shows the live state of Intent's own signal stream, specifications, and event log &mdash; proof the system works by working on itself. 16 Signals captured 14 Spec documents 12 Site pages 1 Event stream The meta-loop Intent's development follows its own Notice &rarr; Spec &ra"
 depth_score: 4
 depth_signals:
-  file_size_kb: 20.5
+  file_size_kb: 24.2
   content_chars: 1415
   entity_count: 1
   slide_count: 0
@@ -22,9 +22,9 @@ depth_signals:
   has_summary: 1
 vocab_density: 0.00
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 571, strength: 0.387}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 558, strength: 0.378}
-  - {pair: consulting-operations ↔ engagement-management, count: 483, strength: 0.327}
-  - {pair: consulting-operations ↔ turnberry, count: 321, strength: 0.201}
-  - {pair: consulting-operations ↔ foot-locker, count: 251, strength: 0.17}
+  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
+  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
+  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
+  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
 ---
