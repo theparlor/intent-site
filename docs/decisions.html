@@ -487,7 +487,7 @@
                 <div class="adr-section">
                     <div class="adr-section-title">Decision</div>
                     <div class="adr-section-content">
-                        <p>Intent (methodology) and Knowledge Engine (product) are formally separated. Knowledge Engine is separable — it can be used without the Intent loop. Brien's Knowledge Farm (Subaru, ASA, F&G engagement data) is an instance of the Knowledge Engine, not part of Intent itself. The domain overlap between Brien's consulting practice and Intent's methodology is coincidental, not structural.</p>
+                        <p>Intent (methodology) and Knowledge Engine (product) are formally separated. Knowledge Engine is separable — it can be used without the Intent loop. A Knowledge Farm (the carry-away artifact scoped to an engagement or user) is an instance of the Knowledge Engine, not part of Intent itself. The domain overlap between any practitioner's delivery work and Intent's methodology is coincidental, not structural.</p>
                     </div>
                 </div>
 
@@ -525,21 +525,21 @@
                 <div class="adr-section">
                     <div class="adr-section-title">Context</div>
                     <div class="adr-section-content">
-                        <p>The Knowledge Engine needs to be validated against real engagement data. Five engagements are candidates: Subaru, F&G, ASA, Cargill, Footlocker. Each has different data volumes, complexity, and learning potential. The rollout order determines where we learn fastest.</p>
+                        <p>The Knowledge Engine needs to be validated against real engagement data. Multiple candidate engagements span different domains — automotive manufacturing, insurance, healthcare, supply chain, and retail. Each has different data volumes, complexity, and learning potential. The rollout order determines where learning velocity is highest.</p>
                     </div>
                 </div>
 
                 <div class="adr-section">
                     <div class="adr-section-title">Decision</div>
                     <div class="adr-section-content">
-                        <p>Subaru → F&G → ASA → Cargill → Footlocker. Subaru first because it has the most data and the highest learning potential. Each engagement validates federation, redaction, and compilation patterns before the next begins.</p>
+                        <p>Automotive manufacturing → insurance → healthcare → supply chain → retail. The highest-data domain goes first because it has the most data and the highest learning potential. Each engagement validates federation, redaction, and compilation patterns before the next begins.</p>
                     </div>
                 </div>
 
                 <div class="adr-section">
                     <div class="adr-section-title">Rationale</div>
                     <div class="adr-section-content">
-                        <p>Subaru's data volume stress-tests the compilation pipeline. F&G tests a different domain (insurance vs automotive manufacturing). ASA tests healthcare. Cargill and Footlocker extend to supply chain and retail. This progression maximizes domain diversity per engagement.</p>
+                        <p>The first engagement's data volume stress-tests the compilation pipeline. Subsequent engagements shift domains — insurance, then healthcare, then supply chain, then retail — each validating that federation, redaction, and compilation patterns generalize. This progression maximizes domain diversity per engagement.</p>
                     </div>
                 </div>
 
@@ -547,7 +547,7 @@
                     <div class="adr-section-title">Consequences</div>
                     <div class="adr-section-content">
                         <ul class="consequences-list">
-                            <li>Subaru becomes the reference implementation. Patterns discovered there become Core templates. Later engagements inherit proven patterns rather than discovering them independently.</li>
+                            <li>The first engagement becomes the reference implementation. Patterns discovered there become Core templates. Later engagements inherit proven patterns rather than discovering them independently.</li>
                         </ul>
                     </div>
                 </div>
@@ -646,7 +646,7 @@
                     <div class="adr-section-title">Alternatives Considered</div>
                     <div class="adr-section-content">
                         <ul class="consequences-list">
-                            <li>Automatic cascades (risk of cascading errors). Manual review only (too slow, Brien becomes the bottleneck). Hybrid with blast-radius limits (added complexity for marginal benefit at current scale).</li>
+                            <li>Automatic cascades (risk of cascading errors). Manual review only (too slow — the operator becomes the bottleneck). Hybrid with blast-radius limits (added complexity for marginal benefit at current scale).</li>
                         </ul>
                     </div>
                 </div>
@@ -667,7 +667,7 @@
                 <div class="adr-section">
                     <div class="adr-section-title">Decision</div>
                     <div class="adr-section-content">
-                        <p>The MCP server applies confidentiality projection automatically based on engagement context. Not a flag Brien has to remember. Every query through intent-knowledge gets filtered by the caller's engagement scope.</p>
+                        <p>The MCP server applies confidentiality projection automatically based on engagement context. Not a flag the operator has to remember. Every query through intent-knowledge gets filtered by the caller's engagement scope.</p>
                     </div>
                 </div>
 
@@ -712,7 +712,7 @@
                 <div class="adr-section">
                     <div class="adr-section-title">Decision</div>
                     <div class="adr-section-content">
-                        <p>Intents become specs through four-persona interrogation: △ Shape (Architect), ◇ Outcome (Product Leader), ○ Contract (Quality Advocate), ◉ Readiness (Agent). Each persona queries the knowledge base, checks existing decisions, and generates structured assertions. The system self-prompts with each persona. Brien reviews specs, not execution.</p>
+                        <p>Intents become specs through four-persona interrogation: △ Shape (Architect), ◇ Outcome (Product Leader), ○ Contract (Quality Advocate), ◉ Readiness (Agent). Each persona queries the knowledge base, checks existing decisions, and generates structured assertions. The system self-prompts with each persona. The operator reviews specs, not execution.</p>
                     </div>
                 </div>
 
@@ -727,7 +727,7 @@
                     <div class="adr-section-title">Consequences</div>
                     <div class="adr-section-content">
                         <ul class="consequences-list">
-                            <li>Spec quality depends on knowledge base richness + protocol rigor, not Brien's energy. Brien's review point shifts upstream — from reviewing execution output to reviewing spec output (higher leverage). If the readiness assessment (Pass 4) scores below L2, a disambiguation signal is generated instead of executing.</li>
+                            <li>Spec quality depends on knowledge base richness + protocol rigor, not operator energy. The review point shifts upstream — from reviewing execution output to reviewing spec output (higher leverage). If the readiness assessment (Pass 4) scores below L2, a disambiguation signal is generated instead of executing.</li>
                         </ul>
                     </div>
                 </div>
@@ -736,7 +736,7 @@
                     <div class="adr-section-title">Alternatives Considered</div>
                     <div class="adr-section-content">
                         <ul class="consequences-list">
-                            <li>Brien writes all specs manually (doesn't scale, quality varies with energy). Single-pass spec generation (misses dimensions). Template-only approach (doesn't query knowledge base, produces shallow specs).</li>
+                            <li>The operator writes all specs manually (doesn't scale, quality varies with energy). Single-pass spec generation (misses dimensions). Template-only approach (doesn't query knowledge base, produces shallow specs).</li>
                         </ul>
                     </div>
                 </div>
@@ -966,14 +966,14 @@
                 <div class="adr-section">
                     <div class="adr-section-title">Context</div>
                     <div class="adr-section-content">
-                        <p>Brien works across multiple engagements (Subaru, F&amp;G, ASA, Cargill) with different confidentiality requirements. The knowledge base needs to support both shared (universal) and scoped (engagement-specific) knowledge without leaking across boundaries.</p>
+                        <p>A practitioner often works across multiple engagements with different confidentiality requirements. The knowledge base needs to support both shared (universal) and scoped (engagement-specific) knowledge without leaking across boundaries.</p>
                     </div>
                 </div>
 
                 <div class="adr-section">
                     <div class="adr-section-title">Decision</div>
                     <div class="adr-section-content">
-                        <p>Core = universal substrate (methodologies, frameworks, public knowledge). Engagements = bounded instances (client-specific personas, dossiers, domain models). Inheritance: inherit down (engagements see Core), promote up (engagement insights can become universal), never leak sideways (Subaru knowledge never visible from ASA context).</p>
+                        <p>Core = universal substrate (methodologies, frameworks, public knowledge). Engagements = bounded instances (client-specific personas, dossiers, domain models). Inheritance: inherit down (engagements see Core), promote up (engagement insights can become universal), never leak sideways (one engagement's knowledge is never visible from another engagement's context).</p>
                     </div>
                 </div>
 
