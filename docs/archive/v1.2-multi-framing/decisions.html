@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decisions - Intent</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Page-specific ADR card styling */
+        .adr-collection {
+            margin-top: 4rem;
+        }
+
+        .adr-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .adr-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .adr-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            background: #10b981;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        .adr-section {
+            margin: 1.5rem 0;
+        }
+
+        .adr-section-title {
+            font-weight: 600;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .adr-section-content {
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .adr-section-content ul {
+            margin: 0.5rem 0 0 1.5rem;
+        }
+
+        .adr-section-content li {
+            margin: 0.5rem 0;
+        }
+
+        /* Consequences list styling */
+        .consequences-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .consequences-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin: 0.5rem 0;
+        }
+
+        .consequences-list li:before {
+            content: "–";
+            position: absolute;
+            left: 0;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="index.html" class="logo"><span>I</span>ntent</a>
+        <a href="pitch.html">The Story</a>
+        <a href="work-system.html">The System</a>
+        <a href="architecture.html" class="active">The Build</a>
+    </nav>
+
+    <nav class="sub-nav">
+        <a href="architecture.html">Overview</a>
+        <a href="agents.html">Agents</a>
+        <a href="deployment.html">Deployment</a>
+        <a href="observability.html">Observability</a>
+        <a href="arb.html">ARB</a>
+        <a href="decisions.html" class="active">Decisions</a>
+        <a href="native-repos.html">Repos</a>
+        <a href="products.html">Products</a>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Decisions</h1>
+            <p class="subtitle">Recording intent and outcomes</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="decisions-intro">
+            <p>
+                Decisions are the junction points where intent becomes action. A decision records: what we chose to do, why we chose it, what happened as a result. Decisions build institutional memory and inform future specs.
+            </p>
+        </section>
+
+        <section class="decision-structure">
+            <h2>Decision Structure</h2>
+            <p>
+                A decision record includes:
+            </p>
+            <ul>
+                <li><strong>Status:</strong> Proposed, Decided, Implemented, Observed, Archived</li>
+                <li><strong>Context:</strong> What problem or opportunity triggered this decision?</li>
+                <li><strong>Options:</strong> What were the alternatives?</li>
+                <li><strong>Decision:</strong> What did we choose and why?</li>
+                <li><strong>Consequences:</strong> What are the expected outcomes?</li>
+                <li><strong>Implementation:</strong> Link to the spec that executed this decision</li>
+                <li><strong>Observation:</strong> What actually happened?</li>
+            </ul>
+        </section>
+
+        <section class="decision-lifecycle">
+            <h2>Decision Lifecycle</h2>
+            <p>
+                Decisions flow through the notice→spec→execute→observe loop:
+            </p>
+            <ol>
+                <li><strong>Notice:</strong> We spot a problem or opportunity</li>
+                <li><strong>Propose:</strong> We propose a solution (decision record created)</li>
+                <li><strong>Decide:</strong> We commit to the decision</li>
+                <li><strong>Spec:</strong> We write a spec to execute the decision</li>
+                <li><strong>Execute:</strong> The spec gets built</li>
+                <li><strong>Observe:</strong> We watch what happens and record outcomes</li>
+                <li><strong>Archive:</strong> The decision and its outcomes become reference material</li>
+            </ol>
+        </section>
+
+        <section class="decision-benefits">
+            <h2>Why Decision Records Matter</h2>
+            <ul>
+                <li><strong>Accountability:</strong> Every decision is recorded with reasoning. No "I don't remember why we did this."</li>
+                <li><strong>Learning:</strong> Decisions with outcomes become reference material. You see what worked and what didn't.</li>
+                <li><strong>Consistency:</strong> Similar future decisions can reference previous ones. This reduces re-litigating old arguments.</li>
+                <li><strong>Onboarding:</strong> New team members see the decision history and understand how the system evolved.</li>
+                <li><strong>Reversibility:</strong> Old decisions are archived, not deleted. You can revisit them if context changes.</li>
+            </ul>
+        </section>
+
+        <!-- ADR COLLECTION -->
+        <section class="adr-collection">
+            <h2>Architectural Decisions (D1–D19)</h2>
+            <p>
+                The following twelve decisions form the architectural spine of Intent. They were made by the Architecture Review Board (ARB) in the design phase and guide all development. Each decision record links back to <a href="arb.html">the ARB</a> for the full governance context.
+            </p>
+
+            <!-- D1 CARD -->
+            <div class="adr-card">
+                <h3>D1: Markdown for Specifications</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent needs a format for specs that is both human-readable and machine-parseable. The format must integrate with version control, IDE tooling, and the terminal-first workflow.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Use Markdown with YAML frontmatter for all specifications. Frontmatter contains metadata (title, ID, phase, priority, owner); body contains spec narrative, requirements, and acceptance criteria.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Markdown is the lingua franca of developer tools. It integrates natively with Git diffs, most IDEs ship with preview, syntax highlighting, and linting. YAML frontmatter is battle-tested in static site generators and content management. This combination requires zero custom tooling while supporting both human review and programmatic parsing.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Specs are Git-diffable and auditable — every change is tracked</li>
+                            <li>IDE-native — no custom editors required, works in VS Code, Vim, etc.</li>
+                            <li>Natural fit with the terminal workflow — edit in your shell-native editor</li>
+                            <li>YAML parsing is trivial in any language — agents can extract metadata without a spec parser</li>
+                            <li>Limits complex nested structures (but forces simpler specs)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>JSON-only specs (lost human readability, spec diffs are noise)</li>
+                            <li>Custom format (requires custom tooling, raises adoption friction)</li>
+                            <li>Executable specs (Python, Go) (couples spec to runtime, loses version-control readability)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D2 CARD -->
+            <div class="adr-card">
+                <h3>D2: Git as Source of Truth</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent tracks four kinds of immutable events: notices, specs, executions, and observations. Each event must be versioned, auditable, and mergeable. The system needs to support offline-first operation and decentralized collaboration.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Git is the single source of truth. All signals, specs, and events are stored as JSONL files in a Git repository. No external database stores the primary event log. The database (Phase 2+) is a materialized view for query performance only.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Git solves version control, audit trails, branching, merging, and conflict resolution — proven for a decade in software engineering. It enables offline-first operation (critical for tools that depend on always-on network). Git repositories can be cloned, forked, merged, and rebased. Every contributor can audit the full history.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Offline-first by design — Claude Code agents can work on any machine with a Git checkout</li>
+                            <li>Mergeable event streams — multiple agents can capture signals in parallel, then reconcile</li>
+                            <li>Auditable — every event has a commit SHA, timestamp, and author</li>
+                            <li>Scales to team size (Git supports teams of thousands) with eventual consistency</li>
+                            <li>Real-time query performance (Phase 1) is limited to in-memory or file-scan access (solved by Phase 2 materialized database)</li>
+                            <li>Requires discipline in commit messages and schema versioning</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Postgres/SQLite from day one (loses offline-first, adds infrastructure burden for solo evaluators)</li>
+                            <li>Kafka event stream (requires always-on infrastructure, not suitable for offline CLI tools)</li>
+                            <li>Cloud-hosted event store (vendor lock-in, rules out disconnected operation)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D3 CARD -->
+            <div class="adr-card">
+                <h3>D3: Claude API for Agent Runtime</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent needs a reliable, accessible LLM runtime for executing specs. Agents must handle different task complexities (simple routing, complex reasoning, code generation). The runtime must be accessible to solo practitioners and small teams.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Use Claude API (via Anthropic SDK) for all LLM-powered execution. Model routing by task complexity: Haiku for simple classification/routing, Sonnet for standard spec execution, Opus for complex reasoning and multi-step problem-solving.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Claude is production-grade, available via API, supports system prompts and structured output, and has favorable token pricing for agents that operate at scale. Routing by complexity optimizes cost-per-execution. The SDK is well-documented and integrates cleanly with Python and FastMCP.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Vendor dependency — Intent's operation depends on Anthropic API availability and pricing</li>
+                            <li>Cost is proportional to token usage — agents that speculate excessively become expensive</li>
+                            <li>Model routing requires clear decision boundaries in specs (simple vs complex) — agents must declare their complexity budget upfront</li>
+                            <li>Supports the entire spectrum from solo practitioner (pay-as-you-go) to team (volume pricing)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Open-source models (LLaMA, Mistral) self-hosted (requires infrastructure, slower iteration, no long-context support at release time)</li>
+                            <li>Competing commercial APIs (OpenAI, Google) (Anthropic chosen for long-context, cost efficiency, and specialized reasoning)</li>
+                            <li>Hybrid (multi-model) (adds complexity for marginal benefit at Phase 1)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D4 CARD -->
+            <div class="adr-card">
+                <h3>D4: SQL (SQLite → PostgreSQL) for Persistence</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Phase 1 operates Git-only (JSONL). Phase 2 introduces a team/server deployment where agents and humans need to query signals and specs by state, time, owner, trust score, etc. Queries must be fast and composable.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>For Phase 1, query via in-memory dataframes (pandas) or file scan. For Phase 2+, materialize a SQL schema in SQLite (local) or PostgreSQL (team). Schema mirrors the signal, spec, and event structures. SQL is the query language for all dashboards and analytics.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>SQL is the standard for structured queries. Schema migration is well-understood. Both SQLite (for teams of 1–5) and PostgreSQL (for teams of 5+) are battle-tested. This decision defers infrastructure complexity to Phase 2, letting Phase 1 stay simple and Git-only.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Phase 2 requires a schema migration (transform JSONL to relational tables) — one-time, one-way operation</li>
+                            <li>SQL schemas are explicit and versioned — schema changes are specs themselves</li>
+                            <li>Enables fast, complex queries (e.g., "signals by owner, grouped by trust tier, with spec count")</li>
+                            <li>Requires ACID discipline — transaction boundaries must be well-defined in specs</li>
+                            <li>Limits real-time consistency (materialized view is eventually consistent with Git)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>NoSQL (MongoDB, DynamoDB) (loses ACID guarantees, schema-less makes validation harder)</li>
+                            <li>Stick with Git forever (query performance degrades as event log grows)</li>
+                            <li>Kafka/Streaming (requires always-on infrastructure, not suitable for Phase 1 solo practitioners)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D5 CARD -->
+            <div class="adr-card">
+                <h3>D5: Static Site Dashboard (GitHub Pages + Vanilla HTML/JS)</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>The site (pitch.html, work-system.html, etc.) is the primary communication surface. The Observe dashboard (work-system.html's signal stream, dogfood.html's live events) must work without a server. Zero-ops is a requirement.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Use GitHub Pages for hosting. Build the dashboard in vanilla HTML, CSS, and ES2020+ JavaScript. Data is sourced from JSON files committed to the repo (auto-generated from events.jsonl). No build step, no server, no Node.js.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>GitHub Pages is free, fast (CDN-backed), and requires zero ops. Vanilla JS (no framework overhead) keeps bundle size small (~50KB gzipped). Committing JSON snapshots decouples dashboard freshness from request latency. This approach supports evaluators downloading the repo and running the dashboard locally without npm install.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Dashboard updates are batch jobs (snapshot frequency) — not real-time</li>
+                            <li>No dynamic queries — the dashboard is pre-rendered with all needed data</li>
+                            <li>Limited interactivity (no server-side filtering, but client-side JS can handle moderate complexity)</li>
+                            <li>Low operational burden — a single GitHub Pages push deploys the entire site and dashboard</li>
+                            <li>Snapshot frequency is tunable (every commit, hourly, daily) based on observability needs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Next.js/SPA framework (adds build step, npm dependencies, deployment infrastructure)</li>
+                            <li>Grafana/Datadog dashboards (requires cloud account, vendor lock-in, not self-hostable)</li>
+                            <li>Server-rendered (Python Flask) (requires always-on infrastructure, adds compliance/security scope)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D6 CARD -->
+            <div class="adr-card">
+                <h3>D6: Deferred Features (Kubernetes, Kafka, GraphQL, Custom ML, Blockchain)</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>During design, several advanced features were proposed: Kubernetes orchestration, Kafka event streaming, GraphQL federation, custom ML models for trust scoring, and blockchain audit logs. Each adds power but also scope and complexity.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Hold all six features until Phase 3. Focus Phase 1 on core loop (notice→spec→execute→observe). Focus Phase 2 on team scaling (SQL database, multi-user). Revisit at Phase 3 after learning from Phase 1–2 production use.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Scope discipline accelerates early learning. The core loop works without these features. Adding them now risks shipping nothing. Deferred features will be re-evaluated once we have real execution data to guide prioritization.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Simpler architecture for Phase 1 and 2 — shorter time to learning</li>
+                            <li>Faster iteration on core concepts — less infrastructure to debug</li>
+                            <li>Clearer Phase 3 roadmap — informed by real usage patterns, not speculation</li>
+                            <li>May revisit decisions if market demands otherwise</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Build all six (delays MVP by 6–12 months)</li>
+                            <li>Build three immediately (still overscopes Phase 1)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D7 CARD -->
+            <div class="adr-card">
+                <h3>D7: Two Products, Not One</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent started as a single system. As the knowledge base grew more capable, it became clear that the compiled knowledge base and the notice→spec→execute→observe loop are independently valuable. A team might want a compiled knowledge base without adopting the full Intent loop. Conflating them creates unnecessary coupling.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Intent (methodology) and Knowledge Engine (product) are formally separated. Knowledge Engine is separable — it can be used without the Intent loop. A Knowledge Farm (the carry-away artifact scoped to an engagement or user) is an instance of the Knowledge Engine, not part of Intent itself. The domain overlap between any practitioner's delivery work and Intent's methodology is coincidental, not structural.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Separation enables independent adoption paths. A team can adopt the Knowledge Engine for compiled domain understanding without committing to the full Intent loop. It also prevents the Knowledge Engine from inheriting Intent-specific assumptions (like the four-phase loop) that don't apply to all knowledge compilation use cases.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Two product roadmaps. Two adoption stories. Knowledge Engine gets its own AGENTS.md, CLI, and MCP server. Intent's three-layer architecture makes this separation explicit — Layer 1 (Knowledge Engine) is independent of Layer 2 (Intent loop).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Keep as one product (creates coupling, limits KE adoption). Extract KE to separate repo (premature — shared patterns still evolving).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D8 CARD -->
+            <div class="adr-card">
+                <h3>D8: Engagement Rollout Order</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>The Knowledge Engine needs to be validated against real engagement data. Multiple candidate engagements span different domains — automotive manufacturing, insurance, healthcare, supply chain, and retail. Each has different data volumes, complexity, and learning potential. The rollout order determines where learning velocity is highest.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Automotive manufacturing → insurance → healthcare → supply chain → retail. The highest-data domain goes first because it has the most data and the highest learning potential. Each engagement validates federation, redaction, and compilation patterns before the next begins.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>The first engagement's data volume stress-tests the compilation pipeline. Subsequent engagements shift domains — insurance, then healthcare, then supply chain, then retail — each validating that federation, redaction, and compilation patterns generalize. This progression maximizes domain diversity per engagement.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>The first engagement becomes the reference implementation. Patterns discovered there become Core templates. Later engagements inherit proven patterns rather than discovering them independently.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Alphabetical (no learning optimization). Smallest first (less learning, lower risk but slower maturation). Parallel (too much surface area for one practitioner).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D9 CARD -->
+            <div class="adr-card">
+                <h3>D9: Knowledge Engine as New MCP Server</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Knowledge operations (ingest, query, lint) need a server interface for agent access. Two options: bolt onto the existing intent-notice server (since Notice consumes knowledge output) or create a new server.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>New `intent-knowledge` server on port 8004 with its own CLI `intent-knowledge` (subcommands: ingest, query, lint). Not bolted onto intent-notice.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Knowledge operations are a different concern than signal capture. Notice consumes knowledge output but doesn't own knowledge lifecycle. Separate servers maintain single-responsibility and enable the Knowledge Engine to be deployed independently (supporting Decision D7). A team using only the Knowledge Engine deploys only intent-knowledge — no need for notice, spec, or observe servers.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Four servers instead of three. Deployment configs need a fourth entry. The architecture diagram gains a layer. But each server has a clear, narrow responsibility.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Bolt onto intent-notice (violates SRP, couples KE to Intent loop). Bolt onto all three (even worse coupling). HTTP API instead of MCP (loses agent-native tooling).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D10 CARD -->
+            <div class="adr-card">
+                <h3>D10: Retroactive Enrichment = Suggested</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>When a new raw source is ingested, it may invalidate or enrich existing knowledge artifacts. Should the system automatically cascade updates, or surface opportunities as signals?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Suggested-first, on-demand second. Lint detects recompilation opportunities and surfaces them as signals. Execution happens on demand, not automatically. No automatic cascades.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Automatic cascades are dangerous — a single bad ingest could trigger recompilation across hundreds of artifacts. Suggested-first preserves human oversight for the most impactful updates while keeping the system responsive. The disambiguation signal pattern (already proven in the Notice phase) applies naturally here.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Some knowledge artifacts may be temporarily stale after a new ingest. The lint cycle catches this and surfaces it. The trade-off is latency for safety — appropriate for a system handling client-confidential data.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Automatic cascades (risk of cascading errors). Manual review only (too slow — the operator becomes the bottleneck). Hybrid with blast-radius limits (added complexity for marginal benefit at current scale).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D11 CARD -->
+            <div class="adr-card">
+                <h3>D11: Redaction at Tool Level</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>The Knowledge Engine handles client-confidential data across multiple engagements. When querying across engagements or promoting from engagement to Core, confidential information must be redacted. Who is responsible for redaction?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>The MCP server applies confidentiality projection automatically based on engagement context. Not a flag the operator has to remember. Every query through intent-knowledge gets filtered by the caller's engagement scope.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Redaction as a manual step is a liability — one forgotten flag leaks client data across engagement boundaries. Tool-level enforcement means the system is secure by default. The federation model's "never leak sideways" rule is enforced at the tool boundary, not the human boundary.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Slightly more complex server implementation. But elimination of a class of confidentiality errors. Queries that cross engagement boundaries return only Core-level knowledge plus the caller's own engagement data.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Manual redaction flag (error-prone). Post-processing filter (late, data already exposed in context). Separate servers per engagement (operational overhead, fragmented knowledge).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D12 CARD -->
+            <div class="adr-card">
+                <h3>D12: Spec-Shaping Through Personas</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>The gap between "intent proposed" and "spec ready for agent execution" is where most specs fail. Intents are captured as Problem/Outcome/Evidence/Constraints — enough for a human, not enough for an agent. Who bridges this gap?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Intents become specs through four-persona interrogation: △ Shape (Architect), ◇ Outcome (Product Leader), ○ Contract (Quality Advocate), ◉ Readiness (Agent). Each persona queries the knowledge base, checks existing decisions, and generates structured assertions. The system self-prompts with each persona. The operator reviews specs, not execution.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Most people use 2 of 10 dimensions when prompting (Huryn's observation). The four-persona protocol ensures all dimensions are covered: role, task, goal, audience, context, style, structure, constraints, output format, and contract. Self-prompting with domain-specific personas produces richer specs than manual authoring because each persona has access to the compiled knowledge base.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Spec quality depends on knowledge base richness + protocol rigor, not operator energy. The review point shifts upstream — from reviewing execution output to reviewing spec output (higher leverage). If the readiness assessment (Pass 4) scores below L2, a disambiguation signal is generated instead of executing.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Alternatives Considered</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>The operator writes all specs manually (doesn't scale, quality varies with energy). Single-pass spec generation (misses dimensions). Template-only approach (doesn't query knowledge base, produces shallow specs).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D13 CARD -->
+            <div class="adr-card">
+                <h3>D13: Staged GTM — Thought Leadership First</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent is both a methodology and a potential software product. Go-to-market strategy needs to sequence these correctly to build credibility before asking for money.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Three-stage GTM: (1) Thought leadership — publish the methodology, build credibility with practitioner-architects. (2) Methodology product — sell consulting/coaching using Intent as the operating model. (3) Tooling — build software only if validated by stages 1-2. Each stage gates the next.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Building tools before validating the methodology is the classic "solution looking for a problem" failure mode. Thought leadership is low-cost, high-signal. If the methodology doesn't resonate with senior practitioners, the tooling won't either.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Slower time-to-revenue but higher confidence in product-market fit. Tooling investment is conditional, not assumed. The site exists as the Stage 1 artifact.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D14 CARD -->
+            <div class="adr-card">
+                <h3>D14: Four-Product Framing</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent's loop has four phases (Notice, Spec, Execute, Observe). Should these be one monolithic product or distinct products with their own roadmaps?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Each phase is a distinct product with its own maturity assessment, roadmap, and adoption path. Notice is operational, Spec is tooled, Execute is defined, Observe is schema-ready. Teams can adopt one phase without buying the whole system.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Monolithic product adoption requires organizational buy-in. Phase-level adoption lets individual teams start with signal capture (Notice) and expand as they see value. This matches how methodologies actually spread — bottom-up, not top-down.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Each product needs its own MCP server, CLI tools, and documentation. Complexity increases but adoption barrier decreases. The loop still works as a whole — the products are composable, not independent.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D15 CARD -->
+            <div class="adr-card">
+                <h3>D15: Three-Layer Architecture</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Intent started as just a loop (Layer 2). But the compiled knowledge base and the running code are structurally distinct. Karpathy's "code as source, LLM as compiler, executable as output" pattern matches what we observe. How should the architecture formalize this?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Three layers, bidirectionally coupled: (1) Compiled Knowledge Base — everything the system knows (raw/, knowledge/). (2) Transformation OS — the Notice→Spec→Execute→Observe engine (.intent/, spec/). (3) Software Spec &amp; Code — specs, contracts, and running code. Six data flows connect them.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Independent layers can evolve at different speeds. The knowledge base compiles once and keeps current (not RAG). The loop transforms knowledge into specs. The code executes specs. Without this separation, knowledge and execution are tangled — making it impossible to reason about either.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Knowledge Engine becomes a separable product (see D8). Double-loop learning becomes possible — observations can update domain understanding (Layer 1), not just execution parameters (Layer 3). Architecture diagrams and documentation must reflect three layers, not just the loop.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D16 CARD -->
+            <div class="adr-card">
+                <h3>D16: Compilation Over Retrieval</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Most AI systems use RAG (Retrieval-Augmented Generation) — querying raw documents at runtime. Intent needs a knowledge strategy that supports cross-referencing, contradiction detection, and gap analysis.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>The knowledge base compiles understanding once and keeps it current. Not RAG. Cross-references are already resolved. Contradictions are already flagged. Gaps are already detected. The compilation step is the value — turning raw material into structured, verified knowledge artifacts.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>RAG is stateless — every query re-discovers relationships. Compilation is stateful — relationships are discovered once and maintained. For a consulting practice with deep domain knowledge, compiled understanding is dramatically more valuable than per-query retrieval.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Higher upfront cost per knowledge artifact but dramatically lower marginal cost per query. Freshening becomes a maintenance concern. The lint operation detects staleness and surfaces recompilation signals.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D17 CARD -->
+            <div class="adr-card">
+                <h3>D17: Double-Loop Learning</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>Most feedback loops only optimize execution parameters (single-loop: "did we do the thing right?"). Chris Argyris identified a deeper loop: questioning the assumptions behind the action ("are we doing the right thing?"). Intent's Observe phase needs to support both.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Observe updates Layer 1 (domain understanding), not just Layer 3 (execution). Observations can question assumptions in the knowledge base — updating personas, revising domain models, flagging contradictions in compiled knowledge. This is the double-loop: observations → knowledge revision → better signals.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Without double-loop learning, the system can only optimize within its existing frame. It can get faster at the wrong thing. The Observe→Knowledge path closes the gap between "what we think is true" and "what we observe to be true." This is where the real learning happens.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>The system becomes self-correcting at the domain level, not just the execution level. Knowledge artifacts need version history and change tracking. Observation-triggered knowledge updates need trust scoring to prevent noise from corrupting the knowledge base.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D18 CARD -->
+            <div class="adr-card">
+                <h3>D18: Origin Tracking for Knowledge Artifacts</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>As AI agents generate more knowledge artifacts (dossiers, enrichments, inferences), the provenance of knowledge becomes critical. Which artifacts came from human research? Which were agent-generated? Which are synthetic composites?</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Every knowledge artifact carries <code>origin: human | agent | synthetic</code> metadata for contamination mitigation. Human-originated artifacts have highest trust. Agent-originated artifacts require human review before promotion. Synthetic artifacts (composites, inferences) carry their source chain.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Without origin tracking, the knowledge base becomes a black box — you can't distinguish verified human knowledge from speculative agent inference. This matters for consulting where recommendations must be defensible. Origin tracking is the foundation for trust calibration.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Every ingest operation must classify origin. The lint operation can flag artifacts with missing or suspicious origin metadata. Knowledge queries can filter by origin for high-stakes decisions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D19 CARD -->
+            <div class="adr-card">
+                <h3>D19: Federated Knowledge Base Architecture</h3>
+                <span class="adr-status">Accepted</span>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Context</div>
+                    <div class="adr-section-content">
+                        <p>A practitioner often works across multiple engagements with different confidentiality requirements. The knowledge base needs to support both shared (universal) and scoped (engagement-specific) knowledge without leaking across boundaries.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Decision</div>
+                    <div class="adr-section-content">
+                        <p>Core = universal substrate (methodologies, frameworks, public knowledge). Engagements = bounded instances (client-specific personas, dossiers, domain models). Inheritance: inherit down (engagements see Core), promote up (engagement insights can become universal), never leak sideways (one engagement's knowledge is never visible from another engagement's context).</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Rationale</div>
+                    <div class="adr-section-content">
+                        <p>Mirrors the Workspaces directory topology (Core/ + Work/Consulting/Engagements/[Client]/). Confidentiality is structural, not behavioral — the architecture enforces it. Redaction at tool level (D11) complements this by applying projection automatically at query time.</p>
+                    </div>
+                </div>
+
+                <div class="adr-section">
+                    <div class="adr-section-title">Consequences</div>
+                    <div class="adr-section-content">
+                        <ul class="consequences-list">
+                            <li>Knowledge Engine MCP server (port 8004) must implement scope-aware queries. Promotion from engagement to Core requires explicit review. The federation model scales to any number of engagements without architectural changes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Built with the Intent methodology</p>
+        </div>
+    </footer>
+</body>
+</html>

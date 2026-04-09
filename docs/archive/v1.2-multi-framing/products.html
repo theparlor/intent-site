@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Catalog — Intent</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+    .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; }
+
+    .stats-bar { display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; min-width: 120px; }
+    .stat-box .num { font-size: 2rem; font-weight: 700; color: var(--accent-blue); }
+    .stat-box .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .product-grid { display: grid; gap: 1rem; margin-bottom: 3rem; }
+
+    .product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; }
+    .product-card:hover { border-color: var(--accent-blue); }
+    .product-card.clickable { cursor: pointer; }
+    .product-card.clickable:active { transform: scale(0.99); }
+
+    .product-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+    .product-name { font-size: 1.2rem; font-weight: 600; }
+    .product-name a { color: var(--text); }
+    .product-name a:hover { color: var(--accent-blue); }
+
+    .status-badge { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+    .status-noticed { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-spec { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .status-execute { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-observe { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+
+    .product-tagline { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5; }
+
+    .product-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--text-dim); flex-wrap: wrap; }
+    .product-meta span { display: flex; align-items: center; gap: 4px; }
+
+    .legend { margin-bottom: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .legend-label { font-size: 0.8rem; color: var(--text-dim); margin-right: 0.5rem; }
+
+    .layer-section { margin-bottom: 2.5rem; }
+    .layer-header { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+
+    .gen-footer { text-align: center; color: var(--text-dim); font-size: 0.8rem; padding: 1rem 0; margin-top: 1rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Story</a>
+    <a href="work-system.html">The System</a>
+    <a href="architecture.html" class="active">The Build</a>
+  </nav>
+
+  <nav class="sub-nav">
+    <a href="architecture.html">Overview</a>
+    <a href="agents.html">Agents</a>
+    <a href="deployment.html">Deployment</a>
+    <a href="observability.html">Observability</a>
+    <a href="arb.html">ARB</a>
+    <a href="decisions.html">Decisions</a>
+    <a href="native-repos.html">Repos</a>
+    <a href="products.html" class="active">Products</a>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <h1>Product Catalog</h1>
+      <p>Every product in the portfolio is governed by Intent. Each has a GitHub repo, an Intent manifest, tracked signals, and recorded decisions.</p>
+    </div>
+
+    <div class="stats-bar" id="statsBar"></div>
+
+    <div class="legend">
+      <span class="legend-label">Status:</span>
+      <span class="status-badge status-noticed">Noticed</span>
+      <span class="status-badge status-spec">Spec</span>
+      <span class="status-badge status-execute">Execute</span>
+      <span class="status-badge status-observe">Observe</span>
+    </div>
+
+    <div id="catalog"></div>
+
+    <div class="gen-footer" id="genFooter"></div>
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Built with the Intent methodology</p>
+  </footer>
+
+  <script>
+    const products = [
+      { name: "org-design-tooling", tagline: "Workspace governance system — placement rules, drift detection, and organizational design automation. 27+ signals, 2 decisions.", status: "observe", github: "https://github.com/theparlor/org-design-tooling", signals: 27, decisions: 2, layer: 0 },
+      { name: "library-index", tagline: "ML-powered enrichment pipeline for 39k+ files — entity extraction, concept fingerprinting, and nightly catalog generation.", status: "observe", github: "https://github.com/theparlor/library-index-system", signals: 7, decisions: 8, layer: 0 },
+      { name: "library-index-mcp", tagline: "MCP server exposing 39k-file library index to Claude surfaces — 19 tools for catalog search, entity lookup, and attribution analysis.", status: "observe", github: "https://github.com/theparlor/library-index-mcp", signals: 6, decisions: 0, layer: 0 },
+      { name: "digital-declutter", tagline: "File organization governance — 28 behavioral rules, 6 skills, and reference templates for systematic workspace management.", status: "observe", github: "https://github.com/theparlor/digital-declutter", signals: 1, decisions: 0, layer: 2 },
+      { name: "skills-engine", tagline: "Composable skills platform — Methodology × Persona × Platform = Deployed Skill. 47 skills across 12 categories.", status: "observe", github: "https://github.com/theparlor/skills-engine", signals: 2, decisions: 1, layer: 3 },
+      { name: "fieldbook", tagline: "Composable expense lifecycle — receipt intake, ledger, compliance, narrative, and export. Executing Tier 2 with 8 contracts validated.", status: "execute", github: "https://github.com/theparlor/fieldbook", signals: 13, decisions: 12, layer: 3 },
+      { name: "personas", tagline: "Unified persona registry — 178 named-humans + 7 archetypes. Identity, corpus, and rendering for 188 advisory voices.", status: "observe", github: "personas.html", signals: 0, decisions: 6, layer: 4, local: true },
+      { name: "studio-control", tagline: "Studio audio control — Wave Link WebSocket API integration for mute toggle, routing, and Stream Deck automation.", status: "noticed", github: "https://github.com/theparlor/studio-control", signals: 7, decisions: 0, layer: null }
+    ];
+
+    const layers = [
+      { id: 0, name: "Layer 0 — Observation", desc: "Autonomous monitoring, cataloging, drift detection" },
+      { id: 2, name: "Layer 2 — Engagement Scaffolding", desc: "Structure, governance, file organization" },
+      { id: 3, name: "Layer 3 — Engagement Operations", desc: "Active delivery, methodology, financials" },
+      { id: 4, name: "Layer 4 — Knowledge Farm", desc: "Full engagement intelligence" },
+      { id: null, name: "Standalone", desc: "Independent products outside the engagement suite" }
+    ];
+
+    // Stats
+    const totalSignals = products.reduce((s, p) => s + p.signals, 0);
+    const totalDecisions = products.reduce((s, p) => s + p.decisions, 0);
+    const statusCounts = {};
+    products.forEach(p => { statusCounts[p.status] = (statusCounts[p.status] || 0) + 1; });
+
+    document.getElementById('statsBar').innerHTML = `
+      <div class="stat-box"><div class="num">${products.length}</div><div class="label">Products</div></div>
+      <div class="stat-box"><div class="num">${totalSignals}</div><div class="label">Signals</div></div>
+      <div class="stat-box"><div class="num">${totalDecisions}</div><div class="label">Decisions</div></div>
+      <div class="stat-box"><div class="num">${products.filter(p => p.github).length}</div><div class="label">On GitHub</div></div>
+    `;
+
+    // Render by layer
+    const catalog = document.getElementById('catalog');
+    layers.forEach(layer => {
+      const layerProducts = products.filter(p => p.layer === layer.id);
+      if (layerProducts.length === 0) return;
+
+      const section = document.createElement('div');
+      section.className = 'layer-section';
+      section.innerHTML = `<div class="layer-header">${layer.name} <span style="font-weight:400;text-transform:none;letter-spacing:0">— ${layer.desc}</span></div>`;
+
+      const grid = document.createElement('div');
+      grid.className = 'product-grid';
+
+      layerProducts.forEach(p => {
+        const href = p.github || null;
+        const isLocal = p.local || false;
+        const target = isLocal ? '' : ' target="_blank"';
+        const linkLabel = isLocal ? p.name + ' (site)' : (href ? href.replace('https://github.com/', '') : null);
+        const linkHtml = href ? `<a href="${href}"${target}>${linkLabel}</a>` : '<span style="color:var(--text-dim)">no repo</span>';
+        const clickAction = href ? (isLocal ? `onclick="window.location.href='${href}'"` : `onclick="window.open('${href}', '_blank')"`) : '';
+        grid.innerHTML += `
+          <div class="product-card${href ? ' clickable' : ''}" ${clickAction}>
+            <div class="product-header">
+              <span class="product-name">${href ? `<a href="${href}"${target}>${p.name}</a>` : p.name}</span>
+              <span class="status-badge status-${p.status}">${p.status}</span>
+            </div>
+            <div class="product-tagline">${p.tagline}</div>
+            <div class="product-meta">
+              <span>📡 ${p.signals} signals</span>
+              <span>📋 ${p.decisions} decisions</span>
+              <span>🔗 ${linkHtml}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      section.appendChild(grid);
+      catalog.appendChild(section);
+    });
+
+    document.getElementById('genFooter').textContent = `Generated ${new Date().toISOString().split('T')[0]} · Source: Core/products/products.json`;
+  </script>
+</body>
+</html>

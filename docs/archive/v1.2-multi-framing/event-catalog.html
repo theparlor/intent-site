@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Catalog - Intent</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .event-catalog-overview {
+            margin-bottom: 3rem;
+        }
+
+        .event-category {
+            margin-bottom: 3rem;
+        }
+
+        .event-category h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .event-category-badge {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .event-category-badge.signal { background-color: #f59e0b; }
+        .event-category-badge.intent { background-color: #3b82f6; }
+        .event-category-badge.spec { background-color: #10b981; }
+        .event-category-badge.contract { background-color: #10b981; }
+        .event-category-badge.system { background-color: #64748b; }
+
+        .event-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .event-card {
+            border: 1px solid #334155;
+            border-left: 4px solid #64748b;
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 1.5rem;
+            transition: border-left-color 0.2s ease;
+        }
+
+        .event-card[data-category="signal"] {
+            border-left-color: #f59e0b;
+        }
+
+        .event-card[data-category="intent"] {
+            border-left-color: #3b82f6;
+        }
+
+        .event-card[data-category="spec"],
+        .event-card[data-category="contract"] {
+            border-left-color: #10b981;
+        }
+
+        .event-card[data-category="system"] {
+            border-left-color: #64748b;
+        }
+
+        .event-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .event-name {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin: 0;
+        }
+
+        .event-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .event-card[data-category="signal"] .event-badge {
+            background: #f59e0b1a;
+            color: #f59e0b;
+        }
+
+        .event-card[data-category="intent"] .event-badge {
+            background: #3b82f61a;
+            color: #3b82f6;
+        }
+
+        .event-card[data-category="spec"] .event-badge,
+        .event-card[data-category="contract"] .event-badge {
+            background: #10b9811a;
+            color: #10b981;
+        }
+
+        .event-card[data-category="system"] .event-badge {
+            background: #64748b1a;
+            color: #64748b;
+        }
+
+        .event-trigger {
+            background: #1e293b;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .event-trigger strong {
+            color: #f1f5f9;
+        }
+
+        .event-fields {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .event-fields th,
+        .event-fields td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        .event-fields th {
+            background: #1e293b;
+            font-weight: 600;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .event-fields td {
+            color: #cbd5e1;
+        }
+
+        .event-fields td:first-child {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            color: #f1f5f9;
+        }
+
+        .event-example {
+            background: #1e293b;
+            border-radius: 4px;
+            overflow: auto;
+            padding: 1rem;
+        }
+
+        .event-example code {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+            white-space: pre;
+        }
+
+        .event-crosslinks {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .event-crosslinks h3 {
+            font-size: 1rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .event-crosslinks ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .event-crosslinks li {
+            margin-bottom: 0.75rem;
+        }
+
+        .event-crosslinks a {
+            color: #3b82f6;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom-color 0.2s ease;
+        }
+
+        .event-crosslinks a:hover {
+            border-bottom-color: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="index.html" class="logo"><span>I</span>ntent</a>
+        <a href="pitch.html">The Story</a>
+        <a href="work-system.html" class="active">The System</a>
+        <a href="architecture.html">The Build</a>
+    </nav>
+    <nav class="sub-nav">
+        <a href="work-system.html">Overview</a>
+        <a href="flow-diagram.html">Flow</a>
+        <a href="system-diagram.html">System Map</a>
+        <a href="schemas.html">Schemas</a>
+        <a href="signals.html">Signals</a>
+    <a href="personas.html">Voices</a>
+        <a href="dogfood.html">Dogfood</a>
+        <a href="observe.html">Observe</a>
+        <a href="event-catalog.html" class="active">Events</a>
+        <a href="getting-started.html">Start</a>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <span class="kicker">SYSTEM EVENTS</span>
+            <h1>Event Catalog</h1>
+            <p class="subtitle">Structured events for the Intent system</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Overview -->
+        <section class="event-catalog-overview">
+            <p>
+                Intent emits <strong>15 event types</strong> across four categories—signal.*, intent.*, spec.*, and contract.*—plus two system.* event types. These events form the complete audit trail of the notice&rarr;spec&rarr;execute&rarr;observe loop, enabling observability, reproducibility, and trust scoring.
+            </p>
+            <p>
+                Each event is immutable, timestamped, and appended to events.jsonl. Events can be ingested by the OTel Collector for distributed tracing, or analyzed directly via log queries in Grafana Loki.
+            </p>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- signal.* Events -->
+        <!-- ============================================================ -->
+        <section class="event-category">
+            <h2><span class="event-category-badge signal"></span> signal.* Events</h2>
+            <div class="event-cards">
+
+                <!-- signal.created -->
+                <div class="event-card" data-category="signal">
+                    <div class="event-card-header">
+                        <h3 class="event-name">signal.created</h3>
+                        <span class="event-badge">Signal</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Signal captured from any tier (CLI, MCP, agent, Slack, email).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>signal_id</td><td>string</td><td>Unique signal identifier (SIG-*)</td></tr>
+                            <tr><td>source</td><td>string</td><td>Origin: "cli" | "mcp" | "email" | "slack" | "agent"</td></tr>
+                            <tr><td>content</td><td>string</td><td>Raw signal text or observation</td></tr>
+                            <tr><td>confidence</td><td>number</td><td>0.0&ndash;1.0 initial confidence (before enrichment)</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "signal.created",
+  "signal_id": "SIG-042",
+  "source": "cli",
+  "content": "API latency p99 > 2s in production",
+  "confidence": 0.75,
+  "timestamp": "2026-03-30T14:23:45Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- signal.enriched -->
+                <div class="event-card" data-category="signal">
+                    <div class="event-card-header">
+                        <h3 class="event-name">signal.enriched</h3>
+                        <span class="event-badge">Signal</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Dedup/context/trust pipeline completes enrichment of a signal.
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>signal_id</td><td>string</td><td>Unique signal identifier (SIG-*)</td></tr>
+                            <tr><td>trust_score</td><td>number</td><td>0.0&ndash;1.0 enriched trust score</td></tr>
+                            <tr><td>tags</td><td>array</td><td>Context tags added by enrichment pipeline</td></tr>
+                            <tr><td>references</td><td>array</td><td>Related signal IDs identified during dedup</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "signal.enriched",
+  "signal_id": "SIG-042",
+  "trust_score": 0.92,
+  "tags": ["performance", "prod", "p99"],
+  "references": ["SIG-039", "SIG-041"],
+  "timestamp": "2026-03-30T14:24:12Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- signal.clustered -->
+                <div class="event-card" data-category="signal">
+                    <div class="event-card-header">
+                        <h3 class="event-name">signal.clustered</h3>
+                        <span class="event-badge">Signal</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Signal assigned to a cluster (semantic grouping of related signals).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>signal_id</td><td>string</td><td>Unique signal identifier (SIG-*)</td></tr>
+                            <tr><td>cluster_id</td><td>string</td><td>Cluster identifier (CL-*)</td></tr>
+                            <tr><td>cluster_name</td><td>string</td><td>Human-readable cluster label</td></tr>
+                            <tr><td>similarity_score</td><td>number</td><td>0.0&ndash;1.0 semantic similarity to cluster centroid</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "signal.clustered",
+  "signal_id": "SIG-042",
+  "cluster_id": "CL-012",
+  "cluster_name": "API Latency Spike",
+  "similarity_score": 0.87,
+  "timestamp": "2026-03-30T14:25:00Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- signal.promoted -->
+                <div class="event-card" data-category="signal">
+                    <div class="event-card-header">
+                        <h3 class="event-name">signal.promoted</h3>
+                        <span class="event-badge">Signal</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Signal cluster becomes an intent (human or auto approval).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>signal_id</td><td>string</td><td>Unique signal identifier (SIG-*)</td></tr>
+                            <tr><td>cluster_id</td><td>string</td><td>Source cluster (CL-*)</td></tr>
+                            <tr><td>intent_id</td><td>string</td><td>Newly created intent (INT-*)</td></tr>
+                            <tr><td>trace_id</td><td>string</td><td>OTel trace identifier (TRACE-*)</td></tr>
+                            <tr><td>reason</td><td>string</td><td>Promotion rationale</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "signal.promoted",
+  "signal_id": "SIG-042",
+  "cluster_id": "CL-012",
+  "intent_id": "INT-015",
+  "trace_id": "TRACE-015",
+  "reason": "4 correlated signals above threshold",
+  "timestamp": "2026-03-30T14:26:00Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- signal.dismissed -->
+                <div class="event-card" data-category="signal">
+                    <div class="event-card-header">
+                        <h3 class="event-name">signal.dismissed</h3>
+                        <span class="event-badge">Signal</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Signal marked irrelevant (duplicate, noise, or out of scope).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>signal_id</td><td>string</td><td>Unique signal identifier (SIG-*)</td></tr>
+                            <tr><td>reason</td><td>string</td><td>Dismissal reason</td></tr>
+                            <tr><td>dismissed_by</td><td>string</td><td>User or "auto"</td></tr>
+                            <tr><td>dismissed_at</td><td>ISO 8601</td><td>Dismissal timestamp</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "signal.dismissed",
+  "signal_id": "SIG-043",
+  "reason": "duplicate of SIG-042",
+  "dismissed_by": "auto",
+  "dismissed_at": "2026-03-30T14:24:30Z",
+  "timestamp": "2026-03-30T14:24:30Z"
+}</code>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- intent.* Events -->
+        <!-- ============================================================ -->
+        <section class="event-category">
+            <h2><span class="event-category-badge intent"></span> intent.* Events</h2>
+            <div class="event-cards">
+
+                <!-- intent.proposed -->
+                <div class="event-card" data-category="intent">
+                    <div class="event-card-header">
+                        <h3 class="event-name">intent.proposed</h3>
+                        <span class="event-badge">Intent</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Cluster promoted to intent (ready for spec authoring).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>intent_id</td><td>string</td><td>Unique intent identifier (INT-*)</td></tr>
+                            <tr><td>trace_id</td><td>string</td><td>OTel trace identifier (TRACE-*)</td></tr>
+                            <tr><td>signals</td><td>array</td><td>Contributing signal IDs</td></tr>
+                            <tr><td>title</td><td>string</td><td>Human-readable intent summary</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "intent.proposed",
+  "intent_id": "INT-015",
+  "trace_id": "TRACE-015",
+  "signals": ["SIG-039", "SIG-041", "SIG-042", "SIG-044"],
+  "title": "Investigate API latency spike in prod",
+  "timestamp": "2026-03-30T14:26:30Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- intent.accepted -->
+                <div class="event-card" data-category="intent">
+                    <div class="event-card-header">
+                        <h3 class="event-name">intent.accepted</h3>
+                        <span class="event-badge">Intent</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Human or auto-approval accepts intent (moves to spec phase).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>intent_id</td><td>string</td><td>Unique intent identifier (INT-*)</td></tr>
+                            <tr><td>accepted_by</td><td>string</td><td>User handle or "auto"</td></tr>
+                            <tr><td>confidence</td><td>number</td><td>0.0&ndash;1.0 acceptance confidence</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "intent.accepted",
+  "intent_id": "INT-015",
+  "accepted_by": "@brien",
+  "confidence": 0.92,
+  "timestamp": "2026-03-30T14:30:00Z"
+}</code>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- spec.* Events -->
+        <!-- ============================================================ -->
+        <section class="event-category">
+            <h2><span class="event-category-badge spec"></span> spec.* Events</h2>
+            <div class="event-cards">
+
+                <!-- spec.created -->
+                <div class="event-card" data-category="spec">
+                    <div class="event-card-header">
+                        <h3 class="event-name">spec.created</h3>
+                        <span class="event-badge">Spec</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Spec authored (human writes or agent proposes).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>spec_id</td><td>string</td><td>Unique spec identifier (SPEC-*)</td></tr>
+                            <tr><td>intent_id</td><td>string</td><td>Parent intent (INT-*)</td></tr>
+                            <tr><td>trace_id</td><td>string</td><td>OTel trace identifier (TRACE-*)</td></tr>
+                            <tr><td>title</td><td>string</td><td>Spec title</td></tr>
+                            <tr><td>contracts</td><td>array</td><td>Contract IDs defined in the spec</td></tr>
+                            <tr><td>author</td><td>string</td><td>Author (user handle or agent name)</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "spec.created",
+  "spec_id": "SPEC-042",
+  "intent_id": "INT-015",
+  "trace_id": "TRACE-015",
+  "title": "Profile API and identify bottleneck",
+  "contracts": ["CON-091", "CON-092", "CON-093"],
+  "author": "claude-code",
+  "timestamp": "2026-03-30T14:45:00Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- spec.approved -->
+                <div class="event-card" data-category="spec">
+                    <div class="event-card-header">
+                        <h3 class="event-name">spec.approved</h3>
+                        <span class="event-badge">Spec</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Spec passes readiness check (all contracts defined, fields complete).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>spec_id</td><td>string</td><td>Unique spec identifier (SPEC-*)</td></tr>
+                            <tr><td>completeness_score</td><td>number</td><td>0.0&ndash;1.0 spec completeness</td></tr>
+                            <tr><td>checks_passed</td><td>array</td><td>List of passed readiness checks</td></tr>
+                            <tr><td>approved_by</td><td>string</td><td>User handle or "auto"</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "spec.approved",
+  "spec_id": "SPEC-042",
+  "completeness_score": 1.0,
+  "checks_passed": ["contracts_defined", "fields_complete", "assertions_valid"],
+  "approved_by": "@brien",
+  "timestamp": "2026-03-30T14:42:00Z"
+}</code>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- contract.* Events -->
+        <!-- ============================================================ -->
+        <section class="event-category">
+            <h2><span class="event-category-badge contract"></span> contract.* Events</h2>
+            <div class="event-cards">
+
+                <!-- contract.started -->
+                <div class="event-card" data-category="contract">
+                    <div class="event-card-header">
+                        <h3 class="event-name">contract.started</h3>
+                        <span class="event-badge">Contract</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Agent begins execution of a contract.
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>contract_id</td><td>string</td><td>Unique contract identifier (CON-*)</td></tr>
+                            <tr><td>spec_id</td><td>string</td><td>Parent spec (SPEC-*)</td></tr>
+                            <tr><td>trace_id</td><td>string</td><td>OTel trace identifier (TRACE-*)</td></tr>
+                            <tr><td>agent</td><td>string</td><td>Executing agent name</td></tr>
+                            <tr><td>started_at</td><td>ISO 8601</td><td>Execution start timestamp</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "contract.started",
+  "contract_id": "CON-091",
+  "spec_id": "SPEC-042",
+  "trace_id": "TRACE-015",
+  "agent": "claude-code",
+  "started_at": "2026-03-30T14:45:30Z",
+  "timestamp": "2026-03-30T14:45:30Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- contract.assertion.passed -->
+                <div class="event-card" data-category="contract">
+                    <div class="event-card-header">
+                        <h3 class="event-name">contract.assertion.passed</h3>
+                        <span class="event-badge">Contract</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Verification command returns 0 (assertion succeeds).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>contract_id</td><td>string</td><td>Parent contract (CON-*)</td></tr>
+                            <tr><td>assertion_id</td><td>string</td><td>Assertion identifier</td></tr>
+                            <tr><td>assertion_name</td><td>string</td><td>Human-readable assertion label</td></tr>
+                            <tr><td>evidence</td><td>string</td><td>Command output or proof artifact</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "contract.assertion.passed",
+  "contract_id": "CON-091",
+  "assertion_id": "assert-1",
+  "assertion_name": "api_profile_generated",
+  "evidence": "profile.json (2.4KB)",
+  "timestamp": "2026-03-30T15:02:15Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- contract.assertion.failed -->
+                <div class="event-card" data-category="contract">
+                    <div class="event-card-header">
+                        <h3 class="event-name">contract.assertion.failed</h3>
+                        <span class="event-badge">Contract</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Verification fails (non-zero exit or exception).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>contract_id</td><td>string</td><td>Parent contract (CON-*)</td></tr>
+                            <tr><td>assertion_id</td><td>string</td><td>Assertion identifier</td></tr>
+                            <tr><td>assertion_name</td><td>string</td><td>Human-readable assertion label</td></tr>
+                            <tr><td>error</td><td>string</td><td>Error message or stack trace</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "contract.assertion.failed",
+  "contract_id": "CON-092",
+  "assertion_id": "assert-2",
+  "assertion_name": "lint_passes",
+  "error": "eslint: 3 errors in src/api/handler.ts",
+  "timestamp": "2026-03-30T15:03:45Z"
+}</code>
+                    </div>
+                </div>
+
+                <!-- contract.completed -->
+                <div class="event-card" data-category="contract">
+                    <div class="event-card-header">
+                        <h3 class="event-name">contract.completed</h3>
+                        <span class="event-badge">Contract</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> All assertions evaluated (contract execution complete).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>contract_id</td><td>string</td><td>Unique contract identifier (CON-*)</td></tr>
+                            <tr><td>spec_id</td><td>string</td><td>Parent spec (SPEC-*)</td></tr>
+                            <tr><td>duration</td><td>number</td><td>Execution duration in seconds</td></tr>
+                            <tr><td>assertions_passed</td><td>number</td><td>Count of passed assertions</td></tr>
+                            <tr><td>assertions_failed</td><td>number</td><td>Count of failed assertions</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "contract.completed",
+  "contract_id": "CON-091",
+  "spec_id": "SPEC-042",
+  "duration": 18.45,
+  "assertions_passed": 3,
+  "assertions_failed": 0,
+  "timestamp": "2026-03-30T15:02:30Z"
+}</code>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- system.* Events -->
+        <!-- ============================================================ -->
+        <section class="event-category">
+            <h2><span class="event-category-badge system"></span> system.* Events</h2>
+            <div class="event-cards">
+
+                <!-- system.health -->
+                <div class="event-card" data-category="system">
+                    <div class="event-card-header">
+                        <h3 class="event-name">system.health</h3>
+                        <span class="event-badge">System</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Periodic heartbeat (every 60s by default).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Heartbeat timestamp</td></tr>
+                            <tr><td>servers_active</td><td>number</td><td>Count of active MCP servers</td></tr>
+                            <tr><td>event_count</td><td>number</td><td>Total events processed since startup</td></tr>
+                            <tr><td>uptime_seconds</td><td>number</td><td>Server uptime in seconds</td></tr>
+                            <tr><td>memory_usage_percent</td><td>number</td><td>Memory utilization percentage</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "system.health",
+  "timestamp": "2026-03-30T15:05:00Z",
+  "servers_active": 3,
+  "event_count": 1847,
+  "uptime_seconds": 864000,
+  "memory_usage_percent": 34.2
+}</code>
+                    </div>
+                </div>
+
+                <!-- system.error -->
+                <div class="event-card" data-category="system">
+                    <div class="event-card-header">
+                        <h3 class="event-name">system.error</h3>
+                        <span class="event-badge">System</span>
+                    </div>
+                    <div class="event-trigger">
+                        <strong>When:</strong> Error condition detected (agent crash, network failure, validation error).
+                    </div>
+                    <table class="event-fields">
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>error_type</td><td>string</td><td>Error classification (e.g. MCP_CONNECTION_TIMEOUT)</td></tr>
+                            <tr><td>error_code</td><td>string</td><td>Machine-readable error code</td></tr>
+                            <tr><td>message</td><td>string</td><td>Human-readable error description</td></tr>
+                            <tr><td>stack</td><td>string</td><td>Stack trace (optional)</td></tr>
+                            <tr><td>context</td><td>object</td><td>Additional context (server, endpoint, etc.)</td></tr>
+                            <tr><td>timestamp</td><td>ISO 8601</td><td>Event emission timestamp</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="event-example">
+                        <code>{
+  "event_type": "system.error",
+  "error_type": "MCP_CONNECTION_TIMEOUT",
+  "error_code": "ERR_MCP_001",
+  "message": "notice MCP server did not respond within 30s",
+  "context": {"server": "notice", "endpoint": "signal.ingest"},
+  "timestamp": "2026-03-30T15:10:45Z"
+}</code>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Cross-links -->
+        <section class="event-crosslinks">
+            <h3>Learn More</h3>
+            <ul>
+                <li><strong>See live events:</strong> <a href="dogfood.html">Observe page</a> — Real-time event stream from Intent itself</li>
+                <li><strong>See the OTel ingestion stack:</strong> <a href="observability.html">Observability page</a> — How these events are collected, stored, and visualized</li>
+                <li><strong>See the data model:</strong> <a href="schemas.html">Schemas page</a> — Field definitions, types, and constraints for all event types</li>
+                <li><strong>Understand the loop:</strong> <a href="flow-diagram.html">Flow diagram</a> — How events connect through notice&rarr;spec&rarr;execute&rarr;observe</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Built with the Intent methodology</p>
+        </div>
+    </footer>
+</body>
+</html>
