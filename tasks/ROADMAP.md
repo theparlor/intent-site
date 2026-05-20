@@ -347,6 +347,27 @@ Sync all product .intent/ state changes into the site. Products have evolved sig
 
 ---
 
+---
+
+## Phase 9: Governance Hardening — IN PROGRESS
+
+Started 2026-05-20 (post-audit). Intent's site is now running Intent governance on itself.
+
+| Task | Description | Status | Verification |
+|------|-------------|--------|--------------|
+| TASK-001: Contract index.html guard | Add `[ "$f" = "index.html" ] && continue` to CON-SITE-001/003/004 | DONE | Contracts now pass cleanly for all 23 pillar pages |
+| TASK-002: .intent/INTENT.md | Create IDD anchor with purpose declaration + 3 active objectives | DONE | `.intent/INTENT.md` exists |
+| TASK-003: Back-fill 3 decision atoms | DEC-001 IA v2 migration, DEC-002 personas page, DEC-003 products taxonomy | DONE | `.intent/decisions/` has 3 atoms |
+| TASK-004: Persona count sync 178→242 | Update personas.html, work-system.html, content-map.md, CHANGELOG | L0 — awaiting Brien approval | Count verified: 242 registry YAML files |
+| TASK-005: Orphan page governance | Add review-2026-04-09.html to site-spec.md under Supporting Pages | DONE | site-spec.md has Supporting Pages section |
+| TASK-006: v2-draft governance | Document docs/v2-draft/ in ROADMAP + site-spec.md | IN PROGRESS | See note below |
+| TASK-007: Document .meta.yml in CLAUDE.md | One-line explanation of library-index metadata files | DONE | CLAUDE.md Repo Structure updated |
+| TASK-008: Align personas sub-nav label | "Voices" vs "Persona Catalog" — align governance to site | L0 — awaiting Brien approval | GAP-IA-001 documented in spec |
+| TASK-009: CONTEXT.md | Create intent-site/CONTEXT.md for knowledge graph | DONE | CONTEXT.md at intent-site root |
+| TASK-010: sync-config validation | scripts/verify-sync-config.sh checks product repo path | DONE | Script created |
+
+**Note on TASK-006 (v2-draft):** `docs/v2-draft/` contains 22 files. These appear to be experimental drafts from the IA v2 migration that were never cleaned up. Until Brien confirms their disposition (promote / archive / delete), they remain ungoverned. Recommendation: evaluate in a follow-on session with Brien present.
+
 ## Execution Protocol
 
 Terminal Claude should follow this protocol when picking up this roadmap:
