@@ -42,7 +42,7 @@ This repo (`theparlor/intent-site`) contains the marketing and documentation sit
 - Accent blue: `#3b82f6`
 - Accent amber: `#f59e0b`
 - Accent green: `#10b981`
-- Accent purple: `#a855f7`
+- Accent purple: `#8b5cf6`
 - Accent red: `#dc2626`
 
 ### Persona Colors
@@ -118,19 +118,36 @@ Extensive `<style>` blocks with page-specific visual components. **Never strip o
 ```
 intent-site/
 ├── docs/              ← GitHub Pages source
-│   ├── *.html         ← All 23 pages
+│   ├── *.html         ← All 23 pillar pages (+ index.html redirect + visual-brief.html)
+│   ├── *.meta.yml     ← Library-index metadata sidecar files (one per HTML page; not served pages)
 │   ├── styles.css     ← Shared stylesheet
 │   ├── diagrams/      ← Mermaid source files for diagram pages
+│   ├── v2-draft/      ← Experimental drafts from IA v2 migration (22 files; governance pending Phase 9)
 │   └── visual-brief-app/  ← Vite-built React app
+├── .intent/           ← Intent governance (IDD anchor, decisions, signals)
+│   ├── INTENT.md      ← Purpose declaration + active objectives
+│   ├── decisions/     ← Architectural decision atoms (DEC-001, DEC-002, DEC-003)
+│   └── signals/       ← Drift signals and session observations
+├── CONTEXT.md         ← Knowledge graph entry (library-index metadata)
 ├── site-ia.md         ← IA specification (three pillars)
 ├── site-spec.md       ← Page inventory, baselines, visual components
 ├── site-contracts.md  ← 10 verifiable assertions
 ├── content-map.md     ← Maps site claims → product repo specs
 ├── tasks/             ← Task specs for agent handoff
 │   └── ROADMAP.md     ← **MASTER EXECUTION PLAN — READ THIS FIRST**
+├── scripts/           ← Utility scripts (sync, verify)
 ├── CLAUDE.md          ← THIS FILE
 └── README.md          ← Site development guide
 ```
+
+**Note on `docs/*.meta.yml` files:** Each HTML page has a corresponding `.meta.yml` sidecar file. These are library-index metadata files used by the knowledge graph to index and score the page. They are not served pages and are not part of the site IA. Do not delete them — the library-index scanner depends on them.
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/sync-signals.js` | Syncs signals from the product repo into the site (reads `sync-config.json`) |
+| `scripts/verify-sync-config.sh` | Validates `sync-config.json sync.product_repo_path` resolves before any sync script runs. **Run this before sync-signals.js.** |
 
 ## Diagram Source Policy
 
