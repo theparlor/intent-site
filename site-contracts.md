@@ -31,9 +31,11 @@ vocab_density: 0.09
 
 ```bash
 # Verify: every .html file in docs/ contains the site-nav with 3 pillar links
+# index.html excluded — meta redirect per IA v2 (site-ia.md)
 cd docs/
 FAIL=0
 for f in *.html; do
+  [ "$f" = "index.html" ] && continue
   if grep -q 'class="site-nav"' "$f"; then
     : # has nav
   else
@@ -110,9 +112,11 @@ done
 
 ```bash
 # Verify: every .html file contains the standard footer text
+# index.html excluded — meta redirect per IA v2 (site-ia.md)
 cd docs/
 FAIL=0
 for f in *.html; do
+  [ "$f" = "index.html" ] && continue
   if grep -q 'github.com/theparlor/intent' "$f"; then
     : # has footer link
   else
@@ -135,9 +139,11 @@ done
 **Severity:** critical — missing styles.css means no shared foundation (nav, palette, typography)
 
 ```bash
+# index.html excluded — meta redirect per IA v2 (site-ia.md)
 cd docs/
 FAIL=0
 for f in *.html; do
+  [ "$f" = "index.html" ] && continue
   if grep -q 'href="styles.css"' "$f"; then
     : # has styles.css
   else

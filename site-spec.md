@@ -142,6 +142,16 @@ These are HIGH-VALUE visual elements. Their loss constitutes a critical defect.
 | event-catalog.html | Event type cards | 15 event types with schema, trigger conditions, and examples |
 | decisions.html | ADR cards | D1-D12 architecture decision records with context and rationale |
 
+## Supporting Pages (no nav)
+
+These files exist in `docs/` but are not reachable from any pillar nav. They are intentional artifacts, not orphans.
+
+| File | Type | Status | Notes |
+|------|------|--------|-------|
+| `review-2026-04-09.html` | ARB session review | status: archived-review | In-session ARB review artifact from 2026-04-09. Not a live page. Not linked from primary or sub-nav. Preserved for historical reference. Consider moving to `docs/archive/` in Phase 9. |
+| `visual-brief.html` | CTA link target | active | Linked from pitch.html as a CTA. Not in primary nav by design — it is a landing page, not a pillar page. |
+| `index.html` | Meta redirect | active | 192B redirect to pitch.html per IA v2 (DEC-001). No nav/footer/styles — intentional. |
+
 ## File Size Baselines
 
 File sizes serve as a canary. A page dropping significantly below its baseline means content was lost.

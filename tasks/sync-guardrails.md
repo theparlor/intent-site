@@ -23,9 +23,9 @@ vocab_density: 0.12
 related_entities:
   - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
   - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
-  - {pair: subaru ↔ turnberry, count: 55, strength: 0.598}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
-  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: subaru ↔ turnberry, count: 56, strength: 0.602}
+  - {pair: measurement-metrics ↔ turnberry, count: 41, strength: 0.369}
+  - {pair: measurement-metrics ↔ subaru, count: 41, strength: 0.315}
 ---
 # Task: Add trust guardrails to signal sync pipeline
 
