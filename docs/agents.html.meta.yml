@@ -11,7 +11,7 @@ summary: "Intent — Subagent Definitions I ntent The Story The System The Build
 content_excerpt: "Intent — Subagent Definitions I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Agent Definitions Six Subagents , One Loop Each agent maps to a phase of the Intent loop. They connect to MCP servers through scoped tool access, use model routing for cost efficiency, and never do each other's work. Notice Phase signal-capture Haiku Notice &mdash; Capture Captures raw signals and computes trust scores. Use when noticing something worth tracking &mdas"
 depth_score: 4
 depth_signals:
-  file_size_kb: 20.1
+  file_size_kb: 20.7
   content_chars: 1414
   entity_count: 0
   slide_count: 0

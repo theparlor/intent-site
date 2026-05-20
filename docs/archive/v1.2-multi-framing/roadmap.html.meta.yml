@@ -1,0 +1,32 @@
+---
+title: Roadmap
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+topics:
+  - product-strategy
+created: 2026-04-11
+technologies:
+  - slack
+summary: "Product Roadmap — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap Product Roadmap Intent is four products, one value stream. Each phase of the loop..."
+content_excerpt: "Product Roadmap — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap Product Roadmap Intent is four products, one value stream. Each phase of the loop has its own maturity level, tooling, and investment needs. Intent v1.0 prescribes three independent layers: Compiled Knowledge Base → Transformation OS → Software Spec & Code. Each layer has its own maturity and roadmap. This page shows where each product stands and where energy goes next. NOTICE O"
+depth_score: 5
+depth_signals:
+  file_size_kb: 25.7
+  content_chars: 1415
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 2
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
+---

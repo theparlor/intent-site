@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intent — Coherence Engineering for AI-Augmented Teams</title>
+  <meta name="description" content="Agile was a coordination tax. Intent turns coordination into a compounding investment through coherence engineering — a new discipline for teams where humans and AI agents build together.">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Discipline label (replaces hypothesis label) */
+    .discipline-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: var(--accent-green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+    }
+    .discipline-label .dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* Hero */
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.08;
+      margin-bottom: 24px;
+    }
+    .hero h1 .highlight { color: var(--accent-blue); }
+    .hero h1 .highlight-amber { color: var(--accent-amber); }
+    .hero .lede {
+      font-size: 20px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 740px;
+      margin-bottom: 32px;
+    }
+    .hero .lede strong { color: var(--text); }
+
+    /* The reframe box */
+    .reframe-box {
+      background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 32px 36px;
+      border-radius: 12px;
+      margin: 48px 0;
+    }
+    .reframe-box h3 {
+      font-size: 14px;
+      color: var(--accent-amber);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .reframe-box .claim {
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+    .reframe-box .claim em { color: var(--accent-amber); font-style: normal; font-weight: 600; }
+
+    /* Progression strip */
+    .progression {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin: 48px 0 16px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .prog-level {
+      padding: 20px 16px;
+      text-align: center;
+      position: relative;
+    }
+    .prog-level.l1 { background: rgba(100,116,139,0.15); }
+    .prog-level.l2 { background: rgba(100,116,139,0.25); }
+    .prog-level.l3 { background: rgba(59,130,246,0.15); }
+    .prog-level.l4 { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); }
+    .prog-level .level-name {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .prog-level.l1 .level-name { color: var(--text-dim); }
+    .prog-level.l2 .level-name { color: var(--text-muted); }
+    .prog-level.l3 .level-name { color: var(--accent-blue); }
+    .prog-level.l4 .level-name { color: var(--accent-green); }
+    .prog-level .level-scope {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .prog-level .level-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    .progression-caption {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 48px;
+      font-style: italic;
+    }
+
+    /* Altitude visualization */
+    .altitudes {
+      margin: 48px 0;
+    }
+    .altitudes h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .altitudes .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .altitude-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .altitude-row {
+      display: grid;
+      grid-template-columns: 160px 1fr 180px;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      min-height: 72px;
+    }
+    .alt-label {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .alt-label .name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .alt-label .scope {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 2px;
+    }
+    .alt-content {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      background: var(--surface);
+    }
+    .alt-audience {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      background: rgba(15,23,42,0.5);
+    }
+
+    .altitude-row.strategic .alt-label { background: rgba(168,85,247,0.12); }
+    .altitude-row.strategic .alt-label .name { color: #a855f7; }
+    .altitude-row.strategic .alt-label .scope { color: rgba(168,85,247,0.7); }
+
+    .altitude-row.ops-strategic .alt-label { background: rgba(59,130,246,0.12); }
+    .altitude-row.ops-strategic .alt-label .name { color: var(--accent-blue); }
+    .altitude-row.ops-strategic .alt-label .scope { color: rgba(59,130,246,0.7); }
+
+    .altitude-row.tactical .alt-label { background: rgba(245,158,11,0.12); }
+    .altitude-row.tactical .alt-label .name { color: var(--accent-amber); }
+    .altitude-row.tactical .alt-label .scope { color: rgba(245,158,11,0.7); }
+
+    .altitude-row.executional .alt-label { background: rgba(16,185,129,0.12); }
+    .altitude-row.executional .alt-label .name { color: var(--accent-green); }
+    .altitude-row.executional .alt-label .scope { color: rgba(16,185,129,0.7); }
+
+    /* The tragedy section */
+    .tragedy-box {
+      background: rgba(220,38,38,0.04);
+      border: 1px solid rgba(220,38,38,0.2);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin: 48px 0;
+    }
+    .tragedy-box h3 {
+      font-size: 14px;
+      color: #fca5a5;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .tragedy-box p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .tragedy-box p:last-child { margin-bottom: 0; }
+    .tragedy-box strong { color: var(--text); }
+
+    /* The growth arc */
+    .arc-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin: 32px 0 16px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .arc-stage {
+      padding: 16px;
+      background: var(--surface);
+      text-align: center;
+    }
+    .arc-stage .stage-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .arc-stage .stage-desc {
+      font-size: 10px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+    .arc-stage.broken {
+      background: rgba(220,38,38,0.08);
+      border: 1px solid rgba(220,38,38,0.2);
+    }
+    .arc-stage.broken .stage-name { color: #fca5a5; }
+    .arc-caption {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+
+    /* The answer: Intent loop (reused from current site) */
+    .loop-section {
+      margin: 56px 0;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .loop-section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .loop-section .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .phase-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 32px 0;
+    }
+    .phase {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 18px;
+      border-radius: 10px;
+    }
+    .phase h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .phase.notice { border-top: 3px solid var(--accent-amber); }
+    .phase.notice h3 { color: var(--accent-amber); }
+    .phase.spec { border-top: 3px solid var(--accent-blue); }
+    .phase.spec h3 { color: var(--accent-blue); }
+    .phase.execute { border-top: 3px solid var(--accent-green); }
+    .phase.execute h3 { color: var(--accent-green); }
+    .phase.observe { border-top: 3px solid #a855f7; }
+    .phase.observe h3 { color: #a855f7; }
+    .phase .tagline { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+    .phase p { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+
+    /* Coexistence callout */
+    .coexist-box {
+      background: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(59,130,246,0.2);
+      padding: 28px 32px;
+      border-radius: 12px;
+      margin: 48px 0;
+    }
+    .coexist-box h3 {
+      font-size: 14px;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .coexist-box p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .coexist-box p:last-child { margin-bottom: 0; }
+    .coexist-box strong { color: var(--text); }
+
+    /* CTAs */
+    .ctas {
+      display: flex;
+      gap: 12px;
+      margin: 48px 0 24px;
+      flex-wrap: wrap;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .cta.primary { background: var(--accent-blue); color: white; }
+    .cta.primary:hover { background: #2563eb; }
+    .cta.secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .cta.secondary:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .cta .arrow { transition: transform 0.15s; }
+    .cta:hover .arrow { transform: translateX(3px); }
+
+    /* Lineage */
+    .lineage-strip {
+      margin: 48px 0;
+      padding: 24px;
+      background: rgba(168,85,247,0.03);
+      border: 1px solid rgba(168,85,247,0.15);
+      border-radius: 10px;
+    }
+    .lineage-strip h3 { font-size: 12px; color: #a855f7; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+    .lineage-strip p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 4px; }
+    .lineage-strip .credit { color: var(--text); font-weight: 600; }
+
+    /* Section divider */
+    .section-break {
+      margin: 56px 0 48px;
+      border-top: 1px solid var(--border);
+      padding-top: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 34px; }
+      .progression { grid-template-columns: 1fr 1fr; }
+      .phase-cards { grid-template-columns: 1fr 1fr; }
+      .arc-strip { grid-template-columns: 1fr 1fr; }
+      .altitude-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="pitch.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch-coherence-mockup.html" class="active">The Shift</a>
+    <a href="the-system.html">The Discipline</a>
+    <a href="the-build.html">The Method</a>
+    <a href="the-proof.html">The Proof</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="discipline-label">
+      <span class="dot"></span>
+      Coherence Engineering &middot; a new discipline for AI-augmented teams
+    </div>
+
+    <div class="hero">
+      <h1>Agile was a <span class="highlight-amber">coordination tax</span>.<br>What makes coordination a <span class="highlight">compounding investment</span>?</h1>
+      <p class="lede">
+        One person with AI agents now produces at the pace of five people three years ago. The frictions agile was built to solve are <strong>disappearing</strong>. But companies are cutting teams to capture the savings &mdash; and destroying the mechanism that produced the one thing AI can't generate: <strong>the clarity to know what should exist.</strong>
+      </p>
+    </div>
+
+    <!-- The Reframe -->
+    <div class="reframe-box">
+      <h3>The reframe</h3>
+      <p class="claim">
+        Agile's ceremonies evaporate after each sprint. You pay the coordination tax and <em>never get it back</em>. But what if coordination produced artifacts that made the next cycle better? Research findings, executable specs, verified contracts, validated design decisions &mdash; those <em>compound</em>. That's coordination as investment, not tax.
+      </p>
+    </div>
+
+    <!-- The Progression -->
+    <div class="section-break" style="margin-top: 0; padding-top: 0; border: none;">
+      <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">Where coherence engineering sits</h2>
+      <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6;">
+        Four disciplines, each operating at a different altitude. Each contains the ones below it.
+      </p>
+    </div>
+
+    <div class="progression">
+      <div class="prog-level l1">
+        <div class="level-name">Prompt Engineering</div>
+        <div class="level-scope">Individual utterance</div>
+        <div class="level-desc">What you say to the model</div>
+      </div>
+      <div class="prog-level l2">
+        <div class="level-name">Context Engineering</div>
+        <div class="level-scope">Individual session</div>
+        <div class="level-desc">What the model sees when it thinks</div>
+      </div>
+      <div class="prog-level l3">
+        <div class="level-name">Harness Engineering</div>
+        <div class="level-scope">Individual workflow</div>
+        <div class="level-desc">Scaffolding that makes execution reliable</div>
+      </div>
+      <div class="prog-level l4">
+        <div class="level-name">Coherence Engineering</div>
+        <div class="level-scope">Team / System</div>
+        <div class="level-desc">Multiple human+agent producers composing into a coherent system</div>
+      </div>
+    </div>
+    <p class="progression-caption">Each level contains the ones below it. You can't do coherence engineering without good context engineering.</p>
+
+    <!-- The Tragedy -->
+    <div class="tragedy-box">
+      <h3>The growth arc problem</h3>
+      <div class="arc-strip">
+        <div class="arc-stage">
+          <div class="stage-name">Programmer</div>
+          <div class="stage-desc">Learned syntax, executed known patterns</div>
+        </div>
+        <div class="arc-stage">
+          <div class="stage-name">Developer</div>
+          <div class="stage-desc">Composed patterns to solve new problems</div>
+        </div>
+        <div class="arc-stage">
+          <div class="stage-name">Engineer</div>
+          <div class="stage-desc">Applied CS principles to frame problems</div>
+        </div>
+        <div class="arc-stage">
+          <div class="stage-name">Architect</div>
+          <div class="stage-desc">Read and designed systems from experience</div>
+        </div>
+      </div>
+      <div class="arc-caption">Each stage forced internalization of patterns through friction. The friction was the teacher.</div>
+      <p>
+        AI-assisted coding lets a junior <strong>skip the friction</strong> and produce senior-looking output. But the output wasn't the point &mdash; the <strong>compression</strong> was. You learned to read architecture because you'd built things that failed. You communicated about pattern choices because you'd lived through the consequences of wrong ones.
+      </p>
+      <p>
+        Now you <strong>can't smell their code</strong> to see where someone needs to grow. And companies will use AI productivity gains to eliminate teams &mdash; destroying the mechanism that produced the deep domain understanding that makes AI-assisted work actually valuable.
+      </p>
+    </div>
+
+    <!-- The Altitudes -->
+    <div class="altitudes">
+      <h2>Coherence at every altitude</h2>
+      <p class="subtitle">
+        Agile got stuck at the team level. SAFe "solved" scaling by stacking ceremonies on ceremonies until the coordination tax crushed the thing it was supposed to enable. Coherence engineering avoids this through a single principle: <strong>coherence scales through artifact composition, not ceremony multiplication.</strong>
+      </p>
+
+      <div class="altitude-stack">
+        <div class="altitude-row strategic">
+          <div class="alt-label">
+            <div class="name">Strategic</div>
+            <div class="scope">Organization</div>
+          </div>
+          <div class="alt-content">Where are bets actually landing vs. what leadership believes? Artifact state across the portfolio reveals what the organization is experiencing vs. what it's reporting.</div>
+          <div class="alt-audience">VPs, C-suite</div>
+        </div>
+        <div class="altitude-row ops-strategic">
+          <div class="alt-label">
+            <div class="name">Operationalized Strategic</div>
+            <div class="scope">Portfolio</div>
+          </div>
+          <div class="alt-content">Which products are coherent and compounding? Which are absorbing investment without returns? Where are cross-product signal clusters?</div>
+          <div class="alt-audience">Directors, Program Mgmt</div>
+        </div>
+        <div class="altitude-row tactical">
+          <div class="alt-label">
+            <div class="name">Tactical</div>
+            <div class="scope">Product</div>
+          </div>
+          <div class="alt-content">Are teams' outputs composing at boundaries? Where are integration incoherences? Do contracts at team boundaries actually interlock?</div>
+          <div class="alt-audience">Product Leaders, Eng Managers</div>
+        </div>
+        <div class="altitude-row executional">
+          <div class="alt-label">
+            <div class="name">Executional</div>
+            <div class="scope">Team</div>
+          </div>
+          <div class="alt-content">Are specs and contracts being produced? Are they passing? Is the cycle compounding? This is where Intent operates today.</div>
+          <div class="alt-audience">Team + Direct Lead</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intent as Reference Implementation -->
+    <div class="loop-section">
+      <h2>Intent: the reference implementation</h2>
+      <p class="subtitle">
+        Coherence engineering is the discipline. Intent is how you practice it. A continuous loop that produces compounding artifacts instead of evaporating ceremonies.
+      </p>
+
+      <div class="phase-cards">
+        <div class="phase notice">
+          <h3>Notice</h3>
+          <div class="tagline">Capture signals</div>
+          <p>Friction, questions, observations, anomalies from anywhere work happens. Every signal is atomic and trust-scored.</p>
+        </div>
+        <div class="phase spec">
+          <h3>Spec</h3>
+          <div class="tagline">Shape contracts</div>
+          <p>Transform signals into agent-ready specifications with verifiable contracts. Specs are the coordination medium.</p>
+        </div>
+        <div class="phase execute">
+          <h3>Execute</h3>
+          <div class="tagline">Agents build</div>
+          <p>Agents implement against contracts. Trust-gated at L0&ndash;L4 autonomy. Contracts pass or fail with evidence.</p>
+        </div>
+        <div class="phase observe">
+          <h3>Observe</h3>
+          <div class="tagline">Loop closure</div>
+          <p>Runtime feedback becomes new signals. The artifacts produced in this cycle make the next cycle better.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coexistence -->
+    <div class="coexist-box">
+      <h3>How it enters your organization</h3>
+      <p>
+        Coherence engineering <strong>doesn't replace</strong> your quarterly reviews, your program management, or your financial governance. It runs underneath them and feeds them. Your quarterly review still happens &mdash; but now the presenter has <strong>artifact-derived inputs</strong> instead of hand-built narratives.
+      </p>
+      <p>
+        The VP still makes decisions &mdash; but now there's a <strong>structural signal</strong> confirming or contradicting the gut. Nobody has to change their identity. They just get better inputs to the practice they already trust.
+      </p>
+    </div>
+
+    <!-- Lineage -->
+    <div class="lineage-strip">
+      <h3>Standing on shoulders</h3>
+      <p><span class="credit">Teresa Torres</span> (continuous discovery) &middot; <span class="credit">Jeff Patton</span> (story mapping) &middot; <span class="credit">Marty Cagan</span> &amp; <span class="credit">Melissa Perri</span> (product models) &middot; <span class="credit">Josh Seiden</span> (outcomes) &middot; <span class="credit">John Boyd</span> (OODA) &middot; <span class="credit">Deming</span> (PDCA) &middot; <span class="credit">Eric Ries</span> (build-measure-learn) &middot; <span class="credit">Dex Horthy</span> (context engineering, instruction budget)</p>
+    </div>
+
+    <!-- CTAs -->
+    <div class="ctas">
+      <a href="the-system.html" class="cta primary">The Discipline <span class="arrow">&rarr;</span></a>
+      <a href="the-build.html" class="cta secondary">The Method <span class="arrow">&rarr;</span></a>
+      <a href="the-proof.html" class="cta secondary">The Proof <span class="arrow">&rarr;</span></a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> &middot; Built with the Intent methodology &middot; &copy; The Parlor</p>
+  </footer>
+</body>
+</html>

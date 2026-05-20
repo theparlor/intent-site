@@ -1,0 +1,30 @@
+---
+title: System Diagram
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+technologies:
+  - slack
+summary: "System Map — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start SYSTEM ARCHITECTURE Signal to Observation The interactive map of..."
+content_excerpt: "System Map — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start SYSTEM ARCHITECTURE Signal to Observation The interactive map of the full Intent system &mdash; from capture surfaces through enrichment, execution, and observability. Click any component to see its tools, events, and integration points. CAPTURE SURFACES MCP Server Claude Code &middot; Cowork T1 CLI Tools intent-signal &middot; spec T2 Slack Bot Reactions &middo"
+depth_score: 4
+depth_signals:
+  file_size_kb: 38.1
+  content_chars: 1422
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.39
+related_entities:
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
+---

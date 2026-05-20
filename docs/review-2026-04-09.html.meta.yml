@@ -1,0 +1,38 @@
+---
+title: Review 2026 04 09
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+thought_leaders:
+  - marty-cagan
+  - jeff-patton
+  - teresa-torres
+  - josh-seiden
+  - matthew-skelton
+  - john-kotter
+  - richard-rumelt
+  - charity-majors
+  - petra-wille
+summary: "Multi-Panel Review — Intent Methodology Site (2026-04-09) I ntent The Story The System The Build Multi-Panel Review · 2026-04-09 Eight panels read the site. Here's what they found. Eight independent r..."
+content_excerpt: "Multi-Panel Review — Intent Methodology Site (2026-04-09) I ntent The Story The System The Build Multi-Panel Review · 2026-04-09 Eight panels read the site. Here's what they found. Eight independent review panels — Architecture, Product Strategy, Positioning, Strategy &amp; Systems, Discovery &amp; UX, Engineering Operations, Organizational Design, and a first-time visitor — were each asked to read the live site and return a structured critique. The panels ran in parallel without seeing each oth"
+depth_score: 6
+depth_signals:
+  file_size_kb: 58.8
+  content_chars: 1425
+  entity_count: 9
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 2.77
+related_entities:
+  - {pair: manuel-pais ↔ matthew-skelton, count: 240, strength: 0.661}
+  - {pair: matthew-skelton ↔ team-topologies, count: 207, strength: 0.572}
+  - {pair: marty-cagan ↔ teresa-torres, count: 185, strength: 0.371}
+  - {pair: matthew-skelton ↔ mik-kersten, count: 179, strength: 0.416}
+  - {pair: matthew-skelton ↔ richard-rumelt, count: 138, strength: 0.334}
+---

@@ -1,8 +1,23 @@
 %% Intent System Architecture — Signal to Observation Flow
 %% Source of truth for system-diagram.html interactive SVG
 %% Copy this into PRs, docs, or presentations
+%% Last updated: 2026-04-18
+%% Additions: intent-knowledge MCP server (port 8004, DDR-005/DDR-016),
+%%            Coherence Engineering frame (above Intent per DEFINITION.md section 7),
+%%            Entire.io marked explicitly as planned (integration not yet live),
+%%            DoR/DoD gate enforcement layer (added 2026-04-14 per SIG-045/046)
 
 flowchart TD
+    %% ── Coherence Engineering Frame (above the Intent loop) ──
+    subgraph ce["🧭 COHERENCE ENGINEERING (discipline · above Intent)"]
+        direction LR
+        CE_DISC["Discipline<br/>5 axioms · 4 altitudes<br/>7 coexistence constraints"]
+        CE_GATE["Evaluation Gate<br/>non-dup · non-compete<br/>chainable · composable · portable"]
+        CE_TOPO["Topography Engine<br/>(scheduled 2026-04-18)<br/>cross-session coherence"]:::planned
+        CE_DISC --> CE_GATE
+        CE_GATE --> CE_TOPO
+    end
+
     %% ── Row 1: Capture Surfaces ──
     subgraph capture["📡 CAPTURE SURFACES"]
         MCP["MCP Server (T1)<br/>Claude Code · Cowork"]
@@ -12,6 +27,13 @@ flowchart TD
         AIP["AI Plugins (T5)<br/>ChatGPT · Copilot"]:::planned
     end
 
+    %% ── Knowledge Engine MCP Server (cross-cutting, port 8004) ──
+    subgraph knowledge["📚 KNOWLEDGE ENGINE (intent-knowledge :8004)"]
+        KE_INGEST["ingest<br/>raw/ → knowledge/"]
+        KE_QUERY["query<br/>personas · journeys · DDRs"]
+        KE_LINT["lint<br/>gaps · contradictions · staleness"]
+    end
+
     JSONL["events.jsonl<br/>Git-tracked · OTel v0.2.0"]
 
     MCP --> JSONL
@@ -19,6 +41,9 @@ flowchart TD
     SLACK -.-> JSONL
     GHA --> JSONL
     AIP -.-> JSONL
+
+    %% Lint surfaces signals to Notice (double-loop feed)
+    KE_LINT -->|"surfaces signals"| JSONL
 
     %% ── Row 2: Enrichment Pipeline ──
     subgraph pipeline["🔬 ENRICHMENT PIPELINE"]
@@ -37,18 +62,31 @@ flowchart TD
     HUMAN -->|"human triages"| CLUSTER
     AUTO -->|"auto-clusters"| CLUSTER
 
+    %% ── DoR/DoD Gate Layer (2026-04-14, SIG-045/046) ──
+    subgraph gates["🚦 DoR / DoD GATES (intake + closure enforcement)"]
+        DOR["Definition of Ready<br/>Hard entry gate<br/>blocked_if_unmet"]
+        DOD["Definition of Done<br/>Hard exit gate<br/>remediation on fail"]
+    end
+
+    PROMOTE --> DOR
+
     %% ── Row 3: Spec + Execute ──
     subgraph execute["⚡ SPEC + EXECUTE"]
         SPEC["Spec Creation<br/>Contracts + criteria"]
         AGENT["Agent Execution<br/>Claude Code sessions"]
-        ENTIRE["Entire.io<br/>Session traces"]
+        ENTIRE["Entire.io<br/>Session traces (planned)"]:::planned
         VERIFY["Contract Verify<br/>Assertions pass/fail"]
     end
 
-    PROMOTE --> SPEC
+    DOR --> SPEC
     SPEC --> AGENT
-    AGENT --> ENTIRE
-    ENTIRE --> VERIFY
+    AGENT -.-> ENTIRE
+    AGENT --> VERIFY
+    ENTIRE -.-> VERIFY
+    VERIFY --> DOD
+
+    %% Spec authoring queries the knowledge base (Flow 2)
+    KE_QUERY -->|"query KB for personas/journeys/DDRs"| SPEC
 
     %% ── Row 4: Observe + Loop ──
     subgraph observe["👁️ OBSERVE + LOOP"]
@@ -60,7 +98,7 @@ flowchart TD
         GRAFANA["Grafana Dashboard<br/>Intent Observe"]
     end
 
-    VERIFY --> TAIL
+    DOD --> TAIL
     ENTIRE -.-> TAIL
     TAIL --> OTEL
     OTEL --> TEMPO
@@ -70,13 +108,23 @@ flowchart TD
     MIMIR --> GRAFANA
     LOKI --> GRAFANA
 
-    %% ── Loop Closure ──
+    %% ── Double-loop: observations update knowledge base (Flow 5) ──
+    GRAFANA -.->|"Observations → Knowledge updates (double-loop)"| KE_INGEST
+
+    %% ── Single-loop: observations → new signals (Flow 6) ──
     GRAFANA -.->|"Observations → New Signals"| MCP
+
+    %% ── CE frame wraps the whole Intent execution ──
+    ce -.->|"governs coherence of"| capture
+    ce -.->|"governs coherence of"| execute
 
     %% ── Styles ──
     classDef planned stroke-dasharray: 6 4, stroke: #475569
+    style ce fill:#0f172a,stroke:#a855f7,stroke-width:2px
     style capture fill:#0f172a,stroke:#f59e0b,stroke-width:2px
+    style knowledge fill:#0f172a,stroke:#22d3ee,stroke-width:2px
     style pipeline fill:#0f172a,stroke:#3b82f6,stroke-width:2px
     style clustering fill:#0f172a,stroke:#3b82f6,stroke-width:1px
+    style gates fill:#0f172a,stroke:#ec4899,stroke-width:2px
     style execute fill:#0f172a,stroke:#10b981,stroke-width:2px
     style observe fill:#0f172a,stroke:#8b5cf6,stroke-width:2px

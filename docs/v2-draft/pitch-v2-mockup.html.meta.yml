@@ -1,0 +1,22 @@
+---
+title: Pitch V2 Mockup
+type: framework
+maturity: final
+confidentiality: internal
+reusability: adaptable
+topics:
+  - business-development
+created: 2026-04-14
+summary: "Intent — When AI writes the code, what's the team for? I ntent The Hypothesis The System The Build The Proof Active research hypothesis &middot; v0 &middot; public dogfood Your AI writes code in an af..."
+content_excerpt: "Intent — When AI writes the code, what's the team for? I ntent The Hypothesis The System The Build The Proof Active research hypothesis &middot; v0 &middot; public dogfood Your AI writes code in an afternoon. Your team still plans it in a sprint . When implementation cost collapses, the bottleneck moves upstream to specification clarity &mdash; and the coordination practices built for the old bottleneck become the friction. This is a hypothesis. We are testing it in public. The bottleneck shifte"
+depth_score: 4
+depth_signals:
+  file_size_kb: 25.2
+  content_chars: 1423
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---

@@ -21,11 +21,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.12
 related_entities:
-  - {pair: subaru ↔ consulting-operations, count: 836, strength: 0.43}
-  - {pair: subaru ↔ automotive-manufacturing, count: 791, strength: 0.933}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
-  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
-  - {pair: turnberry ↔ consulting-operations, count: 472, strength: 0.226}
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: subaru ↔ turnberry, count: 55, strength: 0.598}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
 ---
 # Task: Add trust guardrails to signal sync pipeline
 

@@ -234,7 +234,7 @@
 <!-- ── Diagram ── -->
 <section class="container">
   <div class="diagram-container">
-    <svg viewBox="0 0 960 720" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'SF Pro', system-ui, sans-serif" style="background: transparent;">
+    <svg viewBox="0 -80 960 800" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'SF Pro', system-ui, sans-serif" style="background: transparent;">
 
       <!-- ── Marker Definitions ── -->
       <defs>
@@ -247,7 +247,43 @@
         <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981"/>
         </marker>
+        <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#a855f7"/>
+        </marker>
+        <marker id="arrow-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#22d3ee"/>
+        </marker>
       </defs>
+
+      <!-- ════════════════════════════════════════════════════ -->
+      <!-- COHERENCE ENGINEERING FRAME (purple #a855f7)       -->
+      <!-- Above the Intent loop per DEFINITION.md §7         -->
+      <!-- ════════════════════════════════════════════════════ -->
+
+      <!-- CE frame background -->
+      <rect x="20" y="-72" width="920" height="58" rx="8" fill="#1a1230" stroke="#a855f7" stroke-width="1.5" opacity="0.85"/>
+
+      <!-- CE label -->
+      <text x="40" y="-53" fill="#a855f7" font-size="11" font-weight="700" letter-spacing="2">COHERENCE ENGINEERING</text>
+      <text x="40" y="-38" fill="#c4b5fd" font-size="10" font-weight="500">Discipline above Intent · 5 axioms · 4 altitudes · 7 coexistence constraints</text>
+      <text x="40" y="-22" fill="#94a3b8" font-size="9">governs coherence of what the Intent loop produces</text>
+
+      <!-- CE sub-elements -->
+      <g class="node" data-id="ce-discipline">
+        <rect x="550" y="-60" width="120" height="34" rx="4" fill="#0f0820" stroke="#a855f7" stroke-width="1"/>
+        <text x="610" y="-46" fill="#f1f5f9" font-size="10" font-weight="600" text-anchor="middle">Discipline</text>
+        <text x="610" y="-34" fill="#94a3b8" font-size="8" text-anchor="middle">5 axioms · 4 altitudes</text>
+      </g>
+      <g class="node" data-id="ce-gate">
+        <rect x="680" y="-60" width="120" height="34" rx="4" fill="#0f0820" stroke="#a855f7" stroke-width="1"/>
+        <text x="740" y="-46" fill="#f1f5f9" font-size="10" font-weight="600" text-anchor="middle">Evaluation Gate</text>
+        <text x="740" y="-34" fill="#94a3b8" font-size="8" text-anchor="middle">axiom enforcement</text>
+      </g>
+      <g class="node" data-id="ce-topography">
+        <rect x="810" y="-60" width="120" height="34" rx="4" fill="#0f0820" stroke="#475569" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="870" y="-46" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">Topography</text>
+        <text x="870" y="-34" fill="#94a3b8" font-size="8" text-anchor="middle">engine · planned 2026-04-18</text>
+      </g>
 
 
       <!-- ════════════════════════════════════════════════════ -->
@@ -309,6 +345,17 @@
         <text x="480" y="150" fill="#f59e0b" font-size="14" font-weight="700" text-anchor="middle">events.jsonl</text>
         <text x="480" y="164" fill="#94a3b8" font-size="10" text-anchor="middle">Git-tracked &middot; OTel v0.2.0</text>
       </g>
+
+      <!-- intent-knowledge MCP server (port 8004, added 2026-04-06 per DDR-005/DDR-016) -->
+      <g class="node" data-id="intent-knowledge">
+        <rect x="40" y="130" width="200" height="48" rx="6" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="140" y="150" fill="#22d3ee" font-size="13" font-weight="700" text-anchor="middle">intent-knowledge</text>
+        <text x="140" y="164" fill="#94a3b8" font-size="10" text-anchor="middle">:8004 · ingest · query · lint</text>
+      </g>
+
+      <!-- intent-knowledge → events.jsonl (lint surfaces signals) -->
+      <line x1="240" y1="154" x2="345" y2="154" stroke="#22d3ee" stroke-width="1" opacity="0.6" marker-end="url(#arrow-cyan)"/>
+      <text x="290" y="148" fill="#22d3ee" font-size="8" opacity="0.7" text-anchor="middle">lint → signals</text>
 
       <!-- Arrows: capture boxes → events.jsonl -->
       <line x1="120" y1="100" x2="420" y2="130" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
@@ -421,8 +468,19 @@
       <line x1="40" y1="385" x2="200" y2="385" stroke="#10b981" stroke-width="2"/>
       <text x="210" y="389" fill="#10b981" font-size="11" font-weight="700" letter-spacing="2">SPEC + EXECUTE</text>
 
-      <!-- Arrow: Promote to Intent → Spec Creation -->
-      <line x1="520" y1="364" x2="135" y2="400" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <!-- Arrow: Promote to Intent → DoR gate → Spec Creation -->
+      <line x1="520" y1="364" x2="325" y2="381" stroke="#64748b" stroke-width="1" opacity="0.6"/>
+      <line x1="300" y1="387" x2="135" y2="400" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- DoR — Definition of Ready (hard entry gate, SIG-045, 2026-04-14) -->
+      <g class="node" data-id="dor">
+        <rect x="300" y="370" width="80" height="24" rx="12" fill="#2a1326" stroke="#ec4899" stroke-width="1.2"/>
+        <text x="340" y="386" fill="#f1f5f9" font-size="11" font-weight="700" text-anchor="middle">▼ DoR</text>
+      </g>
+
+      <!-- Arrow: intent-knowledge QUERY → Spec Creation (KB feeds spec authoring) -->
+      <path d="M 140 178 Q 60 290 60 400" stroke="#22d3ee" stroke-width="1" opacity="0.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-cyan)"/>
+      <text x="18" y="290" fill="#22d3ee" font-size="9" opacity="0.7" transform="rotate(-90 18 290)">query KB</text>
 
       <!-- Spec Creation -->
       <g class="node" data-id="spec-creation">
@@ -444,11 +502,11 @@
       <!-- Arrow: Agent → Entire.io -->
       <line x1="450" y1="428" x2="480" y2="428" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
 
-      <!-- Entire.io -->
+      <!-- Entire.io (planned — integration not yet live as of 2026-04-18) -->
       <g class="node" data-id="entire-io">
-        <rect x="480" y="400" width="170" height="56" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2"/>
-        <text x="565" y="424" fill="#f1f5f9" font-size="13" font-weight="600" text-anchor="middle">Entire.io</text>
-        <text x="565" y="440" fill="#94a3b8" font-size="10" text-anchor="middle">Session traces</text>
+        <rect x="480" y="400" width="170" height="56" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.2" stroke-dasharray="6,4"/>
+        <text x="565" y="424" fill="#94a3b8" font-size="13" font-weight="600" text-anchor="middle">Entire.io</text>
+        <text x="565" y="440" fill="#94a3b8" font-size="10" text-anchor="middle">Session traces (planned)</text>
       </g>
 
       <!-- Arrow: Entire.io → Contract Verify -->
@@ -470,8 +528,15 @@
       <line x1="40" y1="490" x2="200" y2="490" stroke="#8b5cf6" stroke-width="2"/>
       <text x="210" y="494" fill="#8b5cf6" font-size="11" font-weight="700" letter-spacing="2">OBSERVE + LOOP</text>
 
-      <!-- Arrow: Contract Verify → File Tail Adapter -->
-      <line x1="775" y1="456" x2="145" y2="510" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+      <!-- Arrow: Contract Verify → DoD gate → File Tail Adapter -->
+      <line x1="775" y1="456" x2="470" y2="476" stroke="#64748b" stroke-width="1" opacity="0.6"/>
+      <line x1="440" y1="482" x2="145" y2="510" stroke="#64748b" stroke-width="1" opacity="0.6" marker-end="url(#arrow)"/>
+
+      <!-- DoD — Definition of Done (hard exit gate, SIG-046, 2026-04-14) -->
+      <g class="node" data-id="dod">
+        <rect x="440" y="468" width="80" height="24" rx="12" fill="#2a1326" stroke="#ec4899" stroke-width="1.2"/>
+        <text x="480" y="484" fill="#f1f5f9" font-size="11" font-weight="700" text-anchor="middle">▲ DoD</text>
+      </g>
 
       <!-- Arrow: Entire.io → File Tail Adapter (dashed) -->
       <line x1="565" y1="456" x2="145" y2="510" stroke="#64748b" stroke-width="1" opacity="0.4" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
@@ -548,8 +613,11 @@
 
   <!-- ── Legend ── -->
   <div class="legend-bar">
+    <div class="legend-item"><div class="legend-dot" style="background:#a855f7;"></div> Coherence Engineering</div>
     <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div> Notice</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#22d3ee;"></div> Knowledge</div>
     <div class="legend-item"><div class="legend-dot" style="background:#3b82f6;"></div> Pipeline</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ec4899;"></div> DoR / DoD Gates</div>
     <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div> Execute</div>
     <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6;"></div> Observe</div>
   </div>
@@ -564,6 +632,7 @@
         <li>CLI Tools (Tier 2)</li>
         <li>GitHub Actions (Tier 4)</li>
         <li>events.jsonl audit log</li>
+        <li>DoR / DoD gates (2026-04-14)</li>
       </ul>
     </div>
     <div class="phase-card specced">
@@ -573,6 +642,7 @@
         <li>File Tail Adapter</li>
         <li>Grafana Dashboard</li>
         <li>Trust Propagation pipeline</li>
+        <li>intent-knowledge MCP (port 8004)</li>
       </ul>
     </div>
     <div class="phase-card planned">
@@ -581,6 +651,8 @@
         <li>Slack Bot (Tier 3)</li>
         <li>AI Plugins (Tier 5)</li>
         <li>Self-hosted observability stack</li>
+        <li>Entire.io integration</li>
+        <li>Topography engine (2026-04-18)</li>
       </ul>
     </div>
   </div>
@@ -684,6 +756,68 @@ const DETAILS = {
       { icon: "\u{1F4CA}", label: "15 event types", desc: "OTel-compatible across 6 mechanisms" },
       { icon: "\u{1F517}", label: "OTel fields", desc: "trace_id, span_id, parent_id (v0.2.0)" },
       { icon: "\u{1F4C8}", label: "50+ events", desc: "Current event count in product repo" }
+    ]
+  },
+  "intent-knowledge": {
+    title: "intent-knowledge (Knowledge Engine MCP)",
+    color: "#22d3ee",
+    items: [
+      { icon: "\u{1F527}", label: "ingest", desc: "Compile raw/ sources \u2192 knowledge/ artifacts (personas, journeys, DDRs)" },
+      { icon: "\u{1F527}", label: "query", desc: "Query KB for personas, journeys, DDRs during spec authoring" },
+      { icon: "\u{1F527}", label: "lint", desc: "Detect gaps, contradictions, staleness \u2014 surfaces as signals to Notice" },
+      { icon: "\u{1F310}", label: "Port 8004", desc: "Added 2026-04-06 per DDR-005 (two-products decision)" },
+      { icon: "\u{1F6E1}\uFE0F", label: "Redaction", desc: "Tool-level confidentiality projection (DDR-016)" }
+    ]
+  },
+  "ce-discipline": {
+    title: "Coherence Engineering \u2014 Discipline",
+    color: "#a855f7",
+    items: [
+      { icon: "\u{1F9ED}", label: "Above Intent", desc: "Team/system discipline; Intent is reference implementation" },
+      { icon: "\u{1F4D0}", label: "5 axioms", desc: "Non-dup, non-compete, chainable, composable, portable + vision alignment" },
+      { icon: "\u{1F3D4}\uFE0F", label: "4 altitudes", desc: "Executional \u2192 Tactical \u2192 Op-Strategic \u2192 Strategic" },
+      { icon: "\u{1F91D}", label: "7 coexistence constraints", desc: "Adoption architecture for average orgs" },
+      { icon: "\u{1F4DC}", label: "DEFINITION.md", desc: "Core/frameworks/coherence-engineering/DEFINITION.md" }
+    ]
+  },
+  "ce-gate": {
+    title: "CE Evaluation Gate",
+    color: "#a855f7",
+    items: [
+      { icon: "\u{1F6AB}", label: "Rejects", desc: "Artifacts that fail any of the 5 axioms" },
+      { icon: "\u{1F3AF}", label: "Applies at", desc: "Every altitude identically; placement time" },
+      { icon: "\u{1F50D}", label: "Operational tests", desc: "Inventory lookup, boundary context, upstream/downstream bindings, atomicity, portability spec" },
+      { icon: "\u23F3", label: "Runtime", desc: "Not yet built; gate runtime is scoped to Topography engine" }
+    ]
+  },
+  "ce-topography": {
+    title: "Topography Engine (planned)",
+    color: "#475569",
+    items: [
+      { icon: "\u23F3", label: "Scheduled", desc: "2026-04-18 build session (SPEC-TOPO-001)" },
+      { icon: "\u{1F5FA}\uFE0F", label: "Claims", desc: "Cross-product active state, COMPACT step, coherence score, cross-session handoff" },
+      { icon: "\u{1F310}", label: "Port 8005", desc: "Next MCP server allocation after intent-knowledge" },
+      { icon: "\u26A1", label: "Consolidates", desc: ".intent/ dirs, MEMORY.md, overwatch, session-extraction" }
+    ]
+  },
+  "dor": {
+    title: "Definition of Ready (hard entry gate)",
+    color: "#ec4899",
+    items: [
+      { icon: "\u{1F6A6}", label: "Hard gate", desc: "Blocks intake if DoR criteria are not met (SIG-045, 2026-04-14)" },
+      { icon: "\u{1F4DC}", label: "Library", desc: "Core/frameworks/intent/knowledge-engine/templates/dor-dod-library.md" },
+      { icon: "\u{1F517}", label: "Work types", desc: "skill-build, spec-authoring, engagement-kickoff, persona-enrichment, critique-panel, engagement-closure" },
+      { icon: "\u{1F6E1}\uFE0F", label: "Enforcement", desc: "5-layer gate defense: hook, flag, banner, skill-intake, bypass-with-telemetry" }
+    ]
+  },
+  "dod": {
+    title: "Definition of Done (hard exit gate)",
+    color: "#ec4899",
+    items: [
+      { icon: "\u{1F6A6}", label: "Hard gate", desc: "Blocks closure until DoD criteria verified (SIG-046, 2026-04-14)" },
+      { icon: "\u{1F527}", label: "Remediation", desc: "On fail, routes to remediation rather than completion" },
+      { icon: "\u{1F4E4}", label: "Emits", desc: "DoD checkpoint events to events.jsonl for observability" },
+      { icon: "\u{1F4CA}", label: "Paired with", desc: "DoR \u2014 both are Intent primitives, not skill-specific" }
     ]
   },
   "dedup": {

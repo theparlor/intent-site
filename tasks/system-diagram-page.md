@@ -11,7 +11,7 @@ technologies:
   - slack
 depth_score: 4
 depth_signals:
-  file_size_kb: 15.7
+  file_size_kb: 15.6
   content_chars: 15011
   entity_count: 1
   slide_count: 0
@@ -20,11 +20,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.13
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
-  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
-  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
-  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
 ---
 # Task: Create system-diagram.html — Interactive Signal-to-Observation Flow
 

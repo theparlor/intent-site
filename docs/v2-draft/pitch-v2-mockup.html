@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intent — When AI writes the code, what's the team for?</title>
+  <meta name="description" content="Your AI writes code in an afternoon. Your team still plans it in a sprint. When implementation cost collapses, the bottleneck moves to specification clarity — and the practices built for the old bottleneck become the friction.">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .v2-container { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Hypothesis label (kept from original — this IS still a hypothesis) */
+    .hypothesis-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3);
+      color: var(--accent-amber);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+    }
+    .hypothesis-label .dot { width: 8px; height: 8px; background: var(--accent-amber); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* Hero */
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+    .hero h1 .highlight { color: var(--accent-blue); }
+    .hero .lede {
+      font-size: 20px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 740px;
+      margin-bottom: 32px;
+    }
+    .hero .lede strong { color: var(--text); }
+
+    /* ── Section 1: The Insight ── */
+    .insight-box {
+      background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(59,130,246,0.25);
+      padding: 32px 36px;
+      border-radius: 12px;
+      margin: 48px 0;
+    }
+    .insight-box h3 {
+      font-size: 14px;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .insight-box .claim {
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+    .insight-box .claim em { color: var(--accent-blue); font-style: normal; font-weight: 600; }
+
+    /* Bottleneck shift visual */
+    .bottleneck-shift {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      gap: 0;
+      align-items: center;
+      margin: 40px 0;
+    }
+    .bottleneck-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 10px;
+    }
+    .bottleneck-card.old { opacity: 0.6; }
+    .bottleneck-card h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .bottleneck-card.old h4 { color: var(--text-dim); }
+    .bottleneck-card.new h4 { color: var(--accent-amber); }
+    .bottleneck-card .metric {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .bottleneck-card.old .metric { color: var(--text-dim); text-decoration: line-through; }
+    .bottleneck-card.new .metric { color: var(--text); }
+    .bottleneck-card .desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .shift-arrow {
+      text-align: center;
+      font-size: 24px;
+      color: var(--text-dim);
+    }
+
+    /* ── Section 2: The Tragedy ── */
+    .section-head {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      margin-top: 56px;
+    }
+    .section-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+      max-width: 740px;
+    }
+
+    .tragedy-box {
+      background: rgba(220,38,38,0.04);
+      border: 1px solid rgba(220,38,38,0.2);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin: 32px 0;
+    }
+    .tragedy-box h3 {
+      font-size: 14px;
+      color: #fca5a5;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .tragedy-box p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .tragedy-box p:last-child { margin-bottom: 0; }
+    .tragedy-box strong { color: var(--text); }
+
+    .arc-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin: 0 0 16px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .arc-stage {
+      padding: 16px;
+      background: var(--surface);
+      text-align: center;
+    }
+    .arc-stage .stage-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .arc-stage .stage-desc {
+      font-size: 10px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+    .arc-caption {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    /* The pull quote — the forwardable line */
+    .pull-quote {
+      margin: 40px 0;
+      padding: 24px 32px;
+      border-left: 3px solid var(--accent-amber);
+      background: rgba(245,158,11,0.04);
+      border-radius: 0 8px 8px 0;
+    }
+    .pull-quote p {
+      font-size: 18px;
+      color: var(--text);
+      line-height: 1.5;
+      font-weight: 500;
+      margin: 0;
+    }
+    .pull-quote p em { color: var(--accent-amber); font-style: normal; }
+
+    /* ── Section 3: The Discipline ── */
+    .discipline-intro {
+      background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(16,185,129,0.25);
+      padding: 32px 36px;
+      border-radius: 12px;
+      margin: 32px 0;
+    }
+    .discipline-intro h3 {
+      font-size: 14px;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .discipline-intro p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .discipline-intro p:last-child { margin-bottom: 0; }
+    .discipline-intro strong { color: var(--text); }
+
+    /* Progression strip */
+    .progression {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin: 32px 0 16px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .prog-level {
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .prog-level.l1 { background: rgba(100,116,139,0.12); }
+    .prog-level.l2 { background: rgba(100,116,139,0.20); }
+    .prog-level.l3 { background: rgba(59,130,246,0.12); }
+    .prog-level.l4 { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); }
+    .prog-level .level-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .prog-level.l1 .level-name { color: var(--text-dim); }
+    .prog-level.l2 .level-name { color: var(--text-muted); }
+    .prog-level.l3 .level-name { color: var(--accent-blue); }
+    .prog-level.l4 .level-name { color: var(--accent-green); }
+    .prog-level .level-scope {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .prog-level .level-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    .progression-caption {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    /* ── Section 4: The Method ── */
+    .phase-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 32px 0;
+    }
+    .phase {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 18px;
+      border-radius: 10px;
+    }
+    .phase h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .phase.notice { border-top: 3px solid var(--accent-amber); }
+    .phase.notice h3 { color: var(--accent-amber); }
+    .phase.spec { border-top: 3px solid var(--accent-blue); }
+    .phase.spec h3 { color: var(--accent-blue); }
+    .phase.execute { border-top: 3px solid var(--accent-green); }
+    .phase.execute h3 { color: var(--accent-green); }
+    .phase.observe { border-top: 3px solid #a855f7; }
+    .phase.observe h3 { color: #a855f7; }
+    .phase .tagline { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+    .phase p { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+    .phase .compounds {
+      font-size: 11px;
+      color: var(--accent-green);
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-weight: 600;
+    }
+
+    /* ── Section 5: Coexistence ── */
+    .coexist-box {
+      background: linear-gradient(135deg, rgba(168,85,247,0.05) 0%, rgba(15,23,42,0.3) 100%);
+      border: 1px solid rgba(168,85,247,0.2);
+      padding: 28px 32px;
+      border-radius: 12px;
+      margin: 32px 0;
+    }
+    .coexist-box h3 {
+      font-size: 14px;
+      color: #a855f7;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .coexist-box p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    .coexist-box p:last-child { margin-bottom: 0; }
+    .coexist-box strong { color: var(--text); }
+
+    /* Target user */
+    .who-for {
+      background: var(--surface);
+      border-left: 3px solid var(--accent-blue);
+      padding: 20px 24px;
+      margin: 40px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .who-for .label { font-size: 11px; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .who-for p { font-size: 16px; color: var(--text); line-height: 1.6; margin: 0; }
+    .who-for .range { color: var(--text-dim); font-size: 13px; margin-top: 8px; }
+
+    /* Lineage */
+    .lineage-strip {
+      margin: 48px 0;
+      padding: 24px;
+      background: rgba(168,85,247,0.03);
+      border: 1px solid rgba(168,85,247,0.15);
+      border-radius: 10px;
+    }
+    .lineage-strip h3 { font-size: 12px; color: #a855f7; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+    .lineage-strip p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .lineage-strip .credit { color: var(--text); font-weight: 600; }
+
+    /* CTAs */
+    .ctas {
+      display: flex;
+      gap: 12px;
+      margin: 48px 0 24px;
+      flex-wrap: wrap;
+    }
+    .cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all 0.15s;
+    }
+    .cta.primary { background: var(--accent-blue); color: white; }
+    .cta.primary:hover { background: #2563eb; }
+    .cta.secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .cta.secondary:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .cta .arrow { transition: transform 0.15s; }
+    .cta:hover .arrow { transform: translateX(3px); }
+
+    /* Honesty box */
+    .honesty-box {
+      background: rgba(220,38,38,0.03);
+      border: 1px solid rgba(220,38,38,0.15);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin: 48px 0 24px;
+    }
+    .honesty-box h3 { font-size: 13px; color: #fca5a5; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 700; }
+    .honesty-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
+    .honesty-box p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .progression { grid-template-columns: 1fr 1fr; }
+      .phase-cards { grid-template-columns: 1fr 1fr; }
+      .arc-strip { grid-template-columns: 1fr 1fr; }
+      .bottleneck-shift { grid-template-columns: 1fr; gap: 12px; }
+      .shift-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="pitch.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch-v2-mockup.html" class="active">The Hypothesis</a>
+    <a href="the-system.html">The System</a>
+    <a href="the-build.html">The Build</a>
+    <a href="the-proof.html">The Proof</a>
+  </nav>
+
+  <div class="v2-container">
+
+    <div class="hypothesis-label">
+      <span class="dot"></span>
+      Active research hypothesis &middot; v0 &middot; public dogfood
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- 1. THE CONTRADICTION (felt, immediate)      -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="hero">
+      <h1>Your AI writes code in an afternoon.<br>Your team still plans it in a <span class="highlight">sprint</span>.</h1>
+      <p class="lede">
+        When implementation cost collapses, <strong>the bottleneck moves upstream to specification clarity</strong> &mdash; and the coordination practices built for the old bottleneck become the friction. This is a hypothesis. We are testing it in public.
+      </p>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- 2. THE INSIGHT (structural, testable)       -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="insight-box">
+      <h3>The bottleneck shifted</h3>
+      <p class="claim">
+        The expensive part of software delivery moved from <em>writing code</em> to <em>getting the specification right</em>. Your estimation rituals, sprint ceremonies, and ticket-based coordination tools were built to manage the cost of implementation. That cost collapsed. The tools didn't notice.
+      </p>
+    </div>
+
+    <div class="bottleneck-shift">
+      <div class="bottleneck-card old">
+        <h4>The old bottleneck</h4>
+        <div class="metric">Implementation</div>
+        <div class="desc">Writing, testing, integrating code across a team. Estimation existed because this was expensive and unpredictable.</div>
+      </div>
+      <div class="shift-arrow">&rarr;</div>
+      <div class="bottleneck-card new">
+        <h4>The new bottleneck</h4>
+        <div class="metric">Specification</div>
+        <div class="desc">Knowing what should exist, why it should exist, and how to verify it exists correctly. This was always hard. Now it's the constraint.</div>
+      </div>
+    </div>
+
+    <div class="who-for">
+      <div class="label">Who this is for</div>
+      <p>Staff+ engineers on teams of 2&ndash;7 using Claude Code daily who feel the mismatch between how fast they can build and how slow their coordination practices move.</p>
+      <div class="range">Optimal team size: 2&ndash;5. Over 7 is explicitly out of scope.</div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- 3. THE TRAGEDY (emotional, forwardable)     -->
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-head">The thing you're about to lose</h2>
+    <p class="section-subtitle">
+      Corporate leadership sees one person + agents producing at the pace of five. The math says cut teams. But the math is missing a variable.
+    </p>
+
+    <div class="tragedy-box">
+      <h3>The broken growth arc</h3>
+      <div class="arc-strip">
+        <div class="arc-stage">
+          <div class="stage-name">Programmer</div>
+          <div class="stage-desc">Learned syntax, executed known patterns</div>
+        </div>
+        <div class="arc-stage">
+          <div class="stage-name">Developer</div>
+          <div class="stage-desc">Composed patterns to solve tangential problems</div>
+        </div>
+        <div class="arc-stage">
+          <div class="stage-name">Engineer</div>
+          <div class="stage-desc">Applied CS principles to define and frame problems</div>
+        </div>
+        <div class="arc-stage">
+          <div class="stage-name">Architect</div>
+          <div class="stage-desc">Read and designed systems from lived experience</div>
+        </div>
+      </div>
+      <div class="arc-caption">Each stage forced internalization of patterns through friction. The friction was the teacher.</div>
+      <p>
+        AI-assisted coding lets a junior <strong>skip the friction</strong> and produce senior-looking output. But the output wasn't the point &mdash; the <strong>compression</strong> was. You learned to read architecture because you'd built things that failed. You could communicate about pattern choices because you'd lived the consequences.
+      </p>
+      <p>
+        Now you <strong>can't smell their code</strong> to see where someone needs to grow. The personal patterns your team learned to expect from you &mdash; gone. Code review shifts from logic and syntax to detecting <strong>full-blown infestations of extraneous code</strong> and architecture pattern injections the agent snuck in.
+      </p>
+    </div>
+
+    <div class="pull-quote">
+      <p>Cut the teams to save money, and within a few years you have people who can produce enormous volumes of code but <em>can't tell you why any of it should exist</em>.</p>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- 4. THE DISCIPLINE (the answer, named)       -->
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-head">What replaces agile's coordination function</h2>
+    <p class="section-subtitle">
+      Agile solved for the friction of humans working together on code. AI removes much of that friction. But it doesn't remove the need for <strong>coherence</strong> &mdash; ensuring that multiple people, each directing their own agents, produce outputs that compose into a system that makes sense.
+    </p>
+
+    <div class="discipline-intro">
+      <h3>Coherence engineering</h3>
+      <p>
+        A new discipline for AI-augmented teams. Not about making agents behave consistently (that's context engineering). Not about making prompts effective (that's prompt engineering). <strong>Coherence engineering ensures that the outputs of multiple human+agent producers compose into a system that holds together, compounds value over time, and serves a shared intent.</strong>
+      </p>
+      <p>
+        The question it answers: agile's ceremonies evaporate after each sprint &mdash; you pay the coordination cost and get nothing durable back. What if the coordination activity itself produced artifacts that made the next cycle better? Specs that reference each other. Contracts that interlock across boundaries. Design decisions that trace back to observed signals. <strong>That's what compounding looks like.</strong>
+      </p>
+    </div>
+
+    <div class="progression">
+      <div class="prog-level l1">
+        <div class="level-name">Prompt Engineering</div>
+        <div class="level-scope">Utterance</div>
+        <div class="level-desc">What you say to the model</div>
+      </div>
+      <div class="prog-level l2">
+        <div class="level-name">Context Engineering</div>
+        <div class="level-scope">Session</div>
+        <div class="level-desc">What the model sees when it thinks</div>
+      </div>
+      <div class="prog-level l3">
+        <div class="level-name">Harness Engineering</div>
+        <div class="level-scope">Workflow</div>
+        <div class="level-desc">Scaffolding for reliable execution</div>
+      </div>
+      <div class="prog-level l4">
+        <div class="level-name">Coherence Engineering</div>
+        <div class="level-scope">Team / System</div>
+        <div class="level-desc">Multiple producers composing into a coherent whole</div>
+      </div>
+    </div>
+    <p class="progression-caption">Each level contains the ones below it. You can't do coherence engineering without good context engineering.</p>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- 5. THE METHOD (Intent, concrete)            -->
+    <!-- ════════════════════════════════════════════ -->
+    <h2 class="section-head">Intent: a reference implementation</h2>
+    <p class="section-subtitle">
+      Coherence engineering is the discipline. Intent is one way to practice it. A continuous loop that replaces sprint ceremonies with compounding artifacts.
+    </p>
+
+    <div class="phase-cards">
+      <div class="phase notice">
+        <h3>&#9650; Notice</h3>
+        <div class="tagline">Capture signals</div>
+        <p>Friction, questions, anomalies from anywhere work happens. Every signal is atomic and trust-scored.</p>
+        <div class="compounds">Compounds: signal patterns reveal systemic issues</div>
+      </div>
+      <div class="phase spec">
+        <h3>&#9670; Spec</h3>
+        <div class="tagline">Shape contracts</div>
+        <p>Transform signals into agent-ready specifications with verifiable contracts. The specification IS the coordination.</p>
+        <div class="compounds">Compounds: specs reference each other across teams</div>
+      </div>
+      <div class="phase execute">
+        <h3>&#9679; Execute</h3>
+        <div class="tagline">Agents build</div>
+        <p>Agents implement against contracts. Trust-gated at five autonomy levels. Contracts pass or fail with evidence.</p>
+        <div class="compounds">Compounds: trust calibrates with each execution</div>
+      </div>
+      <div class="phase observe">
+        <h3>&#9675; Observe</h3>
+        <div class="tagline">Close the loop</div>
+        <p>Runtime feedback becomes new signals. What was learned persists. The loop doesn't reset &mdash; it builds.</p>
+        <div class="compounds">Compounds: observations feed the next notice cycle</div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════ -->
+    <!-- 6. COEXISTENCE (practical, non-threatening)  -->
+    <!-- ════════════════════════════════════════════ -->
+    <div class="coexist-box">
+      <h3>This doesn't replace what you have</h3>
+      <p>
+        Intent <strong>doesn't require</strong> you to abandon your quarterly reviews, your program management, or your financial governance. It produces structured artifacts that feed those existing practices with <strong>better inputs</strong>. Your VP still makes decisions. Your director still presents the roadmap. They just have signal they never had before.
+      </p>
+      <p>
+        No one has to change their identity. No one has to take a leap of faith. <strong>The artifacts make the case</strong> &mdash; or they don't.
+      </p>
+    </div>
+
+    <!-- Honesty box (kept from original — still a hypothesis) -->
+    <div class="honesty-box">
+      <h3>What you're not going to find here</h3>
+      <p>This is not production software. It's an active research hypothesis being tested in public. Intent is a methodology running on itself. We are honest about what works, what doesn't, and where the evidence is thin. <a href="the-proof.html">The Proof</a> page shows the receipts.</p>
+      <p>If fewer than 7 of 10 discovery participants independently identify specification clarity as a bottleneck, the hypothesis is wrong and we'll say so.</p>
+    </div>
+
+    <!-- Lineage -->
+    <div class="lineage-strip">
+      <h3>Standing on shoulders</h3>
+      <p><span class="credit">Teresa Torres</span> (continuous discovery) &middot; <span class="credit">Jeff Patton</span> (story mapping) &middot; <span class="credit">Marty Cagan</span> &amp; <span class="credit">Melissa Perri</span> (product models) &middot; <span class="credit">Josh Seiden</span> (outcomes) &middot; <span class="credit">John Boyd</span> (OODA) &middot; <span class="credit">Deming</span> (PDCA) &middot; <span class="credit">Eric Ries</span> (build-measure-learn) &middot; <span class="credit">Dex Horthy</span> (context engineering)</p>
+    </div>
+
+    <!-- CTAs -->
+    <div class="ctas">
+      <a href="the-system.html" class="cta primary">How the loop runs <span class="arrow">&rarr;</span></a>
+      <a href="the-build.html" class="cta secondary">The architecture <span class="arrow">&rarr;</span></a>
+      <a href="the-proof.html" class="cta secondary">The evidence <span class="arrow">&rarr;</span></a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> &middot; Built with the Intent methodology &middot; Active hypothesis &middot; &copy; The Parlor</p>
+  </footer>
+</body>
+</html>

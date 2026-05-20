@@ -1,3 +1,31 @@
+---
+title: Archive
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+frameworks:
+  - psychological-safety
+depth_score: 4
+depth_signals:
+  file_size_kb: 3.5
+  content_chars: 2740
+  entity_count: 1
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 0
+vocab_density: 0.36
+related_entities:
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
+---
 # Archive — v1.2 multi-framing snapshot
 
 **Frozen:** 2026-04-09

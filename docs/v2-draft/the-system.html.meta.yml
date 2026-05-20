@@ -1,0 +1,33 @@
+---
+title: The System
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+thought_leaders:
+  - jeff-patton
+  - teresa-torres
+  - josh-seiden
+  - w-edwards-deming
+summary: "The System — How Intent actually works I ntent The Hypothesis The System The Build The Proof ▸ Zone 2 of 4 · The System How the loop actually runs The System zone covers the methodology layer: the Not..."
+content_excerpt: "The System — How Intent actually works I ntent The Hypothesis The System The Build The Proof ▸ Zone 2 of 4 · The System How the loop actually runs The System zone covers the methodology layer: the Notice → Spec → Execute → Observe loop, the work ontology it produces, the spec-shaping protocol that turns intents into agent-ready specs, and the dogfood evidence from Intent building itself. It's less technical than The Build and more operational than The Hypothesis. Intent The loop ▲ Notice Capture"
+depth_score: 4
+depth_signals:
+  file_size_kb: 15.6
+  content_chars: 1418
+  entity_count: 4
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: marty-cagan ↔ teresa-torres, count: 185, strength: 0.371}
+  - {pair: jeff-patton ↔ teresa-torres, count: 121, strength: 0.32}
+  - {pair: jeff-patton ↔ marty-cagan, count: 121, strength: 0.271}
+  - {pair: josh-seiden ↔ marty-cagan, count: 83, strength: 0.189}
+  - {pair: product-engineering-coaching ↔ teresa-torres, count: 81, strength: 0.079}
+---

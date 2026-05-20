@@ -10,7 +10,7 @@ created: 2026-03-31
 depth_score: 4
 depth_signals:
   file_size_kb: 10.2
-  content_chars: 9937
+  content_chars: 9946
   entity_count: 0
   slide_count: 0
   sheet_count: 0
@@ -59,7 +59,7 @@ These pages were identified by the ARB review as gaps in the site's ability to d
 | Walkthrough | walkthrough.html | Rich | 1 (Story) | 15KB | New — End-to-end trace of one real intent |
 | Observe | observe.html | Rich | 2 (System) | 12KB | New — Observe phase narrative, loop closure |
 | Getting Started | getting-started.html | Rich | 2 (System) | 13KB | New — Adoption onramp, "30 minutes to Intent" |
-| Voices | personas.html | Rich | 2 (System) | 40KB | New — 178+ persona catalog, 7 archetypes, filters, freshening pipeline |
+| Persona Catalog | personas.html | Rich | 2 (System) | 40KB | New — 178+ persona catalog, 7 archetypes, filters, freshening pipeline |
 
 ### Supporting Pages (no nav active state)
 

@@ -1,0 +1,22 @@
+---
+title: Native Repos
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+summary: "Intent-Native Repos I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Source: github.com/theparlor/intent &middot; Built with the Intent meth..."
+content_excerpt: "Intent-Native Repos I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Source: github.com/theparlor/intent &middot; Built with the Intent methodology"
+depth_score: 3
+depth_signals:
+  file_size_kb: 13.3
+  content_chars: 834
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---

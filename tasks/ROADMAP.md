@@ -12,7 +12,7 @@ created: 2026-03-31
 depth_score: 4
 depth_signals:
   file_size_kb: 15.4
-  content_chars: 14952
+  content_chars: 14972
   entity_count: 0
   slide_count: 0
   sheet_count: 0
@@ -20,11 +20,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.27
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
-  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
-  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
-  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
 ---
 # Site Tasks Roadmap — Execution Plan for Terminal Claude
 
@@ -290,14 +290,14 @@ The Unified Persona System (178+ thought leaders, 7 archetypes) gets its own sit
 
 | Task | Pages affected | Status | Verification |
 |------|---------------|--------|--------------|
-| Create personas.html | new page | DONE | 79KB, 178 cards, archetype cards, voice catalog, filters |
-| Update P2 sub-nav | 9 existing P2 pages | DONE | All pages have "Voices" link after "Signals" |
+| Create personas.html | new page | DONE | 79KB, 178 cards, archetype cards, persona catalog, filters |
+| Update P2 sub-nav | 9 existing P2 pages | DONE | All pages have "Persona Catalog" link after "Signals" |
 | Update site-ia.md | governance | DONE | P2 table, sub-nav template, cross-links |
 | Update CLAUDE.md | governance | DONE | P2 page list, sub-nav label order |
 | Wire cross-links | agents, arb, methodology, personas | DONE | 6 cross-links wired |
 | Update site-spec.md | governance | DONE | personas.html added to inventory |
 | Update content-map.md | governance | DONE | 8 persona claim mappings added |
-| Contract verification | all pages | DONE | All P2 pages have Voices link |
+| Contract verification | all pages | DONE | All P2 pages have Persona Catalog link |
 
 **Task spec:** `tasks/personas-page.md`
 

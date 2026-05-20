@@ -12,7 +12,7 @@ technologies:
 depth_score: 4
 depth_signals:
   file_size_kb: 15.5
-  content_chars: 14860
+  content_chars: 14950
   entity_count: 1
   slide_count: 0
   sheet_count: 0
@@ -20,11 +20,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.13
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
-  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
-  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
-  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
 ---
 # Intent Site — Information Architecture v2
 
@@ -69,15 +69,15 @@ Think of it like a building with three wings. You enter through the lobby (home/
 | Depth | System Map | system-diagram.html | Interactive signal-to-observation flow. 5 capture surfaces, enrichment pipeline, spec/execute, OTel observe layer. Click-to-explore detail panels. |
 | Depth | Schemas | schemas.html | Data contracts — signal schema, spec schema, execution record schema. The type system behind the system. |
 | Depth | Signals | signals.html | Live signal stream — 15 signal cards, trust scores, clustering, pattern detection. |
-| Depth | Voices | personas.html | The 178+ thought leader personas that power spec-shaping, ARB critique, and discovery. 7 archetypes, filterable catalog, freshening pipeline. |
+| Depth | Persona Catalog | personas.html | The 178+ thought leader personas that power spec-shaping, ARB critique, and discovery. 7 archetypes, filterable catalog, freshening pipeline. |
 | Depth | Dogfood | dogfood.html | Intent building Intent. Self-referential proof — the system's own signal stream, specs, and event log. |
 | Depth | Observe | observe.html | **NEW (ARB review).** What it means to observe: how loop closure works, what dashboards reveal, how observations become new signals. The Observe phase narrative — the most powerful concept deserves its own page. |
 | Depth | Event Catalog | event-catalog.html | Catalog of event types in the system. **Expanding (ARB review) — will contain all 15 event types with schemas, triggers, and examples.** |
 | Depth | Getting Started | getting-started.html | **NEW (ARB review).** The adoption onramp: stitches deployment + native-repos + CLI into a single "adopt Intent in 30 minutes" path. Distinguishes evaluators from adopters. |
 
-**Sub-nav label order:** Flow · System Map · Schemas · Signals · Voices · Dogfood · Observe · Events · Start
+**Sub-nav label order:** Flow · System Map · Schemas · Signals · Persona Catalog · Dogfood · Observe · Events · Start
 
-**Why this grouping:** These pages answer "how does it actually work?" from different angles — operational (work system), visual (flow), structural (schemas), live data (signals), advisory (voices), proof (dogfood), narrative (observe), reference (events), and practical (getting started). A visitor who understands the concept naturally wants to see it in action, hear the voices that challenge it, then try it.
+**Why this grouping:** These pages answer "how does it actually work?" from different angles — operational (work system), visual (flow), structural (schemas), live data (signals), advisory (persona catalog), proof (dogfood), narrative (observe), reference (events), and practical (getting started). A visitor who understands the concept naturally wants to see it in action, hear the voices that challenge it, then try it.
 
 ---
 
@@ -143,7 +143,7 @@ Each pillar's hero page AND depth pages show the same sub-nav below the primary 
   <a href="system-diagram.html">System Map</a>
   <a href="schemas.html">Schemas</a>
   <a href="signals.html">Signals</a>
-  <a href="personas.html">Voices</a>
+  <a href="personas.html">Persona Catalog</a>
   <a href="dogfood.html">Dogfood</a>
   <a href="observe.html">Observe</a>
   <a href="event-catalog.html">Events</a>
@@ -222,12 +222,12 @@ Cross-links connect related content across pillars. These are inline contextual 
 | Walkthrough (Pillar 1) → | Schemas (Pillar 2) | "See the data contracts behind each artifact" |
 | System Diagram (Pillar 2) → | Architecture (Pillar 3) | "See the MCP server topology" |
 | System Diagram (Pillar 2) → | Observe (Pillar 2) | "Understand what the Observe layer reveals" |
-| Voices (Pillar 2) → | Agents (Pillar 3) | "See the spec-shaping protocol that invokes these voices" |
-| Voices (Pillar 2) → | ARB (Pillar 3) | "See how architectural decisions are challenged" |
-| Voices (Pillar 2) → | Methodology (Pillar 1) | "How discovery uses persona critique" |
-| Agents (Pillar 3) → | Voices (Pillar 2) | "Meet the 178 voices behind spec-shaping" |
-| ARB (Pillar 3) → | Voices (Pillar 2) | "The advisory voices that challenge decisions" |
-| Methodology (Pillar 1) → | Voices (Pillar 2) | "The thought leaders who shape every spec" |
+| Persona Catalog (Pillar 2) → | Agents (Pillar 3) | "See the spec-shaping protocol that invokes these voices" |
+| Persona Catalog (Pillar 2) → | ARB (Pillar 3) | "See how architectural decisions are challenged" |
+| Persona Catalog (Pillar 2) → | Methodology (Pillar 1) | "How discovery uses persona critique" |
+| Agents (Pillar 3) → | Persona Catalog (Pillar 2) | "Meet the 178 voices behind spec-shaping" |
+| ARB (Pillar 3) → | Persona Catalog (Pillar 2) | "The advisory voices that challenge decisions" |
+| Methodology (Pillar 1) → | Persona Catalog (Pillar 2) | "The thought leaders who shape every spec" |
 
 ---
 

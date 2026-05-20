@@ -11,7 +11,7 @@ summary: "Product Catalog — Intent I ntent The Story The System The Build Over
 content_excerpt: "Product Catalog — Intent I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Product Catalog Every product Brien builds, governed by Intent. Each has a GitHub repo, an Intent manifest, tracked signals, and recorded decisions. Status: Noticed Spec Execute Observe Source: github.com/theparlor/intent · Built with the Intent methodology"
 depth_score: 3
 depth_signals:
-  file_size_kb: 10.1
+  file_size_kb: 10.7
   content_chars: 1198
   entity_count: 0
   slide_count: 0

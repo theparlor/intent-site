@@ -9,8 +9,8 @@ domains:
 created: 2026-04-09
 depth_score: 4
 depth_signals:
-  file_size_kb: 7.2
-  content_chars: 7146
+  file_size_kb: 7.4
+  content_chars: 7197
   entity_count: 0
   slide_count: 0
   sheet_count: 0
@@ -32,16 +32,16 @@ The intent-site currently has no representation of this system. The agents.html 
 
 **Pillar 2 — "The System"** (How It Works)
 
-**Sub-nav label:** `Voices`
+**Sub-nav label:** `Persona Catalog`
 
 **Sub-nav position:** After "Signals", before "Dogfood"
 
 Updated Pillar 2 sub-nav:
 ```
-Overview · Flow · System Map · Schemas · Signals · Voices · Dogfood · Observe · Events · Start
+Overview · Flow · System Map · Schemas · Signals · Persona Catalog · Dogfood · Observe · Events · Start
 ```
 
-**Rationale:** Personas are an operational component — they're HOW the system produces depth. Signals surface observations; Voices interpret and challenge them. This is a natural narrative: see signals → hear the voices that analyze them → see the system dogfooding itself.
+**Rationale:** Personas are an operational component — they're HOW the system produces depth. Signals surface observations; the persona catalog interprets and challenges them. This is a natural narrative: see signals → hear the voices that analyze them → see the system dogfooding itself.
 
 ## Page Structure: personas.html
 
@@ -128,7 +128,7 @@ Generate card content from:
 
 ## Sub-Nav Update (ALL Pillar 2 pages)
 
-Must update the sub-nav on ALL 9 existing Pillar 2 pages to add "Voices":
+Must update the sub-nav on ALL 9 existing Pillar 2 pages to add "Persona Catalog":
 
 ```html
 <nav class="sub-nav">
@@ -137,7 +137,7 @@ Must update the sub-nav on ALL 9 existing Pillar 2 pages to add "Voices":
   <a href="system-diagram.html">System Map</a>
   <a href="schemas.html">Schemas</a>
   <a href="signals.html">Signals</a>
-  <a href="personas.html">Voices</a>
+  <a href="personas.html">Persona Catalog</a>
   <a href="dogfood.html">Dogfood</a>
   <a href="observe.html">Observe</a>
   <a href="event-catalog.html">Events</a>

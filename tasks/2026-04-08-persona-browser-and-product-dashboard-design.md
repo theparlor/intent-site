@@ -12,7 +12,7 @@ thought_leaders:
   - teresa-torres
 depth_score: 4
 depth_signals:
-  file_size_kb: 17.6
+  file_size_kb: 18.2
   content_chars: 17713
   entity_count: 2
   slide_count: 0
@@ -21,11 +21,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.40
 related_entities:
-  - {pair: consulting-operations ↔ subaru, count: 836, strength: 0.43}
-  - {pair: consulting-operations ↔ automotive-manufacturing, count: 791, strength: 0.409}
-  - {pair: consulting-operations ↔ engagement-management, count: 507, strength: 0.262}
-  - {pair: consulting-operations ↔ turnberry, count: 472, strength: 0.226}
-  - {pair: consulting-operations ↔ foot-locker, count: 256, strength: 0.133}
+  - {pair: marty-cagan ↔ teresa-torres, count: 185, strength: 0.371}
+  - {pair: jeff-patton ↔ teresa-torres, count: 121, strength: 0.32}
+  - {pair: jeff-patton ↔ marty-cagan, count: 121, strength: 0.271}
+  - {pair: marty-cagan ↔ product-engineering-coaching, count: 96, strength: 0.089}
+  - {pair: coaching-methodology ↔ marty-cagan, count: 92, strength: 0.089}
 ---
 # Design Spec: Persona Browser & Products Built with Intent
 

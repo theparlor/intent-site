@@ -1,0 +1,31 @@
+---
+title: Methodology
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+technologies:
+  - jira
+  - slack
+summary: "Methodology - Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap Methodology The notice→spec→execute→observe loop Intent is built on a four-step loop ..."
+content_excerpt: "Methodology - Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap Methodology The notice→spec→execute→observe loop Intent is built on a four-step loop that turns everyday problems into structured, observable work. The Intent loop (Layer 2: Transformation OS) operates over a compiled knowledge base (Layer 1) and produces running software specifications (Layer 3). See Architecture for the three-layer model. 1. Notice Notice is where it starts. You'r"
+depth_score: 4
+depth_signals:
+  file_size_kb: 11.8
+  content_chars: 1419
+  entity_count: 2
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.40
+related_entities:
+  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
+  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
+---
