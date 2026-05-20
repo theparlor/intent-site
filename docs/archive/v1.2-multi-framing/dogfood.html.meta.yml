@@ -1,0 +1,22 @@
+---
+title: Dogfood
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+summary: "Dogfooding — Intent Building Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start Intent building Intent Every artifact on this si..."
+content_excerpt: "Dogfooding — Intent Building Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start Intent building Intent Every artifact on this site was created using the methodology it describes. This page shows the live state of Intent's own signal stream, specifications, and event log &mdash; proof the system works by working on itself. 43 Signals captured 19 Spec documents 19 Decisions 4 MCP servers 6 Knowledge artifacts The meta-loop Int"
+depth_score: 4
+depth_signals:
+  file_size_kb: 24.2
+  content_chars: 1415
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+---

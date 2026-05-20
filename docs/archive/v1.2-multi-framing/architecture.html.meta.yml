@@ -1,0 +1,22 @@
+---
+title: Architecture
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+summary: "Intent — Multi-Agent MCP Architecture I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Technical Architecture Multi-Agent MCP Architecture F..."
+content_excerpt: "Intent — Multi-Agent MCP Architecture I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Technical Architecture Multi-Agent MCP Architecture Four MCP servers, a three-layer architecture, and six Claude Code subagents map the Intent loop into a deployable, trust-gated system. Each server owns a domain. Each agent connects to the relevant servers. Architecture 00 Three-Layer Architecture The v1.0 Intent architecture stacks three layers: com"
+depth_score: 4
+depth_signals:
+  file_size_kb: 27.2
+  content_chars: 1420
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 1.39
+---

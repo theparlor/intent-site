@@ -1,0 +1,39 @@
+---
+title: Lineage
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+thought_leaders:
+  - marty-cagan
+  - jeff-patton
+  - teresa-torres
+  - josh-seiden
+  - matthew-skelton
+  - manuel-pais
+  - john-kotter
+  - richard-rumelt
+  - w-edwards-deming
+  - petra-wille
+summary: "Intellectual Lineage — Intent I ntent The Hypothesis The System The Build The Proof ▸ Sub-section of The Hypothesis ▸ Intellectual lineage Intent is a synthesis, not an invention The Notice → Spec → E..."
+content_excerpt: "Intellectual Lineage — Intent I ntent The Hypothesis The System The Build The Proof ▸ Sub-section of The Hypothesis ▸ Intellectual lineage Intent is a synthesis, not an invention The Notice → Spec → Execute → Observe loop is a rename of patterns our field has known for decades. We credit the ancestors explicitly because credibility travels with lineage, and because pretending we invented any of this would insult the people who actually did. ▸ The thesis Intent as synthesis is a stronger story th"
+depth_score: 5
+depth_signals:
+  file_size_kb: 19.0
+  content_chars: 1415
+  entity_count: 10
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: manuel-pais ↔ matthew-skelton, count: 240, strength: 0.661}
+  - {pair: manuel-pais ↔ team-topologies, count: 207, strength: 0.845}
+  - {pair: matthew-skelton ↔ team-topologies, count: 207, strength: 0.572}
+  - {pair: marty-cagan ↔ teresa-torres, count: 185, strength: 0.371}
+  - {pair: matthew-skelton ↔ mik-kersten, count: 179, strength: 0.416}
+---

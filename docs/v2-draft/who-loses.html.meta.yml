@@ -1,0 +1,33 @@
+---
+title: Who Loses
+type: framework
+maturity: final
+confidentiality: shareable
+reusability: universal
+domains:
+  - consulting-operations
+created: 2026-04-11
+technologies:
+  - jira
+thought_leaders:
+  - teresa-torres
+  - john-kotter
+summary: "Who loses power when Intent is adopted I ntent The Hypothesis The System The Build The Proof ▸ Adoption · Power Shift Who loses power when Intent is adopted Hiding the losers from the pitch guarantees..."
+content_excerpt: "Who loses power when Intent is adopted I ntent The Hypothesis The System The Build The Proof ▸ Adoption · Power Shift Who loses power when Intent is adopted Hiding the losers from the pitch guarantees resistance you never see coming, because the resistance forms in rooms you're not in. Intent changes who holds power on a team. Some roles gain. Some lose. Some will actively resist adoption and have legitimate reasons to do so. Here is the honest map. ▸ Gains power Solo ICs with high spec clarity"
+depth_score: 4
+depth_signals:
+  file_size_kb: 13.4
+  content_chars: 1415
+  entity_count: 3
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 1
+  has_summary: 1
+vocab_density: 0.00
+related_entities:
+  - {pair: marty-cagan ↔ teresa-torres, count: 185, strength: 0.371}
+  - {pair: john-kotter ↔ matthew-skelton, count: 134, strength: 0.322}
+  - {pair: john-kotter ↔ mik-kersten, count: 133, strength: 0.435}
+  - {pair: john-kotter ↔ richard-rumelt, count: 130, strength: 0.518}
+  - {pair: john-kotter ↔ transformation-operating-system, count: 122, strength: 0.642}
+---

@@ -10,7 +10,7 @@ created: 2026-03-31
 depth_score: 4
 depth_signals:
   file_size_kb: 7.2
-  content_chars: 6820
+  content_chars: 6829
   entity_count: 0
   slide_count: 0
   sheet_count: 0
@@ -76,7 +76,7 @@ Sub-nav: Overview · Concept Brief · Methodology · Walkthrough · Roadmap
 ### Pillar 2 — The System (work-system.html is hero)
 Pages: work-system.html, flow-diagram.html, system-diagram.html, schemas.html, signals.html, personas.html, dogfood.html, observe.html, event-catalog.html, getting-started.html
 Primary nav active: "The System"
-Sub-nav: Overview · Flow · System Map · Schemas · Signals · Voices · Dogfood · Observe · Events · Start
+Sub-nav: Overview · Flow · System Map · Schemas · Signals · Persona Catalog · Dogfood · Observe · Events · Start
 
 ### Pillar 3 — The Build (architecture.html is hero)
 Pages: architecture.html, agents.html, deployment.html, observability.html, arb.html, decisions.html, native-repos.html, products.html

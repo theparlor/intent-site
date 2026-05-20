@@ -11,7 +11,7 @@ summary: "Walkthrough — Intent I ntent The Story The System The Build Overview
 content_excerpt: "Walkthrough — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap END-TO-END WALKTHROUGH Follow One Intent Here's what happens when a single signal triggers the entire loop &mdash; from the moment it's noticed to the new signals it produces. This walkthrough traces a real signal &mdash; SIG-010 , \"Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions\" &mdash; through the complete Intent loop. Every ID, time"
 depth_score: 4
 depth_signals:
-  file_size_kb: 34.5
+  file_size_kb: 35.1
   content_chars: 1419
   entity_count: 0
   slide_count: 0
