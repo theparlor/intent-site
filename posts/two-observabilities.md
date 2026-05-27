@@ -1,20 +1,29 @@
 ---
 title: Two Observabilities — Why the Cockpit Recorder and the Engine Telemetry Are Not the Same Thing
 type: post
-status: draft
 created: 2026-05-26
-author: brien
-hook: cockpit/aircraft metaphor (per DEC-009 §"What it observes" table)
-length_target: 600-800 words
-ratifies: DEC-009 (Entire scoped as authoring provenance — supersedes DEC-007)
 related:
   - spec/decision-log.md → DEC-009
   - spec/substrate-exposure-architecture.md
   - WS-DDR-099 (substrate exposure mechanism)
+depth_score: 4
+depth_signals:
+  file_size_kb: 6.5
+  content_chars: 5890
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.51
+status: draft
+author: brien
+hook: "cockpit/aircraft metaphor (per DEC-009 §\"What it observes\" table)"
+length_target: 600-800 words
+ratifies: DEC-009 (Entire scoped as authoring provenance — supersedes DEC-007)
 source_session: 2026-05-26 Cowork Phase 1 (substrate exposure + Witness/Entire composition)
 promotion_path: "If/when promoted to a full HTML page, lands as `docs/two-observabilities.html` in Pillar 3 (The Build) sub-nav, slotted near observability.html. Requires site-ia.md update + sub-nav update on all Pillar 3 pages + .meta.yml sidecar + site-contracts.md run."
 ---
-
 # Two Observabilities
 
 > Why the cockpit recorder and the engine telemetry are not the same thing — and why software has been treating them as one.
