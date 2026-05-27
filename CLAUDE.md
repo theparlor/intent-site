@@ -9,14 +9,14 @@ domains:
 created: 2026-03-31
 depth_score: 4
 depth_signals:
-  file_size_kb: 7.2
-  content_chars: 6829
+  file_size_kb: 8.5
+  content_chars: 8147
   entity_count: 0
   slide_count: 0
   sheet_count: 0
   topic_count: 1
   has_summary: 0
-vocab_density: 0.29
+vocab_density: 0.25
 ---
 # Intent Site — Development Continuity Guide
 

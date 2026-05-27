@@ -1,3 +1,21 @@
+---
+title: 02 Contract Check
+type: framework
+maturity: final
+confidentiality: internal
+reusability: adaptable
+created: 2026-05-21
+depth_score: 2
+depth_signals:
+  file_size_kb: 3.4
+  content_chars: 3207
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.00
+---
 # Example 02 — Running a Contract Check
 
 > How to run the site-contracts.md assertions after making a change to `docs/`.

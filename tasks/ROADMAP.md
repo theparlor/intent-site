@@ -11,20 +11,20 @@ topics:
 created: 2026-03-31
 depth_score: 4
 depth_signals:
-  file_size_kb: 15.4
-  content_chars: 14972
+  file_size_kb: 17.4
+  content_chars: 16995
   entity_count: 0
   slide_count: 0
   sheet_count: 0
   topic_count: 2
   has_summary: 0
-vocab_density: 0.27
+vocab_density: 0.24
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
-  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
-  - {pair: consulting-operations ↔ subaru, count: 41, strength: 0.125}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.092}
+  - {pair: consulting-operations ↔ teresa-torres, count: 66, strength: 0.111}
+  - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.094}
+  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.121}
+  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.124}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.085}
 ---
 # Site Tasks Roadmap — Execution Plan for Terminal Claude
 

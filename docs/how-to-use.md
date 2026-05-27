@@ -1,3 +1,21 @@
+---
+title: How To Use
+type: framework
+maturity: final
+confidentiality: internal
+reusability: adaptable
+created: 2026-05-21
+depth_score: 2
+depth_signals:
+  file_size_kb: 4.9
+  content_chars: 4616
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.22
+---
 # How to Use — Intent Site Contributor Guide
 
 > For humans and agents who want to edit site content, run contracts, or preview locally.

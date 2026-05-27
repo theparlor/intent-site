@@ -1,3 +1,21 @@
+---
+title: Positioning
+type: framework
+maturity: final
+confidentiality: internal
+reusability: adaptable
+created: 2026-05-21
+depth_score: 2
+depth_signals:
+  file_size_kb: 4.6
+  content_chars: 4363
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.69
+---
 # Intent Site — Positioning
 
 > What Intent Site IS: the public marketing and documentation surface for the Intent framework.

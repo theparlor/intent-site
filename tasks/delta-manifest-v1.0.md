@@ -20,11 +20,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.38
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 62, strength: 0.117}
-  - {pair: consulting-operations ↔ marty-cagan, count: 60, strength: 0.1}
-  - {pair: subaru ↔ turnberry, count: 56, strength: 0.602}
-  - {pair: measurement-metrics ↔ subaru, count: 41, strength: 0.315}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.132}
+  - {pair: consulting-operations ↔ teresa-torres, count: 66, strength: 0.111}
+  - {pair: subaru ↔ turnberry, count: 65, strength: 0.565}
+  - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.094}
+  - {pair: measurement-metrics ↔ subaru, count: 47, strength: 0.313}
+  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.121}
 ---
 # Delta Manifest — Framework v1.0 → Site Sync
 

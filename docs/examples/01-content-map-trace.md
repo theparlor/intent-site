@@ -1,3 +1,21 @@
+---
+title: 01 Content Map Trace
+type: framework
+maturity: final
+confidentiality: internal
+reusability: adaptable
+created: 2026-05-21
+depth_score: 2
+depth_signals:
+  file_size_kb: 2.7
+  content_chars: 2506
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.00
+---
 # Example 01 — Content Map Trace
 
 > How to trace a site claim back to its source in the product repo, and how to update both sides when the source changes.
