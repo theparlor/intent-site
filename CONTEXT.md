@@ -5,16 +5,16 @@ maturity: active
 created: 2026-05-20
 updated: 2026-05-20
 summary: "Marketing and documentation site for the Intent framework. Three-pillar IA (Story / System / Build). 23 HTML pages deployed at theparlor.github.io/intent-site. Governance folder for the theparlor/intent-site repo. Phases 0–8 complete; Phase 9 (Governance Hardening) in progress."
-depth_score: 3
+depth_score: 2
 depth_signals:
-  file_size_kb: 1.1
-  content_chars: 950
+  file_size_kb: 1.7
+  content_chars: 1481
   entity_count: 0
   slide_count: 0
   sheet_count: 0
-  topic_count: 1
+  topic_count: 0
   has_summary: 1
-vocab_density: 0.35
+vocab_density: 0.00
 pipeline_position: marketing / external documentation
 architecture: static-html
 product_class: site

@@ -1,10 +1,20 @@
 ---
-id: TASK-004
 title: Persona Count Sync — L0 Draft (awaiting Brien publish approval)
+id: TASK-004
 type: task
-status: ready-for-brien-approval
-gate: "external-comms-boundary — content visible on public marketing site theparlor.github.io/intent-site/"
 created: 2026-05-20
+depth_score: 2
+depth_signals:
+  file_size_kb: 2.7
+  content_chars: 2327
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.00
+status: ready-for-brien-approval
+gate: external-comms-boundary — content visible on public marketing site theparlor.github.io/intent-site/
 ---
 # TASK-004: Persona Count Sync 178 → 242
 

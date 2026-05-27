@@ -1,3 +1,21 @@
+---
+title: Architecture
+type: framework
+maturity: final
+confidentiality: internal
+reusability: adaptable
+created: 2026-05-21
+depth_score: 4
+depth_signals:
+  file_size_kb: 8.0
+  content_chars: 7569
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.26
+---
 # Intent Site — Architecture
 
 > Three-pillar information architecture, content-map traceability, and deploy chain for the Intent framework's public site.
