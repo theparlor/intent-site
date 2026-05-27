@@ -25,9 +25,9 @@ depth_signals:
   has_summary: 1
 vocab_density: 0.00
 related_entities:
-  - {pair: marty-cagan ↔ teresa-torres, count: 223, strength: 0.4}
-  - {pair: john-kotter ↔ matthew-skelton, count: 159, strength: 0.338}
-  - {pair: john-kotter ↔ richard-rumelt, count: 153, strength: 0.529}
-  - {pair: john-kotter ↔ mik-kersten, count: 151, strength: 0.452}
-  - {pair: john-kotter ↔ transformation-operating-system, count: 139, strength: 0.638}
+  - {pair: marty-cagan ↔ teresa-torres, count: 224, strength: 0.399}
+  - {pair: john-kotter ↔ matthew-skelton, count: 160, strength: 0.337}
+  - {pair: john-kotter ↔ richard-rumelt, count: 154, strength: 0.531}
+  - {pair: john-kotter ↔ mik-kersten, count: 152, strength: 0.454}
+  - {pair: john-kotter ↔ transformation-operating-system, count: 140, strength: 0.639}
 ---
