@@ -21,11 +21,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.12
 related_entities:
+  - {pair: client-a ↔ client-e, count: 66, strength: 0.569}
   - {pair: consulting-operations ↔ teresa-torres, count: 66, strength: 0.111}
-  - {pair: client-a ↔ client-e, count: 65, strength: 0.565}
   - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.094}
-  - {pair: measurement-metrics ↔ client-e, count: 47, strength: 0.379}
-  - {pair: measurement-metrics ↔ client-a, count: 47, strength: 0.313}
+  - {pair: measurement-metrics ↔ client-e, count: 48, strength: 0.384}
+  - {pair: measurement-metrics ↔ client-a, count: 48, strength: 0.318}
 ---
 # Task: Add trust guardrails to signal sync pipeline
 
