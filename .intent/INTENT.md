@@ -10,17 +10,16 @@ catch_mechanism: "site-contracts.md (10 verifiable assertions) + tasks/ROADMAP.m
 pipeline_survival: "Contracts run after every docs/ change; ROADMAP phase gate enforces ordered execution; .intent/signals/ captures drift between sessions"
 
 # === lambda_settings (managed by apply_lambda_settings.py, do not edit by hand) ===
-# closure_rate=0% (n=1, gold=0, sym=0, open=1)
-# lift_action: NONE
+# 2026-05-29 topology-default prior (no signals — see lambda-fit-report-2026-05-29.md)
+# closure_rate=0% (n=0, gold=0, sym=0, open=0)
+# lift_action: N/A (no signals)
 lambda_settings:
-  default: 1.5
-  fit_target: 1.5  # value to apply after lift investment
-  last_fit: 2026-05-26
-  fit_source: Core/frameworks/intent/tools/lambda_fit.py
+  default: 1.75
+  fit_target: 1.75  # value to apply after topology and lift work lands
+  last_fit: 2026-05-29
+  fit_source: Core/frameworks/intent/tools/intent_signal_inventory.py
   rationale: |
-    stall_loss=1.0, containment_gap=0.0.
-    Lift solid. Default = fit_target. Shadow-autonomy probes
-    can push higher.
+    No signals yet. Topology-default prior for solo Brien-owned product (1.5-2.0 range, midpoint 1.75). Refit after 50+ signals.
 # === end lambda_settings ===
 ---
 # Intent Site — Purpose Declaration
