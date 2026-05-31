@@ -21,11 +21,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.12
 related_entities:
-  - {pair: subaru ↔ turnberry, count: 66, strength: 0.569}
-  - {pair: consulting-operations ↔ teresa-torres, count: 66, strength: 0.111}
-  - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.094}
-  - {pair: measurement-metrics ↔ turnberry, count: 48, strength: 0.384}
-  - {pair: measurement-metrics ↔ subaru, count: 48, strength: 0.318}
+  - {pair: subaru ↔ turnberry, count: 68, strength: 0.576}
+  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.103}
+  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.086}
+  - {pair: measurement-metrics ↔ turnberry, count: 50, strength: 0.394}
+  - {pair: measurement-metrics ↔ subaru, count: 50, strength: 0.327}
 ---
 # Task: Add trust guardrails to signal sync pipeline
 
