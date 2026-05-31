@@ -20,11 +20,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.38
 related_entities:
-  - {pair: client-a ↔ client-e, count: 66, strength: 0.569}
-  - {pair: consulting-operations ↔ teresa-torres, count: 66, strength: 0.111}
-  - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.094}
-  - {pair: measurement-metrics ↔ client-a, count: 48, strength: 0.318}
-  - {pair: consulting-operations ↔ client-a, count: 44, strength: 0.121}
+  - {pair: client-a ↔ client-e, count: 68, strength: 0.576}
+  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.103}
+  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.086}
+  - {pair: measurement-metrics ↔ client-a, count: 50, strength: 0.327}
+  - {pair: consulting-operations ↔ client-a, count: 44, strength: 0.119}
 ---
 # Delta Manifest — Framework v1.0 → Site Sync
 

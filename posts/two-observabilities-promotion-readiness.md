@@ -1,15 +1,24 @@
 ---
 title: Two-Observabilities Post — Promotion-Readiness Checklist
 type: framework
-status: preparation
 created: 2026-05-27
 related:
   - posts/two-observabilities.md (source markdown)
   - site-ia.md (IA definition that needs updating)
+depth_score: 4
+depth_signals:
+  file_size_kb: 8.4
+  content_chars: 8121
+  entity_count: 0
+  slide_count: 0
+  sheet_count: 0
+  topic_count: 0
+  has_summary: 0
+vocab_density: 0.12
+status: preparation
 authorizes: D4=YES (defaulted publish per Phase 1 closes record)
 expected_execution_time: 30-60 minutes once started
 ---
-
 # Two-Observabilities Post — Promotion-Readiness Checklist
 
 **Status:** All preparation complete. Mechanical execution remaining.

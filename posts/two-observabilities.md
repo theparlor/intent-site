@@ -8,7 +8,7 @@ related:
   - WS-DDR-099 (substrate exposure mechanism)
 depth_score: 4
 depth_signals:
-  file_size_kb: 6.5
+  file_size_kb: 6.7
   content_chars: 5890
   entity_count: 0
   slide_count: 0
