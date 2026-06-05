@@ -353,6 +353,27 @@ done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-010"
 ```
 
+## CON-SITE-011: Doorway into the coherence-stack surface (no in-line catalog)
+
+**Type:** content
+**Severity:** major — the worldview lives on Parallax (parallax-site), not as a 21-product catalog inside intent-site
+
+Per DEC-004 + WS-DDR-107: intent-site connects to the broader coherence stack via honest doorways into the real Parallax surface, NOT by enumerating the portfolio in-line. Verify the doorway exists on its designated pages.
+
+```bash
+cd docs/
+FAIL=0
+for f in architecture.html dogfood.html; do
+  if grep -q 'theparlor.github.io/parallax-site' "$f"; then
+    : # has doorway into the real Parallax surface
+  else
+    echo "FAIL: $f missing Parallax doorway link"
+    FAIL=1
+  fi
+done
+[ $FAIL -eq 0 ] && echo "PASS: CON-SITE-011"
+```
+
 ## Contract Summary
 
 | ID | Name | Severity | What It Catches |
@@ -367,3 +388,4 @@ done
 | CON-SITE-008 | Visual components intact | critical | Lost diagrams/interactives |
 | CON-SITE-009 | No broken links | major | Dead internal links |
 | CON-SITE-010 | No old 9-link nav remnants | critical | Incomplete IA migration |
+| CON-SITE-011 | Doorway into Parallax (no in-line catalog) | major | Worldview off-loaded to the Parallax front-door |
