@@ -56,3 +56,9 @@ This **affirms the existing intent-site ↔ Parallax boundary**: the coherence-s
 - Post-rebuild panel re-review keeps F1 (no-target-user) and F3 (category-confusion) ≤ 1/8 (the 2026-04-09 plan's bar).
 - `CON-SITE-011` passes: the doorway is a single outbound link with zero enumerated product names.
 - The dogfood surface frames products as governed-repos evidence, not a catalog-to-buy.
+
+---
+
+## Update 2026-06-05 — single-doorway SUPERSEDED by multi-doorway
+
+Brien directed that Parallax be hydrated now as a navigable surface (peer-pressure-test for Markus). With Parallax becoming a **real destination**, the single-fenced-doorway clause (Decision pt 3 / `CON-SITE-011` "single link, no-expand") is **superseded**: intent-site connects to Parallax via **multiple points of entry** into a surface that now exists, which dissolves Dunford's "forward-pointer to nothing" objection. `CON-SITE-011` is re-scoped to "honest doorways into a real surface" — intent-site still carries no in-line 21-product catalog (the dogfood-evidence framing holds); the worldview lives on the Parallax surface it now points to. See `Core/products/parallax/.intent/decisions/2026-06-05-parallax-v0-pressuretest-pre-phase3.md`. Phase 10's doorway tasks (TASK-10.4/10.5) update accordingly.
