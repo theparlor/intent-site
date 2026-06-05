@@ -2,7 +2,9 @@
 id: SPEC-WORLDVIEW-REFRESH-2026-06
 title: Intent-site Worldview Refresh — Content-Plan (critique-gated, evolve-in-place)
 type: spec
-status: critiqued-pending-signoff
+status: approved
+signoff: "Brien 2026-06-05 — C-minimal fenced doorway. Decision: DEC-004."
+decision: .intent/decisions/DEC-004-worldview-rescope-rejected-c-minimal.md
 critique: .intent/critiques/2026-06-05-worldview-refresh-panel-critique.md
 panel_verdict: "Option B (re-scope) REJECTED 8/8. A=4, C-minimal=4. A/C converge on stack-as-dogfood-evidence."
 created: 2026-06-05
@@ -237,4 +239,6 @@ The 4 panels ran (`voices-run-20260605T191442Z`, 8 renderings, dissent preserved
 
 **Revised recommendation (supersedes §3 "My read"):** Adopt the **A/C convergence** — Option A's discipline (Intent hero, single target user, v2 narrowing shipped) with the dogfood-evidence reframe as the organizing principle, **plus** the single structurally-fenced doorway (C-minimal) naming the discipline. **B is struck.** The one open fork for Brien: include the fenced doorway now (C-minimal — captures the frontier-positioning Karpathy/Nate want at near-zero F1/F3 risk) or hold pure-A (no doorway until Parallax has a URL — Dunford/Markus's stricter line). Either way: ship the narrowing + staleness fixes; honor the Dunford competitive-alternative gate.
 
-**Governance:** Because the panel did **not** recommend a re-scope (B=0), the mandatory "WS-DDR before proceeding" trigger is **not** met. A WS-DDR recording the *resolution* (intent-site stays Intent-scoped; coherence-stack worldview is Parallax's; B foreclosed) is recommended once Brien confirms the A-vs-C-minimal branch, since it forecloses a recurring question.
+**Governance:** Because the panel did **not** recommend a re-scope (B=0), the mandatory "WS-DDR before proceeding" trigger is **not** met. The resolution is recorded as intent-site **`DEC-004`** (product-scope; affirms the intent-site↔Parallax boundary rather than changing workspace structure — hence a decision atom, not a WS-DDR).
+
+**Brien sign-off (2026-06-05): C-minimal fenced doorway.** SPEC status → **approved**. The rebuild is ROADMAP **Phase 10** (next session), gated by: (1) Dunford competitive-alternative (pre-rebuild, blocking); (2) `CON-SITE-011` structural fence (before any `docs/*.html`); (3) Torres 3–5 discovery conversations (doorway wording, non-blocking on the narrowing). The v2-draft narrowing + dogfood-evidence reframe + §6 staleness fixes ship regardless.
