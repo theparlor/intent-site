@@ -20,11 +20,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.24
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.103}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.086}
-  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.119}
+  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
+  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
+  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.116}
   - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.079}
+  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
 ---
 # Site Tasks Roadmap — Execution Plan for Terminal Claude
 
@@ -367,6 +367,23 @@ Started 2026-05-20 (post-audit). Intent's site is now running Intent governance 
 | TASK-010: sync-config validation | scripts/verify-sync-config.sh checks product repo path | DONE | Script created |
 
 **Note on TASK-006 (v2-draft):** `docs/v2-draft/` contains 22 files. These appear to be experimental drafts from the IA v2 migration that were never cleaned up. Until Brien confirms their disposition (promote / archive / delete), they remain ungoverned. Recommendation: evaluate in a follow-on session with Brien present.
+
+## Phase 10: Worldview Refresh — PROPOSED (gated; do NOT execute without reading the gates)
+
+Approved 2026-06-05 (DEC-004) after a 4-panel Voices critique. Scope: **C-minimal** — hold Intent narrow, make dogfood-evidence the organizing principle, add ONE structurally-fenced doorway. **Re-scope to the 21-product worldview was REJECTED 8/8 — do NOT build a product catalog.**
+
+**Read first:** `.intent/specs/2026-06-05-worldview-refresh-content-plan.md` (per-page disposition) · `.intent/critiques/2026-06-05-worldview-refresh-panel-critique.md` · `.intent/decisions/DEC-004-worldview-rescope-rejected-c-minimal.md`
+
+| Task | Description | Status | Gate |
+|------|-------------|--------|------|
+| TASK-10.1: Ship v2-draft narrowing | Promote `docs/v2-draft/` (pitch/the-system/the-build/the-proof + honesty pages) to live; per SPEC §4 dispositions | proposed | content-preservation rules; contracts before/after |
+| TASK-10.2: Dogfood-evidence reframe | `dogfood.html` + `products.html`/`work-system.html` Products tab → "Intent governs N real repos" as evidence, NOT catalog | proposed | **blocking: name competitive alternative first (Dunford)** |
+| TASK-10.3: Staleness fixes | SPEC §6 — `skills-engine`→Forge, counts, persona 178→current (TASK-004, L0), events 15→22 | proposed | runs in parallel; persona count L0 |
+| TASK-10.4: CON-SITE-011 fence | New contract: doorway = single outbound link, zero product cards, no-expand | proposed | **author BEFORE any `docs/*.html` change** |
+| TASK-10.5: Fenced doorway | One sentence on `architecture.html`/`dogfood.html` — Intent as reference implementation of the coherence discipline | proposed | **CON-SITE-011 + Torres 3–5 discovery convos validate wording before go-live** |
+| TASK-10.6: ECOSYSTEM correction | Flag-only: `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 "deprecating" contradicts evolves-not-deprecates → correction-propagation pass | proposed | out of intent-site scope; Sonnet pass |
+
+**Snapshot:** `git tag worldview-snapshot-2026-06-05` (pushed) — pre-refresh roll-back point.
 
 ## Execution Protocol
 
