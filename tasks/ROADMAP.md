@@ -368,22 +368,28 @@ Started 2026-05-20 (post-audit). Intent's site is now running Intent governance 
 
 **Note on TASK-006 (v2-draft):** `docs/v2-draft/` contains 22 files. These appear to be experimental drafts from the IA v2 migration that were never cleaned up. Until Brien confirms their disposition (promote / archive / delete), they remain ungoverned. Recommendation: evaluate in a follow-on session with Brien present.
 
-## Phase 10: Worldview Refresh — PROPOSED (gated; do NOT execute without reading the gates)
+## Phase 10: Worldview Refresh — EXECUTED 2026-06-05 (structural overhaul)
 
-Approved 2026-06-05 (DEC-004) after a 4-panel Voices critique. Scope: **C-minimal** — hold Intent narrow, make dogfood-evidence the organizing principle, add ONE structurally-fenced doorway. **Re-scope to the 21-product worldview was REJECTED 8/8 — do NOT build a product catalog.**
+Approved 2026-06-05 (DEC-004) after a 4-panel Voices critique; executed the same day. Scope: hold Intent narrow, make **dogfood-evidence** the organizing principle, **archive the three colliding nav eras**, promote the v2-draft four-zone narrowing to root as ONE nav, and wire honest multi-doorways into the now-live **Parallax** + **portfolio** surfaces. **Re-scope to the 21-product worldview was REJECTED 8/8 — no product catalog was built.** Pre-overhaul tag `intent-site-pre-overhaul-2026-06-05` (pushed). All 11 site-contracts pass BEFORE and AFTER.
 
-**Read first:** `.intent/specs/2026-06-05-worldview-refresh-content-plan.md` (per-page disposition) · `.intent/critiques/2026-06-05-worldview-refresh-panel-critique.md` · `.intent/decisions/DEC-004-worldview-rescope-rejected-c-minimal.md`
+**Read first:** `.intent/specs/2026-06-05-worldview-refresh-content-plan.md` (per-page disposition) · `.intent/critiques/2026-06-05-worldview-refresh-panel-critique.md` · `.intent/decisions/DEC-004-worldview-rescope-rejected-c-minimal.md` · `site-ia.md` (new IA v3)
 
-| Task | Description | Status | Gate |
+| Task | Description | Status | Verification |
 |------|-------------|--------|------|
-| TASK-10.1: Ship v2-draft narrowing | Promote `docs/v2-draft/` (pitch/the-system/the-build/the-proof + honesty pages) to live; per SPEC §4 dispositions | proposed | content-preservation rules; contracts before/after |
-| TASK-10.2: Dogfood-evidence reframe | `dogfood.html` + `products.html`/`work-system.html` Products tab → "Intent governs N real repos" as evidence, NOT catalog | proposed | **blocking: name competitive alternative first (Dunford)** |
-| TASK-10.3: Staleness fixes | SPEC §6 — `skills-engine`→Forge, counts, persona 178→current (TASK-004, L0), events 15→22 | proposed | runs in parallel; persona count L0 |
-| TASK-10.4: CON-SITE-011 fence | New contract: doorway = single outbound link, zero product cards, no-expand | proposed | **author BEFORE any `docs/*.html` change** |
-| TASK-10.5: Fenced doorway | One sentence on `architecture.html`/`dogfood.html` — Intent as reference implementation of the coherence discipline | proposed | **CON-SITE-011 + Torres 3–5 discovery convos validate wording before go-live** |
-| TASK-10.6: ECOSYSTEM correction | Flag-only: `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 "deprecating" contradicts evolves-not-deprecates → correction-propagation pass | proposed | out of intent-site scope; Sonnet pass |
+| TASK-10.0: Archive 3 nav eras | Tag snapshot; rename v1.2→`v1-2-multi-framing`; freeze `v1-3-three-pillar/` snapshot (23 pages); archive `v2-draft/` (mockups + ARCHIVE.md). docs/ root = ONE site, ONE nav. | **DONE** | 3 archive subdirs each w/ ARCHIVE.md; tag pushed |
+| TASK-10.1: Ship v2-draft narrowing | Promoted pitch/the-system/the-build/the-proof + lineage/when-not/who-loses/ending/neutral-zone to root; de-nested links; standardized footers; per-zone sub-navs; removed `v1-banner` collision punt from every page. | **DONE** | 9 pages at root; nav unified; contracts pass |
+| TASK-10.2: Dogfood-evidence reframe | `products.html` Catalog→"Repos Intent governs" (evidence, not catalog); `dogfood.html` + `the-proof.html` evidence framing; "operating model that built me" portfolio framing. | **DONE** | no in-line 21-catalog; CON-SITE-011 holds |
+| TASK-10.3: Staleness fixes | `skills-engine`→Forge (work-system, 7 refs); stale "discovery wave in flight / come back Friday" dates → current reality (pitch, the-proof). Persona count L0-deferred (TASK-004); events 15→22 deferred. | **PARTIAL** | Forge + dates done; counts flagged below |
+| TASK-10.4: CON-SITE-011 fence | Contract present; updated to "honest doorways into the real Parallax/portfolio surfaces" (multi-doorway per DEC-004 update). | **DONE** | CON-SITE-011 passes |
+| TASK-10.5: Doorways + Dunford gate | Parallax doorway on architecture+dogfood; Parallax+portfolio doorways on pitch+dogfood+products; **Dunford competitive-alternative named** on pitch (write-own-CLAUDE.md / build-.intent-from-scratch / do-nothing). | **DONE** | doorways live; Dunford gate met |
+| TASK-10.6: ECOSYSTEM correction | `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 "deprecating" contradicts evolves-not-deprecates. | **DEFERRED** | out of intent-site scope — flagged for a Core correction pass |
 
-**Snapshot:** `git tag worldview-snapshot-2026-06-05` (pushed) — pre-refresh roll-back point.
+**Deferred / open (post-overhaul):**
+- **Persona count sync (TASK-004, L0):** site still shows 178/188; registry is larger. Awaits Brien approval.
+- **Torres gate (doorway wording):** 3–5 discovery conversations to validate the doorway claim — non-blocking on the narrowing; doorway wording is provisional (the whole site is hypothesis-framed).
+- **Numeric counts (signals/specs/events):** kept at the site's internally-consistent values; a verified source-of-truth mapping is needed before refreshing.
+
+**Snapshots:** `intent-site-pre-overhaul-2026-06-05` (this overhaul) · `worldview-snapshot-2026-06-05` (pre-Phase-10 doorways). Both pushed.
 
 ## Execution Protocol
 
