@@ -23,31 +23,30 @@ vocab_density: 0.09
 
 > Verifiable assertions for the Intent product site. Run these checks after ANY modification to files in `docs/`.
 > Each contract is a shell command that returns pass/fail. All must pass before committing.
-> **IA v3 (Phase 10, 2026-06-05):** Four-zone model — **The Hypothesis · The System · The Build · The Proof**. See `site-ia.md`. Supersedes the three-pillar IA (now archived at `docs/archive/v1-3-three-pillar/`).
+> **IA v3 (Phase 10, 2026-06-05):** Four-zone model — **The Hypothesis · The System · The Build · The Proof** — with the **home served at the default root (`index.html`)**, not a redirect to `pitch.html` (that URL is retired). Visual identity is the "behind-the-veil" family (Montserrat + heat accent + darker metal base) defined in `styles.css`; loop-phase / trust / persona accent colors are SEMANTIC and preserved.
 
 ## Zone page sets (the IA)
 
 ```
-HYPOTHESIS  pitch.html (hero) · concept-brief · lineage · roadmap · when-not · who-loses · ending · neutral-zone
+HYPOTHESIS  index.html (hero) · concept-brief · lineage · roadmap · when-not · who-loses · ending · neutral-zone
 SYSTEM      the-system.html (hub) · methodology · walkthrough · work-system · signals · personas · event-catalog · observe · getting-started
 BUILD       the-build.html (hub) · architecture · system-diagram · flow-diagram · observability · arb · decisions · schemas · agents · deployment · native-repos
 PROOF       the-proof.html (hub) · dogfood · products (Governed Repos) · review-2026-04-09 (Panel Review)
-SPECIAL     index.html (meta redirect → pitch.html, excluded from nav checks) · visual-brief.html (iframe CTA, primary nav only, no sub-nav)
+SPECIAL     visual-brief.html (iframe CTA, primary nav only, no sub-nav)
 ```
 
-Primary nav (every page except `index.html`): logo → `pitch.html`, then `The Hypothesis` · `The System` · `The Build` · `The Proof`. Exactly one zone link carries `class="active"`.
+Home is `index.html`, served at the site root. Primary nav (every page): logo → `index.html`, then `The Hypothesis` (→ `index.html`) · `The System` · `The Build` · `The Proof`. Exactly one zone link carries `class="active"`.
 
 ## CON-SITE-001: Every HTML file has the 4-zone primary nav
 
-**Type:** structural · **Severity:** critical — broken nav means users can't navigate
+**Type:** structural · **Severity:** critical
 
 ```bash
 cd docs/
 FAIL=0
 for f in *.html; do
-  [ "$f" = "index.html" ] && continue
   grep -q 'class="site-nav"' "$f" || { echo "FAIL: $f missing site-nav"; FAIL=1; }
-  for link in pitch.html the-system.html the-build.html the-proof.html; do
+  for link in index.html the-system.html the-build.html the-proof.html; do
     grep -q "href=\"$link\"" "$f" || { echo "FAIL: $f missing nav link to $link"; FAIL=1; }
   done
 done
@@ -56,12 +55,12 @@ done
 
 ## CON-SITE-002: Correct active states per zone
 
-**Type:** structural · **Severity:** major — wrong active state confuses navigation
+**Type:** structural · **Severity:** major
 
 ```bash
 cd docs/
 FAIL=0
-for f in pitch.html concept-brief.html lineage.html roadmap.html when-not.html who-loses.html ending.html neutral-zone.html \
+for f in index.html concept-brief.html lineage.html roadmap.html when-not.html who-loses.html ending.html neutral-zone.html \
          the-system.html methodology.html walkthrough.html work-system.html signals.html personas.html event-catalog.html observe.html getting-started.html \
          the-build.html architecture.html system-diagram.html flow-diagram.html observability.html arb.html decisions.html schemas.html agents.html deployment.html native-repos.html \
          the-proof.html dogfood.html products.html review-2026-04-09.html; do
@@ -73,13 +72,12 @@ done
 
 ## CON-SITE-003: Standard footer on all pages
 
-**Type:** structural · **Severity:** major — branding consistency
+**Type:** structural · **Severity:** major
 
 ```bash
 cd docs/
 FAIL=0
 for f in *.html; do
-  [ "$f" = "index.html" ] && continue
   grep -q 'github.com/theparlor/intent' "$f" || { echo "FAIL: $f missing footer link"; FAIL=1; }
   grep -q 'Built with the Intent methodology' "$f" || { echo "FAIL: $f missing footer tagline"; FAIL=1; }
 done
@@ -88,13 +86,12 @@ done
 
 ## CON-SITE-004: All HTML pages link styles.css
 
-**Type:** structural · **Severity:** critical — missing styles.css means no shared foundation
+**Type:** structural · **Severity:** critical
 
 ```bash
 cd docs/
 FAIL=0
 for f in *.html; do
-  [ "$f" = "index.html" ] && continue
   grep -q 'href="styles.css"' "$f" || { echo "FAIL: $f does not link styles.css"; FAIL=1; }
 done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-004"
@@ -102,18 +99,13 @@ done
 
 ## CON-SITE-005: Rich pages retain page-specific CSS
 
-**Type:** quality · **Severity:** critical — stripping inline styles destroys visual components
+**Type:** quality · **Severity:** critical
 
 ```bash
 cd docs/
 FAIL=0
-check_inline_css() {
-  local file=$1 min_lines=$2
-  [ -f "$file" ] || return
-  CSS_LINES=$(sed -n '/<style>/,/<\/style>/p' "$file" | wc -l)
-  [ "$CSS_LINES" -lt "$min_lines" ] && { echo "FAIL: $file has only ${CSS_LINES} lines inline CSS (< ${min_lines})"; FAIL=1; }
-}
-check_inline_css pitch.html 50
+check_inline_css() { local file=$1 min=$2; [ -f "$file" ] || return; CSS=$(sed -n '/<style>/,/<\/style>/p' "$file" | wc -l); [ "$CSS" -lt "$min" ] && { echo "FAIL: $file ${CSS} inline CSS lines < ${min}"; FAIL=1; }; }
+check_inline_css index.html 30
 check_inline_css the-build.html 30
 check_inline_css the-proof.html 30
 check_inline_css arb.html 80
@@ -128,23 +120,16 @@ check_inline_css deployment.html 30
 
 ## CON-SITE-006: File size canary — no page dropped below ~70% of baseline
 
-**Type:** quality · **Severity:** critical — a dramatic size drop means content was lost
+**Type:** quality · **Severity:** critical
 
 ```bash
 cd docs/
 FAIL=0
-check_size() {
-  local file=$1 min=$2
-  [ -f "$file" ] || return
-  SIZE=$(wc -c < "$file")
-  [ "$SIZE" -lt "$min" ] && { echo "FAIL: $file is ${SIZE}B, expected >= ${min}B (content may be lost)"; FAIL=1; }
-}
-# Zone hubs + hero (IA v3)
-check_size pitch.html 25000
+check_size() { local file=$1 min=$2; [ -f "$file" ] || return; SIZE=$(wc -c < "$file"); [ "$SIZE" -lt "$min" ] && { echo "FAIL: $file is ${SIZE}B, expected >= ${min}B"; FAIL=1; }; }
+check_size index.html 25000
 check_size the-system.html 11000
 check_size the-build.html 14000
 check_size the-proof.html 12000
-# Depth pages (carried forward, re-navved)
 check_size work-system.html 33600
 check_size signals.html 33600
 check_size arb.html 27300
@@ -168,13 +153,12 @@ check_size products.html 7000
 
 ## CON-SITE-007: Sub-nav on ALL zone pages
 
-**Type:** structural · **Severity:** critical — every zone page needs within-zone navigation
+**Type:** structural · **Severity:** critical — excludes only `visual-brief.html` (iframe CTA)
 
 ```bash
 cd docs/
 FAIL=0
-# All zone pages (hubs + depth). Excludes index.html (redirect) and visual-brief.html (iframe CTA).
-for f in pitch.html concept-brief.html lineage.html roadmap.html when-not.html who-loses.html ending.html neutral-zone.html \
+for f in index.html concept-brief.html lineage.html roadmap.html when-not.html who-loses.html ending.html neutral-zone.html \
          the-system.html methodology.html walkthrough.html work-system.html signals.html personas.html event-catalog.html observe.html getting-started.html \
          the-build.html architecture.html system-diagram.html flow-diagram.html observability.html arb.html decisions.html schemas.html agents.html deployment.html native-repos.html \
          the-proof.html dogfood.html products.html review-2026-04-09.html; do
@@ -186,24 +170,22 @@ done
 
 ## CON-SITE-008: Key visual components preserved
 
-**Type:** quality · **Severity:** critical — these are the page's primary value
+**Type:** quality · **Severity:** critical
 
 ```bash
 cd docs/
 FAIL=0
-# pitch.html (IA v3 hypothesis hero) components
-if [ -f pitch.html ]; then
+# index.html (IA v3 hypothesis hero) components
+if [ -f index.html ]; then
   for c in 'hero-loop' 'hypothesis-box' 'three-col' 'honesty-box' 'who-for' 'lineage-strip' '<svg'; do
-    grep -q "$c" pitch.html || { echo "FAIL: pitch.html missing $c"; FAIL=1; }
+    grep -q "$c" index.html || { echo "FAIL: index.html missing $c"; FAIL=1; }
   done
 fi
-# arb.html — tab interface, SVG radar, blips
 if [ -f arb.html ]; then
   for c in switchTab tab-btn radar '<svg' 'class="blip"'; do
     grep -q "$c" arb.html || { echo "FAIL: arb.html missing $c"; FAIL=1; }
   done
 fi
-# signals.html — signal cards
 if [ -f signals.html ]; then
   grep -q 'SIG-001' signals.html || { echo "FAIL: signals.html missing SIG-001"; FAIL=1; }
   grep -q 'SIG-015' signals.html || { echo "FAIL: signals.html missing SIG-015"; FAIL=1; }
@@ -213,7 +195,7 @@ fi
 
 ## CON-SITE-009: No broken internal links
 
-**Type:** quality · **Severity:** major — broken links are a bad user experience
+**Type:** quality · **Severity:** major
 
 ```bash
 cd docs/
@@ -230,28 +212,23 @@ done
 
 ## CON-SITE-010: No old three-pillar nav remnants
 
-**Type:** structural · **Severity:** critical — ensures the IA v3 migration is complete
+**Type:** structural · **Severity:** critical
 
 ```bash
 cd docs/
 FAIL=0
 for f in *.html; do
-  # The three-pillar primary nav linked work-system.html / architecture.html and used the label "The Story".
-  # Those targets now live only in sub-navs; the primary site-nav must NOT contain them.
-  OLD=$(sed -n '/<nav class="site-nav">/,/<\/nav>/p' "$f" | grep -c '>The Story<\|href="work-system.html"\|href="architecture.html"')
-  if [ "$OLD" -gt 0 ]; then
-    echo "FAIL: $f still has old three-pillar primary nav (found $OLD old refs in site-nav)"
-    FAIL=1
-  fi
+  OLD=$(sed -n '/<nav class="site-nav">/,/<\/nav>/p' "$f" | grep -c '>The Story<\|href="work-system.html"\|href="architecture.html"\|href="pitch.html"')
+  if [ "$OLD" -gt 0 ]; then echo "FAIL: $f still has old three-pillar primary nav ($OLD)"; FAIL=1; fi
 done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-010"
 ```
 
 ## CON-SITE-011: Doorway into the coherence-stack surface (no in-line catalog)
 
-**Type:** content · **Severity:** major — the worldview lives on Parallax / the portfolio, not as a catalog inside intent-site
+**Type:** content · **Severity:** major
 
-Per DEC-004 (+ its multi-doorway update) and WS-DDR-107: intent-site connects to the broader coherence stack via honest doorways into the **real** Parallax surface, NOT by enumerating the portfolio in-line. Verify the doorway exists on its designated pages.
+Per DEC-004 (+ multi-doorway update) and WS-DDR-107: intent-site connects to the broader coherence stack via honest doorways into the **real** Parallax surface, NOT by enumerating the portfolio in-line.
 
 ```bash
 cd docs/
@@ -275,5 +252,5 @@ done
 | CON-SITE-007 | Sub-nav on all zone pages | critical | Missing within-zone navigation |
 | CON-SITE-008 | Visual components intact | critical | Lost diagrams/interactives |
 | CON-SITE-009 | No broken links | major | Dead internal links |
-| CON-SITE-010 | No old three-pillar nav remnants | critical | Incomplete IA v3 migration |
+| CON-SITE-010 | No old three-pillar/pitch.html nav remnants | critical | Incomplete IA v3 / home-at-root migration |
 | CON-SITE-011 | Doorway into Parallax (no in-line catalog) | major | Worldview off-loaded to the real Parallax/portfolio surface |
