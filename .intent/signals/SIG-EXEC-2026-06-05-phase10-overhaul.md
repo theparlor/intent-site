@@ -46,3 +46,12 @@ The session brief said "archive the current live pillar pages" AND "obey the con
 - Numeric counts (signals/specs/events) kept at the site's internally-consistent values pending a verified source-of-truth mapping.
 - ECOSYSTEM-ARCHITECTURE-2026-05-20.md §6 "deprecating" contradiction — flagged for a Core correction pass (out of intent-site scope).
 - Torres gate: doorway wording provisional until 3–5 discovery conversations.
+
+## Update 2026-06-05 (pass 2 — visual identity + home-at-root, Brien-directed)
+
+1. **Behind-the-veil visual family** (Brien chose "shared family, own metaphor"). Centralized in `docs/styles.css`: Montserrat display type (shared with Parallax) + warm heat accent `--heat:#f7660a` (shared with Parallax `--altitude` / portfolio `--molten`) + darker graphite-metal base `#0b0f14` with non-fixed gradient language. Intent keeps its own loop metaphor; **semantic colors preserved** (loop phases, trust L0–L4, persona △◇○◉ never repurposed for chrome). Hardcoded old-base hexes shifted across 10 pages; `overflow-x:hidden` guards the 100vw hero-loop breakout. Proof approved on the home page before roll-out; render verified on home + depth.
+2. **Home at the default root.** The `pitch.html` URL (a redirect kept only to avoid the old two-homepage collision) is retired; the hero is promoted to `index.html`, served at the site root. 77 home references repointed. Contracts updated: `index.html` is now the checked hero (no longer an excluded redirect); CON-010 also flags any lingering `pitch.html` nav ref.
+
+All 11 contracts pass; deployed render verified.
+
+**Open follow-up (Brien-flagged, NOT done here):** the **Voices** page (`personas.html`) doesn't match the Voices *product*'s current reality — a "cross back out of the veil into the product spaces" task: enhance the Voices product page (in the portfolio/product repo) with the catalog-type info, and reframe intent-site's `personas.html` as the dogfooded Voices product. Scoped separately (crosses repos; persona-count still L0-gated, TASK-004).

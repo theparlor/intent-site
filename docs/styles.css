@@ -1,6 +1,9 @@
 /* Intent Design System — Shared Stylesheet
    Matches inline styles from signals.html and roadmap.html.
-   Palette from CLAUDE.md design system specification. */
+   Palette from CLAUDE.md design system specification.
+   IA v3 (2026-06-05): behind-the-veil family — Montserrat display type + heat accent + darker metal base.
+   Loop-phase / trust / persona accent colors are SEMANTIC — do not repurpose them. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 * {
     margin: 0;
@@ -9,8 +12,8 @@
 }
 
 :root {
-    --bg: #0f172a;
-    --surface: #1e293b;
+    --bg: #0b0f14;
+    --surface: #151b23;
     --border: #334155;
     --text: #f1f5f9;
     --text-muted: #94a3b8;
@@ -21,16 +24,24 @@
     --accent-green: #10b981;
     --green-bright: #22c55e;
     --red: #ef4444;
+    --heat: #f7660a;
     --gap: 1rem;
 }
 
 html, body {
-    background: var(--bg);
+    background:
+        radial-gradient(1100px 520px at 50% -8%, rgba(247,102,10,0.06), transparent 62%),
+        linear-gradient(180deg, #0d1218 0%, var(--bg) 40%);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Helvetica Neue', sans-serif;
     line-height: 1.6;
     font-size: 15px;
+    min-height: 100vh;
+    overflow-x: hidden; /* guard the 100vw hero-loop breakout against scrollbar-width overflow */
 }
+
+/* IA v3 veil-family: Montserrat display type on headings + nav/logo (body stays sans for readability) */
+h1, h2, h3, h4, nav.site-nav, nav.site-nav a.logo { font-family: 'Montserrat', 'Corbel', sans-serif; }
 
 a {
     color: var(--accent-blue);
@@ -81,7 +92,7 @@ nav.site-nav a.logo {
 }
 
 nav.site-nav a.logo span {
-    color: var(--accent-blue);
+    color: var(--heat);
 }
 
 nav.site-nav a.active {
@@ -634,11 +645,11 @@ footer a:hover {
     transition: all 0.2s;
 }
 .cta-btn.primary {
-    background: var(--accent-blue);
+    background: var(--heat);
     color: #fff;
 }
 .cta-btn.primary:hover {
-    background: #2563eb;
+    background: #d95a08;
     transform: translateY(-1px);
 }
 .cta-btn.secondary {

@@ -46,17 +46,19 @@ The Hypothesis  →  The System  →  The Build  →  The Proof
 
 The organizing principle of the refresh is **dogfood-evidence**: the stack appears as *evidence* ("Intent governs N real repos"), never as a catalog to buy.
 
+**Visual identity — the "behind-the-veil" family.** intent-site shares connective tissue with the other behind-the-veil surface, Parallax: Montserrat display type, a warm "heat" accent (`--heat: #f7660a`), and a darker graphite-metal base with gradient language — defined centrally in `styles.css`. It keeps its OWN metaphor (the loop) and, critically, its **semantic colors are preserved**: the loop-phase colors (Notice=amber, Spec=blue, Execute=green, Observe=purple), trust levels (L0–L4), and persona symbols (△◇○◉) encode meaning and must never be repurposed for chrome.
+
 ---
 
 ## The Four Zones
 
 ### Zone 1 — "The Hypothesis" (Why)
 
-**Hero:** `pitch.html` — single target user, the claim being tested, the competitive alternative named (Dunford gate), maturity-labeled tablestakes/evolutionary/open-question, honesty boxes, falsification criteria, and the "Where Intent sits" portfolio doorway.
+**Hero:** `index.html` — served at the site **default root** (the former `pitch.html` URL is retired). Single target user, the claim being tested, the competitive alternative named (Dunford gate), maturity-labeled tablestakes/evolutionary/open-question, honesty boxes, falsification criteria, and the "Where Intent sits" portfolio doorway.
 
 | Role | Page | Notes |
 |------|------|-------|
-| **Hero** | pitch.html | The hypothesis pitch. Hero loop SVG, who-for, hypothesis-box, competitive-alternative, three-col maturity, lineage-strip, honesty-box. |
+| **Hero** | index.html | The hypothesis pitch, served at the site root. Hero loop SVG, who-for, hypothesis-box, competitive-alternative, three-col maturity, lineage-strip, honesty-box. |
 | Depth | concept-brief.html | Formal product framing. |
 | Depth | lineage.html | Methodology lineage graph — the credited ancestors. |
 | Depth | roadmap.html | Vision-forward direction. |
@@ -126,15 +128,15 @@ The organizing principle of the refresh is **dogfood-evidence**: the stack appea
 
 ```html
 <nav class="site-nav">
-  <a href="pitch.html" class="logo"><span>I</span>ntent</a>
-  <a href="pitch.html">The Hypothesis</a>
+  <a href="index.html" class="logo"><span>I</span>ntent</a>
+  <a href="index.html">The Hypothesis</a>
   <a href="the-system.html">The System</a>
   <a href="the-build.html">The Build</a>
   <a href="the-proof.html">The Proof</a>
 </nav>
 ```
 
-**Active states:** the page's home zone link gets `class="active"`. The logo links to `pitch.html`.
+**Active states:** the page's home zone link gets `class="active"`. The logo links to `index.html` (the home, served at the site root).
 
 ### Sub-Nav (per zone)
 
@@ -142,13 +144,13 @@ Every zone page (hub + depth) shows its zone's sub-nav below the primary nav, wi
 
 ### Special pages
 
-- `index.html` — meta redirect to `pitch.html` (the pitch IS the home). Excluded from nav contracts.
+- `index.html` — **the home/hero itself, served at the default root** (the former `pitch.html` redirect is retired; the hero content now lives directly at `index.html`). Checked by all nav contracts like any zone page.
 - `visual-brief.html` — iframe CTA launched from the pitch; carries the primary nav (Hypothesis active) but **no sub-nav**.
 - `review-2026-04-09.html` — lives in Zone 4 (Proof), carries the Proof sub-nav as "Panel Review."
 
 ### The doorway policy (DEC-004 + CON-SITE-011)
 
-intent-site connects to the broader coherence stack via **honest doorways into real surfaces** — `parallax-site` (the worldview) and `portfolio-site` (the product dashboard) — **never** by enumerating the 21-product portfolio in-line. `architecture.html` and `dogfood.html` are the contract-checked doorway pages; `pitch.html` and `products.html` carry additional honest doorways. Re-scoping intent-site into the worldview surface was rejected 8/8 by the 2026-06-05 panel (DEC-004) — do not reopen it.
+intent-site connects to the broader coherence stack via **honest doorways into real surfaces** — `parallax-site` (the worldview) and `portfolio-site` (the product dashboard) — **never** by enumerating the 21-product portfolio in-line. `architecture.html` and `dogfood.html` are the contract-checked doorway pages; `index.html` (the home) and `products.html` carry additional honest doorways. Re-scoping intent-site into the worldview surface was rejected 8/8 by the 2026-06-05 panel (DEC-004) — do not reopen it.
 
 ---
 

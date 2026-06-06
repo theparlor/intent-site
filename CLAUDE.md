@@ -32,18 +32,18 @@ This repo (`theparlor/intent-site`) contains the marketing and documentation sit
 
 ## Design System
 
-### Unified Slate Palette
-- Background: `#0f172a`
-- Surface: `#1e293b`
+### Palette — "behind-the-veil" family (IA v3, 2026-06-05; single source: `docs/styles.css`)
+- Background (base): `#0b0f14` (darker graphite-metal; was slate `#0f172a`)
+- Surface: `#151b23` (was `#1e293b`)
 - Border: `#334155`
 - Text: `#f1f5f9`
 - Muted text: `#94a3b8`
 - Dim text: `#64748b`
-- Accent blue: `#3b82f6`
-- Accent amber: `#f59e0b`
-- Accent green: `#10b981`
-- Accent purple: `#8b5cf6`
-- Accent red: `#dc2626`
+- **Heat accent: `#f7660a`** — the veil-tier "heat," shared with Parallax (`--altitude`) + portfolio (`--molten`). Used for the logo mark, primary CTAs, the hero highlight. Body type stays system-sans; headings/nav use **Montserrat**; code stays SF Mono.
+
+**SEMANTIC colors — do NOT repurpose for chrome** (they encode meaning):
+- Accent blue: `#3b82f6` · Accent amber: `#f59e0b` · Accent green: `#10b981` · Accent purple: `#8b5cf6` · Accent red: `#dc2626`
+- Map to loop phases (Notice=amber, Spec=blue, Execute=green, Observe=purple), trust levels (L0–L4), and the persona symbols below.
 
 ### Persona Colors
 - Architect (△): `#f59e0b` (amber)
@@ -60,17 +60,17 @@ The site is ONE site with ONE nav (Phase 10, 2026-06-05, DEC-004). Primary nav =
 ### Primary Nav (ALL pages except index.html)
 ```html
 <nav class="site-nav">
-  <a href="pitch.html" class="logo"><span>I</span>ntent</a>
-  <a href="pitch.html">The Hypothesis</a>
+  <a href="index.html" class="logo"><span>I</span>ntent</a>
+  <a href="index.html">The Hypothesis</a>
   <a href="the-system.html">The System</a>
   <a href="the-build.html">The Build</a>
   <a href="the-proof.html">The Proof</a>
 </nav>
 ```
-The page's home-zone link gets `class="active"`. The logo links to `pitch.html`.
+The page's home-zone link gets `class="active"`. The logo links to `index.html` (the home, at the default root).
 
-### Zone 1 — The Hypothesis (pitch.html is hero)
-Pages: pitch, concept-brief, lineage, roadmap, when-not, who-loses, ending, neutral-zone
+### Zone 1 — The Hypothesis (index.html is hero, served at the default root)
+Pages: index, concept-brief, lineage, roadmap, when-not, who-loses, ending, neutral-zone
 Sub-nav: Overview · Concept Brief · Lineage · Roadmap · When Not · Who Loses · The Ending · Neutral Zone
 
 ### Zone 2 — The System (the-system.html is hub)
@@ -87,7 +87,7 @@ Sub-nav: Overview · Dogfood · Governed Repos · Panel Review
 **Organizing principle:** dogfood-evidence — "Intent governs N real repos" as *evidence*, never a catalog to buy.
 
 ### Index / Visual Brief / Doorways
-`index.html` redirects to `pitch.html` (the pitch IS the home). `visual-brief.html` is a CTA on the pitch (primary nav only, no sub-nav). Honest doorways link to the real **Parallax** (`parallax-site`) + **portfolio** (`portfolio-site`) surfaces; the 21-product worldview is NOT enumerated here (DEC-004 / CON-SITE-011). Re-scoping intent-site into the worldview surface was rejected 8/8 — do not reopen it.
+`index.html` IS the home/hero, served at the default root (the `pitch.html` URL is retired; the hero content lives directly at `index.html`). `visual-brief.html` is a CTA off the home (primary nav only, no sub-nav). Honest doorways link to the real **Parallax** (`parallax-site`) + **portfolio** (`portfolio-site`) surfaces; the 21-product worldview is NOT enumerated here (DEC-004 / CON-SITE-011). Re-scoping intent-site into the worldview surface was rejected 8/8 — do not reopen it.
 
 ## CSS Strategy — CRITICAL RULES
 
