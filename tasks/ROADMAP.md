@@ -382,7 +382,7 @@ Approved 2026-06-05 (DEC-004) after a 4-panel Voices critique; executed the same
 | TASK-10.3: Staleness fixes | `skills-engine`→Forge (work-system, 7 refs); stale "discovery wave in flight / come back Friday" dates → current reality (pitch, the-proof). Persona count L0-deferred (TASK-004); events 15→22 deferred. | **PARTIAL** | Forge + dates done; counts flagged below |
 | TASK-10.4: CON-SITE-011 fence | Contract present; updated to "honest doorways into the real Parallax/portfolio surfaces" (multi-doorway per DEC-004 update). | **DONE** | CON-SITE-011 passes |
 | TASK-10.5: Doorways + Dunford gate | Parallax doorway on architecture+dogfood; Parallax+portfolio doorways on pitch+dogfood+products; **Dunford competitive-alternative named** on pitch (write-own-CLAUDE.md / build-.intent-from-scratch / do-nothing). | **DONE** | doorways live; Dunford gate met |
-| TASK-10.6: ECOSYSTEM correction | `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 "deprecating" contradicts evolves-not-deprecates. | **DEFERRED** | out of intent-site scope — flagged for a Core correction pass |
+| TASK-10.6: ECOSYSTEM correction | `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 "deprecating" contradicts evolves-not-deprecates. | **DONE** | 2026-06-05 Core correction pass — line 240 verified evolves-in-place + NOT deprecated, +system-plane wording, canon-cited (SIG-INTENTSITE-2026-04-23; DEC-004; WS-DDR-107); founding three-tier spec §7 (line 147) aligned. No automated catch-net (hand-maintained docs; low regression risk) — SIG-EXEC-2026-06-05-ecosystem-deprecation-correction |
 
 **Deferred / open (post-overhaul):**
 - **Persona count sync (TASK-004, L0):** site still shows 178/188; registry is larger. Awaits Brien approval.
