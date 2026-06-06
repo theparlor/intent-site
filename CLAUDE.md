@@ -51,43 +51,43 @@ This repo (`theparlor/intent-site`) contains the marketing and documentation sit
 - Design/QA (○): `#8b5cf6` (purple)
 - Agent (◉): `#10b981` (green)
 
-## Site Information Architecture (IA v2 — Three Pillars)
+## Site Information Architecture (IA v3 — Four Zones)
 
 **IMPORTANT: Read `site-ia.md` for the full IA specification. This section is the summary.**
 
-The site is organized into three pillars. The primary nav has exactly 3 links (plus logo). Each pillar has a hero page and depth pages with a sub-nav.
+The site is ONE site with ONE nav (Phase 10, 2026-06-05, DEC-004). Primary nav = 4 zone links + logo. Every page carries the same primary nav + a within-zone sub-nav. Prior eras are archived under `docs/archive/` (`v1-2-multi-framing`, `v1-3-three-pillar`, `v2-draft`) plus the tag `intent-site-pre-overhaul-2026-06-05`. **Do NOT reintroduce a second IA at root or a banner that punts to another draft.**
 
-### Primary Nav (ALL pages)
+### Primary Nav (ALL pages except index.html)
 ```html
 <nav class="site-nav">
-  <a href="index.html" class="logo"><span>I</span>ntent</a>
-  <a href="pitch.html">The Story</a>
-  <a href="work-system.html">The System</a>
-  <a href="architecture.html">The Build</a>
+  <a href="pitch.html" class="logo"><span>I</span>ntent</a>
+  <a href="pitch.html">The Hypothesis</a>
+  <a href="the-system.html">The System</a>
+  <a href="the-build.html">The Build</a>
+  <a href="the-proof.html">The Proof</a>
 </nav>
 ```
-One pillar link gets `class="active"` based on which pillar the current page belongs to.
+The page's home-zone link gets `class="active"`. The logo links to `pitch.html`.
 
-### Pillar 1 — The Story (pitch.html is hero)
-Pages: pitch.html, concept-brief.html, methodology.html, walkthrough.html, roadmap.html
-Primary nav active: "The Story"
-Sub-nav: Overview · Concept Brief · Methodology · Walkthrough · Roadmap
+### Zone 1 — The Hypothesis (pitch.html is hero)
+Pages: pitch, concept-brief, lineage, roadmap, when-not, who-loses, ending, neutral-zone
+Sub-nav: Overview · Concept Brief · Lineage · Roadmap · When Not · Who Loses · The Ending · Neutral Zone
 
-### Pillar 2 — The System (work-system.html is hero)
-Pages: work-system.html, flow-diagram.html, system-diagram.html, schemas.html, signals.html, personas.html, dogfood.html, observe.html, event-catalog.html, getting-started.html
-Primary nav active: "The System"
-Sub-nav: Overview · Flow · System Map · Schemas · Signals · Persona Catalog · Dogfood · Observe · Events · Start
+### Zone 2 — The System (the-system.html is hub)
+Pages: the-system, methodology, walkthrough, work-system, signals, personas, event-catalog, observe, getting-started
+Sub-nav: Overview · Methodology · Walkthrough · Work System · Signals · Voices · Events · Observe · Start
 
-### Pillar 3 — The Build (architecture.html is hero)
-Pages: architecture.html, agents.html, deployment.html, observability.html, arb.html, decisions.html, native-repos.html, products.html
-Primary nav active: "The Build"
-Sub-nav: Overview · Agents · Deployment · Observability · ARB · Decisions · Repos · Products
+### Zone 3 — The Build (the-build.html is hub)
+Pages: the-build, architecture, system-diagram, flow-diagram, observability, arb, decisions, schemas, agents, deployment, native-repos
+Sub-nav: Overview · Architecture · System Map · Flow · Observability · ARB · Decisions · Schemas · Agents · Deployment · Repos
 
-### Index Page
-`index.html` is a meta redirect to `pitch.html`. The logo always links to `index.html`.
+### Zone 4 — The Proof (the-proof.html is hub)
+Pages: the-proof, dogfood, products (Governed Repos), review-2026-04-09 (Panel Review)
+Sub-nav: Overview · Dogfood · Governed Repos · Panel Review
+**Organizing principle:** dogfood-evidence — "Intent governs N real repos" as *evidence*, never a catalog to buy.
 
-### Visual Brief
-`visual-brief.html` is NOT a nav destination. It's a CTA link on the pitch page.
+### Index / Visual Brief / Doorways
+`index.html` redirects to `pitch.html` (the pitch IS the home). `visual-brief.html` is a CTA on the pitch (primary nav only, no sub-nav). Honest doorways link to the real **Parallax** (`parallax-site`) + **portfolio** (`portfolio-site`) surfaces; the 21-product worldview is NOT enumerated here (DEC-004 / CON-SITE-011). Re-scoping intent-site into the worldview surface was rejected 8/8 — do not reopen it.
 
 ## CSS Strategy — CRITICAL RULES
 
@@ -118,11 +118,11 @@ Extensive `<style>` blocks with page-specific visual components. **Never strip o
 ```
 intent-site/
 ├── docs/              ← GitHub Pages source
-│   ├── *.html         ← All 23 pillar pages (+ index.html redirect + visual-brief.html)
+│   ├── *.html         ← Four-zone pages (Hypothesis/System/Build/Proof) + index redirect + visual-brief + review artifact
 │   ├── *.meta.yml     ← Library-index metadata sidecar files (one per HTML page; not served pages)
 │   ├── styles.css     ← Shared stylesheet
 │   ├── diagrams/      ← Mermaid source files for diagram pages
-│   ├── v2-draft/      ← Experimental drafts from IA v2 migration (22 files; governance pending Phase 9)
+│   ├── archive/       ← Prior IA eras, frozen + browsable: v1-2-multi-framing/ · v1-3-three-pillar/ · v2-draft/ (each has an ARCHIVE.md)
 │   └── visual-brief-app/  ← Vite-built React app
 ├── .intent/           ← Intent governance (IDD anchor, decisions, signals)
 │   ├── INTENT.md      ← Purpose declaration + active objectives

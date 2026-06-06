@@ -107,27 +107,23 @@
 </head>
 <body>
   <nav class="site-nav">
-    <a href="index.html" class="logo"><span>I</span>ntent</a>
-    <a href="pitch.html">The Story</a>
-    <a href="work-system.html" class="active">The System</a>
-    <a href="architecture.html">The Build</a>
+    <a href="pitch.html" class="logo"><span>I</span>ntent</a>
+    <a href="pitch.html">The Hypothesis</a>
+    <a href="the-system.html" class="active">The System</a>
+    <a href="the-build.html">The Build</a>
+    <a href="the-proof.html">The Proof</a>
   </nav>
   <nav class="sub-nav">
-    <a href="work-system.html" class="active">Overview</a>
-    <a href="flow-diagram.html">Flow</a>
-    <a href="system-diagram.html">System Map</a>
-    <a href="schemas.html">Schemas</a>
+    <a href="the-system.html">Overview</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="walkthrough.html">Walkthrough</a>
+    <a href="work-system.html" class="active">Work System</a>
     <a href="signals.html">Signals</a>
     <a href="personas.html">Voices</a>
-    <a href="dogfood.html">Dogfood</a>
-    <a href="observe.html">Observe</a>
     <a href="event-catalog.html">Events</a>
+    <a href="observe.html">Observe</a>
     <a href="getting-started.html">Start</a>
   </nav>
-<div class="v1-banner" style="background: rgba(245,158,11,0.08); border-bottom: 1px solid rgba(245,158,11,0.25); padding: 12px 24px; text-align: center; font-size: 13px; color: #f1f5f9; font-family: Inter, -apple-system, sans-serif;">
-  ⚠ <strong>Active hypothesis · v1.2 content.</strong> This page describes current architecture work-in-progress in shipped-product voice. Some material is tablestakes, some is evolutionary, some is still an open question.
-  <a href="v2-draft/pitch.html" style="color: #3b82f6; font-weight: 600; text-decoration: none;">See the hypothesis framing →</a>
-</div>
 
   <!-- Dashboard Guide Section -->
   <div class="dashboard-guide">
@@ -1027,14 +1023,14 @@ function ProductsTab() {
       ],
     },
     {
-      id: "skills-engine",
-      name: "Skills Engine",
+      id: "forge",
+      name: "Forge",
       color: "#f59e0b",
-      description: "Composable advisory intelligence — methodology x persona x platform = deployable capability.",
+      description: "Composition engine — Methodology × Persona × Platform = Deployed Skill. Renders skills and personas across platforms (Claude Code, Copilot, system prompts).",
       products: [
         { id: "personas-voices", name: "Personas & Voices", type: "domain", status: "execute", tagline: "188 personas (178 registry entities, 7 archetypes) rendered as advisory voices.", provides: ["persona critique for spec-shaping", "advisory voices", "archetype compositions"], consumes: ["KE Person Dossier", "KE Enrich"] },
         { id: "methodology-library", name: "Methodology Library", type: "domain", status: "execute", tagline: "Codified consulting methodologies — discovery, debugging, planning, review. Symlinked into Pliable IR.", provides: ["methodology modules", "skill compositions"], consumes: [] },
-        { id: "pliable-ir", name: "Pliable IR", type: "platform", status: "execute", tagline: "Intermediate representation — 3 renderers (annotated, copilot, future). 47 skills compiled.", provides: ["annotated-block skills", "copilot renderings (planned)", "methodology symlinks"], consumes: ["Methodology Library"] },
+        { id: "pliable-ir", name: "Pliable IR", type: "platform", status: "execute", tagline: "Intermediate representation — 3 renderers (annotated, copilot, future). 78 skills compiled.", provides: ["annotated-block skills", "copilot renderings (planned)", "methodology symlinks"], consumes: ["Methodology Library"] },
       ],
     },
     {
@@ -1105,7 +1101,7 @@ function ProductsTab() {
     <div>
       <p style={{ color: COLORS.textMuted, marginBottom: 28, lineHeight: 1.6, fontSize: 14 }}>
         The Parlor portfolio is a set of <strong style={{ color: COLORS.text }}>composable products</strong> that feed each other.
-        Knowledge Engine produces intelligence. Skills Engine supplies advisory personas. Intent orchestrates the work.
+        Knowledge Engine produces intelligence. Forge supplies advisory personas. Intent orchestrates the work.
         Every product is built with the Intent methodology — notice, spec, execute, observe.
       </p>
 
@@ -1154,7 +1150,7 @@ function ProductsTab() {
         Composability Flow
       </h3>
       <p style={{ color: COLORS.textMuted, fontSize: 13, marginBottom: 16, lineHeight: 1.5 }}>
-        Products compose across product lines. Knowledge Engine feeds domain context into Intent. Skills Engine provides persona critique for spec-shaping. Observations flow back as enrichment — the feedback loop that makes the system learn.
+        Products compose across product lines. Knowledge Engine feeds domain context into Intent. Forge provides persona critique for spec-shaping. Observations flow back as enrichment — the feedback loop that makes the system learn.
       </p>
 
       <div style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`, borderRadius: 8, padding: 20, overflowX: "auto" }}>
@@ -1215,9 +1211,9 @@ function ProductsTab() {
           <text x="170" y="201" fill="#c4b5fd" fontSize="11" textAnchor="middle" fontWeight="600">Knowledge Farm</text>
           <text x="170" y="213" fill="#64748b" fontSize="9" textAnchor="middle">(GTM carry-away)</text>
 
-          {/* Skills Engine container */}
+          {/* Forge container */}
           <rect x="540" y="20" width="340" height="210" rx="8" fill="rgba(245,158,11,0.06)" stroke="#f59e0b" strokeWidth="1" strokeOpacity="0.4" />
-          <text x="560" y="45" fill="#f59e0b" fontSize="13" fontWeight="700">Skills Engine</text>
+          <text x="560" y="45" fill="#f59e0b" fontSize="13" fontWeight="700">Forge</text>
 
           <rect x="560" y="60" width="150" height="36" rx="6" fill="rgba(245,158,11,0.1)" stroke="#f59e0b" strokeWidth="0.8" strokeOpacity="0.5" />
           <text x="635" y="83" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Personas & Voices</text>
@@ -1225,7 +1221,7 @@ function ProductsTab() {
           <rect x="560" y="110" width="150" height="36" rx="6" fill="rgba(245,158,11,0.1)" stroke="#f59e0b" strokeWidth="0.8" strokeOpacity="0.5" />
           <text x="635" y="133" fill="#e2e8f0" fontSize="11" textAnchor="middle" fontWeight="600">Methodology Library</text>
 
-          {/* KE → Skills Engine: Person Dossier → Personas */}
+          {/* KE → Forge: Person Dossier → Personas */}
           <line x1="300" y1="138" x2="558" y2="78" stroke="#a855f7" strokeWidth="1" strokeOpacity="0.6" markerEnd="url(#arrow-purple)" />
           <text x="420" y="98" fill="#a855f7" fontSize="9" fontWeight="500" opacity="0.8">persona corpus</text>
 
@@ -1259,7 +1255,7 @@ function ProductsTab() {
           <path d="M 690,352 L 690,372 L 110,372 L 110,352" fill="none" stroke="#3b82f6" strokeWidth="1" strokeOpacity="0.5" strokeDasharray="4,3" markerEnd="url(#arrow-blue)" />
           <text x="400" y="384" fill="#3b82f6" fontSize="9" textAnchor="middle" opacity="0.7">loop closure</text>
 
-          {/* Skills Engine → Intent Spec: persona critique + methodology */}
+          {/* Forge → Intent Spec: persona critique + methodology */}
           <line x1="635" y1="96" x2="310" y2="308" stroke="#f59e0b" strokeWidth="1" strokeOpacity="0.6" markerEnd="url(#arrow-amber)" />
           <text x="510" y="200" fill="#f59e0b" fontSize="9" fontWeight="500" opacity="0.8" transform="rotate(-40, 510, 200)">persona critique</text>
 

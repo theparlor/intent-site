@@ -7,6 +7,7 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-03-31
+updated: 2026-06-05
 depth_score: 4
 depth_signals:
   file_size_kb: 11.2
@@ -22,158 +23,99 @@ vocab_density: 0.09
 
 > Verifiable assertions for the Intent product site. Run these checks after ANY modification to files in `docs/`.
 > Each contract is a shell command that returns pass/fail. All must pass before committing.
-> **IA v2:** Three-pillar model — see `site-ia.md` for full specification.
+> **IA v3 (Phase 10, 2026-06-05):** Four-zone model — **The Hypothesis · The System · The Build · The Proof**. See `site-ia.md`. Supersedes the three-pillar IA (now archived at `docs/archive/v1-3-three-pillar/`).
 
-## CON-SITE-001: Every HTML file has the 3-link primary nav
+## Zone page sets (the IA)
 
-**Type:** structural
-**Severity:** critical — broken nav means users can't navigate
+```
+HYPOTHESIS  pitch.html (hero) · concept-brief · lineage · roadmap · when-not · who-loses · ending · neutral-zone
+SYSTEM      the-system.html (hub) · methodology · walkthrough · work-system · signals · personas · event-catalog · observe · getting-started
+BUILD       the-build.html (hub) · architecture · system-diagram · flow-diagram · observability · arb · decisions · schemas · agents · deployment · native-repos
+PROOF       the-proof.html (hub) · dogfood · products (Governed Repos) · review-2026-04-09 (Panel Review)
+SPECIAL     index.html (meta redirect → pitch.html, excluded from nav checks) · visual-brief.html (iframe CTA, primary nav only, no sub-nav)
+```
+
+Primary nav (every page except `index.html`): logo → `pitch.html`, then `The Hypothesis` · `The System` · `The Build` · `The Proof`. Exactly one zone link carries `class="active"`.
+
+## CON-SITE-001: Every HTML file has the 4-zone primary nav
+
+**Type:** structural · **Severity:** critical — broken nav means users can't navigate
 
 ```bash
-# Verify: every .html file in docs/ contains the site-nav with 3 pillar links
-# index.html excluded — meta redirect per IA v2 (site-ia.md)
 cd docs/
 FAIL=0
 for f in *.html; do
   [ "$f" = "index.html" ] && continue
-  if grep -q 'class="site-nav"' "$f"; then
-    : # has nav
-  else
-    echo "FAIL: $f missing site-nav"
-    FAIL=1
-  fi
-  for link in pitch.html work-system.html architecture.html; do
-    if grep -q "href=\"$link\"" "$f"; then
-      : # has link
-    else
-      echo "FAIL: $f missing nav link to $link"
-      FAIL=1
-    fi
+  grep -q 'class="site-nav"' "$f" || { echo "FAIL: $f missing site-nav"; FAIL=1; }
+  for link in pitch.html the-system.html the-build.html the-proof.html; do
+    grep -q "href=\"$link\"" "$f" || { echo "FAIL: $f missing nav link to $link"; FAIL=1; }
   done
 done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-001"
 ```
 
-## CON-SITE-002: Correct active states per pillar
+## CON-SITE-002: Correct active states per zone
 
-**Type:** structural
-**Severity:** major — wrong active state confuses navigation
+**Type:** structural · **Severity:** major — wrong active state confuses navigation
 
 ```bash
-# Verify: every page has exactly the right active states
-# Primary nav: one of The Story / The System / The Build
-# Sub-nav: one link matching the current page
 cd docs/
 FAIL=0
-
-# Pillar 1 pages should have "The Story" active in primary nav
-for f in pitch.html concept-brief.html methodology.html walkthrough.html roadmap.html; do
-  if [ -f "$f" ]; then
-    if grep -q 'class="active"' "$f"; then
-      : # has at least one active
-    else
-      echo "FAIL: $f has no active nav link"
-      FAIL=1
-    fi
-  fi
+for f in pitch.html concept-brief.html lineage.html roadmap.html when-not.html who-loses.html ending.html neutral-zone.html \
+         the-system.html methodology.html walkthrough.html work-system.html signals.html personas.html event-catalog.html observe.html getting-started.html \
+         the-build.html architecture.html system-diagram.html flow-diagram.html observability.html arb.html decisions.html schemas.html agents.html deployment.html native-repos.html \
+         the-proof.html dogfood.html products.html review-2026-04-09.html; do
+  [ -f "$f" ] || continue
+  grep -q 'class="active"' "$f" || { echo "FAIL: $f has no active nav link"; FAIL=1; }
 done
-
-# Pillar 2 pages should have "The System" active in primary nav
-for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html observe.html event-catalog.html getting-started.html; do
-  if [ -f "$f" ]; then
-    if grep -q 'class="active"' "$f"; then
-      : # has at least one active
-    else
-      echo "FAIL: $f has no active nav link"
-      FAIL=1
-    fi
-  fi
-done
-
-# Pillar 3 pages should have "The Build" active in primary nav
-for f in architecture.html agents.html deployment.html observability.html arb.html decisions.html native-repos.html; do
-  if [ -f "$f" ]; then
-    if grep -q 'class="active"' "$f"; then
-      : # has at least one active
-    else
-      echo "FAIL: $f has no active nav link"
-      FAIL=1
-    fi
-  fi
-done
-
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-002"
 ```
 
 ## CON-SITE-003: Standard footer on all pages
 
-**Type:** structural
-**Severity:** major — branding consistency
+**Type:** structural · **Severity:** major — branding consistency
 
 ```bash
-# Verify: every .html file contains the standard footer text
-# index.html excluded — meta redirect per IA v2 (site-ia.md)
 cd docs/
 FAIL=0
 for f in *.html; do
   [ "$f" = "index.html" ] && continue
-  if grep -q 'github.com/theparlor/intent' "$f"; then
-    : # has footer link
-  else
-    echo "FAIL: $f missing standard footer link"
-    FAIL=1
-  fi
-  if grep -q 'Built with the Intent methodology' "$f"; then
-    : # has tagline
-  else
-    echo "FAIL: $f missing footer tagline"
-    FAIL=1
-  fi
+  grep -q 'github.com/theparlor/intent' "$f" || { echo "FAIL: $f missing footer link"; FAIL=1; }
+  grep -q 'Built with the Intent methodology' "$f" || { echo "FAIL: $f missing footer tagline"; FAIL=1; }
 done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-003"
 ```
 
 ## CON-SITE-004: All HTML pages link styles.css
 
-**Type:** structural
-**Severity:** critical — missing styles.css means no shared foundation (nav, palette, typography)
+**Type:** structural · **Severity:** critical — missing styles.css means no shared foundation
 
 ```bash
-# index.html excluded — meta redirect per IA v2 (site-ia.md)
 cd docs/
 FAIL=0
 for f in *.html; do
   [ "$f" = "index.html" ] && continue
-  if grep -q 'href="styles.css"' "$f"; then
-    : # has styles.css
-  else
-    echo "FAIL: $f does not link styles.css"
-    FAIL=1
-  fi
+  grep -q 'href="styles.css"' "$f" || { echo "FAIL: $f does not link styles.css"; FAIL=1; }
 done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-004"
 ```
 
 ## CON-SITE-005: Rich pages retain page-specific CSS
 
-**Type:** quality
-**Severity:** critical — stripping inline styles from rich pages destroys their visual components
+**Type:** quality · **Severity:** critical — stripping inline styles destroys visual components
 
 ```bash
-# Rich pages must have substantial inline <style> blocks
 cd docs/
 FAIL=0
 check_inline_css() {
   local file=$1 min_lines=$2
-  if [ -f "$file" ]; then
-    CSS_LINES=$(sed -n '/<style>/,/<\/style>/p' "$file" | wc -l)
-    if [ "$CSS_LINES" -lt "$min_lines" ]; then
-      echo "FAIL: $file has only ${CSS_LINES} lines of inline CSS, expected at least ${min_lines} (page-specific CSS may have been stripped)"
-      FAIL=1
-    fi
-  fi
+  [ -f "$file" ] || return
+  CSS_LINES=$(sed -n '/<style>/,/<\/style>/p' "$file" | wc -l)
+  [ "$CSS_LINES" -lt "$min_lines" ] && { echo "FAIL: $file has only ${CSS_LINES} lines inline CSS (< ${min_lines})"; FAIL=1; }
 }
 check_inline_css pitch.html 50
+check_inline_css the-build.html 30
+check_inline_css the-proof.html 30
 check_inline_css arb.html 80
 check_inline_css signals.html 50
 check_inline_css roadmap.html 50
@@ -181,34 +123,32 @@ check_inline_css dogfood.html 30
 check_inline_css architecture.html 30
 check_inline_css agents.html 30
 check_inline_css deployment.html 30
-# index.html excluded — becomes a redirect to pitch.html per site-ia.md
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-005"
 ```
 
-## CON-SITE-006: File size canary — no page dropped below 70% of baseline
+## CON-SITE-006: File size canary — no page dropped below ~70% of baseline
 
-**Type:** quality
-**Severity:** critical — a dramatic size drop means content was lost
+**Type:** quality · **Severity:** critical — a dramatic size drop means content was lost
 
 ```bash
 cd docs/
 FAIL=0
 check_size() {
   local file=$1 min=$2
-  if [ -f "$file" ]; then
-    SIZE=$(wc -c < "$file")
-    if [ "$SIZE" -lt "$min" ]; then
-      echo "FAIL: $file is ${SIZE}B, expected at least ${min}B (content may be lost)"
-      FAIL=1
-    fi
-  fi
+  [ -f "$file" ] || return
+  SIZE=$(wc -c < "$file")
+  [ "$SIZE" -lt "$min" ] && { echo "FAIL: $file is ${SIZE}B, expected >= ${min}B (content may be lost)"; FAIL=1; }
 }
-# 70% of baseline sizes
-check_size pitch.html 18200
+# Zone hubs + hero (IA v3)
+check_size pitch.html 25000
+check_size the-system.html 11000
+check_size the-build.html 14000
+check_size the-proof.html 12000
+# Depth pages (carried forward, re-navved)
 check_size work-system.html 33600
 check_size signals.html 33600
 check_size arb.html 27300
-check_size dogfood.html 14000
+check_size dogfood.html 17000
 check_size roadmap.html 10500
 check_size methodology.html 8400
 check_size concept-brief.html 7000
@@ -221,132 +161,86 @@ check_size schemas.html 5600
 check_size architecture.html 10500
 check_size agents.html 10500
 check_size deployment.html 8400
+check_size native-repos.html 9000
+check_size products.html 7000
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-006"
 ```
 
-## CON-SITE-007: Sub-nav on ALL pillar pages
+## CON-SITE-007: Sub-nav on ALL zone pages
 
-**Type:** structural
-**Severity:** critical — every page in a pillar needs sub-nav for within-pillar navigation
+**Type:** structural · **Severity:** critical — every zone page needs within-zone navigation
 
 ```bash
 cd docs/
 FAIL=0
-
-# Pillar 1: The Story
-for f in pitch.html concept-brief.html methodology.html walkthrough.html roadmap.html; do
-  if [ -f "$f" ]; then
-    if grep -q 'class="sub-nav"' "$f"; then
-      : # has sub-nav
-    else
-      echo "FAIL: $f missing sub-nav (Pillar 1 — The Story)"
-      FAIL=1
-    fi
-  fi
+# All zone pages (hubs + depth). Excludes index.html (redirect) and visual-brief.html (iframe CTA).
+for f in pitch.html concept-brief.html lineage.html roadmap.html when-not.html who-loses.html ending.html neutral-zone.html \
+         the-system.html methodology.html walkthrough.html work-system.html signals.html personas.html event-catalog.html observe.html getting-started.html \
+         the-build.html architecture.html system-diagram.html flow-diagram.html observability.html arb.html decisions.html schemas.html agents.html deployment.html native-repos.html \
+         the-proof.html dogfood.html products.html review-2026-04-09.html; do
+  [ -f "$f" ] || continue
+  grep -q 'class="sub-nav"' "$f" || { echo "FAIL: $f missing sub-nav"; FAIL=1; }
 done
-
-# Pillar 2: The System
-for f in work-system.html flow-diagram.html system-diagram.html schemas.html signals.html dogfood.html observe.html event-catalog.html getting-started.html; do
-  if [ -f "$f" ]; then
-    if grep -q 'class="sub-nav"' "$f"; then
-      : # has sub-nav
-    else
-      echo "FAIL: $f missing sub-nav (Pillar 2 — The System)"
-      FAIL=1
-    fi
-  fi
-done
-
-# Pillar 3: The Build
-for f in architecture.html agents.html deployment.html observability.html arb.html decisions.html native-repos.html; do
-  if [ -f "$f" ]; then
-    if grep -q 'class="sub-nav"' "$f"; then
-      : # has sub-nav
-    else
-      echo "FAIL: $f missing sub-nav (Pillar 3 — The Build)"
-      FAIL=1
-    fi
-  fi
-done
-
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-007"
 ```
 
 ## CON-SITE-008: Key visual components preserved
 
-**Type:** quality
-**Severity:** critical — these are the page's primary value
+**Type:** quality · **Severity:** critical — these are the page's primary value
 
 ```bash
 cd docs/
 FAIL=0
-
-# pitch.html must have its visual components
+# pitch.html (IA v3 hypothesis hero) components
 if [ -f pitch.html ]; then
-  grep -q 'fracture-grid' pitch.html || { echo "FAIL: pitch.html missing fracture grid"; FAIL=1; }
-  grep -q 'timeline' pitch.html || { echo "FAIL: pitch.html missing timeline"; FAIL=1; }
-  grep -q 'compare-strip' pitch.html || { echo "FAIL: pitch.html missing comparison strip"; FAIL=1; }
-  grep -q '<svg' pitch.html || { echo "FAIL: pitch.html missing SVG loop diagram"; FAIL=1; }
-  grep -q 'stat-box' pitch.html || { echo "FAIL: pitch.html missing stat boxes"; FAIL=1; }
-  grep -q 'plane-diagram' pitch.html || { echo "FAIL: pitch.html missing two-plane diagram"; FAIL=1; }
+  for c in 'hero-loop' 'hypothesis-box' 'three-col' 'honesty-box' 'who-for' 'lineage-strip' '<svg'; do
+    grep -q "$c" pitch.html || { echo "FAIL: pitch.html missing $c"; FAIL=1; }
+  done
 fi
-
-# arb.html must have tab interface, SVG radar visual, and tech radar cards
+# arb.html — tab interface, SVG radar, blips
 if [ -f arb.html ]; then
-  grep -q 'switchTab' arb.html || { echo "FAIL: arb.html missing tab interface JS"; FAIL=1; }
-  grep -q 'tab-btn' arb.html || { echo "FAIL: arb.html missing tab buttons"; FAIL=1; }
-  grep -q 'radar' arb.html || { echo "FAIL: arb.html missing tech radar"; FAIL=1; }
-  grep -q '<svg' arb.html || { echo "FAIL: arb.html missing SVG radar visual"; FAIL=1; }
-  grep -q 'class="blip"' arb.html || { echo "FAIL: arb.html missing radar blips"; FAIL=1; }
+  for c in switchTab tab-btn radar '<svg' 'class="blip"'; do
+    grep -q "$c" arb.html || { echo "FAIL: arb.html missing $c"; FAIL=1; }
+  done
 fi
-
-# signals.html must have signal cards
+# signals.html — signal cards
 if [ -f signals.html ]; then
   grep -q 'SIG-001' signals.html || { echo "FAIL: signals.html missing SIG-001"; FAIL=1; }
   grep -q 'SIG-015' signals.html || { echo "FAIL: signals.html missing SIG-015"; FAIL=1; }
 fi
-
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-008"
 ```
 
 ## CON-SITE-009: No broken internal links
 
-**Type:** quality
-**Severity:** major — broken links are a bad user experience
+**Type:** quality · **Severity:** major — broken links are a bad user experience
 
 ```bash
 cd docs/
 FAIL=0
-# Extract all href="*.html" references and check the files exist
 for f in *.html; do
-  LINKS=$(grep -oP 'href="\K[^"]*\.html' "$f" 2>/dev/null | sort -u)
+  LINKS=$(grep -oE 'href="[^"]*\.html' "$f" 2>/dev/null | sed 's/href="//' | sort -u)
   for link in $LINKS; do
-    # Skip external links
-    if [[ "$link" == http* ]]; then continue; fi
-    if [ ! -f "$link" ]; then
-      echo "FAIL: $f links to $link which does not exist"
-      FAIL=1
-    fi
+    [[ "$link" == http* ]] && continue
+    [ -f "$link" ] || { echo "FAIL: $f links to $link which does not exist"; FAIL=1; }
   done
 done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-009"
 ```
 
-## CON-SITE-010: Primary nav has exactly 3 pillar links (no old 9-link nav)
+## CON-SITE-010: No old three-pillar nav remnants
 
-**Type:** structural
-**Severity:** critical — ensures the IA v2 migration is complete, no pages retain old nav
+**Type:** structural · **Severity:** critical — ensures the IA v3 migration is complete
 
 ```bash
 cd docs/
 FAIL=0
 for f in *.html; do
-  # Old nav had direct links to methodology, concept-brief, schemas, etc. in primary nav
-  # New nav only has pitch, work-system, architecture in primary nav
-  # Check that old-style nav links are NOT in the site-nav block
-  OLD_IN_NAV=$(sed -n '/<nav class="site-nav">/,/<\/nav>/p' "$f" | grep -c 'href="methodology.html"\|href="concept-brief.html"\|href="schemas.html"\|href="flow-diagram.html"\|href="arb.html"\|href="dogfood.html"\|href="roadmap.html"')
-  if [ "$OLD_IN_NAV" -gt 0 ]; then
-    echo "FAIL: $f still has old 9-link primary nav (found $OLD_IN_NAV old links in site-nav)"
+  # The three-pillar primary nav linked work-system.html / architecture.html and used the label "The Story".
+  # Those targets now live only in sub-navs; the primary site-nav must NOT contain them.
+  OLD=$(sed -n '/<nav class="site-nav">/,/<\/nav>/p' "$f" | grep -c '>The Story<\|href="work-system.html"\|href="architecture.html"')
+  if [ "$OLD" -gt 0 ]; then
+    echo "FAIL: $f still has old three-pillar primary nav (found $OLD old refs in site-nav)"
     FAIL=1
   fi
 done
@@ -355,21 +249,15 @@ done
 
 ## CON-SITE-011: Doorway into the coherence-stack surface (no in-line catalog)
 
-**Type:** content
-**Severity:** major — the worldview lives on Parallax (parallax-site), not as a 21-product catalog inside intent-site
+**Type:** content · **Severity:** major — the worldview lives on Parallax / the portfolio, not as a catalog inside intent-site
 
-Per DEC-004 + WS-DDR-107: intent-site connects to the broader coherence stack via honest doorways into the real Parallax surface, NOT by enumerating the portfolio in-line. Verify the doorway exists on its designated pages.
+Per DEC-004 (+ its multi-doorway update) and WS-DDR-107: intent-site connects to the broader coherence stack via honest doorways into the **real** Parallax surface, NOT by enumerating the portfolio in-line. Verify the doorway exists on its designated pages.
 
 ```bash
 cd docs/
 FAIL=0
 for f in architecture.html dogfood.html; do
-  if grep -q 'theparlor.github.io/parallax-site' "$f"; then
-    : # has doorway into the real Parallax surface
-  else
-    echo "FAIL: $f missing Parallax doorway link"
-    FAIL=1
-  fi
+  grep -q 'theparlor.github.io/parallax-site' "$f" || { echo "FAIL: $f missing Parallax doorway link"; FAIL=1; }
 done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-011"
 ```
@@ -378,14 +266,14 @@ done
 
 | ID | Name | Severity | What It Catches |
 |----|------|----------|-----------------|
-| CON-SITE-001 | 3-link primary nav present | critical | Missing pillar navigation |
-| CON-SITE-002 | Active state correct per pillar | major | Wrong pillar/page highlighted |
+| CON-SITE-001 | 4-zone primary nav present | critical | Missing zone navigation |
+| CON-SITE-002 | Active state correct per zone | major | Wrong zone/page highlighted |
 | CON-SITE-003 | Standard footer | major | Missing/wrong footer |
 | CON-SITE-004 | All pages link styles.css | critical | Missing shared foundation |
 | CON-SITE-005 | Rich pages retain inline CSS | critical | Stripped page-specific visuals |
 | CON-SITE-006 | File size canary | critical | Content loss detection |
-| CON-SITE-007 | Sub-nav on ALL pillar pages | critical | Missing within-pillar navigation |
+| CON-SITE-007 | Sub-nav on all zone pages | critical | Missing within-zone navigation |
 | CON-SITE-008 | Visual components intact | critical | Lost diagrams/interactives |
 | CON-SITE-009 | No broken links | major | Dead internal links |
-| CON-SITE-010 | No old 9-link nav remnants | critical | Incomplete IA migration |
-| CON-SITE-011 | Doorway into Parallax (no in-line catalog) | major | Worldview off-loaded to the Parallax front-door |
+| CON-SITE-010 | No old three-pillar nav remnants | critical | Incomplete IA v3 migration |
+| CON-SITE-011 | Doorway into Parallax (no in-line catalog) | major | Worldview off-loaded to the real Parallax/portfolio surface |
