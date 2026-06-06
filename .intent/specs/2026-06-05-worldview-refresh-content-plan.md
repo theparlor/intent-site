@@ -180,7 +180,7 @@ These are factual corrections that apply under A, B, or C:
 3. `event-catalog.html`: 15 → 22 events (deploy.* family, safety fields).
 4. `signals.html` / `dogfood.html`: signal/spec/decision counts → current.
 5. `decisions.html`: ADRs beyond D19.
-6. **Contradiction flag (correction-propagation):** `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 still says *"intent-site … (deprecating per Parallax three-tier spec)."* This **contradicts** the governing canon (SIG-INTENTSITE-2026-04-23: evolves-not-deprecates). The ECOSYSTEM line is stale and should be corrected to "evolving in place into the Intent + Throughline surface." **Out of scope for the rebuild itself**, but logged here for a Sonnet correction-propagation pass (per feedback_decision_atom_correction_propagation).
+6. **Contradiction flag (correction-propagation):** `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 still says *"intent-site … (deprecating per Parallax three-tier spec)."* This **contradicts** the governing canon (SIG-INTENTSITE-2026-04-23: evolves-not-deprecates). The ECOSYSTEM line is stale and should be corrected to "evolving in place into the Intent + Throughline surface." **Out of scope for the rebuild itself**, but logged here for a Sonnet correction-propagation pass (per feedback_decision_atom_correction_propagation). **RESOLVED 2026-06-05** — premise was already stale: §6 (line 240) had been corrected to "evolves in place … NOT deprecated" before this flag was actioned. This pass added the `system-plane` wording to line 240, aligned the one genuine lagging ref (founding three-tier spec §7, line 147), and closed ROADMAP TASK-10.6. See `.intent/signals/SIG-EXEC-2026-06-05-ecosystem-deprecation-correction.md`.
 
 ---
 
