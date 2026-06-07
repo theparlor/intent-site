@@ -11,18 +11,18 @@ technologies:
   - slack
 depth_score: 4
 depth_signals:
-  file_size_kb: 11.4
-  content_chars: 10826
+  file_size_kb: 12.4
+  content_chars: 11850
   entity_count: 1
   slide_count: 0
   sheet_count: 0
   topic_count: 1
   has_summary: 0
-vocab_density: 0.28
+vocab_density: 0.25
 related_entities:
   - {pair: consulting-operations ↔ teresa-torres, count: 63, strength: 0.092}
   - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.081}
-  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.119}
+  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.118}
   - {pair: consulting-operations ↔ slack, count: 40, strength: 0.121}
   - {pair: consulting-operations ↔ jeff-patton, count: 37, strength: 0.072}
 ---
@@ -110,13 +110,13 @@ related_entities:
 > personas.html surfaces **Cast** (identity) and **Voices** (judgment) as mechanisms Intent *dogfoods*, not as a canonical catalog Intent owns (DEC-004 / worldview content-plan §4). Cast owns identity; Voices owns judgment; the canonical surfaces are the product sites.
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------|
-| personas.html | 178+ thought leader personas | Core/products/cast/farm/registry/*.yaml — entity count (live registry is larger; the site count is L0-gated, TASK-004) |
+| personas.html | 178+ thought leader personas | Core/products/cast/farm/registry/*.yaml — entity count (live = 351: 327 named-human + 16 archetype + 7 org + 1 peer, per cast/.known-counts 2026-06-07; the site count is L0-gated stale, TASK-004) |
 | personas.html | 7 archetypes | Core/products/cast/farm/archetypes/*/synthesis.md — archetype definitions |
 | personas.html | Freshening pipeline | Core/products/cast/farm/freshening-schedule.yaml — cadence tiers |
 | personas.html | Persona catalog cards (the bench Intent draws on) | Core/products/cast/farm/registry/*.yaml — name, voice, mental_models, tier |
 | personas.html | Archetype source-humans | Core/products/cast/farm/archetypes/*/source-humans.yaml — contributor weights |
 | personas.html | Two-channel output (machine_assertions + named_dissents) | Core/products/voices/spec/SPEC-001-voices-dissent-preservation.md §2 |
-| personas.html | Dissent-preservation conservation law | Core/products/voices/spec/SPEC-001-voices-dissent-preservation.md §1 (INV-1..INV-12) |
+| personas.html | Dissent-preservation conservation law | Core/products/voices/spec/SPEC-001-voices-dissent-preservation.md §1 (INV-1..INV-10 + INV-12; INV-11 reserved) |
 | personas.html | Dogfood evidence — the IA v3 panel was Voices run on Intent | .intent/decisions/DEC-004 + voices-run-20260605T191442Z |
 | personas.html | Doorways → Voices / Cast / portfolio product surfaces | theparlor.github.io/{voices-site, cast-site, portfolio-site} |
 | agents.html | 178 voices behind spec-shaping | Cross-link to personas.html |

@@ -21,7 +21,7 @@ pipeline_survival: "All changes are committed-on-disk static HTML/markdown serve
 `personas.html` (sub-nav "Voices") presented the persona registry as **Intent's own** ("Intent's persona system gives every spec… a grounded advisory board") and as **the canonical catalog** ("The Complete Voice Catalog / Every entity in the persona registry"). That conflated two distinct front-of-veil **products** Intent merely *consumes*:
 
 - **Cast** — the registry / identity engine (`Core/products/cast/`): who each voice is, corpus, archetypes, freshening. Cast owns identity.
-- **Voices** — the judgment / critique layer (`Core/products/voices/`): the multi-persona panel, two-channel output (`machine_assertions` + `named_dissents`), dissent-preservation conservation law (SPEC-001, INV-1..12), 45 tests. Voices reads Cast as substrate.
+- **Voices** — the judgment / critique layer (`Core/products/voices/`): the multi-persona panel, two-channel output (`machine_assertions` + `named_dissents`), dissent-preservation conservation law (SPEC-001, INV-1..10 + INV-12; INV-11 reserved). Voices reads Cast as substrate. (Live maturity verified 2026-06-07: 85 test fns; cross-era / topical-relevance composition SHIPPED; MCP surface in-build per SIG-VOICES-MCP-BUILD-TRIGGERED-2026-06-03 — the 2026-05-20 docs that said "45 tests / MCP planned" are themselves stale.)
 
 Intent **dogfoods** both. The multi-panel review that gated the IA v3 Phase-10 overhaul (`voices-run-20260605T191442Z`, 4 panels / 8 renderings, dissent preserved + validated → DEC-004) *was* Voices run on Intent.
 
@@ -51,7 +51,7 @@ Intent **dogfoods** both. The multi-panel review that gated the IA v3 Phase-10 o
 **Resolved (with catch-net):** the personas.html reframe + content-map correction + CON-SITE-012.
 
 **Deferred / open (NOT closure-blocking):**
-- **Persona-count sync (TASK-004, L0 — Brien approval):** the page still shows 178 / 171; the live Cast registry is larger. Untouched per the hard gate.
+- **Persona-count sync (TASK-004, L0 — Brien approval):** the page shows 178/171/7 + cadence tiers 19·49·103; live registry (verified 2026-06-07, .known-counts) is **351** — 327 named-human · 16 archetype · 7 org · 1 peer, tiers now foundational·primary·secondary·workhorse·candidate. The whole numeric + archetype-count + tier layer is stale, not just the hero number. **Recommended resolution: de-hardcode** (soften to type-lists + a live pointer to Cast as source of truth) — the same move Brien applied this week to the cast + voices product docs ("soften narrative counts to type-lists + live pointer", "soften registry count to a live pointer — no hardcoded total") — NOT a one-time 178→351 bump that just resets the stale clock. Untouched per the hard gate pending approval.
 - **voices-site / cast-site enhancement (proposed, not built):** scope below — "cross back out of the veil into the product spaces."
 - **personas.html.meta.yml** summary/excerpt: library-index auto-generated; will self-refresh on next enrichment pass (not hand-edited).
 - **Contract-count references** in historical SIGs/ROADMAP say "11"; site-contracts.md (the live governance doc) now lists 12. Historical records left as-is.
