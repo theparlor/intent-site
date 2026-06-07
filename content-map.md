@@ -20,11 +20,11 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.28
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.103}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.086}
+  - {pair: consulting-operations ↔ teresa-torres, count: 63, strength: 0.092}
+  - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.081}
   - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.119}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.079}
+  - {pair: consulting-operations ↔ slack, count: 40, strength: 0.121}
+  - {pair: consulting-operations ↔ jeff-patton, count: 37, strength: 0.072}
 ---
 # Content Map — intent-site ↔ intent
 
@@ -106,14 +106,19 @@ related_entities:
 | event-catalog.html | 15 event type schemas | signal.*, intent.*, spec.*, contract.*, system.* with field definitions |
 | event-catalog.html | Trigger conditions | When each event fires and from which source |
 
-## Source: Core/personas/ (Unified Persona System)
+## Source: Core/products/cast/ (Cast registry) + Core/products/voices/ (Voices judgment layer)
+> personas.html surfaces **Cast** (identity) and **Voices** (judgment) as mechanisms Intent *dogfoods*, not as a canonical catalog Intent owns (DEC-004 / worldview content-plan §4). Cast owns identity; Voices owns judgment; the canonical surfaces are the product sites.
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------|
-| personas.html | 178+ thought leader personas | Core/personas/registry/*.yaml — entity count |
-| personas.html | 7 archetypes | Core/personas/archetypes/*/synthesis.md — archetype definitions |
-| personas.html | Freshening pipeline | Core/personas/freshening-schedule.yaml — cadence tiers |
-| personas.html | Persona catalog cards | Core/personas/registry/*.yaml — name, voice, mental_models, tier |
-| personas.html | Archetype source-humans | Core/personas/archetypes/*/source-humans.yaml — contributor weights |
+| personas.html | 178+ thought leader personas | Core/products/cast/farm/registry/*.yaml — entity count (live registry is larger; the site count is L0-gated, TASK-004) |
+| personas.html | 7 archetypes | Core/products/cast/farm/archetypes/*/synthesis.md — archetype definitions |
+| personas.html | Freshening pipeline | Core/products/cast/farm/freshening-schedule.yaml — cadence tiers |
+| personas.html | Persona catalog cards (the bench Intent draws on) | Core/products/cast/farm/registry/*.yaml — name, voice, mental_models, tier |
+| personas.html | Archetype source-humans | Core/products/cast/farm/archetypes/*/source-humans.yaml — contributor weights |
+| personas.html | Two-channel output (machine_assertions + named_dissents) | Core/products/voices/spec/SPEC-001-voices-dissent-preservation.md §2 |
+| personas.html | Dissent-preservation conservation law | Core/products/voices/spec/SPEC-001-voices-dissent-preservation.md §1 (INV-1..INV-12) |
+| personas.html | Dogfood evidence — the IA v3 panel was Voices run on Intent | .intent/decisions/DEC-004 + voices-run-20260605T191442Z |
+| personas.html | Doorways → Voices / Cast / portfolio product surfaces | theparlor.github.io/{voices-site, cast-site, portfolio-site} |
 | agents.html | 178 voices behind spec-shaping | Cross-link to personas.html |
 | arb.html | Advisory voices that challenge decisions | Cross-link to personas.html |
 | methodology.html | Thought leaders who shape every spec | Cross-link to personas.html |
