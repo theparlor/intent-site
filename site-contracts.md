@@ -10,14 +10,14 @@ created: 2026-03-31
 updated: 2026-06-05
 depth_score: 4
 depth_signals:
-  file_size_kb: 11.2
-  content_chars: 11048
+  file_size_kb: 9.7
+  content_chars: 9507
   entity_count: 0
   slide_count: 0
   sheet_count: 0
   topic_count: 1
   has_summary: 0
-vocab_density: 0.09
+vocab_density: 0.21
 ---
 # Intent Site Contracts
 
@@ -239,6 +239,30 @@ done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-011"
 ```
 
+## CON-SITE-012: personas.html stays a dogfood doorway, not Intent's own catalog
+
+**Type:** content · **Severity:** major
+
+Per DEC-004 + the worldview content-plan §4: `personas.html` (sub-nav label "Voices") surfaces **Cast** (identity) and **Voices** (judgment) as products Intent *dogfoods*, with honest doorways to the canonical product surfaces — it does NOT claim to own the registry or present itself as the canonical catalog. This fires if the old conflation framing returns or the doorways / two-channel naming are lost. (Persona COUNTS on the page remain L0 / TASK-004 — this contract does not touch them.)
+
+```bash
+cd docs/
+FAIL=0
+# Conflation tripwires — must NOT appear
+while IFS= read -r phrase; do
+  grep -qF "$phrase" personas.html && { echo "FAIL: personas.html reintroduces conflation phrase: \"$phrase\""; FAIL=1; }
+done <<'PHRASES'
+Intent's persona system
+The Complete Voice Catalog
+Every entity in the persona registry
+PHRASES
+# Required reframe tokens — must appear
+for token in machine_assertions named_dissents voices-site cast-site dogfood; do
+  grep -qF "$token" personas.html || { echo "FAIL: personas.html missing required reframe token: \"$token\""; FAIL=1; }
+done
+[ $FAIL -eq 0 ] && echo "PASS: CON-SITE-012"
+```
+
 ## Contract Summary
 
 | ID | Name | Severity | What It Catches |
@@ -254,3 +278,4 @@ done
 | CON-SITE-009 | No broken links | major | Dead internal links |
 | CON-SITE-010 | No old three-pillar/pitch.html nav remnants | critical | Incomplete IA v3 / home-at-root migration |
 | CON-SITE-011 | Doorway into Parallax (no in-line catalog) | major | Worldview off-loaded to the real Parallax/portfolio surface |
+| CON-SITE-012 | personas.html dogfood doorway (no conflation) | major | Registry-ownership conflation returns / Cast+Voices doorways + two-channel naming lost |
