@@ -281,11 +281,13 @@ if [ -d "$SRC" ]; then
     grep -q "${EV} event types" dogfood.html || { echo "FAIL: dogfood.html event-catalog card does not carry ${EV} event types"; FAIL=1; }
   fi
   LIVE=$(ls "$SRC/.intent/signals/" 2>/dev/null | grep -c '\.md$')
-  SITE=$(grep -oE '<div class="num amber">[0-9]+</div>' the-proof.html | grep -oE '[0-9]+' | head -1)
-  if [ -n "$LIVE" ] && [ -n "$SITE" ] && [ "$SITE" -gt 0 ]; then
-    DRIFT=$(( (LIVE - SITE) * 100 / SITE )); DRIFT=${DRIFT#-}
-    [ "$DRIFT" -gt 25 ] && { echo "FAIL: the-proof.html internal-signal stat ${SITE} drifted ${DRIFT}% from live count ${LIVE}"; FAIL=1; }
-  fi
+  for page in the-proof.html dogfood.html; do
+    SITE=$(grep -oE '<div class="num amber">[0-9]+</div>' "$page" | grep -oE '[0-9]+' | head -1)
+    if [ -n "$LIVE" ] && [ -n "$SITE" ] && [ "$SITE" -gt 0 ]; then
+      DRIFT=$(( (LIVE - SITE) * 100 / SITE )); DRIFT=${DRIFT#-}
+      [ "$DRIFT" -gt 25 ] && { echo "FAIL: ${page} internal-signal stat ${SITE} drifted ${DRIFT}% from live count ${LIVE}"; FAIL=1; }
+    fi
+  done
 fi
 if [ -d "$CAST" ]; then
   REG=$(ls "$CAST"/*.yaml 2>/dev/null | wc -l | tr -d ' ')
