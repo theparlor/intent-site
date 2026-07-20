@@ -358,9 +358,9 @@ Started 2026-05-20 (post-audit). Intent's site is now running Intent governance 
 | TASK-001: Contract index.html guard | Add `[ "$f" = "index.html" ] && continue` to CON-SITE-001/003/004 | DONE | Contracts now pass cleanly for all 23 pillar pages |
 | TASK-002: .intent/INTENT.md | Create IDD anchor with purpose declaration + 3 active objectives | DONE | `.intent/INTENT.md` exists |
 | TASK-003: Back-fill 3 decision atoms | DEC-001 IA v2 migration, DEC-002 personas page, DEC-003 products taxonomy | DONE | `.intent/decisions/` has 3 atoms |
-| TASK-004: Persona count sync 178→242 | Update personas.html, work-system.html, content-map.md, CHANGELOG | L0 — awaiting Brien approval | Count verified: 242 registry YAML files |
+| TASK-004: Persona count sync 178→242 | Update personas.html, work-system.html, content-map.md, CHANGELOG | DONE 2026-07-19 (Phase 11) — synced to live census 352 with snapshot note on the card grid; deploy push remains L0 | Count verified: 352 registry YAML files (census 2026-07-19) |
 | TASK-005: Orphan page governance | Add review-2026-04-09.html to site-spec.md under Supporting Pages | DONE | site-spec.md has Supporting Pages section |
-| TASK-006: v2-draft governance | Document docs/v2-draft/ in ROADMAP + site-spec.md | IN PROGRESS | See note below |
+| TASK-006: v2-draft governance | Document docs/v2-draft/ in ROADMAP + site-spec.md | DONE — resolved by Phase 10 TASK-10.0 (v2-draft archived under docs/archive/v2-draft/ with ARCHIVE.md) | Archive dir exists with ARCHIVE.md |
 | TASK-007: Document .meta.yml in CLAUDE.md | One-line explanation of library-index metadata files | DONE | CLAUDE.md Repo Structure updated |
 | TASK-008: Align personas sub-nav label | "Voices" vs "Persona Catalog" — align governance to site | L0 — awaiting Brien approval | GAP-IA-001 documented in spec |
 | TASK-009: CONTEXT.md | Create intent-site/CONTEXT.md for knowledge graph | DONE | CONTEXT.md at intent-site root |
@@ -385,11 +385,36 @@ Approved 2026-06-05 (DEC-004) after a 4-panel Voices critique; executed the same
 | TASK-10.6: ECOSYSTEM correction | `Core/ECOSYSTEM-ARCHITECTURE-2026-05-20.md` §6 "deprecating" contradicts evolves-not-deprecates. | **DONE** | 2026-06-05 Core correction pass — line 240 verified evolves-in-place + NOT deprecated, +system-plane wording, canon-cited (SIG-INTENTSITE-2026-04-23; DEC-004; WS-DDR-107); founding three-tier spec §7 (line 147) aligned. No automated catch-net (hand-maintained docs; low regression risk) — SIG-EXEC-2026-06-05-ecosystem-deprecation-correction |
 
 **Deferred / open (post-overhaul):**
-- **Persona count sync (TASK-004, L0):** site still shows 178/188; registry is larger. Awaits Brien approval.
+- **Persona count sync (TASK-004, L0):** RESOLVED by Phase 11 (2026-07-19).
 - **Torres gate (doorway wording):** 3–5 discovery conversations to validate the doorway claim — non-blocking on the narrowing; doorway wording is provisional (the whole site is hypothesis-framed).
-- **Numeric counts (signals/specs/events):** kept at the site's internally-consistent values; a verified source-of-truth mapping is needed before refreshing.
+- **Numeric counts (signals/specs/events):** RESOLVED by Phase 11 (2026-07-19) — verified against ground truth, guarded by CON-SITE-013 going forward.
 
 **Snapshots:** `intent-site-pre-overhaul-2026-06-05` (this overhaul) · `worldview-snapshot-2026-06-05` (pre-Phase-10 doorways). Both pushed.
+
+## Phase 11: Ground-Truth Refresh — EXECUTED 2026-07-19 (local; deploy push L0)
+
+Full numeric and epistemic sync of the site against the live product repo, Cast registry, and workspace census. Trigger: Brien asked what could be updated; audit found the site 3+ months behind ground truth, and the hash-based freshness tracker structurally unable to see absorbed-vs-unabsorbed drift.
+
+| Task | Pages affected | Status | Verification |
+|------|---------------|--------|--------------|
+| Signal counts 43 to 194 (census 2026-07-19) | index, the-proof, dogfood, signals | DONE | ls ../intent/.intent/signals/*.md = 194 |
+| Spec count 14/19 to 45 | the-proof, dogfood | DONE | ls ../intent/spec/*.md = 45 |
+| Event catalog 15 to 25 cited, founding-15 detail preserved | event-catalog, dogfood | DONE | "The 25 Events" heading in spec/event-catalog.md |
+| Persona counts 178/188 to live census 352 (TASK-004) | personas, agents, work-system, products, index, content-map | DONE | cast/.known-counts + registry ls = 352 |
+| Decisions stat: cite ratified DEC-001 to DEC-014 | the-proof, content-map | DONE | grep DEC- ../intent/spec/decision-log.md = 14 entries |
+| External evidence N=1 to 1 voice + 3 convergences (Cagan, Block, MobAI); interview wave still 0/10 | index, the-proof | DONE | ls ../intent/.intent/signals/external/ = 3 signals + README |
+| Block surface-collapse logged as doctrine-level counter-example | the-proof | DONE | disconfirmation card |
+| Governed-repos census 8 to 53 roots, profiled-cohort framing | products | DONE | find Workspaces -name .intent -type d (worktrees excluded) = 53 |
+| Hero stamp v0 · 2026-04-09 to v0.13 · 2026-07-19 | index | DONE | ../intent/VERSION = 2026.05.29-0.13.0 |
+| Snapshot honesty notes where rendered artifacts lag the stream | personas, dogfood, signals, products | DONE | census notes present |
+| CON-SITE-013 numeric-parity contract (catch-net) | site-contracts.md | DONE | contract passes |
+| Signals + CHANGELOG + content-map governance updates | governance files | DONE | this table |
+
+**Open (Phase 11 residue):**
+- **decisions.html re-derivation:** the page presents the historical D1-D19 ADR set; the upstream log was consolidated and renumbered to DEC-001 through DEC-014 (disjoint content). Preserve the historical set (evolves-not-deprecates), add the ratified log as current canon. Editorial rebuild, not a count fix.
+- **Freshness tracker content-parity extension:** .freshness-state.json still only records hashes; CON-SITE-013 is the catch-net, but the tracker script itself could assert parity. Also: no CI runner executes the contract suite; it runs via the repo's agent protocol. A GitHub Action would harden it.
+- **signals.html card sync:** founding 24 cards retained by design; a curated refresh of notable post-founding signals (or scripts/sync-signals.js run with volume/redaction gates) is an editorial decision.
+- **observability.html vs current observability reality (signalbox et al.):** not audited this pass.
 
 ## Execution Protocol
 

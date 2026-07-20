@@ -96,6 +96,8 @@ related_entities:
 | observe.html | Loop closure mechanics | How observations flow back to Notice |
 
 ## Source: spec/decision-log.md (expanded)
+> 2026-07-19: the upstream decision log was consolidated and renumbered to DEC-001 through DEC-014. decisions.html still presents the historical D1-D19 ADR set (disjoint numbering); re-derivation is an open Phase 11 item. the-proof.html stats now cite the ratified DEC count.
+
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------| 
 | decisions.html | D1-D6 ADR entries | Full ADR format with context, rationale, consequences |
@@ -103,15 +105,15 @@ related_entities:
 ## Source: spec/event-catalog.md (expanded)
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------| 
-| event-catalog.html | 15 event type schemas | signal.*, intent.*, spec.*, contract.*, system.* with field definitions |
+| event-catalog.html | Founding 15 event schemas + 25-event canon citation | Founding schemas documented in full; the overview cites the revised 25-event catalog (spec/event-catalog.md heading "The 25 Events", amended 2026-06) |
 | event-catalog.html | Trigger conditions | When each event fires and from which source |
 
 ## Source: Core/products/cast/ (Cast registry) + Core/products/voices/ (Voices judgment layer)
 > personas.html surfaces **Cast** (identity) and **Voices** (judgment) as mechanisms Intent *dogfoods*, not as a canonical catalog Intent owns (DEC-004 / worldview content-plan §4). Cast owns identity; Voices owns judgment; the canonical surfaces are the product sites.
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------|
-| personas.html | 178+ thought leader personas | Core/products/cast/farm/registry/*.yaml — entity count (live = 351: 327 named-human + 16 archetype + 7 org + 1 peer, per cast/.known-counts 2026-06-07; the site count is L0-gated stale, TASK-004) |
-| personas.html | 7 archetypes | Core/products/cast/farm/archetypes/*/synthesis.md — archetype definitions |
+| personas.html | 328 named voices + 16 archetypes (352 registry entities) | Core/products/cast/farm/registry/*.yaml — entity count (live = 352: 328 named-human + 16 archetype + 7 org + 1 peer, per cast/.known-counts, census 2026-07-19; site synced 2026-07-19, the card grid stays a 178-voice snapshot with an explicit census note) |
+| personas.html | 16 archetypes | Core/products/cast/farm/archetypes/*/synthesis.md — archetype definitions (21 archetype dirs; 16 registry entities of type archetype) |
 | personas.html | Freshening pipeline | Core/products/cast/farm/freshening-schedule.yaml — cadence tiers |
 | personas.html | Persona catalog cards (the bench Intent draws on) | Core/products/cast/farm/registry/*.yaml — name, voice, mental_models, tier |
 | personas.html | Archetype source-humans | Core/products/cast/farm/archetypes/*/source-humans.yaml — contributor weights |
@@ -119,7 +121,7 @@ related_entities:
 | personas.html | Dissent-preservation conservation law | Core/products/voices/spec/SPEC-001-voices-dissent-preservation.md §1 (INV-1..INV-10 + INV-12; INV-11 reserved) |
 | personas.html | Dogfood evidence — the IA v3 panel was Voices run on Intent | .intent/decisions/DEC-004 + voices-run-20260605T191442Z |
 | personas.html | Doorways → Voices / Cast / portfolio product surfaces | theparlor.github.io/{voices-site, cast-site, portfolio-site} |
-| agents.html | 178 voices behind spec-shaping | Cross-link to personas.html |
+| agents.html | 328 named voices behind spec-shaping | Cross-link to personas.html |
 | arb.html | Advisory voices that challenge decisions | Cross-link to personas.html |
 | methodology.html | Thought leaders who shape every spec | Cross-link to personas.html |
 
@@ -157,7 +159,7 @@ related_entities:
 ## Source: .intent/signals/
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------| 
-| signals.html | 24 signal cards | SIG-001 through SIG-024 (JS array; static fallback updated from 15) |
+| signals.html | Founding stream (24 cards) + live census line | SIG-001 through SIG-024 (JS array) plus a static header census (194 signals, 2026-07-19); live count source: ls .intent/signals/*.md |
 | dogfood.html | Signal count and list | Signal stream section |
 
 ## Source: CLAUDE.md § "Three-Layer Architecture (v1.0)"
