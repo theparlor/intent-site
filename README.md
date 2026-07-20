@@ -41,7 +41,7 @@ The site is organized into three pillars. Primary nav has exactly 3 links (plus 
 
 ```
 intent-site/
-├── docs/              ← GitHub Pages source (23 HTML pages + styles.css)
+├── docs/              ← GitHub Pages source (34 HTML pages + styles.css)
 │   ├── how-to-use.md  ← Contributor guide: editing content, running contracts
 │   ├── positioning.md ← What Intent Site IS (marketing/docs surface)
 │   └── examples/      ← Worked examples for contributors
