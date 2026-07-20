@@ -75,6 +75,8 @@
 
     <div class="stats-bar" id="statsBar"></div>
 
+    <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 20px;">Live census 2026-07-19: <strong style="color: var(--text);">53 .intent-governed roots</strong> across the workspace (products, frameworks, tools, and the workspace root itself). The catalog below profiles the founding cohort with public repos; per-card signal and decision counts are snapshots from their profile dates, not live feeds.</p>
+
     <div class="legend">
       <span class="legend-label">Status:</span>
       <span class="status-badge status-noticed">Noticed</span>
@@ -100,7 +102,7 @@
       { name: "digital-declutter", tagline: "File organization governance — 28 behavioral rules, 6 skills, and reference templates for systematic workspace management.", status: "observe", github: "https://github.com/theparlor/digital-declutter", signals: 1, decisions: 0, layer: 2 },
       { name: "forge", tagline: "Composition engine — Methodology × Persona × Platform = Deployed Skill. Renders skills and personas across platforms (Claude Code, Copilot, system prompts).", status: "observe", github: "https://github.com/theparlor/forge", signals: 2, decisions: 1, layer: 3 },
       { name: "fieldbook", tagline: "Composable expense lifecycle — receipt intake, ledger, compliance, narrative, and export. Executing Tier 2 with 8 contracts validated.", status: "execute", github: "https://github.com/theparlor/fieldbook", signals: 13, decisions: 12, layer: 3 },
-      { name: "personas", tagline: "Unified persona registry — 178 named-humans + 7 archetypes. Identity, corpus, and rendering for 188 advisory voices.", status: "observe", github: "personas.html", signals: 0, decisions: 6, layer: 4, local: true },
+      { name: "personas", tagline: "Unified persona registry — 328 named-humans + 16 archetypes. Identity, corpus, and rendering for 352 registry entities (Cast census 2026-07-19).", status: "observe", github: "personas.html", signals: 0, decisions: 11, layer: 4, local: true },
       { name: "studio-control", tagline: "Studio audio control — Wave Link WebSocket API integration for mute toggle, routing, and Stream Deck automation.", status: "noticed", github: "https://github.com/theparlor/studio-control", signals: 7, decisions: 0, layer: null }
     ];
 
@@ -119,10 +121,10 @@
     products.forEach(p => { statusCounts[p.status] = (statusCounts[p.status] || 0) + 1; });
 
     document.getElementById('statsBar').innerHTML = `
-      <div class="stat-box"><div class="num">${products.length}</div><div class="label">Governed repos</div></div>
-      <div class="stat-box"><div class="num">${totalSignals}</div><div class="label">Signals</div></div>
-      <div class="stat-box"><div class="num">${totalDecisions}</div><div class="label">Decisions</div></div>
-      <div class="stat-box"><div class="num">${products.filter(p => p.github).length}</div><div class="label">On GitHub</div></div>
+      <div class="stat-box"><div class="num">53</div><div class="label">Governed roots · census 2026-07-19</div></div>
+      <div class="stat-box"><div class="num">${products.length}</div><div class="label">Profiled below</div></div>
+      <div class="stat-box"><div class="num">${totalSignals}</div><div class="label">Signals (profiled set)</div></div>
+      <div class="stat-box"><div class="num">${totalDecisions}</div><div class="label">Decisions (profiled set)</div></div>
     `;
 
     // Render by layer

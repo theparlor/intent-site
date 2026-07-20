@@ -263,6 +263,41 @@ done
 [ $FAIL -eq 0 ] && echo "PASS: CON-SITE-012"
 ```
 
+## CON-SITE-013: Numeric parity with ground truth (freshness catch-net)
+
+**Type:** content · **Severity:** major
+
+Added 2026-07-19 after the 15-vs-25 event-count drift slipped past the hash-based freshness tracker (`.freshness-state.json` records that a source changed, not whether the site absorbed the change). This contract compares the site's headline numbers against the live product repo and Cast registry. Slow-moving canon (event-catalog count) must match exactly; fast-moving streams (signals, registry) tolerate a drift band before failing, so routine growth does not produce alarm fatigue.
+
+```bash
+cd docs/
+FAIL=0
+SRC="../../intent"
+CAST="../../../products/cast/farm/registry"
+if [ -d "$SRC" ]; then
+  EV=$(grep -oE '^## The [0-9]+ Events' "$SRC/spec/event-catalog.md" | grep -oE '[0-9]+' | head -1)
+  if [ -n "$EV" ]; then
+    grep -q "${EV} event types" event-catalog.html || { echo "FAIL: event-catalog.html does not carry the catalog's ${EV}-event count"; FAIL=1; }
+    grep -q "${EV} event types" dogfood.html || { echo "FAIL: dogfood.html event-catalog card does not carry ${EV} event types"; FAIL=1; }
+  fi
+  LIVE=$(ls "$SRC/.intent/signals/" 2>/dev/null | grep -c '\.md$')
+  SITE=$(grep -oE '<div class="num amber">[0-9]+</div>' the-proof.html | grep -oE '[0-9]+' | head -1)
+  if [ -n "$LIVE" ] && [ -n "$SITE" ] && [ "$SITE" -gt 0 ]; then
+    DRIFT=$(( (LIVE - SITE) * 100 / SITE )); DRIFT=${DRIFT#-}
+    [ "$DRIFT" -gt 25 ] && { echo "FAIL: the-proof.html internal-signal stat ${SITE} drifted ${DRIFT}% from live count ${LIVE}"; FAIL=1; }
+  fi
+fi
+if [ -d "$CAST" ]; then
+  REG=$(ls "$CAST"/*.yaml 2>/dev/null | wc -l | tr -d ' ')
+  SITEREG=$(grep -oE '[0-9]{3} entities' personas.html | head -1 | grep -oE '[0-9]+')
+  if [ -n "$REG" ] && [ "$REG" -gt 0 ] && [ -n "$SITEREG" ] && [ "$SITEREG" -gt 0 ]; then
+    RDRIFT=$(( (REG - SITEREG) * 100 / SITEREG )); RDRIFT=${RDRIFT#-}
+    [ "$RDRIFT" -gt 5 ] && { echo "FAIL: personas.html census ${SITEREG} drifted ${RDRIFT}% from live registry count ${REG}"; FAIL=1; }
+  fi
+fi
+[ $FAIL -eq 0 ] && echo "PASS: CON-SITE-013"
+```
+
 ## Contract Summary
 
 | ID | Name | Severity | What It Catches |
@@ -279,3 +314,4 @@ done
 | CON-SITE-010 | No old three-pillar/pitch.html nav remnants | critical | Incomplete IA v3 / home-at-root migration |
 | CON-SITE-011 | Doorway into Parallax (no in-line catalog) | major | Worldview off-loaded to the real Parallax/portfolio surface |
 | CON-SITE-012 | personas.html dogfood doorway (no conflation) | major | Registry-ownership conflation returns / Cast+Voices doorways + two-channel naming lost |
+| CON-SITE-013 | Numeric parity with ground truth | major | Site headline numbers drifting from the product repo and Cast registry (the drift class the hash-based freshness tracker cannot see) |

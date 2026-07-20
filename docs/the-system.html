@@ -208,7 +208,7 @@
     <div class="work-in-progress">
       <h3>▸ Open gap: double-loop learning</h3>
       <p>
-        The Observe phase claims to implement Argyris's double-loop learning (questioning assumptions, not just optimizing execution). The current mechanism is single-loop only — we detect spec drift, we don't question whether the goals were right. The 178-persona library is the latent mechanism for double-loop, framed as execution help instead of premise challenge. Work to convert this is tracked as SIG-050 / INT-013. This is an honest gap, not a capability.
+        The Observe phase claims to implement Argyris's double-loop learning (questioning assumptions, not just optimizing execution). The current mechanism is single-loop only — we detect spec drift, we don't question whether the goals were right. The 328-voice registry is the latent mechanism for double-loop, framed as execution help instead of premise challenge. Work to convert this is tracked as SIG-050 / INT-013. This is an honest gap, not a capability.
       </p>
     </div>
 
@@ -230,7 +230,7 @@
           <span class="visual-tag">▸ Real SIG-010 trace</span>
         </div>
         <p>Traces a single real signal (SIG-010, our one external practitioner voice before the current discovery wave) through the full loop: signal → cluster → intent → spec → execute → observe. Real file paths, real IDs, real timestamps. The best "here's what it looks like" artifact on the site.</p>
-        <p class="legacy-note">v1.2 content · honestly dogfooded · also the reason we flagged our own discovery gap (N=1)</p>
+        <p class="legacy-note">v1.2 content · honestly dogfooded · also the reason we flagged our own discovery gap (N=1 then; current ledger on The Proof)</p>
       </div>
 
       <div class="deep-card">
@@ -253,10 +253,10 @@
 
       <div class="deep-card">
         <div class="card-top">
-          <h3><a href="personas.html">The 178-Persona Library</a></h3>
+          <h3><a href="personas.html">The Voice Registry (352 entities)</a></h3>
           <span class="visual-tag">▸ Voice catalog + filters</span>
         </div>
-        <p>The full persona registry — 178 named-human thought leaders + 7 archetypes + 1 operator persona (brien-operator, new). Filterable by discipline, role, industry. Each persona contributes to spec-shaping, panel-review, and archetype composition.</p>
+        <p>The full persona registry — 328 named-human thought leaders + 16 archetypes + 7 organizations + 1 peer operator persona (brien-operator). Filterable by discipline, role, industry. Each persona contributes to spec-shaping, panel-review, and archetype composition.</p>
         <p class="legacy-note">v1.2 content · updated 2026-04-09 with foundational tier promotions (Dunford, Gilad, Aakash Gupta)</p>
       </div>
 
@@ -265,7 +265,7 @@
           <h3><a href="event-catalog.html">15-Event Catalog</a></h3>
           <span class="visual-tag">▸ Schemas + triggers</span>
         </div>
-        <p>All 15 event types Intent emits: signal.created, signal.enriched, signal.promoted, intent.proposed, spec.approved, contract.started / .passed / .failed / .completed, system.health, etc. Each with schema, trigger, and example payload.</p>
+        <p>The 25 event types Intent emits (catalog revised 2026-06): signal.created, intent.proposed, spec.staged / .written, contract.started / .passed / .failed / .completed, the approval.* L0 gate, execution.paused / .resumed, human_input.*, observation.*, system.health, and more. The founding 15 are documented with schema, trigger, and example payload.</p>
         <p class="legacy-note">v1.2 content · missing the new deploy.* event family and safety-contract fields from INT-013</p>
       </div>
 

@@ -20,6 +20,19 @@ vocab_density: 0.52
 ---
 # Changelog — intent-site
 
+## 2026-07-19: Ground-Truth Refresh (Phase 11)
+
+### Changed
+- **Evidence numbers synced to live census** across index, the-proof, dogfood, signals, event-catalog, personas, agents, work-system, products: 194 internal signals (was 43), 45 specs (was 14/19), 25-event catalog cited (was 15), 352 Cast registry entities (was 178/188), 14 ratified decisions DEC-001 to DEC-014 cited (was D1-D19), 53 governed .intent roots (was 8 repos), hero stamp v0.13 · 2026-07-19 (was v0 · 2026-04-09).
+- **External evidence reframed**: "N=1 external" updated to 1 interview-grade voice (Ari) plus 3 published-work convergences (Cagan context-engineering, Block BuilderBot, MobAI team coherence). The interview wave remains honestly 0/10; convergences are labeled content analysis, not discovery. Block's chat-as-write-surface collapse logged as a doctrine-level counter-example on the-proof.
+- **Snapshot honesty notes** added wherever a rendered artifact lags the live stream (personas card grid, dogfood signal list, signals founding counters, products profiled cohort).
+
+### Added
+- **CON-SITE-013** numeric-parity contract: catches site-vs-ground-truth drift that the hash-based freshness tracker structurally cannot see (exact match on slow canon, drift bands on fast streams).
+
+### Open
+- decisions.html still presents the historical D1-D19 ADR set; upstream log renumbered to DEC-001..DEC-014. Re-derivation pending (ROADMAP Phase 11 residue).
+
 ## 2026-04-08 — v1.1.0 Portfolio Expansion + Signal Refresh
 
 ### Added
