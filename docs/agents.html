@@ -311,14 +311,14 @@
             <div class="persona-label">Pass 4: Readiness</div>
           </div>
         </div>
-        <p class="description">Queries the spec itself + trust formula. Outputs trust score, ambiguity flags, recommended autonomy level.</p>
+        <p class="description">Queries the spec itself + trust formula (the weighted score, built from clarity, blast radius, reversibility, testability, and precedent, that decides how much an agent may do without asking). Outputs trust score, ambiguity flags, recommended autonomy level.</p>
       </div>
 
     </div>
 
     <div class="protocol-note">
       <span class="note-label">Trust & Disambiguation</span>
-      If trust &lt; L2 after Pass 4, a disambiguation signal is generated instead of executing. The operator intervenes only when the system can't resolve ambiguity.
+      If trust &lt; L2 (on the L0 to L4 autonomy scale: how much an agent is allowed to do on its own, from L0 where a human decides everything to L4 where the agent runs unattended) after Pass 4, a disambiguation signal is generated instead of executing. The operator intervenes only when the system can't resolve ambiguity.
     </div>
   </section>
 
