@@ -289,6 +289,40 @@ section p:last-child {
     font-size: 0.95rem;
 }
 
+/* Plain-language lede: the human face on top of a dense page.
+   Narration primer: a reader who was not in the working sessions should be
+   able to read this once and know what the page is and why they would care,
+   without needing anything below it. */
+.plain-lede {
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--accent, #f7660a);
+    background: var(--surface, #151b23);
+    border-radius: 0 6px 6px 0;
+}
+
+.plain-lede p {
+    margin: 0 0 0.75rem;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--text, #f1f5f9);
+}
+
+.plain-lede p:last-child {
+    margin-bottom: 0;
+}
+
+.plain-lede .plain-label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-muted, #94a3b8);
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+}
+
 /* Content sections for methodology/concept-brief */
 .content {
     max-width: 900px;

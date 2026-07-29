@@ -539,7 +539,7 @@
                 <div class="adr-section">
                     <div class="adr-section-title">Decision</div>
                     <div class="adr-section-content">
-                        <p>Automotive manufacturing → insurance → healthcare → supply chain → retail. The highest-data domain goes first because it has the most data and the highest learning potential. Each engagement validates federation, redaction, and compilation patterns before the next begins.</p>
+                        <p>Automotive manufacturing → insurance → healthcare → supply chain → retail. The highest-data domain goes first because it has the most data and the highest learning potential. Each engagement validates federation (each engagement or repo keeps its own knowledge, shared substrate is inherited down, and nothing leaks sideways between engagements), redaction, and compilation patterns before the next begins.</p>
                     </div>
                 </div>
 
@@ -734,7 +734,7 @@
                     <div class="adr-section-title">Consequences</div>
                     <div class="adr-section-content">
                         <ul class="consequences-list">
-                            <li>Spec quality depends on knowledge base richness + protocol rigor, not operator energy. The review point shifts upstream — from reviewing execution output to reviewing spec output (higher leverage). If the readiness assessment (Pass 4) scores below L2, a disambiguation signal is generated instead of executing.</li>
+                            <li>Spec quality depends on knowledge base richness + protocol rigor, not operator energy. The review point shifts upstream — from reviewing execution output to reviewing spec output (higher leverage). If the readiness assessment (Pass 4) scores below L2 (on the L0 to L4 scale of how much an agent may do on its own, from L0 where a human decides everything to L4 where the agent runs unattended), a disambiguation signal is generated instead of executing.</li>
                         </ul>
                     </div>
                 </div>
@@ -851,7 +851,7 @@
                     <div class="adr-section-title">Consequences</div>
                     <div class="adr-section-content">
                         <ul class="consequences-list">
-                            <li>Knowledge Engine becomes a separable product (see D8). Double-loop learning becomes possible — observations can update domain understanding (Layer 1), not just execution parameters (Layer 3). Architecture diagrams and documentation must reflect three layers, not just the loop.</li>
+                            <li>Knowledge Engine becomes a separable product (see D8). Double-loop learning (Argyris' term for when what you observe changes the assumptions, not just the execution) becomes possible — observations can update domain understanding (Layer 1), not just execution parameters (Layer 3). Architecture diagrams and documentation must reflect three layers, not just the loop.</li>
                         </ul>
                     </div>
                 </div>
