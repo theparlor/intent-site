@@ -243,10 +243,16 @@
 
     <main class="container">
 
+        <div class="plain-lede">
+          <span class="plain-label">What this page is</span>
+          <p>Every action Intent takes, a signal getting captured, a spec getting approved, an agent asking a human to step in, writes a structured log line to one append-only file. This page is the reference for what those log lines look like: every event name, its fields, and a real example, grouped by what part of the system emitted it.</p>
+          <p>Read this page when you are building something that reads or reacts to Intent's activity log, debugging why an event did not fire, or trying to understand the full audit trail the system leaves behind.</p>
+        </div>
+
         <!-- Overview -->
         <section class="event-catalog-overview">
             <p>
-                The event catalog has been revised and expanded to <strong>25 event types</strong> (spec amended 2026-06): the loop events plus an explicit L0 approval gate (approval.requested / decided / expired), pause and resume checkpoints (execution.paused / resumed / escalated), human contact as a capability (human_input.requested / received), observation and evaluation events, and release milestones. This page documents the founding 15-event schema in full detail; several of those names were superseded in the revision, and the current canon lives in <a href="https://github.com/theparlor/intent/blob/main/spec/event-catalog.md">spec/event-catalog.md</a>. These events form the complete audit trail of the notice&rarr;spec&rarr;execute&rarr;observe loop, enabling observability, reproducibility, and trust scoring.
+                The event catalog has been revised and expanded to <strong>25 event types</strong> (spec amended 2026-06): the loop events plus an explicit L0 approval gate (L0 is the autonomy level where a human decides, not the agent: approval.requested / decided / expired), pause and resume checkpoints (execution.paused / resumed / escalated), human contact as a capability (human_input.requested / received), observation and evaluation events, and release milestones. This page documents the founding 15-event schema in full detail; several of those names were superseded in the revision, and the current canon lives in <a href="https://github.com/theparlor/intent/blob/main/spec/event-catalog.md">spec/event-catalog.md</a>. These events form the complete audit trail of the notice&rarr;spec&rarr;execute&rarr;observe loop, enabling observability, reproducibility, and trust scoring.
             </p>
             <p>
                 Each event is immutable, timestamped, and appended to events.jsonl. Events can be ingested by the OTel Collector for distributed tracing, or analyzed directly via log queries in Grafana Loki.
