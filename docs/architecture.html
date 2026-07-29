@@ -125,6 +125,12 @@
     <p class="subtitle">Four MCP servers, a three-layer architecture, and six Claude Code subagents map the Intent loop into a deployable, trust-gated system. Each server owns a domain. Each agent connects to the relevant servers.</p>
   </div>
 
+  <div class="plain-lede">
+    <span class="plain-label">What this page is</span>
+    <p>This is the engineering blueprint for how Intent is actually built and deployed, not just how the methodology works. MCP (Model Context Protocol) is the standard way an AI agent connects to a tool; here that means four small servers, one per phase of the Notice, Spec, Execute, Observe loop, each exposing a set of callable tools.</p>
+    <p>Read this page if you are standing up Intent yourself, extending it, or just want to see the concrete pieces (servers, ports, data formats, autonomy rules) behind the loop described elsewhere on this site.</p>
+  </div>
+
   <!-- ===== Section 0: Three-Layer Architecture ===== -->
   <div class="labeled-divider"><hr><span class="label">Architecture</span><hr></div>
 
@@ -156,7 +162,7 @@
       <li><span class="flow-label">Flow 2: Notice → Spec</span>Spec authoring queries the knowledge base. Notice agents retrieve personas, journeys, and domain models to inform specification writing.</li>
       <li><span class="flow-label">Flow 3: Spec → Execute</span>Trust-gated agents build against specs. Autonomy levels are determined by trust scores. Specs are contracts that define verifiable outcomes.</li>
       <li><span class="flow-label">Flow 4: Execute → Observe</span>Running code emits events (OTel-compatible). Every action generates observability signals: logs, metrics, traces, and domain events.</li>
-      <li><span class="flow-label">Flow 5: Observe → Knowledge</span>Double-loop learning. Observations update domain models, personas, and decision records. New insights update the knowledge base directly.</li>
+      <li><span class="flow-label">Flow 5: Observe → Knowledge</span>Double-loop learning (Argyris' term: what you observe changes the assumptions behind the work, not just how it's carried out). Observations update domain models, personas, and decision records. New insights update the knowledge base directly.</li>
       <li><span class="flow-label">Flow 6: Observe → Spec</span>Single-loop drift detection. Compare specified behavior against actual behavior. Drift becomes a signal for spec revision.</li>
     </ul>
   </section>
@@ -250,7 +256,7 @@
           <li><span class="tool-name">create_spec</span> <span class="tool-desc">— Generate spec from intent with completeness scoring</span></li>
           <li><span class="tool-name">create_contract</span> <span class="tool-desc">— Define verifiable assertion (interface | behavior | quality | integration)</span></li>
           <li><span class="tool-name">verify_contract</span> <span class="tool-desc">— Record verification result, emit event</span></li>
-          <li><span class="tool-name">assess_agent_readiness</span> <span class="tool-desc">— Check if spec meets L3/L4 execution threshold</span></li>
+          <li><span class="tool-name">assess_agent_readiness</span> <span class="tool-desc">— Check if spec meets the L3/L4 execution threshold (L0 through L4 are autonomy levels: how much an agent may do on its own, from L0, a human decides everything, to L4, the agent runs unattended)</span></li>
           <li><span class="tool-name">list_specs / get_spec</span> <span class="tool-desc">— Query with filters</span></li>
         </ul>
       </div>
@@ -281,7 +287,7 @@
   <section class="scroll-section">
     <div class="section-num">03</div>
     <h2 class="section-title">Federation <span class="hl">Model</span></h2>
-    <p class="section-body">Intent is deployed as a multi-tenant federation. Core runs the canonical Intent system. Engagements are bounded instances of Intent deployed within client environments.</p>
+    <p class="section-body">Intent is deployed as a multi-tenant federation (each engagement keeps its own knowledge, the shared substrate is inherited down from Core, and nothing leaks sideways between engagements). Core runs the canonical Intent system. Engagements are bounded instances of Intent deployed within client environments.</p>
 
     <div class="federation-box">
       <div class="federation-principle">
@@ -333,7 +339,7 @@
   <section class="scroll-section">
     <div class="section-num">05</div>
     <h2 class="section-title">Trust-Gated <span class="hl-green">Autonomy</span></h2>
-    <p class="section-body">Every signal is trust-scored. The score determines how much freedom agents get when acting on it. Higher trust means more autonomy — but always with circuit breakers.</p>
+    <p class="section-body">Every signal is trust-scored using the trust formula (a weighted score, from clarity, blast radius, reversibility, testability, and precedent, that decides how much an agent may do without asking). The score determines how much freedom agents get when acting on it. Higher trust means more autonomy — but always with circuit breakers.</p>
 
     <div class="formula-box">
       <code>trust = clarity &times; 0.30 + (1/blast_radius) &times; 0.20 + reversibility &times; 0.20 + testability &times; 0.20 + precedent &times; 0.10</code>

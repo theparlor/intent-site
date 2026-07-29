@@ -37,6 +37,12 @@
 
     <main class="content">
 
+        <div class="plain-lede">
+          <span class="plain-label">What this page is</span>
+          <p>This is a data dictionary. Intent tracks work as a chain of typed records: a raw observation (Signal), a problem worth solving (Intent), a buildable spec, a testable assertion (Contract), a single execution run (Atom), and a logged action (Event). Each record type has a fixed set of fields, and this page lists every field, its type, and what it means.</p>
+          <p>Read this page when you need to know exactly what a record looks like on disk, whether you are writing a new one by hand, building a tool that reads them, or just want to know what a field like <code>trust_score</code> or <code>autonomy_level</code> actually contains.</p>
+        </div>
+
         <!-- Signal Schema -->
         <section>
             <h2>Signal</h2>
@@ -431,7 +437,7 @@
 
             <h3>Federation & Confidentiality</h3>
             <p>
-                Every knowledge artifact carries two federation fields:
+                Every knowledge artifact carries two federation fields (federation means each engagement or repo keeps its own knowledge, the shared substrate is inherited down from Core, and nothing leaks sideways between engagements):
             </p>
             <ul>
                 <li><code>engagement</code> (string | null): Engagement ID for federated workspaces. <code>null</code> = Core. Cross-scope references use <code>Core:PER-001</code> notation when an Engagement references Core artifacts. Core→Engagement references are not needed. Engagement→Engagement references are forbidden.</li>
@@ -462,7 +468,7 @@
         <section>
             <h2>Work Ontology v2</h2>
             <p>
-                Intent v2 organizes work around a two-plane architecture: ephemeral flow entities (Signal → Intent → Atom → Event → Trace) and persistent artifacts (Spec, Contract) that bridge the planes. An independent ownership topology (Product → Capability → Team) provides structural context via the Inverse Conway Maneuver.
+                Intent v2 organizes work around a two-plane architecture (one plane decides what to do, the other plane does it): ephemeral flow entities (Signal → Intent → Atom → Event → Trace) are the deciding plane, and persistent artifacts (Spec, Contract) that bridge the planes are the doing plane. An independent ownership topology (Product → Capability → Team) provides structural context via the Inverse Conway Maneuver.
             </p>
             <p>
                 <strong>Full reference:</strong> <a href="work-system.html">Work ontology page</a>
