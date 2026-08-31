@@ -40,13 +40,22 @@ if [ "${broad:-0}" -lt 5 ]; then
   exit 2
 fi
 
+# The 'deprecat' test runs against a SCRUBBED copy of each line with SIG-*/JRN-*
+# filename tokens removed, while the ORIGINAL line is what gets reported. A line
+# that merely CITES a signal or journal whose filename contains "deprecation" is a
+# citation, not an assertion about intent-site's status. Reporting those was a
+# false positive that GREW every week, because each sweep's journal recorded the
+# previous sweep's triage and became next week's match.
+# See SIG-2026-08-31-s12-detector-flags-its-own-journals.
 matches="$(grep -rniE 'intent-site' "$ROOT" \
   --include='*.md' \
   --exclude-dir='.git' \
   --exclude-dir='.intent' \
   --exclude-dir='archive' \
+  --exclude-dir='journal' \
   2>/dev/null \
-  | grep -iE 'deprecat' \
+  | awk '{ scrub=$0; gsub(/(SIG|JRN)-[A-Za-z0-9._-]*/, "", scrub);
+           if (tolower(scrub) ~ /deprecat/) print $0 }' \
   | grep -ivE 'evolv|not[ -]deprecat|gates? on phase|deprecation gate|eventual|stage 4')"
 
 if [ -n "$matches" ]; then
