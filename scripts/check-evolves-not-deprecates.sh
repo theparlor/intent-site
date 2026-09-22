@@ -24,7 +24,7 @@
 # Core state 2026-06-05.
 set -u
 
-ROOT="${1:-/Users/brien/Workspaces/Core}"
+ROOT="${1:-${WORKSPACES_ROOT:-$HOME/Workspaces}/Core}"
 
 if [ ! -d "$ROOT" ]; then
   echo "ERROR: scan root not found: $ROOT" >&2
