@@ -1,0 +1,17 @@
+name: portability
+on: [push, pull_request]
+jobs:
+  no-hardcoded-home:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash tests/test-no-hardcoded-home.sh
+      - name: syntax check every shell script by its shebang
+        run: |
+          set -e
+          for f in $(git ls-files '*.sh'); do
+            case "$(head -1 "$f")" in
+              *python*) python3 -m py_compile "$f" ;;
+              *)        bash -n "$f" ;;
+            esac
+          done
