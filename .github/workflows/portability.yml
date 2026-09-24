@@ -1,17 +1,49 @@
+# Managed by org-design-tooling/repo-kit (session kit); overwritten on kit update.
+# The same check runs on the machine before every push (.agents/hooks/pre-push) and in
+# `session land`. This workflow is only the backstop: pushes to main and pull requests, and only
+# when a file the check reads changed. A newer run on the same ref cancels the older one.
 name: portability
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.py'
+      - '**.sh'
+      - '**.bash'
+      - '**.zsh'
+      - '**.js'
+      - '**.mjs'
+      - '**.cjs'
+      - '**.ts'
+      - '**/Makefile'
+      - '**/bin/**'
+      - '**/hooks/**'
+      - '**/engine-config/**'
+      - '.agents/repository-policy.json'
+      - '.github/workflows/portability.yml'
+  pull_request:
+    paths:
+      - '**.py'
+      - '**.sh'
+      - '**.bash'
+      - '**.zsh'
+      - '**.js'
+      - '**.mjs'
+      - '**.cjs'
+      - '**.ts'
+      - '**/Makefile'
+      - '**/bin/**'
+      - '**/hooks/**'
+      - '**/engine-config/**'
+      - '.agents/repository-policy.json'
+      - '.github/workflows/portability.yml'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   no-hardcoded-home:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - run: bash tests/test-no-hardcoded-home.sh
-      - name: syntax check every shell script by its shebang
-        run: |
-          set -e
-          for f in $(git ls-files '*.sh'); do
-            case "$(head -1 "$f")" in
-              *python*) python3 -m py_compile "$f" ;;
-              *)        bash -n "$f" ;;
-            esac
-          done
+      - run: python3 .agents/bin/portability-check
