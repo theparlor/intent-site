@@ -11,6 +11,9 @@
  *   RELEASE=all node scripts/sync-signals.js        # Release all held signals
  *   RELEASE=SIG-042,SIG-043 node scripts/sync-signals.js  # Release specific
  *   SKIP=SIG-044 node scripts/sync-signals.js       # Permanently skip signals
+ *
+ * Each run reports one Witness event, intent_site.sync_signals (WS-DDR-150, fail-open):
+ * ok, blocked on the volume lockout, error on any failure; attrs are counts only.
  */
 
 const fs = require('fs');
@@ -23,6 +26,14 @@ const CONFIG_PATH = path.join(SITE_ROOT, 'sync-config.json');
 const SIGNALS_HTML = path.join(SITE_ROOT, 'docs', 'signals.html');
 const DOGFOOD_HTML = path.join(SITE_ROOT, 'docs', 'dogfood.html');
 const HELD_PATH = path.join(SITE_ROOT, 'held-signals.json');
+
+// Witness (WS-DDR-150): one event when this run exits, registered before anything can
+// fail so a bad config is reported too. Fail-open: a missing or broken emitter leaves wx
+// null and the sync runs exactly as before.
+let wx = null;
+try {
+  wx = require('./witness_emit.cjs').onExit('intent_site.sync_signals', { target: 'docs/signals.html' });
+} catch (_) { wx = null; }
 
 // Load config
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
@@ -362,6 +373,10 @@ function main() {
   console.log(`  ${volumeResult.message}`);
 
   if (volumeResult.status === 'lockout') {
+    if (wx) {
+      wx.outcome = 'blocked';
+      Object.assign(wx.attrs, { volume_status: 'lockout', total: allSignals.length, new_signals: newSignals.length });
+    }
     console.log('\n🚫 LOCKOUT — No signals published. Run with RELEASE=true after review.');
     volumeResult.held.forEach(s => {
       manifest.held.push({
@@ -422,6 +437,13 @@ function main() {
 
   // 10. Save held manifest
   saveHeldManifest(manifest);
+
+  if (wx) {
+    Object.assign(wx.attrs, {
+      volume_status: volumeResult.status, total: allSignals.length, published: publishSet.length,
+      newly_added: cleanSignals.length, held: manifest.held.length, skipped: manifest.skipped.length,
+    });
+  }
 
   // 11. Summary
   console.log('\n── Summary ──');
