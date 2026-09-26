@@ -13,6 +13,8 @@ set -u
 SCRIPT="$(cd "$(dirname "$0")" && pwd)/check-evolves-not-deprecates.sh"
 [ -x "$SCRIPT" ] || { echo "ERROR: detector not executable: $SCRIPT" >&2; exit 1; }
 FIX="$(mktemp -d)"; trap 'rm -rf "$FIX"' EXIT
+# The detector reports each run to Witness; fixture runs go to a throwaway inbox, never the real one.
+: "${WITNESS_INBOX:=$FIX/witness-inbox}"; export WITNESS_INBOX
 mkdir -p "$FIX/docs" "$FIX/journal"
 # The sanity gate needs >=5 'intent-site' refs before it will scan at all.
 i=1; while [ $i -le 6 ]; do echo "intent-site reference line $i" > "$FIX/docs/pad$i.md"; i=$((i+1)); done
