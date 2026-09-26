@@ -1,0 +1,17 @@
+{
+  "id": "2026-09-26-claude-witness-caller-code-session-id",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-09-26-witness-caller-code-session-id",
+  "worktree": "../intent-site-wt-2026-09-26-witness-caller-code-session-id",
+  "base_commit": "f66a218",
+  "objective": "",
+  "owned_paths": [
+    "scripts/check-evolves-not-deprecates.sh",
+    "scripts/verify-sync-config.sh",
+    "tests/witness-emit.test.js"
+  ],
+  "started": "2026-09-26T12:22:18-04:00",
+  "handoff": ".agents/handoffs/2026-09-26-claude-witness-caller-code-session-id.md",
+  "landed": "2026-09-26T12:24:51-04:00"
+}
