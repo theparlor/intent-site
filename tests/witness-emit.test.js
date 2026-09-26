@@ -278,3 +278,25 @@ test('check-evolves with witness-emit missing (HOME=/nonexistent WITNESS_ROOT=, 
     assert.equal(bare.stdout, ref.stdout);
   }
 });
+
+test('bash caller: CLAUDE_CODE_SESSION_ID names the session (Claude Code does not set CLAUDE_SESSION_ID)', () => {
+  const sh = BASH32 || SHELLS[0];
+  const unsetIds = { WITNESS_CALLER: undefined, CLAUDE_SESSION_ID: undefined, CLAUDE_CODE_SESSION_ID: undefined };
+  for (const [name, args, event] of [
+    ['verify-sync-config', () => [verifyCopy(true)], 'intent_site.verify_sync_config'],
+    ['check-evolves', () => [CHECK, corpus(false)], 'intent_site.check_evolves'],
+  ]) {
+    const inbox1 = path.join(tmpdir(), 'inbox');
+    const inbox2 = path.join(tmpdir(), 'inbox');
+    const withId = run(sh, args(), env(Object.assign({}, unsetIds, { WITNESS_INBOX: inbox1, WITNESS_ROOT: WITNESS_ROOT, CLAUDE_CODE_SESSION_ID: 'caller-probe-123' })));
+    const without = run(sh, args(), env(Object.assign({}, unsetIds, { WITNESS_INBOX: inbox2, WITNESS_ROOT: WITNESS_ROOT })));
+    assert.equal(withId.code, without.code, `${name}: exit status unchanged`);
+    const e1 = readEvents(inbox1);
+    const e2 = readEvents(inbox2);
+    assert.equal(e1.length, 1, `${name}: one event`);
+    assert.equal(e1[0].event, event);
+    assert.equal(e1[0].attributes.caller, 'session:caller-probe-123', `${name}: caller names the session`);
+    assert.equal(e2.length, 1);
+    assert.match(e2[0].attributes.caller, /^(manual|launchd):/, `${name}: falls back past the session`);
+  }
+});
