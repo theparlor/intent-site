@@ -36,6 +36,8 @@ _wx_target="$(basename "$ROOT")"
 # Snippet below is witness_bash_snippet.sh v2, verbatim. This script also calls
 # _wx_on_exit_emit <status> before each explicit exit, so a run under bash 3.2 with nounset
 # (where v2 installs no trap) still records its verdict; the trap's later call is a no-op.
+# Claude Code sets CLAUDE_CODE_SESSION_ID (not CLAUDE_SESSION_ID); name the session as the caller.
+: "${WITNESS_CALLER:=${CLAUDE_CODE_SESSION_ID:+session:$CLAUDE_CODE_SESSION_ID}}"
 # --- Witness (WS-DDR-150), witness-bash-snippet v2: one event per run; fail-open, never changes the exit status.
 # Set _wx_product, _wx_event (static; underscores only in the event name) and optionally _wx_target
 # before this block.
