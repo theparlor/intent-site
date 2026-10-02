@@ -7,8 +7,7 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-04-07
-companies:
-  - client-a
+companies: []
 depth_score: 4
 depth_signals:
   file_size_kb: 8.4
@@ -20,11 +19,8 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.38
 related_entities:
-  - {pair: client-a ↔ client-e, count: 68, strength: 0.576}
   - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.103}
   - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.086}
-  - {pair: measurement-metrics ↔ client-a, count: 50, strength: 0.327}
-  - {pair: consulting-operations ↔ client-a, count: 44, strength: 0.119}
 ---
 # Delta Manifest — Framework v1.0 → Site Sync
 
@@ -125,7 +121,7 @@ related_entities:
 
 **Source:** CLAUDE.md Key Decision #15
 
-**What changed:** Client A → Client H → Client G → Client F → Client D. Client A first (most data, highest learning).
+**What changed:** the automotive client, then the insurance, professional-association, agribusiness and specialty-retail clients. The automotive client goes first (most data, highest learning).
 
 **Site pages affected:**
 

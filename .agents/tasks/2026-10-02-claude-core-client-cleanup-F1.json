@@ -1,0 +1,15 @@
+{
+  "id": "2026-10-02-claude-core-client-cleanup-F1",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-10-02-core-client-cleanup-F1",
+  "worktree": "../intent-site-wt-2026-10-02-core-client-cleanup-F1",
+  "base_commit": "ce9ecb8",
+  "objective": "Neutralize client content per WS-DDR-153",
+  "owned_paths": [
+    "content-map.md,docs,site-ia.md,sync-config.json,tasks"
+  ],
+  "started": "2026-10-02T17:21:02-04:00",
+  "handoff": ".agents/handoffs/2026-10-02-claude-core-client-cleanup-F1.md",
+  "landed": "2026-10-02T17:39:50-04:00"
+}
