@@ -22,7 +22,6 @@ vocab_density: 0.25
 related_entities:
   - {pair: consulting-operations ↔ teresa-torres, count: 63, strength: 0.092}
   - {pair: consulting-operations ↔ marty-cagan, count: 63, strength: 0.081}
-  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.118}
   - {pair: consulting-operations ↔ slack, count: 40, strength: 0.121}
   - {pair: consulting-operations ↔ jeff-patton, count: 37, strength: 0.072}
 ---
@@ -206,10 +205,10 @@ related_entities:
 ## Source: CLAUDE.md § Key Decisions #15, #17, #18
 | Site page | Claim | Quote/reference |
 |-----------|-------|-----------------| 
-| decisions.html | D8: Engagement Rollout Order | Subaru → F&G → ASA → Cargill → Footlocker |
+| decisions.html | D8: Engagement Rollout Order | Rollout order across five client types (automotive first) |
 | decisions.html | D10: Retroactive Enrichment = Suggested | Lint detects, surfaces as signals |
 | decisions.html | D11: Redaction at Tool Level | MCP server applies confidentiality projection |
-| roadmap.html | Knowledge Engine engagement rollout | Subaru → F&G → ASA → Cargill → Footlocker timeline |
+| roadmap.html | Knowledge Engine engagement rollout | Rollout timeline across five client types (automotive first) |
 | architecture.html | Redaction note in intent-knowledge card | "Redaction is automatic" |
 
 ## Source: knowledge-engine/AGENTS.md § "Artifact Types"

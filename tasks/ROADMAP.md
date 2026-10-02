@@ -22,7 +22,6 @@ vocab_density: 0.24
 related_entities:
   - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
   - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
-  - {pair: consulting-operations ↔ subaru, count: 44, strength: 0.116}
   - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
   - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
 ---
@@ -274,7 +273,7 @@ Framework v1.0 (April 5-6) introduced 8 architectural changes. This phase syncs 
 | Fourth MCP server (intent-knowledge) | architecture, agents, deployment, schemas, getting-started, dogfood | DONE | Server card, agent cards, deployment config, CLI |
 | Spec-shaping protocol | agents, methodology | DONE | Four-persona cards, protocol reference |
 | Federated knowledge base | architecture, schemas | DONE | Federation model, cross-scope notation |
-| Engagement rollout order | roadmap | DONE | Subaru → F&G → ASA → Cargill → Footlocker |
+| Engagement rollout order | roadmap | DONE | Rollout order across five client types (automotive first) |
 | Redaction at tool level | architecture | DONE | Note in intent-knowledge server card |
 | Decisions D7-D12 | decisions, dogfood | DONE | 6 new ADR cards, stats updated |
 | Content-map traceability | content-map.md | DONE | 51 new entries |

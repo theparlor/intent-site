@@ -7,9 +7,7 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-03-31
-companies:
-  - turnberry
-  - subaru
+companies: []
 depth_score: 4
 depth_signals:
   file_size_kb: 8.9
@@ -21,11 +19,8 @@ depth_signals:
   has_summary: 0
 vocab_density: 0.12
 related_entities:
-  - {pair: subaru ↔ turnberry, count: 68, strength: 0.576}
   - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.103}
   - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.086}
-  - {pair: measurement-metrics ↔ turnberry, count: 50, strength: 0.394}
-  - {pair: measurement-metrics ↔ subaru, count: 50, strength: 0.327}
 ---
 # Task: Add trust guardrails to signal sync pipeline
 
@@ -96,7 +91,7 @@ Flag signals that reference specific external organizations by name. Configurabl
 ```json
 {
   "content": {
-    "org_blocklist": ["Subaru", "Home Depot", "CargBerry", "Foot Locker"],
+    "org_blocklist": ["<Client A>", "<Client B>", "<Client C>"],
     "allowed_names": ["Brien", "The Parlor", "Intent", "Claude", "Anthropic"]
   }
 }
@@ -167,7 +162,7 @@ SKIP=SIG-044 node scripts/sync-signals.js
     "red": 50
   },
   "content": {
-    "org_blocklist": ["Subaru", "Home Depot", "CargBerry", "Foot Locker", "Turnberry"],
+    "org_blocklist": ["<Client A>", "<Client B>", "<Client C>"],
     "allowed_names": ["Brien", "The Parlor", "Intent", "Claude", "Anthropic", "GitHub"],
     "blocklist_terms": ["fuck", "shit", "damn", "kill", "attack", "exploit"],
     "pii_patterns": {
