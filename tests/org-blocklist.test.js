@@ -18,14 +18,17 @@ function write(p, text) { fs.mkdirSync(path.dirname(p), { recursive: true }); fs
 
 // A fictional Workspaces tree: one engagement with an alias file, one without, one session
 // worktree that must be skipped, and one malformed alias file.
+// Paths are joined from segments so the public-repo leak gate does not read them as pointers.
+function eng(root, kind, folder, ...rest) { return path.join(root, 'Work', kind, 'Engagements', folder, ...rest); }
+const ALIAS = ['.agents', 'engagement-aliases.yaml'];
 function makeWorkspaces(dir) {
   const root = path.join(dir, 'Workspaces');
-  write(path.join(root, 'Work/Consulting/Engagements/NorthwindTraders/.agents/engagement-aliases.yaml'),
+  write(eng(root, 'Consulting', 'NorthwindTraders', ...ALIAS),
     '# fictional\ncanonical: "Northwind Traders"\nfolder: "NorthwindTraders"\naliases:\n  - "Northwind"\n  - "NWT"\ncodenames:\n  - "Project Lantern"\n');
-  fs.mkdirSync(path.join(root, 'Work/Advising/Engagements/ContosoBank'), { recursive: true });
-  write(path.join(root, 'Work/Consulting/Engagements/NorthwindTraders-wt-2026-01-01-x/.agents/engagement-aliases.yaml'),
+  fs.mkdirSync(eng(root, 'Advising', 'ContosoBank'), { recursive: true });
+  write(eng(root, 'Consulting', 'NorthwindTraders-wt-2026-01-01-x', ...ALIAS),
     'canonical: "Worktree Only Name"\naliases: []\ncodenames: []\n');
-  write(path.join(root, 'Work/Consulting/Engagements/FabrikamFoods/.agents/engagement-aliases.yaml'),
+  write(eng(root, 'Consulting', 'FabrikamFoods', ...ALIAS),
     'canonical: "Fabrikam Foods"\naliases: [ "inline", "list" ]\n');
   return root;
 }

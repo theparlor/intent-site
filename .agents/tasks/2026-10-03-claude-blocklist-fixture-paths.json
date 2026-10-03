@@ -1,0 +1,15 @@
+{
+  "id": "2026-10-03-claude-blocklist-fixture-paths",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-10-03-blocklist-fixture-paths",
+  "worktree": "../intent-site-wt-2026-10-03-blocklist-fixture-paths",
+  "base_commit": "95e959d",
+  "objective": "",
+  "owned_paths": [
+    "tests/org-blocklist.test.js"
+  ],
+  "started": "2026-10-03T10:01:54-04:00",
+  "handoff": ".agents/handoffs/2026-10-03-claude-blocklist-fixture-paths.md",
+  "landed": "2026-10-03T10:02:13-04:00"
+}
