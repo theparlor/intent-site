@@ -145,6 +145,7 @@ intent-site/
 │   └── ROADMAP.md           ← Master phase execution plan
 └── scripts/
     ├── sync-signals.js      ← Sync signals from product repo
+    ├── engagement_blocklist.cjs ← Org blocklist built at run time from private engagement alias files
     └── verify-sync-config.sh ← Validate sync-config.json before sync
 ```
 

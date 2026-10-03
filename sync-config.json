@@ -5,7 +5,6 @@
     "red": 50
   },
   "content": {
-    "org_blocklist": ["Client A", "Client B", "Client C", "Client D", "Client E"],
     "allowed_names": ["Brien", "The Parlor", "Intent", "Claude", "Anthropic", "GitHub", "Entire.io", "FastMCP"],
     "blocklist_terms": ["fuck", "shit", "damn", "kill", "attack", "exploit"],
     "pii_patterns": {

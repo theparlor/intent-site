@@ -87,11 +87,10 @@ Flag signals containing patterns that look like:
 - IP addresses (`/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/`)
 
 #### Client/Org Name Detection (auto-hold)
-Flag signals that reference specific external organizations by name. Configurable blocklist in `sync-config.json`:
+Flag signals that reference specific external organizations by name. The blocklist is never stored in this public repo. `scripts/engagement_blocklist.cjs` builds it at run time from private sources: every engagement repo's `.agents/engagement-aliases.yaml` under `Work/Consulting/Engagements/*` and `Work/Advising/Engagements/*` (folder name, canonical name, aliases, codenames), plus an optional `{"names": [...]}` list at `.intent/config/site-egress-blocklist.json` in the private product repo for names with no engagement repo. If no engagement folder is readable, the sync exits 3 and publishes nothing. A held signal records `[client name withheld]` as its match, never the name. `allowed_names` in `sync-config.json` still lists the non-client names that may pass:
 ```json
 {
   "content": {
-    "org_blocklist": ["<Client A>", "<Client B>", "<Client C>"],
     "allowed_names": ["Brien", "The Parlor", "Intent", "Claude", "Anthropic"]
   }
 }
@@ -162,7 +161,6 @@ SKIP=SIG-044 node scripts/sync-signals.js
     "red": 50
   },
   "content": {
-    "org_blocklist": ["<Client A>", "<Client B>", "<Client C>"],
     "allowed_names": ["Brien", "The Parlor", "Intent", "Claude", "Anthropic", "GitHub"],
     "blocklist_terms": ["fuck", "shit", "damn", "kill", "attack", "exploit"],
     "pii_patterns": {
