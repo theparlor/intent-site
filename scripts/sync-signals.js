@@ -38,6 +38,28 @@ try {
 // Load config
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
 
+// Org blocklist: built at run time from private sources, never stored in this public repo
+// (see scripts/engagement_blocklist.cjs). No readable source means no sync: exit 3.
+const ORG_BLOCKLIST = loadOrgBlocklist();
+
+function loadOrgBlocklist() {
+  if (config.content && 'org_blocklist' in config.content) {
+    console.error('sync-config.json content.org_blocklist is ignored: client names never live in this public repo.');
+  }
+  try {
+    const productRepo = path.resolve(SITE_ROOT, config.sync.product_repo_path);
+    const built = require('./engagement_blocklist.cjs').build({ siteRoot: SITE_ROOT, productRepo });
+    const c = built.counts;
+    console.log(`Org blocklist: ${c.terms} terms from ${c.alias_files} engagement alias files ` +
+      `(${c.engagements} engagements, ${c.errors} unreadable) and ${c.private_list} private-list names\n`);
+    if (wx) Object.assign(wx.attrs, { blocklist_terms: c.terms, blocklist_engagements: c.engagements });
+    return built.names;
+  } catch (e) {
+    console.error(`Org blocklist unavailable, nothing synced: ${e.message}`);
+    process.exit(3);
+  }
+}
+
 // ─── Signal File Parser ───────────────────────────────────────────────
 
 function parseSignalFile(filePath, fileName) {
@@ -176,15 +198,16 @@ function checkContent(signal) {
     }
   }
 
-  // Org blocklist (case-insensitive, word boundary)
-  for (const org of config.content.org_blocklist) {
+  // Org blocklist (case-insensitive, word boundary). The matched name is never echoed into
+  // held-signals.json or the log, both of which are public; the signal id is enough to review.
+  for (const org of ORG_BLOCKLIST) {
     const re = new RegExp(`\\b${org.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
     const match = text.match(re);
     if (match) {
       // Check it's not in allowed list
       const isAllowed = config.content.allowed_names.some(a => a.toLowerCase() === match[0].toLowerCase());
       if (!isAllowed) {
-        return { clean: false, rule: 'org_blocklist', match: match[0] };
+        return { clean: false, rule: 'org_blocklist', match: '[client name withheld]' };
       }
     }
   }
