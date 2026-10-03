@@ -1,0 +1,15 @@
+{
+  "id": "2026-10-03-claude-org-blocklist-from-engagements",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-10-03-org-blocklist-from-engagements",
+  "worktree": "../intent-site-wt-2026-10-03-org-blocklist-from-engagements",
+  "base_commit": "4ff3f12",
+  "objective": "",
+  "owned_paths": [
+    "scripts/sync-signals.js"
+  ],
+  "started": "2026-10-03T09:47:34-04:00",
+  "handoff": ".agents/handoffs/2026-10-03-claude-org-blocklist-from-engagements.md",
+  "landed": "2026-10-03T09:51:53-04:00"
+}

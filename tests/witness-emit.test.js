@@ -57,8 +57,16 @@ function assertMinimum(ev, event) {
   for (const k of REQUIRED) assert.ok(k in ev.attributes, `attribute ${k} missing from ${event}`);
   assert.match(ev.attributes.run_id, /^[0-9a-f-]+$/);
 }
+// sync-signals.js builds its org blocklist from engagement alias files; point it at a fictional tree.
+const FIXTURE_WORKSPACES = (() => {
+  const root = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'is-ws-')), 'Workspaces');
+  const f = path.join(root, 'Work', 'Consulting', 'Engagements', 'NorthwindTraders', '.agents');
+  fs.mkdirSync(f, { recursive: true });
+  fs.writeFileSync(path.join(f, 'engagement-aliases.yaml'), 'canonical: "Northwind Traders"\naliases:\n  - "Northwind"\ncodenames: []\n');
+  return root;
+})();
 function env(extra) {
-  const e = Object.assign({}, process.env, { WITNESS_CALLER: 'test:intent-site' }, extra || {});
+  const e = Object.assign({}, process.env, { WITNESS_CALLER: 'test:intent-site', WORKSPACES_ROOT: FIXTURE_WORKSPACES }, extra || {});
   delete e.NODE_TEST_CONTEXT;
   for (const k of Object.keys(e)) if (e[k] === undefined) delete e[k];
   return e;
@@ -108,6 +116,7 @@ function makeSite(nSignals, volume) {
   fs.mkdirSync(path.join(site, 'docs'));
   fs.copyFileSync(SYNC, path.join(site, 'scripts', 'sync-signals.js'));
   fs.copyFileSync(EMITTER, path.join(site, 'scripts', 'witness_emit.cjs'));
+  fs.copyFileSync(path.join(REPO, 'scripts', 'engagement_blocklist.cjs'), path.join(site, 'scripts', 'engagement_blocklist.cjs'));
   const cfg = JSON.parse(fs.readFileSync(path.join(REPO, 'sync-config.json'), 'utf8'));
   cfg.sync.product_repo_path = '../product';
   if (volume) cfg.volume = volume;
