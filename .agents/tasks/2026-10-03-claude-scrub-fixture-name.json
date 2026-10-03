@@ -1,0 +1,15 @@
+{
+  "id": "2026-10-03-claude-scrub-fixture-name",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-10-03-scrub-fixture-name",
+  "worktree": "../intent-site-wt-2026-10-03-scrub-fixture-name",
+  "base_commit": "c9e26c3",
+  "objective": "",
+  "owned_paths": [
+    "tests/org-blocklist.test.js"
+  ],
+  "started": "2026-10-03T09:54:49-04:00",
+  "handoff": ".agents/handoffs/2026-10-03-claude-scrub-fixture-name.md",
+  "landed": "2026-10-03T09:55:07-04:00"
+}
