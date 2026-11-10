@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-10-claude-freshness-unreachable",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-11-10-freshness-unreachable",
+  "worktree": "../intent-site-wt-2026-11-10-freshness-unreachable",
+  "base_commit": "3b7fc86",
+  "objective": "",
+  "owned_paths": [
+    ".github/workflows/freshness-check.yml",
+    ".freshness-state.json"
+  ],
+  "started": "2026-11-10T10:21:18-05:00",
+  "handoff": ".agents/handoffs/2026-11-10-claude-freshness-unreachable.md",
+  "landed": "2026-11-10T10:26:17-05:00"
+}

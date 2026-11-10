@@ -9,6 +9,10 @@ permissions:
   contents: write
   issues: write
 
+env:
+  PRODUCT_REPO: theparlor/intent
+  SPECS: spec/signal-trust-framework.md spec/intent-methodology.md spec/event-catalog.md spec/product-roadmap.md
+
 jobs:
   freshness:
     runs-on: ubuntu-latest
@@ -16,93 +20,126 @@ jobs:
       - name: Checkout site repo
         uses: actions/checkout@v4
 
-      - name: Check product repo state
+      - name: Read product repo state
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # theparlor/intent is private and GITHUB_TOKEN covers only this repo, so
+          # product calls use the optional INTENT_READ_TOKEN secret (read-only
+          # Contents on theparlor/intent) when it is set, else GITHUB_TOKEN.
+          GH_TOKEN: ${{ secrets.INTENT_READ_TOKEN || secrets.GITHUB_TOKEN }}
+          TOKEN_SOURCE: ${{ secrets.INTENT_READ_TOKEN != '' && 'INTENT_READ_TOKEN' || 'GITHUB_TOKEN' }}
         run: |
-          # Fetch signal list from product repo
-          SIGNALS=$(gh api repos/theparlor/intent/contents/.intent/signals --jq '.[].name' 2>/dev/null || echo "")
+          # Any failed call means the product repo is unreachable. The decision uses
+          # gh's exit code only: on an error gh prints the error body to stdout, so
+          # that output is thrown away and never read as data.
+          OUT="$RUNNER_TEMP/product"
+          mkdir -p "$OUT"
+          REACHABLE=true
+          FAILED_CALL=""
+
+          product_api() {  # product_api <api path> <jq filter> <output file>
+            if [ "$REACHABLE" != true ]; then return 0; fi
+            if gh api "$1" --jq "$2" > "$3" 2> "$OUT/stderr"; then return 0; fi
+            REACHABLE=false
+            FAILED_CALL="$1 ($(tr '\n' ' ' < "$OUT/stderr" | sed 's/ *$//'))"
+            rm -f "$3"
+          }
+
+          product_api "repos/$PRODUCT_REPO" '.full_name' "$OUT/repo"
+          product_api "repos/$PRODUCT_REPO/contents/.intent/signals" '.[].name' "$OUT/signals"
+          echo '{}' > "$OUT/state.json"
+          for spec in $SPECS; do
+            product_api "repos/$PRODUCT_REPO/contents/$spec" '.sha' "$OUT/sha"
+            if [ "$REACHABLE" != true ]; then break; fi
+            SHA=$(cat "$OUT/sha")
+            if ! echo "$SHA" | grep -Eq '^[0-9a-f]{40}$'; then
+              REACHABLE=false
+              FAILED_CALL="repos/$PRODUCT_REPO/contents/$spec (reply had no file SHA)"
+              break
+            fi
+            jq --arg k "$spec" --arg v "$SHA" '. + {($k): $v}' "$OUT/state.json" > "$OUT/state.tmp"
+            mv "$OUT/state.tmp" "$OUT/state.json"
+          done
+
+          echo "TOKEN_SOURCE=$TOKEN_SOURCE" >> "$GITHUB_ENV"
+          echo "PRODUCT_REACHABLE=$REACHABLE" >> "$GITHUB_ENV"
+          if [ "$REACHABLE" = true ]; then
+            echo "Product repo $PRODUCT_REPO read with $TOKEN_SOURCE."
+          else
+            echo "PRODUCT_FAILED_CALL=$FAILED_CALL" >> "$GITHUB_ENV"
+            echo "Product repo $PRODUCT_REPO unreachable with $TOKEN_SOURCE: $FAILED_CALL"
+          fi
+
+      - name: Compare product state with the site
+        if: env.PRODUCT_REACHABLE == 'true'
+        run: |
+          OUT="$RUNNER_TEMP/product"
           # grep -c prints 0 and exits 1 on no match, so default instead of echoing a second value
-          SIGNAL_COUNT=$(echo "$SIGNALS" | grep -c '.md' || true); SIGNAL_COUNT=${SIGNAL_COUNT:-0}
+          SIGNAL_COUNT=$(grep -c '.md' "$OUT/signals" || true); SIGNAL_COUNT=${SIGNAL_COUNT:-0}
 
           # Count signals shown on site
           SITE_SIGNAL_COUNT=$(grep -c 'signal-card\|data-signal-id' docs/signals.html 2>/dev/null || true); SITE_SIGNAL_COUNT=${SITE_SIGNAL_COUNT:-0}
 
-          echo "SIGNAL_COUNT=$SIGNAL_COUNT" >> $GITHUB_ENV
-          echo "SITE_SIGNAL_COUNT=$SITE_SIGNAL_COUNT" >> $GITHUB_ENV
-          echo "SIGNALS<<EOF" >> $GITHUB_ENV
-          echo "$SIGNALS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Check spec freshness
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          DRIFT_ITEMS=""
-
-          # Check key spec files for changes
-          for spec in spec/signal-trust-framework.md spec/intent-methodology.md spec/event-catalog.md spec/product-roadmap.md; do
-            CURRENT_SHA=$(gh api "repos/theparlor/intent/contents/$spec" --jq '.sha' 2>/dev/null || echo "missing")
-            STORED_SHA=$(jq -r ".\"$spec\" // \"none\"" .freshness-state.json 2>/dev/null || echo "none")
-
-            if [ "$CURRENT_SHA" != "$STORED_SHA" ] && [ "$CURRENT_SHA" != "missing" ]; then
-              DRIFT_ITEMS="$DRIFT_ITEMS\n- \`$spec\` changed (was $STORED_SHA, now $CURRENT_SHA)"
+          # Check key spec files for changes against the stored SHAs
+          : > "$OUT/drift-items"
+          for spec in $SPECS; do
+            CURRENT_SHA=$(jq -r --arg k "$spec" '.[$k]' "$OUT/state.json")
+            STORED_SHA=$(jq -r --arg k "$spec" '.[$k] // "none"' .freshness-state.json 2>/dev/null || echo "none")
+            if [ "$CURRENT_SHA" != "$STORED_SHA" ]; then
+              echo "- \`$spec\` changed (was $STORED_SHA, now $CURRENT_SHA)" >> "$OUT/drift-items"
             fi
           done
 
-          echo "DRIFT_ITEMS<<EOF" >> $GITHUB_ENV
-          echo -e "$DRIFT_ITEMS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          DRIFT=false
+          if [ "$SIGNAL_COUNT" != "$SITE_SIGNAL_COUNT" ] || [ -s "$OUT/drift-items" ]; then DRIFT=true; fi
+          echo "SIGNAL_COUNT=$SIGNAL_COUNT" >> "$GITHUB_ENV"
+          echo "SITE_SIGNAL_COUNT=$SITE_SIGNAL_COUNT" >> "$GITHUB_ENV"
+          echo "DRIFT=$DRIFT" >> "$GITHUB_ENV"
+          echo "Product signals: $SIGNAL_COUNT. Site signals: $SITE_SIGNAL_COUNT. Drift: $DRIFT."
 
       - name: Open issue if drift detected
-        if: env.SIGNAL_COUNT != env.SITE_SIGNAL_COUNT || env.DRIFT_ITEMS != ''
+        if: env.PRODUCT_REACHABLE == 'true' && env.DRIFT == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BODY="## Content Freshness Report\n\n"
-
-          if [ "$SIGNAL_COUNT" != "$SITE_SIGNAL_COUNT" ]; then
-            MISSING=$((SIGNAL_COUNT - SITE_SIGNAL_COUNT))
-            BODY="${BODY}### Signal Count Drift\n"
-            BODY="${BODY}Product has **$SIGNAL_COUNT** signals, site shows **$SITE_SIGNAL_COUNT** ($MISSING missing)\n\n"
-          fi
-
-          if [ -n "$DRIFT_ITEMS" ]; then
-            BODY="${BODY}### Spec Changes\n"
-            BODY="${BODY}$DRIFT_ITEMS\n\n"
-          fi
-
-          BODY="${BODY}### Action Required\n"
-          BODY="${BODY}Update the affected site pages to reflect the current product state.\n"
-          BODY="${BODY}See \`content-map.md\` for which pages are affected by each spec.\n"
+          BODY_FILE="$RUNNER_TEMP/product/issue-body.md"
+          {
+            echo "## Content Freshness Report"
+            echo ""
+            if [ "$SIGNAL_COUNT" != "$SITE_SIGNAL_COUNT" ]; then
+              MISSING=$((SIGNAL_COUNT - SITE_SIGNAL_COUNT))
+              echo "### Signal Count Drift"
+              echo "Product has **$SIGNAL_COUNT** signals, site shows **$SITE_SIGNAL_COUNT** ($MISSING missing)"
+              echo ""
+            fi
+            if [ -s "$RUNNER_TEMP/product/drift-items" ]; then
+              echo "### Spec Changes"
+              cat "$RUNNER_TEMP/product/drift-items"
+              echo ""
+            fi
+            echo "### Action Required"
+            echo "Update the affected site pages to reflect the current product state."
+            echo "See \`content-map.md\` for which pages are affected by each spec."
+          } > "$BODY_FILE"
 
           DATE=$(date +%Y-%m-%d)
 
           gh issue create \
             --title "Content freshness: drift detected ($DATE)" \
-            --body "$(echo -e "$BODY")" \
+            --body-file "$BODY_FILE" \
             --label "freshness" \
-            || echo "Issue creation failed — label may not exist yet"
+            || echo "Issue creation failed; the freshness label may not exist yet"
 
       - name: Update freshness state
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: env.PRODUCT_REACHABLE == 'true'
         run: |
-          # Build new state file with current SHAs
-          echo "{" > .freshness-state.json.tmp
-          FIRST=true
-          for spec in spec/signal-trust-framework.md spec/intent-methodology.md spec/event-catalog.md spec/product-roadmap.md; do
-            SHA=$(gh api "repos/theparlor/intent/contents/$spec" --jq '.sha' 2>/dev/null || echo "missing")
-            if [ "$FIRST" = true ]; then
-              FIRST=false
-            else
-              echo "," >> .freshness-state.json.tmp
-            fi
-            echo "  \"$spec\": \"$SHA\"" >> .freshness-state.json.tmp
-          done
-          echo "" >> .freshness-state.json.tmp
-          echo "}" >> .freshness-state.json.tmp
-          mv .freshness-state.json.tmp .freshness-state.json
+          NEW="$RUNNER_TEMP/product/state.json"
+          # Write only when the SHAs just read differ from the stored ones
+          if jq -e . .freshness-state.json > /dev/null 2>&1 \
+             && [ "$(jq -S . .freshness-state.json)" = "$(jq -S . "$NEW")" ]; then
+            echo "Freshness state unchanged."
+            exit 0
+          fi
+          jq . "$NEW" > .freshness-state.json
 
           DATE=$(date +%Y-%m-%d)
 
@@ -112,3 +149,21 @@ jobs:
           git add .freshness-state.json
           git diff --staged --quiet || git commit -m "Update freshness state ($DATE)"
           git push || echo "Nothing to push"
+
+      - name: Report product repo unreachable
+        if: env.PRODUCT_REACHABLE == 'false'
+        run: |
+          if [ "$TOKEN_SOURCE" = "INTENT_READ_TOKEN" ]; then
+            CAUSE="the INTENT_READ_TOKEN secret cannot read it (expired, revoked, or no read access to Contents)"
+          else
+            CAUSE="no INTENT_READ_TOKEN secret is set, and the built-in GITHUB_TOKEN cannot read a private repo other than this one"
+          fi
+          FIX="save a fine-grained personal access token with read-only Contents access to $PRODUCT_REPO as this repo's secret INTENT_READ_TOKEN"
+          MSG="Product repo $PRODUCT_REPO is unreachable, so this run made no drift check, opened no issue and wrote no state. Failed call: $PRODUCT_FAILED_CALL. Cause: $CAUSE. Fix: $FIX."
+          {
+            echo "## Product repo unreachable"
+            echo ""
+            echo "$MSG"
+          } >> "$GITHUB_STEP_SUMMARY"
+          MSG=$(printf '%s' "$MSG" | sed 's/%/%25/g')
+          echo "::warning title=Product repo unreachable::$MSG"

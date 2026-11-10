@@ -1,10 +1,10 @@
 {
-  "spec/signal-trust-framework.md": "{"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content","status":"404"}missing"
+  "spec/signal-trust-framework.md": "db579b8832102a6dcce81d373116b8c92f04e361"
 ,
-  "spec/intent-methodology.md": "{"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content","status":"404"}missing"
+  "spec/intent-methodology.md": "58ccce033d8a51304a78a66dedb70e3d08d762f2"
 ,
-  "spec/event-catalog.md": "{"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content","status":"404"}missing"
+  "spec/event-catalog.md": "e0f2dc90d7ca0e2f8060d912f3bc83f8c337ede8"
 ,
-  "spec/product-roadmap.md": "{"message":"Not Found","documentation_url":"https://docs.github.com/rest/repos/contents#get-repository-content","status":"404"}missing"
+  "spec/product-roadmap.md": "c5b9fd3b75b3e951d988412be3302e3e2ede3253"
 
 }
