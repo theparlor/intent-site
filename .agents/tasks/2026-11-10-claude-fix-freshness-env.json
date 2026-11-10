@@ -1,0 +1,15 @@
+{
+  "id": "2026-11-10-claude-fix-freshness-env",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-11-10-fix-freshness-env",
+  "worktree": "../intent-site-wt-2026-11-10-fix-freshness-env",
+  "base_commit": "65b3770",
+  "objective": "",
+  "owned_paths": [
+    ".github/workflows/freshness-check.yml"
+  ],
+  "started": "2026-11-10T10:14:55-05:00",
+  "handoff": ".agents/handoffs/2026-11-10-claude-fix-freshness-env.md",
+  "landed": "2026-11-10T10:16:13-05:00"
+}

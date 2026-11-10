@@ -22,10 +22,11 @@ jobs:
         run: |
           # Fetch signal list from product repo
           SIGNALS=$(gh api repos/theparlor/intent/contents/.intent/signals --jq '.[].name' 2>/dev/null || echo "")
-          SIGNAL_COUNT=$(echo "$SIGNALS" | grep -c '.md' || echo "0")
+          # grep -c prints 0 and exits 1 on no match, so default instead of echoing a second value
+          SIGNAL_COUNT=$(echo "$SIGNALS" | grep -c '.md' || true); SIGNAL_COUNT=${SIGNAL_COUNT:-0}
 
           # Count signals shown on site
-          SITE_SIGNAL_COUNT=$(grep -c 'signal-card\|data-signal-id' docs/signals.html 2>/dev/null || echo "0")
+          SITE_SIGNAL_COUNT=$(grep -c 'signal-card\|data-signal-id' docs/signals.html 2>/dev/null || true); SITE_SIGNAL_COUNT=${SITE_SIGNAL_COUNT:-0}
 
           echo "SIGNAL_COUNT=$SIGNAL_COUNT" >> $GITHUB_ENV
           echo "SITE_SIGNAL_COUNT=$SITE_SIGNAL_COUNT" >> $GITHUB_ENV
