@@ -1,0 +1,13 @@
+{
+  "id": "2026-11-14-claude-workflow-pass-2026-11-14",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-11-14-workflow-pass-2026-11-14",
+  "worktree": "../intent-site-wt-2026-11-14-workflow-pass-2026-11-14",
+  "base_commit": "9f91b63",
+  "objective": "",
+  "owned_paths": [],
+  "started": "2026-11-14T06:28:33-05:00",
+  "handoff": ".agents/handoffs/2026-11-14-claude-workflow-pass-2026-11-14.md",
+  "landed": "2026-11-14T06:29:50-05:00"
+}
