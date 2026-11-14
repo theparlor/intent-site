@@ -9,6 +9,9 @@ domains:
 created: 2026-04-11
 technologies:
   - slack
+thought_leaders:
+  - marty-cagan
+  - teresa-torres
 summary: "Schemas — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start Schemas Every work artifact in Intent has a typed schema. These sch..."
 content_excerpt: "Schemas — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start Schemas Every work artifact in Intent has a typed schema. These schemas are the contracts that make human-agent collaboration reliable. Signal The atomic unit of the Notice layer. A signal is a structured observation — something noticed during work that's worth tracking. Signals have trust scores, autonomy levels, and flow through a lifecycle from captured to promo"
 depth_score: 4
@@ -20,10 +23,25 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
+  - pair: consulting-operations ↔ teresa-torres
+    count: 67
+    strength: 0.099
+  - pair: consulting-operations ↔ marty-cagan
+    count: 64
+    strength: 0.082
+  - pair: consulting-operations ↔ slack
+    count: 41
+    strength: 0.123
+  - pair: consulting-operations ↔ jeff-patton
+    count: 40
+    strength: 0.078
+raw_bytes: 42694
+raw_sha256: "e8f170f8cfc5f3d00156fb800d9a39287b4b60fb044d2464ac087e4340bb3fa4"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 18797
+source_chars: 18797
 ---

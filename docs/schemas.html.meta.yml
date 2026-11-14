@@ -9,8 +9,11 @@ domains:
 created: 2026-03-31
 technologies:
   - slack
+thought_leaders:
+  - marty-cagan
+  - teresa-torres
 summary: "Schemas — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Schemas Every work artifact in Intent has a typed schema. These schemas ar..."
-content_excerpt: "Schemas — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Schemas Every work artifact in Intent has a typed schema. These schemas are the contracts that make human-agent collaboration reliable. Signal The atomic unit of the Notice layer. A signal is a structured observation — something noticed during work that's worth tracking. Signals have trust scores, autonomy levels, and flow through a lifecycle from captured to promoted. Te"
+content_excerpt: "Schemas — Intent I ntent The Hypothesis The System The Build The Proof Overview Architecture System Map Flow Observability ARB Decisions Schemas Agents Deployment Repos Schemas Every work artifact in Intent has a typed schema. These schemas are the contracts that make human-agent collaboration reliable. What this page is This is a data dictionary. Intent tracks work as a chain of typed records: a raw observation (Signal), a problem worth solving (Intent), a buildable spec, a testable assertion ("
 depth_score: 4
 depth_signals:
   file_size_kb: 42.3
@@ -20,10 +23,25 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
+  - pair: consulting-operations ↔ teresa-torres
+    count: 67
+    strength: 0.099
+  - pair: consulting-operations ↔ marty-cagan
+    count: 64
+    strength: 0.082
+  - pair: consulting-operations ↔ slack
+    count: 41
+    strength: 0.123
+  - pair: consulting-operations ↔ jeff-patton
+    count: 40
+    strength: 0.078
+raw_bytes: 43789
+raw_sha256: "66dd9db3db702a678ee43103a158de435c4928841c6f8da85195384f5a9f5a77"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 19737
+source_chars: 19737
 ---

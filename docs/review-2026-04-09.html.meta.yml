@@ -7,6 +7,9 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-04-11
+technologies:
+  - jira
+  - slack
 thought_leaders:
   - marty-cagan
   - jeff-patton
@@ -17,8 +20,9 @@ thought_leaders:
   - richard-rumelt
   - charity-majors
   - petra-wille
+  - w-edwards-deming
 summary: "Multi-Panel Review — Intent Methodology Site (2026-04-09) I ntent The Story The System The Build Multi-Panel Review · 2026-04-09 Eight panels read the site. Here's what they found. Eight independent r..."
-content_excerpt: "Multi-Panel Review — Intent Methodology Site (2026-04-09) I ntent The Story The System The Build Multi-Panel Review · 2026-04-09 Eight panels read the site. Here's what they found. Eight independent review panels — Architecture, Product Strategy, Positioning, Strategy &amp; Systems, Discovery &amp; UX, Engineering Operations, Organizational Design, and a first-time visitor — were each asked to read the live site and return a structured critique. The panels ran in parallel without seeing each oth"
+content_excerpt: "Multi-Panel Review — Intent Methodology Site (2026-04-09) I ntent The Hypothesis The System The Build The Proof Overview Dogfood Governed Repos Panel Review Multi-Panel Review · 2026-04-09 Eight panels read the site. Here's what they found. Eight independent review panels — Architecture, Product Strategy, Positioning, Strategy &amp; Systems, Discovery &amp; UX, Engineering Operations, Organizational Design, and a first-time visitor — were each asked to read the live site and return a structured"
 depth_score: 6
 depth_signals:
   file_size_kb: 58.8
@@ -30,9 +34,26 @@ depth_signals:
   has_summary: 1
 vocab_density: 2.77
 related_entities:
-  - {pair: manuel-pais ↔ matthew-skelton, count: 379, strength: 0.698}
-  - {pair: matthew-skelton ↔ team-topologies, count: 341, strength: 0.631}
-  - {pair: marty-cagan ↔ teresa-torres, count: 286, strength: 0.414}
-  - {pair: matthew-skelton ↔ mik-kersten, count: 232, strength: 0.374}
-  - {pair: matthew-skelton ↔ richard-rumelt, count: 174, strength: 0.275}
+  - pair: manuel-pais ↔ matthew-skelton
+    count: 379
+    strength: 0.698
+  - pair: matthew-skelton ↔ team-topologies
+    count: 341
+    strength: 0.631
+  - pair: marty-cagan ↔ teresa-torres
+    count: 286
+    strength: 0.414
+  - pair: matthew-skelton ↔ mik-kersten
+    count: 232
+    strength: 0.374
+  - pair: matthew-skelton ↔ richard-rumelt
+    count: 174
+    strength: 0.275
+raw_bytes: 60546
+raw_sha256: "6ca28b5b4be78a7a4ba6c863c3df1f09795c46b104aa31e2e7c136ce36743361"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 21973
+source_chars: 21973
 ---

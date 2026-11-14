@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-31
 summary: "Intent — Deployment Guide I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Deployment Guide Ship It for $0/month Intent's MCP servers run on FastMCP ..."
-content_excerpt: "Intent — Deployment Guide I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Deployment Guide Ship It for $0/month Intent's MCP servers run on FastMCP Cloud's free tier, Cloudflare Workers, or your local machine. Zero infrastructure cost, auto-deploy on push. Fastest Path 01 FastMCP Cloud (Free) Push your servers to GitHub, point FastMCP Cloud at them, and you're live. Auto-redeploys on every push to main. 1 Push servers to your repo Copy servers/"
+content_excerpt: "Intent — Deployment Guide I ntent The Hypothesis The System The Build The Proof Overview Architecture System Map Flow Observability ARB Decisions Schemas Agents Deployment Repos Deployment Guide Ship It for $0/month Intent's MCP servers run on FastMCP Cloud's free tier, Cloudflare Workers, or your local machine. Zero infrastructure cost, auto-deploy on push. Fastest Path 01 FastMCP Cloud (Free) Push your servers to GitHub, point FastMCP Cloud at them, and you're live. Auto-redeploys on every pus"
 depth_score: 3
 depth_signals:
   file_size_kb: 12.3
@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 12187
+raw_sha256: "6b02fcb71d5d4df68f1ab0d4c72cb280e232fbfc034acdf4baa1a10fda7befb5"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 3569
+source_chars: 3569
 ---

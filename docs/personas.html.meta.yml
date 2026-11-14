@@ -7,6 +7,10 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-04-09
+people:
+  - ted-hughes
+companies:
+  - fidelity-guaranty
 thought_leaders:
   - marty-cagan
   - jeff-patton
@@ -16,8 +20,19 @@ thought_leaders:
   - mik-kersten
   - john-kotter
   - richard-rumelt
+  - jeff-gothelf
+  - manuel-pais
+  - w-edwards-deming
+  - jim-collins
+  - kaplan-norton
+  - david-kolb
+  - etienne-wenger
+  - charity-majors
+  - tim-herbig
+  - petra-wille
+  - jennifer-wagner
 summary: "Voices — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start The System / Voices 178 Voices. 7 Archetypes. Intent's persona syste..."
-content_excerpt: "Voices — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start The System / Voices 178 Voices. 7 Archetypes. Intent's persona system gives every spec, every ARB review, and every discovery session a grounded advisory board. These are not chatbots playing dress-up. They are compressed conviction sets drawn from published thought leaders, composed into archetypes, and rendered as executable voices in the system. 178 Named-Human V"
+content_excerpt: "Voices — the Cast registry + Voices panel Intent dogfoods I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start The System / Voices 328 Voices. 16 Archetypes. This isn't Intent's own catalog &mdash; it's a window into two products Intent runs on itself. Cast is the registry that holds each voice's identity and corpus. Voices is the judgment layer that renders 3&ndash;5 of them against a draft and preserves their dis"
 depth_score: 6
 depth_signals:
   file_size_kb: 77.5
@@ -27,11 +42,28 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: manuel-pais ↔ matthew-skelton, count: 379, strength: 0.698}
-  - {pair: matthew-skelton ↔ team-topologies, count: 341, strength: 0.631}
-  - {pair: marty-cagan ↔ teresa-torres, count: 286, strength: 0.414}
-  - {pair: matthew-skelton ↔ mik-kersten, count: 232, strength: 0.374}
-  - {pair: matthew-skelton ↔ richard-rumelt, count: 174, strength: 0.275}
+  - pair: manuel-pais ↔ matthew-skelton
+    count: 379
+    strength: 0.698
+  - pair: matthew-skelton ↔ team-topologies
+    count: 341
+    strength: 0.631
+  - pair: marty-cagan ↔ teresa-torres
+    count: 286
+    strength: 0.414
+  - pair: matthew-skelton ↔ mik-kersten
+    count: 232
+    strength: 0.374
+  - pair: matthew-skelton ↔ richard-rumelt
+    count: 174
+    strength: 0.275
+raw_bytes: 82628
+raw_sha256: "60cd0b6fb70ad5c172b7053fc8fb4de3433b0723495b65d5a9f5199b8b9f9bcb"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 20952
+source_chars: 20952
 ---

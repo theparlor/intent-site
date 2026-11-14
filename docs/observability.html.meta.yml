@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-31
 summary: "Intent — Observability Stack I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos OBSERVE INFRASTRUCTURE Observability Stack OTel-native distributed trac..."
-content_excerpt: "Intent — Observability Stack I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos OBSERVE INFRASTRUCTURE Observability Stack OTel-native distributed tracing for the Intent loop. Every signal, spec, contract, and event &mdash; queryable, visualizable, alertable. Architecture End-to-End Pipeline Telemetry flows from four source types through a unified OTel Collector into purpose-built storage backends, all visualized in a single Grafana instance. grap"
+content_excerpt: "Intent — Observability Stack I ntent The Hypothesis The System The Build The Proof Overview Architecture System Map Flow Observability ARB Decisions Schemas Agents Deployment Repos OBSERVE INFRASTRUCTURE Observability Stack OTel-native distributed tracing for the Intent loop. Every signal, spec, contract, and event &mdash; queryable, visualizable, alertable. Architecture End-to-End Pipeline Telemetry flows from four source types through a unified OTel Collector into purpose-built storage backend"
 depth_score: 4
 depth_signals:
   file_size_kb: 25.4
@@ -19,4 +19,11 @@ depth_signals:
   topic_count: 1
   has_summary: 1
 vocab_density: 2.79
+raw_bytes: 25571
+raw_sha256: "678be02b49d8bdfd1744afc4a1a07dfc9482bc42fee4e17b2498ff75a7c5909e"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 7877
+source_chars: 7877
 ---

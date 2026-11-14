@@ -7,6 +7,10 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-04-11
+people:
+  - ted-hughes
+companies:
+  - fidelity-guaranty
 thought_leaders:
   - marty-cagan
   - jeff-patton
@@ -16,6 +20,17 @@ thought_leaders:
   - mik-kersten
   - john-kotter
   - richard-rumelt
+  - jeff-gothelf
+  - manuel-pais
+  - w-edwards-deming
+  - jim-collins
+  - kaplan-norton
+  - david-kolb
+  - etienne-wenger
+  - charity-majors
+  - tim-herbig
+  - petra-wille
+  - jennifer-wagner
 summary: "Voices — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start The System / Voices 178 Voices. 7 Archetypes. Intent's persona syste..."
 content_excerpt: "Voices — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start The System / Voices 178 Voices. 7 Archetypes. Intent's persona system gives every spec, every ARB review, and every discovery session a grounded advisory board. These are not chatbots playing dress-up. They are compressed conviction sets drawn from published thought leaders, composed into archetypes, and rendered as executable voices in the system. 178 Named-Human V"
 depth_score: 6
@@ -27,11 +42,28 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: manuel-pais ↔ matthew-skelton, count: 379, strength: 0.698}
-  - {pair: matthew-skelton ↔ team-topologies, count: 341, strength: 0.631}
-  - {pair: marty-cagan ↔ teresa-torres, count: 286, strength: 0.414}
-  - {pair: matthew-skelton ↔ mik-kersten, count: 232, strength: 0.374}
-  - {pair: matthew-skelton ↔ richard-rumelt, count: 174, strength: 0.275}
+  - pair: manuel-pais ↔ matthew-skelton
+    count: 379
+    strength: 0.698
+  - pair: matthew-skelton ↔ team-topologies
+    count: 341
+    strength: 0.631
+  - pair: marty-cagan ↔ teresa-torres
+    count: 286
+    strength: 0.414
+  - pair: matthew-skelton ↔ mik-kersten
+    count: 232
+    strength: 0.374
+  - pair: matthew-skelton ↔ richard-rumelt
+    count: 174
+    strength: 0.275
+raw_bytes: 78721
+raw_sha256: "f563d632a1d4059c980d71ff4ca2764a4323287102b5fdf4d9f4a691be6068d8"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 18887
+source_chars: 18887
 ---

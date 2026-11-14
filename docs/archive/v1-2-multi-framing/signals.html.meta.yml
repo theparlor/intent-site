@@ -7,8 +7,10 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-04-11
+technologies:
+  - slack
 summary: "Signal Stream — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start Signal Stream Signals are atomic observation"
-content_excerpt: "Signal Stream — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start Signal Stream Signals are atomic observation"
+content_excerpt: "Signal Stream — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Voices Dogfood Observe Events Start Signal Stream Signals are atomic observations captured from anywhere work happens. Error logs, team conversations, user complaints, build failures, design reviews — anything that makes you say \"we should look at that\" is a signal. They flow through a lifecycle, cluster into patterns, and promote into intent. Intent Signals 43 Active 43 Promoted 0 Clusters 8 W"
 depth_score: 4
 depth_signals:
   file_size_kb: 47.8
@@ -18,5 +20,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 48986
+raw_sha256: "24d99c4f5cc43f7816310c7b10f3c623775f18ffa6e7c5b8d4234a5596726b15"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 2662
+source_chars: 2662
 ---

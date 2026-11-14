@@ -21,10 +21,25 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 1.40
+vocab_density: 1.4
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
+  - pair: consulting-operations ↔ teresa-torres
+    count: 67
+    strength: 0.099
+  - pair: consulting-operations ↔ marty-cagan
+    count: 64
+    strength: 0.082
+  - pair: consulting-operations ↔ slack
+    count: 41
+    strength: 0.123
+  - pair: consulting-operations ↔ jeff-patton
+    count: 40
+    strength: 0.078
+raw_bytes: 12033
+raw_sha256: "aadd0462c1882ac25490d67f7280e4ea2b50b65285d686cfd046b8f38611c19b"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 6172
+source_chars: 6172
 ---

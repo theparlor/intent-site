@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-31
 summary: "Observe - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Closing the Loop Observe Every execution generates data. Observation turns..."
-content_excerpt: "Observe - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Closing the Loop Observe Every execution generates data. Observation turns data into understanding. Understanding generates new signals. What Observation Means Observation is not just monitoring. Not \"is the system up?\" or \"is it fast enough?\" Observation is the act of looking at what happened and asking: what did we learn? what does this outcome mean? what should we do n"
+content_excerpt: "Observe - Intent I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start Closing the Loop Observe Every execution generates data. Observation turns data into understanding. Understanding generates new signals. What Observation Means Observation is not just monitoring. Not \"is the system up?\" or \"is it fast enough?\" Observation is the act of looking at what happened and asking: what did we learn? what does this outcome"
 depth_score: 4
 depth_signals:
   file_size_kb: 26.5
@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 26462
+raw_sha256: "000b084ce47e55e03a2fad17275d523d08aacb75ed70820a2405372ac62ab761"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 14409
+source_chars: 14409
 ---

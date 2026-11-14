@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-31
 summary: "Walkthrough — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap END-TO-END WALKTHROUGH Follow One Intent Here's what happens when a single signal tri..."
-content_excerpt: "Walkthrough — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap END-TO-END WALKTHROUGH Follow One Intent Here's what happens when a single signal triggers the entire loop &mdash; from the moment it's noticed to the new signals it produces. This walkthrough traces a real signal &mdash; SIG-010 , \"Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions\" &mdash; through the complete Intent loop. Every ID, time"
+content_excerpt: "Walkthrough — Intent I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start END-TO-END WALKTHROUGH Follow One Intent Here's what happens when a single signal triggers the entire loop &mdash; from the moment it's noticed to the new signals it produces. This walkthrough traces a real signal &mdash; SIG-010 , \"Engineer's team rewired around AI: tickets became bot specs, refinement became design sessions\" &mdash; through"
 depth_score: 4
 depth_signals:
   file_size_kb: 35.1
@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 35568
+raw_sha256: "8297596c3ae7ecdf9fbf7454dd4d7b354d97829f5ff119678d39a7b947761d16"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 18189
+source_chars: 18189
 ---

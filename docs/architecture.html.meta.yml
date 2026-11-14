@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-31
 summary: "Intent — Multi-Agent MCP Architecture I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Technical Architecture Multi-Agent MCP Architecture Three MCP ..."
-content_excerpt: "Intent — Multi-Agent MCP Architecture I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Technical Architecture Multi-Agent MCP Architecture Three MCP servers and six Claude Code subagents map the Intent loop into a deployable, trust-gated system. Each server owns a phase. Each agent connects to the relevant server. The Loop 01 How It Maps to the Loop The Intent loop &mdash; Notice &rarr; Spec &rarr; Execute &rarr; Observe &mdash; maps to three MC"
+content_excerpt: "Intent — Multi-Agent MCP Architecture I ntent The Hypothesis The System The Build The Proof Overview Architecture System Map Flow Observability ARB Decisions Schemas Agents Deployment Repos Technical Architecture Multi-Agent MCP Architecture Four MCP servers, a three-layer architecture, and six Claude Code subagents map the Intent loop into a deployable, trust-gated system. Each server owns a domain. Each agent connects to the relevant servers. What this page is This is the engineering blueprint"
 depth_score: 4
 depth_signals:
   file_size_kb: 27.8
@@ -19,4 +19,11 @@ depth_signals:
   topic_count: 1
   has_summary: 1
 vocab_density: 1.39
+raw_bytes: 30722
+raw_sha256: "4ff2223a4750570d7e45754c6b78aba21816f0606e3d87b7002020fdee131472"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 12583
+source_chars: 12583
 ---

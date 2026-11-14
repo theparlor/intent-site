@@ -10,7 +10,7 @@ created: 2026-03-31
 technologies:
   - slack
 summary: "System Map — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start SYSTEM ARCHITECTURE Signal to Observation The interactive map of the fu..."
-content_excerpt: "System Map — Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start SYSTEM ARCHITECTURE Signal to Observation The interactive map of the full Intent system &mdash; from capture surfaces through enrichment, execution, and observability. Click any component to see its tools, events, and integration points. CAPTURE SURFACES MCP Server Claude Code &middot; Cowork T1 CLI Tools intent-signal &middot; spec T2 Slack Bot Reactions &middot; Comm"
+content_excerpt: "System Map — Intent I ntent The Hypothesis The System The Build The Proof Overview Architecture System Map Flow Observability ARB Decisions Schemas Agents Deployment Repos SYSTEM ARCHITECTURE Signal to Observation The interactive map of the full Intent system &mdash; from capture surfaces through enrichment, execution, and observability. Click any component to see its tools, events, and integration points. COHERENCE ENGINEERING Discipline above Intent · 5 axioms · 4 altitudes · 7 coexistence con"
 depth_score: 4
 depth_signals:
   file_size_kb: 47.7
@@ -22,8 +22,23 @@ depth_signals:
   has_summary: 1
 vocab_density: 1.39
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
+  - pair: consulting-operations ↔ teresa-torres
+    count: 67
+    strength: 0.099
+  - pair: consulting-operations ↔ marty-cagan
+    count: 64
+    strength: 0.082
+  - pair: consulting-operations ↔ slack
+    count: 41
+    strength: 0.123
+  - pair: consulting-operations ↔ jeff-patton
+    count: 40
+    strength: 0.078
+raw_bytes: 48362
+raw_sha256: "5f529a03d0a69b4381598bd2d574086de46eb6ecc4220601f986f8d11f48da28"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 2535
+source_chars: 2535
 ---

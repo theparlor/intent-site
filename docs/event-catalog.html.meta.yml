@@ -10,7 +10,7 @@ created: 2026-03-31
 technologies:
   - slack
 summary: "Event Catalog - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start SYSTEM EVENTS Event Catalog Structured events for the Intent system ..."
-content_excerpt: "Event Catalog - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start SYSTEM EVENTS Event Catalog Structured events for the Intent system Intent emits 15 event types across four categories—signal.*, intent.*, spec.*, and contract.*—plus two system.* event types. These events form the complete audit trail of the notice&rarr;spec&rarr;execute&rarr;observe loop, enabling observability, reproducibility, and trust scoring. Each event is im"
+content_excerpt: "Event Catalog - Intent I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start SYSTEM EVENTS Event Catalog Structured events for the Intent system What this page is Every action Intent takes, a signal getting captured, a spec getting approved, an agent asking a human to step in, writes a structured log line to one append-only file. This page is the reference for what those log lines look like: every event name, its fi"
 depth_score: 4
 depth_signals:
   file_size_kb: 36.1
@@ -20,10 +20,25 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
+  - pair: consulting-operations ↔ teresa-torres
+    count: 67
+    strength: 0.099
+  - pair: consulting-operations ↔ marty-cagan
+    count: 64
+    strength: 0.082
+  - pair: consulting-operations ↔ slack
+    count: 41
+    strength: 0.123
+  - pair: consulting-operations ↔ jeff-patton
+    count: 40
+    strength: 0.078
+raw_bytes: 37543
+raw_sha256: "afc2d91257802c193402655b26c1687fb8743d531896830ae51600605c13bd8f"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 10829
+source_chars: 10829
 ---

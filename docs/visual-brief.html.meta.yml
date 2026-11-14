@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-29
 summary: Intent &mdash; Visual Brief I ntent Home Methodology Concept Brief Signals Decisions
-content_excerpt: Intent &mdash; Visual Brief I ntent Home Methodology Concept Brief Signals Decisions
+content_excerpt: "Intent &mdash; Visual Brief I ntent The Hypothesis The System The Build The Proof Source: github.com/theparlor/intent &middot; Built with the Intent methodology"
 depth_score: 2
 depth_signals:
   file_size_kb: 0.9
@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 1012
+raw_sha256: "0b0fa227f4dfe4b027e6a59ea5eb1ab132297faaa4327e802ee54c68e39bb24b"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 160
+source_chars: 160
 ---

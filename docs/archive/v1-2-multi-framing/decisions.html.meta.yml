@@ -7,6 +7,8 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-04-11
+industries:
+  - automotive-manufacturing
 summary: "Decisions - Intent I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Decisions Recording intent and outcomes Decisions are the junction point..."
 content_excerpt: "Decisions - Intent I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Decisions Recording intent and outcomes Decisions are the junction points where intent becomes action. A decision records: what we chose to do, why we chose it, what happened as a result. Decisions build institutional memory and inform future specs. Decision Structure A decision record includes: Status: Proposed, Decided, Implemented, Observed, Archived Context: What pr"
 depth_score: 4
@@ -18,5 +20,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 59262
+raw_sha256: "ca6f3e70980a9cd369d30570877f66cdb81f73eab620baa0ecb770fc080d9dc7"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 26723
+source_chars: 26723
 ---

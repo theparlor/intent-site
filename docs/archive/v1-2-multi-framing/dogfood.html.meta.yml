@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 24767
+raw_sha256: "dc3bfa08f13ee5b9437b5b6e09fe24eb1b0189fa31e7a0afc3edc7557514a133"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 5572
+source_chars: 5572
 ---

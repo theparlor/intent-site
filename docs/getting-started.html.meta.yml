@@ -7,8 +7,10 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-03-31
+technologies:
+  - jira
 summary: "Intent — Getting Started I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Getting Started [TRY INTENT ] From zero to your first signal in 30..."
-content_excerpt: "Intent — Getting Started I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start Getting Started [TRY INTENT ] From zero to your first signal in 30 minutes Most frameworks ask you to restructure your team before you see value. Intent asks you to notice one thing, record it, and watch what happens. The tooling does the rest. Before You Begin 00 Prerequisites You need three things to get started. Two are required. One is optional until you want"
+content_excerpt: "Intent — Getting Started I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start Getting Started [TRY INTENT ] From zero to your first signal in 30 minutes Most frameworks ask you to restructure your team before you see value. Intent asks you to notice one thing, record it, and watch what happens. The tooling does the rest. Before You Begin 00 Prerequisites You need three things to get started. Two are required. One i"
 depth_score: 4
 depth_signals:
   file_size_kb: 27.1
@@ -18,5 +20,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 27137
+raw_sha256: "6b67f41c63b121d42500f0454820690ca50c855df402b6884d44374d461272a9"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 9803
+source_chars: 9803
 ---

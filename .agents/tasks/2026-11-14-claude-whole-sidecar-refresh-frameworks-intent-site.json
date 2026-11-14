@@ -1,0 +1,13 @@
+{
+  "id": "2026-11-14-claude-whole-sidecar-refresh-frameworks-intent-site",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-11-14-whole-sidecar-refresh-frameworks-intent-site",
+  "worktree": "../intent-site-wt-2026-11-14-whole-sidecar-refresh-frameworks-intent-site",
+  "base_commit": "0fa9ec9",
+  "objective": "",
+  "owned_paths": [],
+  "started": "2026-11-14T15:45:24-05:00",
+  "handoff": ".agents/handoffs/2026-11-14-claude-whole-sidecar-refresh-frameworks-intent-site.md",
+  "landed": "2026-11-14T15:45:28-05:00"
+}

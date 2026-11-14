@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-31
 summary: "Flow Diagram - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start The System &mdash; Flow The Intent Loop A continuous cycle with no sp..."
-content_excerpt: "Flow Diagram - Intent I ntent The Story The System The Build Overview Flow System Map Schemas Signals Dogfood Observe Events Start The System &mdash; Flow The Intent Loop A continuous cycle with no sprint boundaries. Work flows from noticing a signal through specifying, executing, and observing &mdash; then back again. Every transition emits an event. Loop Diagram Intent CONTINUOUS LOOP Notice Capture signals Spec Shape into contracts Execute Agents implement Observe Measure outcomes Phase Detai"
+content_excerpt: "Flow Diagram - Intent I ntent The Hypothesis The System The Build The Proof Overview Architecture System Map Flow Observability ARB Decisions Schemas Agents Deployment Repos The System &mdash; Flow The Intent Loop A continuous cycle with no sprint boundaries. Work flows from noticing a signal through specifying, executing, and observing &mdash; then back again. Every transition emits an event. Loop Diagram Intent CONTINUOUS LOOP Notice Capture signals Spec Shape into contracts Execute Agents imp"
 depth_score: 4
 depth_signals:
   file_size_kb: 20.2
@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 20096
+raw_sha256: "d02c483be7719884e8965bcec31ca040e6a25037e35ee7d44c64d95d0bbda102"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 2191
+source_chars: 2191
 ---

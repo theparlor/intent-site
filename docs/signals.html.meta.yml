@@ -7,10 +7,12 @@ reusability: universal
 domains:
   - consulting-operations
 created: 2026-03-29
+technologies:
+  - slack
 thought_leaders:
   - teresa-torres
 summary: "Intent &mdash; Signal Stream I ntent Home Methodology Concept Brief Signals Decisions Dogfooding Signal Stream Observations captured from Cowork sessions, agent traces, and research. These are the raw..."
-content_excerpt: "Intent &mdash; Signal Stream I ntent Home Methodology Concept Brief Signals Decisions Dogfooding Signal Stream Observations captured from Cowork sessions, agent traces, and research. These are the raw inputs feeding the notice layer of Intent's own development loop. Each signal has a source, confidence score, and status. 5 Signals captured 4 High confidence 1 Source: Cowork 0 Resolved SIG-001 2026-03-28 cowork-session high confidence Intent needs a formal work ontology Observation The Intent met"
+content_excerpt: "Signal Stream — Intent I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start Signal Stream Signals are atomic observations captured from anywhere work happens. Error logs, team conversations, user complaints, build failures, design reviews — anything that makes you say \"we should look at that\" is a signal. They flow through a lifecycle, cluster into patterns, and promote into intent. Founding Stream 24 Active 19 Pro"
 depth_score: 4
 depth_signals:
   file_size_kb: 48.4
@@ -20,11 +22,28 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: marty-cagan ↔ teresa-torres, count: 286, strength: 0.414}
-  - {pair: jeff-patton ↔ teresa-torres, count: 163, strength: 0.312}
-  - {pair: josh-seiden ↔ teresa-torres, count: 113, strength: 0.212}
-  - {pair: product-engineering-coaching ↔ teresa-torres, count: 91, strength: 0.072}
-  - {pair: continuous-discovery-habits ↔ teresa-torres, count: 83, strength: 0.189}
+  - pair: marty-cagan ↔ teresa-torres
+    count: 286
+    strength: 0.414
+  - pair: jeff-patton ↔ teresa-torres
+    count: 163
+    strength: 0.312
+  - pair: josh-seiden ↔ teresa-torres
+    count: 113
+    strength: 0.212
+  - pair: product-engineering-coaching ↔ teresa-torres
+    count: 91
+    strength: 0.072
+  - pair: continuous-discovery-habits ↔ teresa-torres
+    count: 83
+    strength: 0.189
+raw_bytes: 49326
+raw_sha256: "7dafeca250b900341ffbf6a878d130160c6095ffd73eeabcf207b726468d673d"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 2886
+source_chars: 2886
 ---

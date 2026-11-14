@@ -12,7 +12,7 @@ technologies:
 thought_leaders:
   - teresa-torres
 summary: "Intent Work System I ntent Home Methodology Concept Brief Signals Decisions const { useState } = React; const COLORS = { bg: \"#0f172a\", surface: \"#1e293b\", surfaceHover: \"#334155\", border: \"#334155\", ..."
-content_excerpt: "Intent Work System I ntent Home Methodology Concept Brief Signals Decisions const { useState } = React; const COLORS = { bg: \"#0f172a\", surface: \"#1e293b\", surfaceHover: \"#334155\", border: \"#334155\", text: \"#f1f5f9\", textMuted: \"#94a3b8\", // Intent loop phases notice: \"#f59e0b\", spec: \"#3b82f6\", execute: \"#10b981\", observe: \"#a855f7\", // Work units signal: \"#f59e0b\", intent: \"#60a5fa\", specUnit: \"#3b82f6\", contract: \"#10b981\", capability: \"#06b6d4\", feature: \"#a855f7\", product: \"#ec4899\", // Gov"
+content_excerpt: "Intent Work System I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start What this page is This is a live-style dashboard showing the units of work Intent tracks: signals (things noticed), intents (problems worth solving), specs (buildable instructions an agent can execute), and observations (what happened when they ran). It is an interactive demo, not a connected production system, built to show how the pieces fit"
 depth_score: 4
 depth_signals:
   file_size_kb: 80.7
@@ -22,11 +22,28 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: marty-cagan ↔ teresa-torres, count: 286, strength: 0.414}
-  - {pair: jeff-patton ↔ teresa-torres, count: 163, strength: 0.312}
-  - {pair: josh-seiden ↔ teresa-torres, count: 113, strength: 0.212}
-  - {pair: product-engineering-coaching ↔ teresa-torres, count: 91, strength: 0.072}
-  - {pair: continuous-discovery-habits ↔ teresa-torres, count: 83, strength: 0.189}
+  - pair: marty-cagan ↔ teresa-torres
+    count: 286
+    strength: 0.414
+  - pair: jeff-patton ↔ teresa-torres
+    count: 163
+    strength: 0.312
+  - pair: josh-seiden ↔ teresa-torres
+    count: 113
+    strength: 0.212
+  - pair: product-engineering-coaching ↔ teresa-torres
+    count: 91
+    strength: 0.072
+  - pair: continuous-discovery-habits ↔ teresa-torres
+    count: 83
+    strength: 0.189
+raw_bytes: 82800
+raw_sha256: "90b46405d334bcc3184f3158b3cf7008cbfbf7fd40df4b022016168e09e25629"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 2703
+source_chars: 2703
 ---

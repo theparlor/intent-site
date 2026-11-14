@@ -9,13 +9,14 @@ domains:
 created: 2026-03-29
 technologies:
   - jira
+  - slack
 thought_leaders:
   - marty-cagan
   - jeff-patton
   - teresa-torres
   - josh-seiden
 summary: "Intent Methodology I ntent Home Methodology Concept Brief Signals Decisions Methodology Spec Draft &middot; v1.0 &middot; 2026-03-28 Intent Methodology Purpose : How work flows from idea to running so..."
-content_excerpt: "Intent Methodology I ntent Home Methodology Concept Brief Signals Decisions Methodology Spec Draft &middot; v1.0 &middot; 2026-03-28 Intent Methodology Purpose : How work flows from idea to running software when AI collapses implementation to hours. Origin : A conversation with engineer Ari, who described his team's empirical discovery of the same shift &mdash; then pressure-tested against Cagan's product model, Patton's story mapping, and Torres' continuous discovery. The Shift For thirty years"
+content_excerpt: "Methodology - Intent I ntent The Hypothesis The System The Build The Proof Overview Methodology Walkthrough Work System Signals Voices Events Observe Start Methodology The notice→spec→execute→observe loop Intent is built on a four-step loop that turns everyday problems into structured, observable work. The Intent loop (Layer 2: Transformation OS) operates over a compiled knowledge base (Layer 1) and produces running software specifications (Layer 3). See Architecture for the three-layer model. 1"
 depth_score: 5
 depth_signals:
   file_size_kb: 12.3
@@ -27,9 +28,26 @@ depth_signals:
   has_summary: 1
 vocab_density: 2.79
 related_entities:
-  - {pair: marty-cagan ↔ teresa-torres, count: 286, strength: 0.414}
-  - {pair: jeff-patton ↔ marty-cagan, count: 166, strength: 0.269}
-  - {pair: jeff-patton ↔ teresa-torres, count: 163, strength: 0.312}
-  - {pair: josh-seiden ↔ marty-cagan, count: 127, strength: 0.207}
-  - {pair: josh-seiden ↔ teresa-torres, count: 113, strength: 0.212}
+  - pair: marty-cagan ↔ teresa-torres
+    count: 286
+    strength: 0.414
+  - pair: jeff-patton ↔ marty-cagan
+    count: 166
+    strength: 0.269
+  - pair: jeff-patton ↔ teresa-torres
+    count: 163
+    strength: 0.312
+  - pair: josh-seiden ↔ marty-cagan
+    count: 127
+    strength: 0.207
+  - pair: josh-seiden ↔ teresa-torres
+    count: 113
+    strength: 0.212
+raw_bytes: 12205
+raw_sha256: "fe14c1ece411aad62b090724bb986932309d41137667651c8f3b14d5c3a78538"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 6213
+source_chars: 6213
 ---

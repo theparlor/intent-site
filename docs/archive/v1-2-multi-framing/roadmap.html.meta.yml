@@ -9,6 +9,8 @@ domains:
 topics:
   - product-strategy
 created: 2026-04-11
+industries:
+  - automotive-manufacturing
 technologies:
   - slack
 summary: "Product Roadmap — Intent I ntent The Story The System The Build Overview Concept Brief Methodology Walkthrough Roadmap Product Roadmap Intent is four products, one value stream. Each phase of the loop..."
@@ -22,10 +24,25 @@ depth_signals:
   sheet_count: 0
   topic_count: 2
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
 related_entities:
-  - {pair: consulting-operations ↔ teresa-torres, count: 67, strength: 0.099}
-  - {pair: consulting-operations ↔ marty-cagan, count: 64, strength: 0.082}
-  - {pair: consulting-operations ↔ slack, count: 41, strength: 0.123}
-  - {pair: consulting-operations ↔ jeff-patton, count: 40, strength: 0.078}
+  - pair: consulting-operations ↔ teresa-torres
+    count: 67
+    strength: 0.099
+  - pair: consulting-operations ↔ marty-cagan
+    count: 64
+    strength: 0.082
+  - pair: consulting-operations ↔ slack
+    count: 41
+    strength: 0.123
+  - pair: consulting-operations ↔ jeff-patton
+    count: 40
+    strength: 0.078
+raw_bytes: 26271
+raw_sha256: "006ef75e42171c45691a3e3ee3c9a90a52cb3825a4ea2123357aa030987c52c0"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 7322
+source_chars: 7322
 ---

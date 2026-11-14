@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-03-29
 summary: Intent-Native Repos I ntent Home Methodology Concept Brief Signals Decisions
-content_excerpt: Intent-Native Repos I ntent Home Methodology Concept Brief Signals Decisions
+content_excerpt: "Intent-Native Repos I ntent The Hypothesis The System The Build The Proof Overview Architecture System Map Flow Observability ARB Decisions Schemas Agents Deployment Repos Source: github.com/theparlor/intent &middot; Built with the Intent methodology"
 depth_score: 2
 depth_signals:
   file_size_kb: 13.9
@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 13768
+raw_sha256: "98f74ecec30bde85d0288e85cb897c08a324511def52c0ec6de3c73fe00f468e"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 250
+source_chars: 250
 ---

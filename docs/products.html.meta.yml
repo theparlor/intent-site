@@ -8,7 +8,7 @@ domains:
   - consulting-operations
 created: 2026-04-08
 summary: "Product Catalog — Intent I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Product Catalog Every product Brien builds, governed by Intent. Ea..."
-content_excerpt: "Product Catalog — Intent I ntent The Story The System The Build Overview Agents Deployment Observability ARB Decisions Repos Products Product Catalog Every product Brien builds, governed by Intent. Each has a GitHub repo, an Intent manifest, tracked signals, and recorded decisions. Status: Noticed Spec Execute Observe Source: github.com/theparlor/intent · Built with the Intent methodology"
+content_excerpt: "Repos Intent Governs — Intent I ntent The Hypothesis The System The Build The Proof Overview Dogfood Governed Repos Panel Review Repos Intent governs This is not a catalog to buy — it's evidence. The same Notice → Spec → Execute → Observe loop described on this site governs every repo below, each with its own .intent/ folder, tracked signals, and recorded decisions. Dogfood proof that the discipline is operationalized, not asserted. ▸ These are repos Intent governs , shown as receipts — not the"
 depth_score: 3
 depth_signals:
   file_size_kb: 10.7
@@ -18,5 +18,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 11641
+raw_sha256: "5c0be9e52999120e07ca4ba89f27c288af4ee842383e202a0ecbb547ff50fe45"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 1107
+source_chars: 1107
 ---

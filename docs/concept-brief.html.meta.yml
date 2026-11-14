@@ -14,7 +14,7 @@ thought_leaders:
   - jeff-patton
   - teresa-torres
 summary: "Intent &mdash; Product Concept Brief I ntent Home Methodology Concept Brief Signals Decisions Product Concept Idea stage &middot; Ready for validation &middot; 2026-03-28 Intent &mdash; Product Concep..."
-content_excerpt: "Intent &mdash; Product Concept Brief I ntent Home Methodology Concept Brief Signals Decisions Product Concept Idea stage &middot; Ready for validation &middot; 2026-03-28 Intent &mdash; Product Concept Brief The Problem When AI collapses implementation time from weeks to hours, the bottleneck moves upstream &mdash; and the entire team operating model breaks. Small product teams (3-5 people spanning product, engineering, design, and quality) adopted Agile to solve a coordination problem: how do y"
+content_excerpt: "Concept Brief - Intent I ntent The Hypothesis The System The Build The Proof Overview Concept Brief Lineage Roadmap When Not Who Loses The Ending Neutral Zone Intent: Operating Model for AI-Augmented Teams A personal operating model that turns knowledge work into structured, observable, reproducible processes. The Problem Knowledge work is still largely invisible. Teams use AI for individual tasks—writing, coding, analysis—but they haven't reorganized around it. They're bolting AI tools onto exi"
 depth_score: 4
 depth_signals:
   file_size_kb: 11.9
@@ -26,9 +26,26 @@ depth_signals:
   has_summary: 1
 vocab_density: 1.39
 related_entities:
-  - {pair: marty-cagan ↔ teresa-torres, count: 286, strength: 0.414}
-  - {pair: jeff-patton ↔ marty-cagan, count: 166, strength: 0.269}
-  - {pair: jeff-patton ↔ teresa-torres, count: 163, strength: 0.312}
-  - {pair: josh-seiden ↔ marty-cagan, count: 127, strength: 0.207}
-  - {pair: josh-seiden ↔ teresa-torres, count: 113, strength: 0.212}
+  - pair: marty-cagan ↔ teresa-torres
+    count: 286
+    strength: 0.414
+  - pair: jeff-patton ↔ marty-cagan
+    count: 166
+    strength: 0.269
+  - pair: jeff-patton ↔ teresa-torres
+    count: 163
+    strength: 0.312
+  - pair: josh-seiden ↔ marty-cagan
+    count: 127
+    strength: 0.207
+  - pair: josh-seiden ↔ teresa-torres
+    count: 113
+    strength: 0.212
+raw_bytes: 11665
+raw_sha256: "ba3ccc0ae2473a3d2d99e17dfd3080b6869eb767718f7ae00efbc61d265c0205"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 6626
+source_chars: 6626
 ---

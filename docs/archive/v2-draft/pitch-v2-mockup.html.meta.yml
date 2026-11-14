@@ -7,6 +7,12 @@ reusability: adaptable
 topics:
   - business-development
 created: 2026-04-14
+thought_leaders:
+  - marty-cagan
+  - jeff-patton
+  - teresa-torres
+  - josh-seiden
+  - w-edwards-deming
 summary: "Intent — When AI writes the code, what's the team for? I ntent The Hypothesis The System The Build The Proof Active research hypothesis &middot; v0 &middot; public dogfood Your AI writes code in an af..."
 content_excerpt: "Intent — When AI writes the code, what's the team for? I ntent The Hypothesis The System The Build The Proof Active research hypothesis &middot; v0 &middot; public dogfood Your AI writes code in an afternoon. Your team still plans it in a sprint . When implementation cost collapses, the bottleneck moves upstream to specification clarity &mdash; and the coordination practices built for the old bottleneck become the friction. This is a hypothesis. We are testing it in public. The bottleneck shifte"
 depth_score: 4
@@ -18,5 +24,12 @@ depth_signals:
   sheet_count: 0
   topic_count: 1
   has_summary: 1
-vocab_density: 0.00
+vocab_density: 0.0
+raw_bytes: 25833
+raw_sha256: "e95c545c4c3b2584ffc4b8c63b18582d97f6d09e3bd2698995d30c1df222b02c"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 6465
+source_chars: 6465
 ---

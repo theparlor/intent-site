@@ -19,4 +19,11 @@ depth_signals:
   topic_count: 1
   has_summary: 1
 vocab_density: 2.79
+raw_bytes: 25393
+raw_sha256: "daa84d76631f23d73563c1013cae8dc0a1cbcfb482e9bd6d89a4c8d8f18fdb37"
+extractor: "html_to_text"
+truncated: false
+sample_truncated: false
+sample_chars: 7834
+source_chars: 7834
 ---
