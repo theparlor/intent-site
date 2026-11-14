@@ -19,19 +19,21 @@ _wx_target="sync-config.json"
 # (where v2 installs no trap) still records its verdict; the trap's later call is a no-op.
 # Claude Code sets CLAUDE_CODE_SESSION_ID (not CLAUDE_SESSION_ID); name the session as the caller.
 : "${WITNESS_CALLER:=${CLAUDE_CODE_SESSION_ID:+session:$CLAUDE_CODE_SESSION_ID}}"
-# --- Witness (WS-DDR-150), witness-bash-snippet v2: one event per run; fail-open, never changes the exit status.
+# --- Witness (WS-DDR-150), witness-bash-snippet v3: one event per run; fail-open, never changes the exit status.
 # Set _wx_product, _wx_event (static; underscores only in the event name) and optionally _wx_target
 # before this block.
 # - Safe under set -euo pipefail: setup runs in a function called with "|| true" (errexit is off inside
 #   it); the EXIT handler captures the status first (rc=$?), turns errexit, nounset and pipefail off,
 #   and ends with exit "$rc".
 # - witness-emit is resolved ONCE, at startup, from this script's own directory, so a later cd cannot
-#   lose it. Not found (a sparse tree, a copy outside Core/): the handler emits nothing.
+#   lose it. Not found (a sparse tree, a copy outside Core/): the handler emits nothing but appends one line to
+#   the per-machine miss file (WITNESS_MISS_LOG, else ${XDG_STATE_HOME:-~/.local/state}/witness/emit-misses.jsonl),
+#   which witness-emit-misses reads and witness-stream-alarm turns into a finding. PATH is never consulted.
 # - bash 3.2 (macOS /bin/bash, and Legatus has nothing newer) runs an EXIT trap with $? = 0 after a
 #   "set -u" unbound-variable abort, so ANY EXIT trap turns that failure into exit 0. When this block
 #   runs under bash < 4 with nounset on, it does NOT install the trap; call _wx_emit_now [outcome] at
 #   the script's normal end instead (that run's failures then go unrecorded, which is the fail-open
-#   choice). Known gap everywhere: a script killed by a signal bash does not trap (SIGPIPE, SIGKILL)
+#   choice; v3: an emitter that cannot be found is COUNTED, see _wx_note_miss). Known gap everywhere: a script killed by a signal bash does not trap (SIGPIPE, SIGKILL)
 #   never runs the EXIT trap and emits nothing.
 # - If the script already sets an EXIT trap, do not add a second one (it replaces the first): call
 #   _wx_on_exit_emit "$rc" from the existing trap after capturing rc=$? there.
@@ -63,11 +65,19 @@ _wx_init() {
   fi
   return 0
 }
+_wx_note_miss() {  # the emitter was not found: count it (names only); never fails, never exits
+  local f="${WITNESS_MISS_LOG:-${XDG_STATE_HOME:-${HOME:-/nonexistent}/.local/state}/witness/emit-misses.jsonl}" src
+  src="${BASH_SOURCE[${#BASH_SOURCE[@]}-1]:-${0:-unknown}}"
+  mkdir -p "$(dirname "$f")" 2>/dev/null || return 0
+  printf '{"ts":"%s","product":"%s","event":"%s","source":"%s"}\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null)" \
+    "${_wx_product:-unknown}" "${_wx_event:-unknown.run}" "${src##*/}" >>"$f" 2>/dev/null || true
+  return 0
+}
 _wx_on_exit_emit() {  # $1 = the script's exit status; never fails, never exits
   local rc="${1:-0}" t1 outcome caller
   [ -z "${_wx_emitted:-}" ] || return 0
   _wx_emitted=1
-  [ -n "${_wx_emit_bin:-}" ] && [ -x "$_wx_emit_bin" ] || return 0
+  if [ -z "${_wx_emit_bin:-}" ] || [ ! -x "$_wx_emit_bin" ]; then _wx_note_miss || true; return 0; fi
   t1=$(/usr/bin/perl -MTime::HiRes=time -e 'printf "%d", time*1000' 2>/dev/null) || t1=""
   [ -n "$t1" ] || t1="${_wx_t0:-0}"
   outcome=ok; [ "$rc" = "0" ] || outcome=error

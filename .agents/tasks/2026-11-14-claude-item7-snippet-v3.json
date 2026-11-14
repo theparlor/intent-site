@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-14-claude-item7-snippet-v3",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-11-14-item7-snippet-v3",
+  "worktree": "../intent-site-wt-2026-11-14-item7-snippet-v3",
+  "base_commit": "7c325e5",
+  "objective": "",
+  "owned_paths": [
+    "scripts/check-evolves-not-deprecates.sh",
+    "scripts/verify-sync-config.sh"
+  ],
+  "started": "2026-11-14T17:02:24-05:00",
+  "handoff": ".agents/handoffs/2026-11-14-claude-item7-snippet-v3.md",
+  "landed": "2026-11-14T17:02:46-05:00"
+}
