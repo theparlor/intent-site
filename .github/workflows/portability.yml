@@ -1,7 +1,8 @@
 # Managed by org-design-tooling/repo-kit (session kit); overwritten on kit update.
 # The same check runs on the machine before every push (.agents/hooks/pre-push) and in
 # `session land`. This workflow is only the backstop: pushes to main and pull requests, and only
-# when a file the check reads changed. A newer run on the same ref cancels the older one.
+# when a file the check reads changed. A newer pull request run cancels the older one (kit 37);
+# a push to main always runs to the end. Read-only token; the action is pinned by commit SHA.
 name: portability
 on:
   push:
@@ -39,11 +40,13 @@ on:
       - '.github/workflows/portability.yml'
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+permissions:
+  contents: read
 jobs:
   no-hardcoded-home:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - run: python3 .agents/bin/portability-check
