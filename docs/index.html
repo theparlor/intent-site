@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intent — A hypothesis for staff+ engineers using Claude Code</title>
+  <title>Intent: A hypothesis for staff+ engineers using Claude Code</title>
   <meta name="description" content="Active hypothesis: when AI collapses implementation cost, specification clarity becomes the constraint. For staff+ engineers on teams of 2-7 using Claude Code daily.">
   <link rel="stylesheet" href="styles.css">
   <style>
@@ -198,7 +198,7 @@
     .honesty-box p:last-child { margin-bottom: 0; }
     .honesty-box a { color: var(--text); text-decoration: underline; text-decoration-color: var(--text-dim); }
 
-    /* Hero loop SVG — breaks out of container for full-width hero */
+    /* Hero loop SVG: breaks out of container for full-width hero */
     .hero-loop {
       margin: 48px 0 56px;
       padding: 0;
@@ -235,7 +235,7 @@
     }
   </style>
   <style>
-    /* veil-family heat accents — pitch-specific classes (base family lives in styles.css) */
+    /* veil-family heat accents: pitch-specific classes (base family lives in styles.css) */
     .hero h1 { letter-spacing: -2.5px; }
     .hero h1 .highlight { color: var(--heat); }
     .hypothesis-label { background: rgba(247,102,10,0.10); border-color: rgba(247,102,10,0.32); color: var(--heat); }
@@ -273,7 +273,7 @@
     <div class="hero">
       <h1>Your AI writes code in an afternoon.<br>Your team still plans it in a <span class="highlight">sprint</span>.</h1>
       <p class="lede">
-        Intent is a hypothesis that <strong>when implementation cost collapses, the bottleneck moves upstream to specification clarity</strong> — and that ticket-based coordination tools optimize for the old bottleneck. We are testing this hypothesis in public, with the methodology running on itself, and inviting you to pressure-test it.
+        Intent is a hypothesis that <strong>when implementation cost collapses, the bottleneck moves upstream to specification clarity</strong>, and that ticket-based coordination tools optimize for the old bottleneck. We are testing this hypothesis in public, with the methodology running on itself, and inviting you to pressure-test it.
       </p>
     </div>
 
@@ -349,22 +349,22 @@
         <ellipse cx="800" cy="270" rx="540" ry="165" fill="none" stroke="#334155" stroke-width="0.5" stroke-opacity="0.25" />
 
         <!-- Flow arcs along the ellipse (dashed, animated clockwise) -->
-        <!-- Notice(top) → Spec(right): upper-right quarter of ellipse -->
+        <!-- Notice(top) to Spec(right): upper-right quarter of ellipse -->
         <path d="M 860 108 A 540 165 0 0 1 1300 270" fill="none" stroke="#94a3b8" stroke-width="2" stroke-opacity="0.75" stroke-dasharray="6,6" marker-end="url(#loop-arrow)">
           <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="4s" repeatCount="indefinite" />
         </path>
 
-        <!-- Spec(right) → Execute(bottom): lower-right quarter -->
+        <!-- Spec(right) to Execute(bottom): lower-right quarter -->
         <path d="M 1300 270 A 540 165 0 0 1 860 432" fill="none" stroke="#94a3b8" stroke-width="2" stroke-opacity="0.75" stroke-dasharray="6,6" marker-end="url(#loop-arrow)">
           <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="4s" repeatCount="indefinite" />
         </path>
 
-        <!-- Execute(bottom) → Observe(left): lower-left quarter -->
+        <!-- Execute(bottom) to Observe(left): lower-left quarter -->
         <path d="M 740 432 A 540 165 0 0 1 300 270" fill="none" stroke="#94a3b8" stroke-width="2" stroke-opacity="0.75" stroke-dasharray="6,6" marker-end="url(#loop-arrow)">
           <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="4s" repeatCount="indefinite" />
         </path>
 
-        <!-- Observe(left) → Notice(top): upper-left quarter -->
+        <!-- Observe(left) to Notice(top): upper-left quarter -->
         <path d="M 300 270 A 540 165 0 0 1 740 108" fill="none" stroke="#94a3b8" stroke-width="2" stroke-opacity="0.75" stroke-dasharray="6,6" marker-end="url(#loop-arrow)">
           <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="4s" repeatCount="indefinite" />
         </path>
@@ -400,7 +400,7 @@
         <text x="260" y="266" fill="#f1f5f9" font-size="18" font-weight="700" text-anchor="end" font-family="Inter, -apple-system, sans-serif" letter-spacing="2.5">OBSERVE</text>
         <text x="260" y="286" fill="#64748b" font-size="12" text-anchor="end" font-family="Inter, -apple-system, sans-serif">loop closure</text>
 
-        <!-- Central INTENT mark — matching ellipse shape with pulsing outer ellipse -->
+        <!-- Central INTENT mark: matching ellipse shape with pulsing outer ellipse -->
         <!-- Soft background glow (wide ellipse) -->
         <ellipse cx="800" cy="270" rx="200" ry="62" fill="url(#glow-intent)" />
         <!-- Outer pulsing ellipse (matches outer loop aspect ratio) -->
@@ -415,7 +415,7 @@
         <ellipse cx="800" cy="270" rx="115" ry="35" fill="#0b0f14" fill-opacity="0.75" stroke="#f1f5f9" stroke-width="1" stroke-opacity="0.4" />
         <!-- Inner mark: ◈ symbol above INTENT text -->
         <text x="800" y="256" fill="#f1f5f9" font-size="16" font-weight="400" text-anchor="middle" fill-opacity="0.85" font-family="Inter, -apple-system, sans-serif">◈</text>
-        <!-- INTENT text — large, bright, commanding -->
+        <!-- INTENT text: large, bright, commanding -->
         <text x="800" y="280" fill="#f1f5f9" font-size="22" font-weight="600" text-anchor="middle" letter-spacing="5" font-family="Inter, -apple-system, sans-serif">INTENT</text>
         <!-- Tagline -->
         <text x="800" y="297" fill="#94a3b8" font-size="9" text-anchor="middle" letter-spacing="3" font-family="Inter, -apple-system, sans-serif">THE CONTINUOUS LOOP</text>
@@ -427,20 +427,20 @@
         <text x="1540" y="502" fill="#475569" font-size="10" font-family="SF Mono, Consolas, monospace" text-anchor="end" letter-spacing="0.5">NO SPRINT BOUNDARIES</text>
       </svg>
       <p class="caption">
-        <strong>The loop.</strong> Four phases, continuous motion, no sprint boundaries. Each transition emits an event. Multi-speed — some loops take minutes, some take weeks.
+        <strong>The loop.</strong> Four phases, continuous motion, no sprint boundaries. Each transition emits an event. Multi-speed: some loops take minutes, some take weeks.
       </p>
     </div>
 
     <div class="who-for">
       <div class="label">Who this is for</div>
-      <p><strong>Staff+ engineers on teams of 2–7 using Claude Code daily.</strong></p>
-      <div class="range">Sweet spot: teams of 2–5. Reaches solo practitioners (team of 1) and up to 7. Teams over 7 are out of scope — Intent is not optimized for large-team coordination, and neither is any other serious methodology for AI-native work.</div>
+      <p><strong>Staff+ engineers on teams of 2 to 7 using Claude Code daily.</strong></p>
+      <div class="range">Sweet spot: teams of 2 to 5. Reaches solo practitioners (team of 1) and up to 7. Teams over 7 are out of scope: Intent is not optimized for large-team coordination, and neither is any other serious methodology for AI-native work.</div>
     </div>
 
     <div class="hypothesis-box">
       <h3>The claim we are testing</h3>
       <p class="claim">
-        When AI agents can implement well-specified work in hours instead of weeks, the expensive part of software delivery moves from <em>writing code</em> to <em>getting the specification right</em>. Teams that keep optimizing for the old constraint — coordinating human labor through tickets, sprints, and story points — are building overhead around the wrong bottleneck.
+        When AI agents can implement well-specified work in hours instead of weeks, the expensive part of software delivery moves from <em>writing code</em> to <em>getting the specification right</em>. Teams that keep optimizing for the old constraint (coordinating human labor through tickets, sprints, and story points) are building overhead around the wrong bottleneck.
       </p>
       <p class="caveat">
         This claim might be wrong. We have one external practitioner who described the pattern independently before we named it, plus three independent 2026 convergences from published work: Marty Cagan's context-engineering coaching stack, Block's BuilderBot agent fleet, and the MobAI framing of team coherence (Joe Justice, Michael Göthe). Convergence is not discovery: none of those test Intent itself, and the 194 internal signals from building Intent still outweigh every external datum. Structured discovery with the target user remains the open gate, held at the irreversible boundary of public generalization claims (gate the irreversible, select the reversible); we'll publish whatever it finds, including disconfirmation.
@@ -453,24 +453,24 @@
         If you're a staff+ engineer on a small team running Claude Code every day, you are <em>already</em> solving the spec-clarity problem somehow. Today that is almost certainly one of these:
       </p>
       <ul style="list-style: none; padding: 0; margin: 0 0 16px;">
-        <li style="font-size: 14px; color: var(--text-muted); line-height: 1.6; padding: 8px 0 8px 22px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04);"><span style="position:absolute;left:0;color:var(--text-dim);">▸</span> <strong style="color:var(--text);">Hand-writing your own <code>CLAUDE.md</code> / <code>AGENTS.md</code></strong> — fine until the context outgrows one file and nobody can say why a rule is there.</li>
-        <li style="font-size: 14px; color: var(--text-muted); line-height: 1.6; padding: 8px 0 8px 22px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04);"><span style="position:absolute;left:0;color:var(--text-dim);">▸</span> <strong style="color:var(--text);">Building an ad-hoc <code>.intent/</code> or <code>docs/</code> scaffold from scratch</strong> — every team reinvents signals, specs, trust levels, and observability, and each reinvention is invisible to the next.</li>
-        <li style="font-size: 14px; color: var(--text-muted); line-height: 1.6; padding: 8px 0 8px 22px; position: relative;"><span style="position:absolute;left:0;color:var(--text-dim);">▸</span> <strong style="color:var(--text);">Doing nothing structural</strong> — letting Jira/Linear tickets carry coordination they were designed for the <em>pre-AI</em> bottleneck, and absorbing the drift as "just how it is."</li>
+        <li style="font-size: 14px; color: var(--text-muted); line-height: 1.6; padding: 8px 0 8px 22px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04);"><span style="position:absolute;left:0;color:var(--text-dim);">▸</span> <strong style="color:var(--text);">Hand-writing your own <code>CLAUDE.md</code> / <code>AGENTS.md</code></strong>: fine until the context outgrows one file and nobody can say why a rule is there.</li>
+        <li style="font-size: 14px; color: var(--text-muted); line-height: 1.6; padding: 8px 0 8px 22px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04);"><span style="position:absolute;left:0;color:var(--text-dim);">▸</span> <strong style="color:var(--text);">Building an ad-hoc <code>.intent/</code> or <code>docs/</code> scaffold from scratch</strong>: every team reinvents signals, specs, trust levels, and observability, and each reinvention is invisible to the next.</li>
+        <li style="font-size: 14px; color: var(--text-muted); line-height: 1.6; padding: 8px 0 8px 22px; position: relative;"><span style="position:absolute;left:0;color:var(--text-dim);">▸</span> <strong style="color:var(--text);">Doing nothing structural</strong>, letting Jira/Linear tickets carry coordination they were designed for the <em>pre-AI</em> bottleneck, and absorbing the drift as "just how it is."</li>
       </ul>
       <p style="font-size: 15px; color: var(--text); line-height: 1.65; margin: 0;">
-        <strong>Intent is the alternative to reinventing that scaffold yourself.</strong> It's a file-native, git-tracked operating model — Notice → Spec → Execute → Observe — with the signal schema, trust math, and observability already shaped, so you adopt a discipline instead of authoring one from a blank file. If what you actually need is the bird's-eye view of how a whole <em>portfolio</em> of products composes — not the operating model itself — that lives on <a href="https://theparlor.github.io/parallax-site/" style="color: var(--accent-blue);">Parallax</a>, not here.
+        <strong>Intent is the alternative to reinventing that scaffold yourself.</strong> It's a file-native, git-tracked operating model, Notice to Spec to Execute to Observe, with the signal schema, trust math, and observability already shaped, so you adopt a discipline instead of authoring one from a blank file. If what you actually need is the bird's-eye view of how a whole <em>portfolio</em> of products composes, and not the operating model itself, that view lives on <a href="https://theparlor.github.io/parallax-site/" style="color: var(--accent-blue);">Parallax</a>, not here.
       </p>
     </div>
 
     <div class="ctas">
-      <a href="getting-started.html" class="cta primary">Capture your first signal in 10 minutes <span class="arrow">→</span></a>
-      <a href="#hypothesis-or-not" class="cta secondary">How we'll know if we're wrong <span class="arrow">↓</span></a>
+      <a href="getting-started.html" class="cta primary">Capture your first signal in 10 minutes</a>
+      <a href="#hypothesis-or-not" class="cta secondary">How we'll know if we're wrong</a>
     </div>
 
     <div class="lineage-strip">
       <h3>▸ Methodology lineage (we are not inventing anything)</h3>
       <p>
-        Intent is a synthesis, not a novel method. The loop — Notice → Spec → Execute → Observe — is a rename of patterns our field has known for decades. We credit the ancestors explicitly because the credibility travels with them.
+        Intent is a synthesis, not a novel method. The loop, Notice to Spec to Execute to Observe, is a rename of patterns our field has known for decades. We credit the ancestors explicitly because the credibility travels with them.
       </p>
       <p>
         <span class="credit">Continuous discovery</span> is Teresa Torres.
@@ -480,19 +480,19 @@
         <span class="credit">OODA</span> is John Boyd (1976).
         <span class="credit">PDCA</span> is Deming.
         <span class="credit">Build-Measure-Learn</span> is Eric Ries.
-        <span class="credit">Psychological safety</span> is Amy Edmondson — and it is a prerequisite Intent is still working to earn.
+        <span class="credit">Psychological safety</span> is Amy Edmondson, and it is a prerequisite Intent is still working to earn.
         <span class="credit">GIST planning</span> and evidence-based decision rigor are Itamar Gilad.
-        <span class="credit">Category positioning</span> is April Dunford — and her feedback shaped this page.
+        <span class="credit">Category positioning</span> is April Dunford, and her feedback shaped this page.
       </p>
       <p style="margin-top: 12px;">
-        <a href="lineage.html" style="color: #a855f7; text-decoration: underline;">See the full lineage graph →</a>
+        <a href="lineage.html" style="color: #a855f7; text-decoration: underline;">See the full lineage graph</a>
       </p>
     </div>
 
     <div class="maturity-legend">
-      <div class="m-chip tablestakes">▸ Tablestakes — solid, non-negotiable baseline</div>
-      <div class="m-chip evolutionary">▸ Evolutionary — our current hypothesis, actively testing</div>
-      <div class="m-chip open-question">▸ Open Question — unresolved, pressure-testing</div>
+      <div class="m-chip tablestakes">▸ Tablestakes: solid, non-negotiable baseline</div>
+      <div class="m-chip evolutionary">▸ Evolutionary: our current hypothesis, actively testing</div>
+      <div class="m-chip open-question">▸ Open Question: unresolved, pressure-testing</div>
     </div>
 
     <div class="three-col">
@@ -510,11 +510,11 @@
       <div class="col evolutionary">
         <h4>◆ Evolutionary</h4>
         <ul>
-          <li>Trust-scored agent autonomy (L0–L4) via weighted signal math</li>
+          <li>Trust-scored agent autonomy (L0 to L4) via weighted signal math</li>
           <li>Four-persona spec-shaping protocol (△ ◇ ○ ◉)</li>
           <li>Panel-review as async feedback primitive</li>
           <li>Two-plane architecture: work stream vs ownership topology</li>
-          <li>Notice→Spec→Execute→Observe as continuous loop replacing sprint rhythm</li>
+          <li>Notice to Spec to Execute to Observe as continuous loop replacing sprint rhythm</li>
           <li>"Math, not politics" trust calibration (still testing if the math holds)</li>
         </ul>
       </div>
@@ -524,8 +524,8 @@
           <li>Double-loop learning as architected mechanism (not just asserted)</li>
           <li>Federation without confidentiality leak across engagements</li>
           <li>Four-server vs single-process MCP topology (spike pending)</li>
-          <li>Psychological safety contract — can math-based trust scores avoid becoming performance surveillance?</li>
-          <li>The "Edmondson more" — interpersonal safety beyond technical reversibility</li>
+          <li>Psychological safety contract: can math-based trust scores avoid becoming performance surveillance?</li>
+          <li>The "Edmondson more": interpersonal safety beyond technical reversibility</li>
           <li>Multi-writer CRDT story for events.jsonl</li>
         </ul>
       </div>
@@ -540,7 +540,7 @@
         <a href="the-system.html" style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 18px 22px; text-decoration: none; display: block;">
           <div style="font-size: 11px; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px;">▸ Zone 2 · The System</div>
           <div style="font-size: 15px; color: var(--text); font-weight: 600; margin-bottom: 4px;">How the loop actually runs</div>
-          <div style="font-size: 12px; color: var(--text-muted);">Methodology, walkthrough, dogfood, signals, 352-entity voice registry</div>
+          <div style="font-size: 12px; color: var(--text-muted);">Methodology, walkthrough, dogfood, signals, 786-entry voice registry</div>
         </a>
         <a href="the-build.html" style="background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent-green); border-radius: 0 8px 8px 0; padding: 18px 22px; text-decoration: none; display: block;">
           <div style="font-size: 11px; color: var(--accent-green); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px;">▸ Zone 3 · The Build</div>
@@ -569,7 +569,7 @@
         <strong>Intent is not shipped product.</strong> It is an active research hypothesis with a working prototype. The architecture has known gaps (<a href="review-2026-04-09.html">we published the panel review that flagged them</a>). The discovery base is still thin: one external practitioner voice, plus three published-work convergences logged in 2026 (Cagan, Block, MobAI) that corroborate the problem shape without testing the method. Structured discovery with the target user is the next gate, kept at the irreversible boundary of outward generalization claims, not on the building itself, and not yet run. The methodology is missing a psychological safety contract v2 and a change management rollout playbook. We are building those in public, and you can read them as we draft them.
       </p>
       <p>
-        <strong>Intent is not for every team.</strong> It requires blue-green deployment or equivalent rollback capability, feature flag change management, significant automated testing, and visible change reporting. Without that infrastructure, the trust formula is fictional and L3/L4 agent autonomy is unsafe. It also requires a culture that values speaking up — if your organization punishes honest mistakes, Intent's mechanisms will become a surveillance layer. <a href="when-not.html">See "when NOT to adopt Intent"</a>.
+        <strong>Intent is not for every team.</strong> It requires blue-green deployment or equivalent rollback capability, feature flag change management, significant automated testing, and visible change reporting. Without that infrastructure, the trust formula is fictional and L3/L4 agent autonomy is unsafe. It also requires a culture that values speaking up: if your organization punishes honest mistakes, Intent's mechanisms will become a surveillance layer. <a href="when-not.html">See "when NOT to adopt Intent"</a>.
       </p>
       <p>
         <strong>Intent asks teams to release things.</strong> Sprint rhythm. Standups as social presence. Story points. The identity of "the person who runs our process." These are real losses for the humans affected, and we are explicit about them. <a href="ending.html">See what Intent asks you to release</a>, and <a href="who-loses.html">who loses power when Intent is adopted</a>.
@@ -582,15 +582,15 @@
     <div style="margin: 32px 0 0; padding: 24px 28px; background: rgba(168,85,247,0.03); border: 1px solid rgba(168,85,247,0.15); border-radius: 10px;">
       <h3 style="font-size: 12px; color: #a855f7; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 12px;">▸ Where Intent sits</h3>
       <p style="font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px;">
-        This site is about the <strong style="color: var(--text);">operating model</strong> — the system, not the showroom. Intent is the operating model that forged a working portfolio of products at <a href="https://theparlor.github.io/portfolio-site/" style="color: #a855f7;">The Parlor</a>; on that dashboard every product points back here as "the operating model that built me." Two systems sit behind the portfolio's veil: <strong style="color: var(--text);">Intent</strong> (this — how the work runs) and <strong style="color: var(--text);">Parallax</strong> (<a href="https://theparlor.github.io/parallax-site/" style="color: #a855f7;">the overhead view</a> of how the whole stack composes). You don't need the worldview to use Intent — it's here when you want it.
+        This site is about the <strong style="color: var(--text);">operating model</strong>: the system, not the showroom. Intent is the operating model that forged a working portfolio of products at <a href="https://theparlor.github.io/portfolio-site/" style="color: #a855f7;">The Parlor</a>; on that dashboard every product points back here as "the operating model that built me." Two systems sit behind the portfolio's veil: <strong style="color: var(--text);">Intent</strong> (this: how the work runs) and <strong style="color: var(--text);">Parallax</strong> (<a href="https://theparlor.github.io/parallax-site/" style="color: #a855f7;">the overhead view</a> of how the whole stack composes). You don't need the worldview to use Intent. It's here when you want it.
       </p>
-      <p style="font-size: 12px; color: var(--text-dim); font-style: italic; margin: 0;">An honest doorway, not a catalog — the product list lives on the portfolio surface, the worldview on Parallax. This page stays about the discipline.</p>
+      <p style="font-size: 12px; color: var(--text-dim); font-style: italic; margin: 0;">An honest doorway, not a catalog: the product list lives on the portfolio surface, the worldview on Parallax. This page stays about the discipline.</p>
     </div>
 
   </div>
 
   <footer>
-    <p>Source: <a href="https://github.com/theparlor/intent">github.com/theparlor/intent</a> · Built with the Intent methodology, critiqued by the panels it runs</p>
+    <p>Source: private repository; this site is the public view · Built with the Intent methodology, critiqued by the panels it runs</p>
   </footer>
 </body>
 </html>
