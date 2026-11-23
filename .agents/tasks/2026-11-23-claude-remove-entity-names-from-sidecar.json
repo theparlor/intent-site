@@ -1,0 +1,15 @@
+{
+  "id": "2026-11-23-claude-remove-entity-names-from-sidecar",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-11-23-remove-entity-names-from-sidecar",
+  "worktree": "../intent-site-wt-2026-11-23-remove-entity-names-from-sidecar",
+  "base_commit": "47eb651",
+  "objective": "",
+  "owned_paths": [
+    "docs"
+  ],
+  "started": "2026-11-23T00:10:24-05:00",
+  "handoff": ".agents/handoffs/2026-11-23-claude-remove-entity-names-from-sidecar.md",
+  "landed": "2026-11-23T00:10:25-05:00"
+}
