@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-23-claude-land-review-add",
+  "provider": "claude",
+  "status": "complete",
+  "branch": "agent/claude/2026-11-23-land-review-add",
+  "worktree": "../intent-site-wt-2026-11-23-land-review-add",
+  "base_commit": "3e6a3d2",
+  "objective": "",
+  "owned_paths": [
+    "tools/land_review.py",
+    ".agents/repository-policy.json"
+  ],
+  "started": "2026-11-23T22:32:54-05:00",
+  "handoff": ".agents/handoffs/2026-11-23-claude-land-review-add.md",
+  "landed": "2026-11-23T22:32:55-05:00"
+}

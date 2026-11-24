@@ -5,5 +5,8 @@
   "generator_maps": [],
   "non_durable_path_literals": ["/private/tmp/claude-", "/tmp/claude-"],
   "non_durable_path_scan_suffixes": [".py", ".sh", ".json", ".yaml", ".yml", ".toml", ".cfg", ".ini"],
-  "ask_paths": []
+  "ask_paths": [],
+  "pre_land": [
+    {"name": "land review (report only)", "run": ["{python}", "tools/land_review.py"], "timeout_s": 720}
+  ]
 }
