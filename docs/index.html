@@ -231,7 +231,11 @@
     @media (max-width: 768px) {
       .hero h1 { font-size: 36px; }
       .three-col { grid-template-columns: 1fr; }
-      .hero-loop { margin: 24px 0 40px; }
+      .hero-loop { margin-top: 24px; margin-bottom: 40px; }
+    }
+    @media (max-width: 600px) {
+      .hero-loop { overflow-x: auto; }
+      .hero-loop svg { min-width: 960px; }
     }
   </style>
   <style>
